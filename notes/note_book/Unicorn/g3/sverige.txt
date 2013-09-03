@@ -1,0 +1,12 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2011-08-19T02:12:16+02:00
+
+====== sverige ======
+Created Friday 19 August 2011
+
+=== TODO ===
+[ ] Check cable for gear indicator
+[ ] Check all cables
+[ ] Remove board in sidepod that is not in use any more 
+

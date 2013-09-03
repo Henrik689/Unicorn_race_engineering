@@ -1,0 +1,12 @@
+John Willumsen, HVL, 44340106
+
+
+8x50cm slange
+
+2xaktuator, 8/5, 50mm
+
+1x pumpe (A100Q1DF)
+  - Hus type: Q
+  - Tank størrelse: 0,4L
+  - Pumpestørrelse: 0,48cm3/rev
+  - Motor: 0.35kW, 12V DC

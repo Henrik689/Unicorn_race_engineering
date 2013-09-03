@@ -1,0 +1,49 @@
+Partlist
+
+Exported from gearnode.sch at 2/22/11 5:13 PM
+
+EAGLE Version 5.11.0 Copyright (c) 1988-2010 CadSoft
+
+Part        Value               Device              Package             Library        Sheet
+
+C1          22pF                C5/2.5              C5B2.5              capacitor-wima 1        c
+C2          22pF                C5/2.5              C5B2.5              capacitor-wima 1        c
+C4          100nF               C-EUC0603K          C0603K              rcl            1        c
+C5          33nF                C-EUC0603K          C0603K              rcl            1        c
+C6          100nF               C-EUC0603K          C0603K              rcl            1        c
+C7          100nF               C-EUC0603K          C0603K              rcl            1        c
+C8          100nF               C-EUC0603K          C0603K              rcl            1        c
+CAN_HEADER                      PINHD-1X2           1X02                pinhead        1        c
+D1          GF1                 GF1                 SMA-DO214AC         diode          1        f
+D2          GF1                 GF1                 SMA-DO214AC         diode          1        f
+DC_IN       330uF               CPOL-EUE15-5AXIAL   E15-5               rcl            1        c
+IC1                             VNH2SP30            MULTIPOWERSO-30     UNICORN        1        f
+IC2         MEGA128-A           MEGA128-A           TQFP64              atmel          1        l
+IC4         PCA82C250T          PCA82C250T          SO8                 micro-philips  1        c
+JP2         AVR-ISP-6           AVR-ISP-6           AVR-ISP-6           avr-5          1        c
+JP4                             M025MM              SCREWTERMINAL-5MM-2 SparkFun       1        c
+JP5         Ign_Cut_out         M02-JST-2MM-SMT     S2B-PH              unicorn_v2     1        f
+JP7         Motec_ADC_POS       M03                 S3B-PH              unicorn_v2     1        f
+PAD1        WIREPAD4,16O1,6     WIREPAD4,16O1,6     4,16O1,6            wirepad        1        l
+PAD2        WIREPAD4,16O1,6     WIREPAD4,16O1,6     4,16O1,6            wirepad        1        l
+Q1          12 MHz              CRYSTALHC49U70      HC49U70             crystal        1        l
+Q2          BC847SMD            BC847SMD            SOT23               transistor-npn 1        f
+Q3          IRFR3707ZR          IRFR3707ZR          D-PAK_TO252AA       UNICORN        1        f
+R1          1.5k                R-EU_R0603          R0603               resistor       1        c
+R2          120                 R-EU_R0603          R0603               resistor       1        c
+R3          10k                 R-EU_R0603          R0603               resistor       1        c
+R4          1k                  R-EU_R0603          R0603               resistor       1        c
+R5          10k                 R-EU_R0603          R0603               resistor       1        c
+R6          1k                  R-EU_R0603          R0603               resistor       1        c
+R7          1k                  R-EU_R0603          R0603               resistor       1        c
+R8          100k                R-EU_R0603          R0603               resistor       1        c
+R9          1k                  R-EU_R0603          R0603               resistor       1        c
+R10         1k                  R-EU_R0603          R0603               resistor       1        c
+R11         4.7k                R-EU_R0603          R0603               resistor       1        c
+R12         4.7k                R-EU_R0603          R0603               resistor       1        c
+R13         1k                  R-EU_R0603          R0603               resistor       1        c
+U$1         MICROFIT4           MICROFIT4           MICROFIT4SOCK       UNICORN        1        l
+U$2         M04                 M04                 S4B-PH              unicorn_v2     1        f
+U$3         TLV1117_VOLTAGE_REG TLV1117_VOLTAGE_REG SOT-232             unicorn_v2     1        f
+UART_HEADER                     PINHD-1X3           1X03                pinhead        1        c
+ZENER       16V                 DIODE-ZENER-BZT52   SOD-323             SparkFun       1        f

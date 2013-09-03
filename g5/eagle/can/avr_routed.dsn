@@ -1,0 +1,4155 @@
+
+(PCB avr
+  (parser
+    (string_quote ")
+    (space_in_quoted_tokens on)
+    (host_cad CadSoft)
+    (host_version "EAGLE Version 5.6.0 Copyright (c) 1988-2009 CadSoft")
+    (generated_by_freeroute)
+  )
+  (resolution inch 254000)
+  (structure
+    (boundary
+      (rect pcb -0.05393700787401575 -0.003937007874015748 3.940944881889764 3.1535433070866143)
+    )
+    (boundary
+      (polygon signal 0
+        -0.05 0.0
+        3.937011811023622 0.0
+        3.937011811023622 0.0
+        3.937011811023622 0.0
+        3.937011811023622 0.0
+        -0.05 0.0
+        -0.05 0.0
+        -0.05 0.0
+      )
+    )
+    (boundary
+      (polygon signal 0
+        3.937007874015748 0.0
+        3.937011811023622 0.0
+        3.937011811023622 0.0
+        3.937011811023622 3.1496023622047242
+        3.937007874015748 3.1496062992125986
+        3.937007874015748 3.1496062992125986
+        3.937007874015748 3.1496062992125986
+        3.937007874015748 0.0
+      )
+    )
+    (boundary
+      (polygon signal 0
+        -0.05 3.1496023622047242
+        3.937007874015748 3.1496023622047242
+        3.937011811023622 3.1496062992125986
+        3.937011811023622 3.1496023622047242
+        3.937007874015748 3.1496062992125986
+        -0.05 3.1496062992125986
+        -0.05 3.1496062992125986
+        -0.05 3.1496023622047242
+      )
+    )
+    (boundary
+      (polygon signal 0
+        -0.05 0.0
+        -0.05 0.0
+        -0.05 0.0
+        -0.05 3.1496062992125986
+        -0.05 3.1496062992125986
+        -0.05 3.1496062992125986
+        -0.05 3.1496062992125986
+        -0.05 0.0
+      )
+    )
+    (snap_angle 
+      fortyfive_degree
+    )
+    (via Round1$0.024000)
+    (control
+      (via_at_smd off)
+    )
+    (rule
+      (width 0.01)
+      (clear 0.0080)
+      (clear 0.0050 (type smd_to_turn_gap))
+    )
+    (layer 1#Top
+      (type signal)
+    )
+    (layer 16#Bottom
+      (type signal)
+    )
+    (autoroute_settings
+      (fanout off)
+      (autoroute on)
+      (postroute on)
+      (vias on)
+      (via_costs 999)
+      (plane_via_costs 5)
+      (start_ripup_costs 100)
+      (start_pass_no 2777)
+      (layer_rule 1#Top
+        (active on)
+        (preferred_direction horizontal)
+        (preferred_direction_trace_costs 1.0)
+        (against_preferred_direction_trace_costs 2.3)
+      )
+      (layer_rule 16#Bottom
+        (active on)
+        (preferred_direction vertical)
+        (preferred_direction_trace_costs 1.0)
+        (against_preferred_direction_trace_costs 1.8)
+      )
+    )
+    (via_keepout
+      (rect 16#Bottom 1.85 1.5 2.55 2.2)
+      (clearance_class default)
+    )
+    (via_keepout
+      (rect 1#Top 1.85 1.5 2.55 2.2)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 2.65 1.0 2.85 1.3)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.2 1.65 1.5 1.9)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.5 1.55 1.8 2.05)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.2 0.85 1.3 0.95)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.85 0.85 1.95 0.95)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.45 0.85 1.55 0.95)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.3 0.85 1.4 0.95)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 2.95 2.15 3.05 2.95)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.35 3.0 3.0 3.1)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.3 0.8 0.35 0.9)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.35 0.8 0.4 0.9)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.55 0.15 0.85 0.35)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.05 0.6 0.15 0.9)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.15 1.4 1.55 1.5)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.15 1.1 1.55 1.2)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 2.25 0.05 2.85 0.15)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.35 0.05 2.15 0.15)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.35 3.0 1.4 3.1)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.5 0.75 0.7 0.85)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.3 1.0 0.4 1.1)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.8 0.55 0.9 0.65)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.0 0.25 1.1 0.35)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.0 0.55 1.1 0.65)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.6 0.55 1.7 0.65)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.2 0.25 1.3 0.35)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.675 1.375 0.925 1.475)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.15 1.2 0.4 1.45)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 2.8 1.5 2.9 1.6)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.7 1.35 1.8 1.45)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.7 1.15 1.8 1.25)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 2.6 1.5 2.7 1.6)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.65 0.9 0.75 1.0)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.65 1.3 0.75 1.4)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.5 2.45 1.6 2.55)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.5 2.55 1.6 2.65)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.3 2.3 1.4 2.4)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.7 2.3 1.8 2.4)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.4 1.65 1.5 1.75)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.2 1.65 1.3 1.75)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.2 1.8 1.3 1.9)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.4 1.8 1.5 1.9)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.6 1.65 1.7 1.75)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 1.6 1.85 1.7 1.95)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 2.6 1.65 2.7 1.75)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 2.8 1.65 2.9 1.75)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.4 0.55 0.5 0.65)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.4 2.6 0.9 2.8)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.9 1.6 1.0 1.7)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.9 1.8 1.0 1.9)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.7 1.6 0.8 1.7)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.7 1.8 0.8 1.9)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.4 1.6 0.5 1.7)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.4 1.8 0.5 1.9)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.4 1.95 1.2 2.05)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.4 2.25 1.2 2.35)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.2 1.95 0.3 2.05)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.0 1.95 0.1 2.05)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.2 2.2 0.3 2.3)
+      (clearance_class default)
+    )
+    (keepout
+      (rect 1#Top 0.0 2.2 0.1 2.3)
+      (clearance_class default)
+    )
+  )
+  (placement
+    (place_control (flip_style rotate_first))
+    (component MICROFIT4SOCK$UNICORN
+      (place 
+        U$1 0.35 1.3 front 270
+        (pin PIN1 (clearance_class default))
+        (pin PIN2 (clearance_class default))
+        (pin PIN3 (clearance_class default))
+        (pin PIN4 (clearance_class default))
+        (keepout "keepout_1" (clearance_class default))
+      )
+    )
+    (component TQFP64$atmel
+      (place 
+        IC2 2.2 1.85 back 90
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+        (pin 3 (clearance_class default))
+        (pin 4 (clearance_class default))
+        (pin 5 (clearance_class default))
+        (pin 6 (clearance_class default))
+        (pin 7 (clearance_class default))
+        (pin 8 (clearance_class default))
+        (pin 9 (clearance_class default))
+        (pin 10 (clearance_class default))
+        (pin 11 (clearance_class default))
+        (pin 12 (clearance_class default))
+        (pin 13 (clearance_class default))
+        (pin 14 (clearance_class default))
+        (pin 15 (clearance_class default))
+        (pin 16 (clearance_class default))
+        (pin 17 (clearance_class default))
+        (pin 18 (clearance_class default))
+        (pin 19 (clearance_class default))
+        (pin 20 (clearance_class default))
+        (pin 21 (clearance_class default))
+        (pin 22 (clearance_class default))
+        (pin 23 (clearance_class default))
+        (pin 24 (clearance_class default))
+        (pin 25 (clearance_class default))
+        (pin 26 (clearance_class default))
+        (pin 27 (clearance_class default))
+        (pin 28 (clearance_class default))
+        (pin 29 (clearance_class default))
+        (pin 30 (clearance_class default))
+        (pin 31 (clearance_class default))
+        (pin 32 (clearance_class default))
+        (pin 33 (clearance_class default))
+        (pin 34 (clearance_class default))
+        (pin 35 (clearance_class default))
+        (pin 36 (clearance_class default))
+        (pin 37 (clearance_class default))
+        (pin 38 (clearance_class default))
+        (pin 39 (clearance_class default))
+        (pin 40 (clearance_class default))
+        (pin 41 (clearance_class default))
+        (pin 42 (clearance_class default))
+        (pin 43 (clearance_class default))
+        (pin 44 (clearance_class default))
+        (pin 45 (clearance_class default))
+        (pin 46 (clearance_class default))
+        (pin 47 (clearance_class default))
+        (pin 48 (clearance_class default))
+        (pin 49 (clearance_class default))
+        (pin 50 (clearance_class default))
+        (pin 51 (clearance_class default))
+        (pin 52 (clearance_class default))
+        (pin 53 (clearance_class default))
+        (pin 54 (clearance_class default))
+        (pin 55 (clearance_class default))
+        (pin 56 (clearance_class default))
+        (pin 57 (clearance_class default))
+        (pin 58 (clearance_class default))
+        (pin 59 (clearance_class default))
+        (pin 60 (clearance_class default))
+        (pin 61 (clearance_class default))
+        (pin 62 (clearance_class default))
+        (pin 63 (clearance_class default))
+        (pin 64 (clearance_class default))
+      )
+    )
+    (component "C5B2.5$capacitor-wima"
+      (place 
+        C1 1.35 1.85 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+      (place 
+        C2 1.35 1.7 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+    )
+    (component "F09HP$con-subd"
+      (place 
+        X1 0.65 2.7 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+        (pin 3 (clearance_class default))
+        (pin 4 (clearance_class default))
+        (pin 5 (clearance_class default))
+        (pin 6 (clearance_class default))
+        (pin 7 (clearance_class default))
+        (pin 8 (clearance_class default))
+        (pin 9 (clearance_class default))
+        (pin G1 (clearance_class default))
+        (pin G2 (clearance_class default))
+      )
+    )
+    (component HC49U70$crystal
+      (place 
+        Q1 1.65 1.8 front 270
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+        (via_keepout "via_keepout_1" (clearance_class default))
+        (via_keepout "via_keepout_2" (clearance_class default))
+        (via_keepout "via_keepout_3" (clearance_class default))
+        (via_keepout "via_keepout_4" (clearance_class default))
+        (via_keepout "via_keepout_5" (clearance_class default))
+        (via_keepout "via_keepout_6" (clearance_class default))
+        (via_keepout "via_keepout_7" (clearance_class default))
+        (via_keepout "via_keepout_8" (clearance_class default))
+        (via_keepout "via_keepout_9" (clearance_class default))
+      )
+    )
+    (component "DO41-10$diode"
+      (place 
+        D1 0.65 0.6 front 0
+        (pin A (clearance_class default))
+        (pin C (clearance_class default))
+      )
+    )
+    (component LED5MM$led
+      (place 
+        LED1 1.3 0.9 front 180
+        (pin A (clearance_class default))
+        (pin K (clearance_class default))
+      )
+      (place 
+        LED2 1.55 2.55 front 90
+        (pin A (clearance_class default))
+        (pin K (clearance_class default))
+      )
+    )
+    (component TO220V$linear
+      (place 
+        IC1 0.0 0.75 front 90
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+        (pin 3 (clearance_class default))
+      )
+    )
+    (component DIL16$maxim
+      (place 
+        MAX232A 0.8 2.15 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+        (pin 3 (clearance_class default))
+        (pin 4 (clearance_class default))
+        (pin 5 (clearance_class default))
+        (pin 6 (clearance_class default))
+        (pin 7 (clearance_class default))
+        (pin 8 (clearance_class default))
+        (pin 9 (clearance_class default))
+        (pin 10 (clearance_class default))
+        (pin 11 (clearance_class default))
+        (pin 12 (clearance_class default))
+        (pin 13 (clearance_class default))
+        (pin 14 (clearance_class default))
+        (pin 15 (clearance_class default))
+        (pin 16 (clearance_class default))
+      )
+    )
+    (component "DIL08$micro-philips"
+      (place 
+        IC3 1.35 1.3 front 180
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+        (pin 3 (clearance_class default))
+        (pin 4 (clearance_class default))
+        (pin 5 (clearance_class default))
+        (pin 6 (clearance_class default))
+        (pin 7 (clearance_class default))
+        (pin 8 (clearance_class default))
+      )
+    )
+    (component 1X02$pinhead
+      (place 
+        JP6 0.8 1.4 front 270
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+      (place 
+        "POWER_SUPPLY" 0.6 0.8 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+    )
+    (component 1X06$pinhead
+      (place 
+        JP5 2.55 0.1 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+        (pin 3 (clearance_class default))
+        (pin 4 (clearance_class default))
+        (pin 5 (clearance_class default))
+        (pin 6 (clearance_class default))
+      )
+    )
+    (component 1X08$pinhead
+      (place 
+        "ADC_OUT" 2.6 3.05 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+        (pin 3 (clearance_class default))
+        (pin 4 (clearance_class default))
+        (pin 5 (clearance_class default))
+        (pin 6 (clearance_class default))
+        (pin 7 (clearance_class default))
+        (pin 8 (clearance_class default))
+      )
+      (place 
+        JP1 1.75 3.05 front 180
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+        (pin 3 (clearance_class default))
+        (pin 4 (clearance_class default))
+        (pin 5 (clearance_class default))
+        (pin 6 (clearance_class default))
+        (pin 7 (clearance_class default))
+        (pin 8 (clearance_class default))
+      )
+      (place 
+        JP2 1.75 0.1 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+        (pin 3 (clearance_class default))
+        (pin 4 (clearance_class default))
+        (pin 5 (clearance_class default))
+        (pin 6 (clearance_class default))
+        (pin 7 (clearance_class default))
+        (pin 8 (clearance_class default))
+      )
+      (place 
+        JP7 3.0 2.55 front 90
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+        (pin 3 (clearance_class default))
+        (pin 4 (clearance_class default))
+        (pin 5 (clearance_class default))
+        (pin 6 (clearance_class default))
+        (pin 7 (clearance_class default))
+        (pin 8 (clearance_class default))
+      )
+    )
+    (component 2X03$pinhead
+      (place 
+        "PROGRAM_IN" 2.75 1.15 front 90
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+        (pin 3 (clearance_class default))
+        (pin 4 (clearance_class default))
+        (pin 5 (clearance_class default))
+        (pin 6 (clearance_class default))
+      )
+    )
+    (component "C050-024X044$rcl"
+      (place 
+        C5 2.75 1.55 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+      (place 
+        C6 1.75 1.3 front 270
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+      (place 
+        C12 1.15 0.3 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+      (place 
+        C13 0.35 0.95 front 90
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+      (place 
+        C14 0.95 1.75 front 270
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+      (place 
+        C15 0.15 2.0 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+      (place 
+        C16 0.75 1.75 front 270
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+      (place 
+        C17 0.45 1.75 front 270
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+      (place 
+        C18 0.15 2.25 front 180
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+      (place 
+        C19 2.75 1.7 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+    )
+    (component "E15-5$rcl"
+      (place 
+        C3 1.35 0.6 front 0
+        (pin + (clearance_class default))
+        (pin "-" (clearance_class default))
+      )
+    )
+    (component 0207/10$resistor
+      (place 
+        R1 0.7 1.15 front 90
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+      (place 
+        R2 1.7 0.9 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+      (place 
+        R3 1.55 2.35 front 0
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+      )
+    )
+    (component "LPV-1$switch"
+      (place 
+        S1 0.05 0.25 front 270
+        (pin 1 (clearance_class default))
+        (pin 2 (clearance_class default))
+        (pin 3 (clearance_class default))
+        (pin B (clearance_class default))
+        (pin B1 (clearance_class default))
+      )
+    )
+  )
+  (library
+    (image MICROFIT4SOCK$UNICORN
+      (side front)
+      (pin Round2 PIN1 -0.07874015748031496 0.0)
+      (pin Round2 PIN2 0.03937007874015748 0.0)
+      (pin Round2 PIN3 -0.07874015748031496 -0.11811023622047244)
+      (pin Round2 PIN4 0.03937007874015748 -0.11811023622047244)
+      (keepout
+        (circle signal 0.13398425196850394 -0.01968503937007874 -0.2952755905511811)
+      )
+    )
+    (image TQFP64$atmel
+      (side front)
+      (pin Rectangle1 1 -0.30708661417322836 0.23622047244094488)
+      (pin Rectangle1 2 -0.30708661417322836 0.2047244094488189)
+      (pin Rectangle1 3 -0.30708661417322836 0.1732283464566929)
+      (pin Rectangle1 4 -0.30708661417322836 0.14173228346456693)
+      (pin Rectangle1 5 -0.30708661417322836 0.11023622047244094)
+      (pin Rectangle1 6 -0.30708661417322836 0.07874015748031496)
+      (pin Rectangle1 7 -0.30708661417322836 0.047244094488188976)
+      (pin Rectangle1 8 -0.30708661417322836 0.015748031496062992)
+      (pin Rectangle1 9 -0.30708661417322836 -0.015748031496062992)
+      (pin Rectangle1 10 -0.30708661417322836 -0.047244094488188976)
+      (pin Rectangle1 11 -0.30708661417322836 -0.07874015748031496)
+      (pin Rectangle1 12 -0.30708661417322836 -0.11023622047244094)
+      (pin Rectangle1 13 -0.30708661417322836 -0.14173228346456693)
+      (pin Rectangle1 14 -0.30708661417322836 -0.1732283464566929)
+      (pin Rectangle1 15 -0.30708661417322836 -0.2047244094488189)
+      (pin Rectangle1 16 -0.30708661417322836 -0.23622047244094488)
+      (pin Rectangle2 17 -0.23622047244094488 -0.30708661417322836)
+      (pin Rectangle2 18 -0.2047244094488189 -0.30708661417322836)
+      (pin Rectangle2 19 -0.1732283464566929 -0.30708661417322836)
+      (pin Rectangle2 20 -0.14173228346456693 -0.30708661417322836)
+      (pin Rectangle2 21 -0.11023622047244094 -0.30708661417322836)
+      (pin Rectangle2 22 -0.07874015748031496 -0.30708661417322836)
+      (pin Rectangle2 23 -0.047244094488188976 -0.30708661417322836)
+      (pin Rectangle2 24 -0.015748031496062992 -0.30708661417322836)
+      (pin Rectangle2 25 0.015748031496062992 -0.30708661417322836)
+      (pin Rectangle2 26 0.047244094488188976 -0.30708661417322836)
+      (pin Rectangle2 27 0.07874015748031496 -0.30708661417322836)
+      (pin Rectangle2 28 0.11023622047244094 -0.30708661417322836)
+      (pin Rectangle2 29 0.14173228346456693 -0.30708661417322836)
+      (pin Rectangle2 30 0.1732283464566929 -0.30708661417322836)
+      (pin Rectangle2 31 0.2047244094488189 -0.30708661417322836)
+      (pin Rectangle2 32 0.23622047244094488 -0.30708661417322836)
+      (pin Rectangle1 33 0.30708661417322836 -0.23622047244094488)
+      (pin Rectangle1 34 0.30708661417322836 -0.2047244094488189)
+      (pin Rectangle1 35 0.30708661417322836 -0.1732283464566929)
+      (pin Rectangle1 36 0.30708661417322836 -0.14173228346456693)
+      (pin Rectangle1 37 0.30708661417322836 -0.11023622047244094)
+      (pin Rectangle1 38 0.30708661417322836 -0.07874015748031496)
+      (pin Rectangle1 39 0.30708661417322836 -0.047244094488188976)
+      (pin Rectangle1 40 0.30708661417322836 -0.015748031496062992)
+      (pin Rectangle1 41 0.30708661417322836 0.015748031496062992)
+      (pin Rectangle1 42 0.30708661417322836 0.047244094488188976)
+      (pin Rectangle1 43 0.30708661417322836 0.07874015748031496)
+      (pin Rectangle1 44 0.30708661417322836 0.11023622047244094)
+      (pin Rectangle1 45 0.30708661417322836 0.14173228346456693)
+      (pin Rectangle1 46 0.30708661417322836 0.1732283464566929)
+      (pin Rectangle1 47 0.30708661417322836 0.2047244094488189)
+      (pin Rectangle1 48 0.30708661417322836 0.23622047244094488)
+      (pin Rectangle2 49 0.23622047244094488 0.30708661417322836)
+      (pin Rectangle2 50 0.2047244094488189 0.30708661417322836)
+      (pin Rectangle2 51 0.1732283464566929 0.30708661417322836)
+      (pin Rectangle2 52 0.14173228346456693 0.30708661417322836)
+      (pin Rectangle2 53 0.11023622047244094 0.30708661417322836)
+      (pin Rectangle2 54 0.07874015748031496 0.30708661417322836)
+      (pin Rectangle2 55 0.047244094488188976 0.30708661417322836)
+      (pin Rectangle2 56 0.015748031496062992 0.30708661417322836)
+      (pin Rectangle2 57 -0.015748031496062992 0.30708661417322836)
+      (pin Rectangle2 58 -0.047244094488188976 0.30708661417322836)
+      (pin Rectangle2 59 -0.07874015748031496 0.30708661417322836)
+      (pin Rectangle2 60 -0.11023622047244094 0.30708661417322836)
+      (pin Rectangle2 61 -0.14173228346456693 0.30708661417322836)
+      (pin Rectangle2 62 -0.1732283464566929 0.30708661417322836)
+      (pin Rectangle2 63 -0.2047244094488189 0.30708661417322836)
+      (pin Rectangle2 64 -0.23622047244094488 0.30708661417322836)
+      (outline
+        (circle signal 0.04400787401574803 -0.2315 0.2315)
+      )
+    )
+    (image "C5B2.5$capacitor-wima"
+      (side front)
+      (pin Octagon1 1 -0.1 0.0)
+      (pin Octagon1 2 0.1 0.0)
+    )
+    (image "F09HP$con-subd"
+      (side front)
+      (pin Octagon2 1 -0.216 -0.05)
+      (pin Octagon2 2 -0.108 -0.05)
+      (pin Octagon2 3 0.0 -0.05)
+      (pin Octagon2 4 0.108 -0.05)
+      (pin Octagon2 5 0.216 -0.05)
+      (pin Octagon2 6 -0.162 0.05)
+      (pin Octagon2 7 -0.054 0.05)
+      (pin Octagon2 8 0.054 0.05)
+      (pin Octagon2 9 0.162 0.05)
+      (pin Round3 G1 -0.493 0.0)
+      (pin Round3 G2 0.493 0.0)
+      (outline
+        (circle signal 0.13 -0.493 0.0)
+      )
+      (outline
+        (circle signal 0.13 0.493 0.0)
+      )
+      (outline
+        (rect signal -0.365 0.27 0.365 0.3)
+      )
+      (outline
+        (rect signal -0.61 0.44 0.61 0.46)
+      )
+      (outline
+        (rect signal -0.232 -0.015 -0.2 0.27)
+      )
+      (outline
+        (rect signal -0.178 0.085 -0.146 0.27)
+      )
+      (outline
+        (rect signal -0.124 -0.015 -0.092 0.27)
+      )
+      (outline
+        (rect signal -0.07 0.085 -0.038 0.27)
+      )
+      (outline
+        (rect signal -0.017 -0.015 0.015 0.27)
+      )
+      (outline
+        (rect signal 0.037 0.085 0.069 0.27)
+      )
+      (outline
+        (rect signal 0.092 -0.015 0.124 0.27)
+      )
+      (outline
+        (rect signal 0.146 0.085 0.178 0.27)
+      )
+      (outline
+        (rect signal 0.2 -0.015 0.232 0.27)
+      )
+    )
+    (image HC49U70$crystal
+      (side front)
+      (pin Round4 1 -0.095 0.0)
+      (pin Round4 2 0.095 0.0)
+      (via_keepout
+        (rect signal -0.18 -0.11 -0.16 0.11)
+      )
+      (via_keepout
+        (rect signal -0.2 -0.1 -0.18 0.1)
+      )
+      (via_keepout
+        (rect signal -0.22 -0.08 -0.2 0.08)
+      )
+      (via_keepout
+        (rect signal -0.23 -0.05 -0.22 0.05)
+      )
+      (via_keepout
+        (rect signal -0.16 -0.12 0.16 0.12)
+      )
+      (via_keepout
+        (rect signal 0.16 -0.11 0.18 0.11)
+      )
+      (via_keepout
+        (rect signal 0.18 -0.1 0.2 0.1)
+      )
+      (via_keepout
+        (rect signal 0.2 -0.08 0.22 0.08)
+      )
+      (via_keepout
+        (rect signal 0.22 -0.05 0.23 0.05)
+      )
+    )
+    (image "DO41-10$diode"
+      (side front)
+      (pin Round5 A 0.2 0.0)
+      (pin Round5 C -0.2 0.0)
+      (outline
+        (rect signal -0.065 -0.05 -0.045 0.05)
+      )
+      (outline
+        (rect signal 0.08 -0.015 0.155 0.015)
+      )
+      (outline
+        (rect signal -0.155 -0.015 -0.08 0.015)
+      )
+    )
+    (image LED5MM$led
+      (side front)
+      (pin Octagon3 A -0.05 0.0)
+      (pin Octagon3 K 0.05 0.0)
+      (outline
+        (circle signal 0.2 0.0 0.0)
+      )
+    )
+    (image TO220V$linear
+      (side front)
+      (pin Oblong1 1 -0.1 -0.1)
+      (pin Oblong1 2 0.0 -0.1)
+      (pin Oblong1 3 0.1 -0.1)
+      (outline
+        (circle signal 0.02 -0.177 -0.146)
+      )
+      (outline
+        (rect signal -0.21 -0.03 0.21 0.0)
+      )
+      (outline
+        (rect signal -0.21 -0.05 -0.135 -0.03)
+      )
+      (outline
+        (rect signal -0.065 -0.05 -0.035 -0.03)
+      )
+      (outline
+        (rect signal 0.035 -0.05 0.065 -0.03)
+      )
+      (outline
+        (rect signal 0.135 -0.05 0.21 -0.03)
+      )
+    )
+    (image DIL16$maxim
+      (side front)
+      (pin Oblong2 1 -0.35 -0.15)
+      (pin Oblong2 2 -0.25 -0.15)
+      (pin Oblong2 3 -0.15 -0.15)
+      (pin Oblong2 4 -0.05 -0.15)
+      (pin Oblong2 5 0.05 -0.15)
+      (pin Oblong2 6 0.15 -0.15)
+      (pin Oblong2 7 0.25 -0.15)
+      (pin Oblong2 8 0.35 -0.15)
+      (pin Oblong2 9 0.35 0.15)
+      (pin Oblong2 10 0.25 0.15)
+      (pin Oblong2 11 0.15 0.15)
+      (pin Oblong2 12 0.05 0.15)
+      (pin Oblong2 13 -0.05 0.15)
+      (pin Oblong2 14 -0.15 0.15)
+      (pin Oblong2 15 -0.25 0.15)
+      (pin Oblong2 16 -0.35 0.15)
+    )
+    (image "DIL08$micro-philips"
+      (side front)
+      (pin Oblong2 1 -0.15 -0.15)
+      (pin Oblong2 2 -0.05 -0.15)
+      (pin Oblong2 3 0.05 -0.15)
+      (pin Oblong2 4 0.15 -0.15)
+      (pin Oblong2 5 0.15 0.15)
+      (pin Oblong2 6 0.05 0.15)
+      (pin Oblong2 7 -0.05 0.15)
+      (pin Oblong2 8 -0.15 0.15)
+    )
+    (image 1X02$pinhead
+      (side front)
+      (pin Oblong1 1 -0.05 0.0)
+      (pin Oblong1 2 0.05 0.0)
+    )
+    (image 1X06$pinhead
+      (side front)
+      (pin Oblong1 1 -0.25 0.0)
+      (pin Oblong1 2 -0.15 0.0)
+      (pin Oblong1 3 -0.05 0.0)
+      (pin Oblong1 4 0.05 0.0)
+      (pin Oblong1 5 0.15 0.0)
+      (pin Oblong1 6 0.25 0.0)
+    )
+    (image 1X08$pinhead
+      (side front)
+      (pin Oblong1 1 -0.35 0.0)
+      (pin Oblong1 2 -0.25 0.0)
+      (pin Oblong1 3 -0.15 0.0)
+      (pin Oblong1 4 -0.05 0.0)
+      (pin Oblong1 5 0.05 0.0)
+      (pin Oblong1 6 0.15 0.0)
+      (pin Oblong1 7 0.25 0.0)
+      (pin Oblong1 8 0.35 0.0)
+    )
+    (image 2X03$pinhead
+      (side front)
+      (pin Octagon2 1 -0.1 -0.05)
+      (pin Octagon2 2 -0.1 0.05)
+      (pin Octagon2 3 0.0 -0.05)
+      (pin Octagon2 4 0.0 0.05)
+      (pin Octagon2 5 0.1 -0.05)
+      (pin Octagon2 6 0.1 0.05)
+    )
+    (image "C050-024X044$rcl"
+      (side front)
+      (pin Octagon3 1 -0.1 0.0)
+      (pin Octagon3 2 0.1 0.0)
+    )
+    (image "E15-5$rcl"
+      (side front)
+      (pin Round6 + -0.3 0.0)
+      (pin Octagon4 "-" 0.3 0.0)
+      (outline
+        (rect signal -0.09 -0.05 -0.07 0.05)
+      )
+      (outline
+        (rect signal -0.255 -0.01 -0.225 0.01)
+      )
+      (outline
+        (rect signal 0.225 -0.01 0.255 0.01)
+      )
+    )
+    (image 0207/10$resistor
+      (side front)
+      (pin Octagon3 1 -0.2 0.0)
+      (pin Octagon3 2 0.2 0.0)
+      (outline
+        (rect signal 0.125 -0.012 0.159 0.012)
+      )
+      (outline
+        (rect signal -0.159 -0.012 -0.125 0.012)
+      )
+    )
+    (image "LPV-1$switch"
+      (side front)
+      (pin Oblong3 1 0.0 0.521259842519685)
+      (pin Oblong3 2 0.0 0.6425196850393701)
+      (pin Oblong3 3 0.0 0.7637795275590551)
+      (pin Round7 B -0.1 0.0)
+      (pin Round7 B1 0.1 0.0)
+      (outline
+        (rect signal -0.025 0.44125984251968503 0.025 0.47125984251968506)
+      )
+      (outline
+        (rect signal -0.025 0.5712598425196851 0.025 0.6712598425196851)
+      )
+      (outline
+        (rect signal 0.135 0.045 0.16 0.3)
+      )
+      (outline
+        (rect signal -0.04 0.0 0.04 0.15)
+      )
+      (outline
+        (rect signal -0.16 0.045 -0.135 0.3)
+      )
+    )
+    (padstack ViaDefault$0.024000
+      (shape
+        (circle 1#Top 0.04 0.0 0.0)
+      )
+      (shape
+        (circle 16#Bottom 0.04 0.0 0.0)
+      )
+    )
+    (padstack Round1$0.024000
+      (shape
+        (circle 1#Top 0.04 0.0 0.0)
+      )
+      (shape
+        (circle 16#Bottom 0.04 0.0 0.0)
+      )
+      (attach off)
+    )
+    (padstack Round2
+      (shape
+        (circle 1#Top 0.1 0.0 0.0)
+      )
+      (shape
+        (circle 16#Bottom 0.1 0.0 0.0)
+      )
+      (attach off)
+    )
+    (padstack Rectangle1
+      (shape
+        (rect 1#Top -0.0235 -0.011 0.0235 0.011)
+      )
+      (attach off)
+    )
+    (padstack Rectangle2
+      (shape
+        (rect 1#Top -0.011 -0.0235 0.011 0.0235)
+      )
+      (attach off)
+    )
+    (padstack Octagon1
+      (shape
+        (polygon 1#Top 0
+          -0.01304724409448819 -0.0315
+          0.01304724409448819 -0.0315
+          0.0315 -0.01304724409448819
+          0.0315 0.01304724409448819
+          0.01304724409448819 0.0315
+          -0.01304724409448819 0.0315
+          -0.0315 0.01304724409448819
+          -0.0315 -0.01304724409448819
+        )
+      )
+      (shape
+        (polygon 16#Bottom 0
+          -0.01304724409448819 -0.0315
+          0.01304724409448819 -0.0315
+          0.0315 -0.01304724409448819
+          0.0315 0.01304724409448819
+          0.01304724409448819 0.0315
+          -0.01304724409448819 0.0315
+          -0.0315 0.01304724409448819
+          -0.0315 -0.01304724409448819
+        )
+      )
+      (attach off)
+    )
+    (padstack Octagon2
+      (shape
+        (polygon 1#Top 0
+          -0.012425196850393701 -0.03
+          0.012425196850393701 -0.03
+          0.03 -0.012425196850393701
+          0.03 0.012425196850393701
+          0.012425196850393701 0.03
+          -0.012425196850393701 0.03
+          -0.03 0.012425196850393701
+          -0.03 -0.012425196850393701
+        )
+      )
+      (shape
+        (polygon 16#Bottom 0
+          -0.012425196850393701 -0.03
+          0.012425196850393701 -0.03
+          0.03 -0.012425196850393701
+          0.03 0.012425196850393701
+          0.012425196850393701 0.03
+          -0.012425196850393701 0.03
+          -0.03 0.012425196850393701
+          -0.03 -0.012425196850393701
+        )
+      )
+      (attach off)
+    )
+    (padstack Round3
+      (shape
+        (circle 1#Top 0.2 0.0 0.0)
+      )
+      (shape
+        (circle 16#Bottom 0.2 0.0 0.0)
+      )
+      (attach off)
+    )
+    (padstack Round4
+      (shape
+        (circle 1#Top 0.052 0.0 0.0)
+      )
+      (shape
+        (circle 16#Bottom 0.052 0.0 0.0)
+      )
+      (attach off)
+    )
+    (padstack Round5
+      (shape
+        (circle 1#Top 0.066 0.0 0.0)
+      )
+      (shape
+        (circle 16#Bottom 0.066 0.0 0.0)
+      )
+      (attach off)
+    )
+    (padstack Octagon3
+      (shape
+        (polygon 1#Top 0
+          -0.010771653543307086 -0.026
+          0.010771653543307086 -0.026
+          0.026 -0.010771653543307086
+          0.026 0.010771653543307086
+          0.010771653543307086 0.026
+          -0.010771653543307086 0.026
+          -0.026 0.010771653543307086
+          -0.026 -0.010771653543307086
+        )
+      )
+      (shape
+        (polygon 16#Bottom 0
+          -0.010771653543307086 -0.026
+          0.010771653543307086 -0.026
+          0.026 -0.010771653543307086
+          0.026 0.010771653543307086
+          0.010771653543307086 0.026
+          -0.010771653543307086 0.026
+          -0.026 0.010771653543307086
+          -0.026 -0.010771653543307086
+        )
+      )
+      (attach off)
+    )
+    (padstack Oblong1
+      (shape
+        (polygon 1#Top 0
+          -0.012425196850393701 -0.06
+          0.012425196850393701 -0.06
+          0.03 -0.0424251968503937
+          0.03 0.0424251968503937
+          0.012425196850393701 0.06
+          -0.012425196850393701 0.06
+          -0.03 0.0424251968503937
+          -0.03 -0.0424251968503937
+        )
+      )
+      (shape
+        (polygon 16#Bottom 0
+          -0.012425196850393701 -0.06
+          0.012425196850393701 -0.06
+          0.03 -0.0424251968503937
+          0.03 0.0424251968503937
+          0.012425196850393701 0.06
+          -0.012425196850393701 0.06
+          -0.03 0.0424251968503937
+          -0.03 -0.0424251968503937
+        )
+      )
+      (attach off)
+    )
+    (padstack Oblong2
+      (shape
+        (polygon 1#Top 0
+          -0.010767716535433071 -0.052
+          0.010767716535433071 -0.052
+          0.026 -0.03676771653543307
+          0.026 0.03676771653543307
+          0.010767716535433071 0.052
+          -0.010767716535433071 0.052
+          -0.026 0.03676771653543307
+          -0.026 -0.03676771653543307
+        )
+      )
+      (shape
+        (polygon 16#Bottom 0
+          -0.010767716535433071 -0.052
+          0.010767716535433071 -0.052
+          0.026 -0.03676771653543307
+          0.026 0.03676771653543307
+          0.010767716535433071 0.052
+          -0.010767716535433071 0.052
+          -0.026 0.03676771653543307
+          -0.026 -0.03676771653543307
+        )
+      )
+      (attach off)
+    )
+    (padstack Round6
+      (shape
+        (circle 1#Top 0.085 0.0 0.0)
+      )
+      (shape
+        (circle 16#Bottom 0.085 0.0 0.0)
+      )
+      (attach off)
+    )
+    (padstack Octagon4
+      (shape
+        (polygon 1#Top 0
+          -0.01760236220472441 -0.0425
+          0.01760236220472441 -0.0425
+          0.0425 -0.01760236220472441
+          0.0425 0.01760236220472441
+          0.01760236220472441 0.0425
+          -0.01760236220472441 0.0425
+          -0.0425 0.01760236220472441
+          -0.0425 -0.01760236220472441
+        )
+      )
+      (shape
+        (polygon 16#Bottom 0
+          -0.01760236220472441 -0.0425
+          0.01760236220472441 -0.0425
+          0.0425 -0.01760236220472441
+          0.0425 0.01760236220472441
+          0.01760236220472441 0.0425
+          -0.01760236220472441 0.0425
+          -0.0425 0.01760236220472441
+          -0.0425 -0.01760236220472441
+        )
+      )
+      (attach off)
+    )
+    (padstack Oblong3
+      (shape
+        (polygon 1#Top 0
+          -0.06682677165354331 -0.04725196850393701
+          0.06682677165354331 -0.04725196850393701
+          0.09450787401574803 -0.019570866141732285
+          0.09450787401574803 0.019570866141732285
+          0.06682677165354331 0.04725196850393701
+          -0.06682677165354331 0.04725196850393701
+          -0.09450787401574803 0.019570866141732285
+          -0.09450787401574803 -0.019570866141732285
+        )
+      )
+      (shape
+        (polygon 16#Bottom 0
+          -0.06682677165354331 -0.04725196850393701
+          0.06682677165354331 -0.04725196850393701
+          0.09450787401574803 -0.019570866141732285
+          0.09450787401574803 0.019570866141732285
+          0.06682677165354331 0.04725196850393701
+          -0.06682677165354331 0.04725196850393701
+          -0.09450787401574803 0.019570866141732285
+          -0.09450787401574803 -0.019570866141732285
+        )
+      )
+      (attach off)
+    )
+    (padstack Round7
+      (shape
+        (circle 1#Top 0.1 0.0 0.0)
+      )
+      (shape
+        (circle 16#Bottom 0.1 0.0 0.0)
+      )
+      (attach off)
+    )
+  )
+  (network
+    (net +5V 1
+      (pins
+        R2-2
+        "PROGRAM_IN"-2
+        MAX232A-16
+        IC3-3
+        IC2-64
+        IC2-21
+        IC1-3
+        C18-1
+        C15-1
+        C13-1
+        C6-1
+        C5-1
+      )
+    )
+    (net GND1 1
+      (pins
+        IC2-53
+      )
+    )
+    (net MISO 1
+      (pins
+        "PROGRAM_IN"-1
+        IC2-3
+      )
+    )
+    (net MOSI 1
+      (pins
+        "PROGRAM_IN"-4
+        IC2-2
+      )
+    )
+    (net N$1 1
+      (pins
+        Q1-1
+        IC2-24
+        C1-2
+      )
+    )
+    (net N$2 1
+      (pins
+        Q1-2
+        IC2-23
+        C2-2
+      )
+    )
+    (net N$3 1
+      (pins
+        JP5-1
+        IC2-9
+      )
+    )
+    (net N$4 1
+      (pins
+        S1-2
+        D1-A
+      )
+    )
+    (net N$5 1
+      (pins
+        S1-1
+        "POWER_SUPPLY"-2
+      )
+    )
+    (net N$6 1
+      (pins
+        R2-1
+        LED1-A
+      )
+    )
+    (net N$7 1
+      (pins
+        JP1-8
+        IC2-35
+      )
+    )
+    (net N$8 1
+      (pins
+        R3-1
+        LED2-A
+      )
+    )
+    (net N$9 1
+      (pins
+        IC2-44
+        "ADC_OUT"-1
+      )
+    )
+    (net N$10 1
+      (pins
+        IC2-62
+        C19-1
+      )
+    )
+    (net N$11 1
+      (pins
+        IC2-45
+        "ADC_OUT"-2
+      )
+    )
+    (net N$12 1
+      (pins
+        IC2-46
+        "ADC_OUT"-3
+      )
+    )
+    (net N$13 1
+      (pins
+        IC2-47
+        "ADC_OUT"-4
+      )
+    )
+    (net N$14 1
+      (pins
+        IC2-48
+        "ADC_OUT"-5
+      )
+    )
+    (net N$15 1
+      (pins
+        IC2-49
+        "ADC_OUT"-6
+      )
+    )
+    (net N$16 1
+      (pins
+        IC2-50
+        "ADC_OUT"-7
+      )
+    )
+    (net N$17 1
+      (pins
+        IC2-51
+        "ADC_OUT"-8
+      )
+    )
+    (net N$18 1
+      (pins
+        JP2-2
+        IC2-16
+      )
+    )
+    (net N$19 1
+      (pins
+        JP2-1
+        IC2-17
+      )
+    )
+    (net N$20 1
+      (pins
+        JP7-8
+        IC2-54
+      )
+    )
+    (net N$21 1
+      (pins
+        X1-3
+        MAX232A-13
+      )
+    )
+    (net N$22 1
+      (pins
+        JP2-5
+        IC2-13
+      )
+    )
+    (net N$23 1
+      (pins
+        JP1-7
+        IC2-36
+      )
+    )
+    (net N$24 1
+      (pins
+        JP1-6
+        IC2-37
+      )
+    )
+    (net N$25 1
+      (pins
+        JP1-5
+        IC2-38
+      )
+    )
+    (net N$26 1
+      (pins
+        JP1-4
+        IC2-39
+      )
+    )
+    (net N$27 1
+      (pins
+        JP1-3
+        IC2-40
+      )
+    )
+    (net N$28 1
+      (pins
+        JP1-2
+        IC2-41
+      )
+    )
+    (net N$29 1
+      (pins
+        JP1-1
+        IC2-42
+      )
+    )
+    (net N$30 1
+      (pins
+        JP5-2
+        IC2-8
+      )
+    )
+    (net N$31 1
+      (pins
+        JP5-3
+        IC2-7
+      )
+    )
+    (net N$32 1
+      (pins
+        JP5-4
+        IC2-6
+      )
+    )
+    (net N$33 1
+      (pins
+        X1-2
+        MAX232A-14
+      )
+    )
+    (net N$34 1
+      (pins
+        JP5-5
+        IC2-5
+      )
+    )
+    (net N$35 1
+      (pins
+        MAX232A-1
+        C17-1
+      )
+    )
+    (net N$36 1
+      (pins
+        MAX232A-3
+        C17-2
+      )
+    )
+    (net N$37 1
+      (pins
+        MAX232A-4
+        C16-1
+      )
+    )
+    (net N$38 1
+      (pins
+        MAX232A-5
+        C16-2
+      )
+    )
+    (net N$39 1
+      (pins
+        MAX232A-6
+        C14-1
+      )
+    )
+    (net N$40 1
+      (pins
+        JP2-4
+        IC2-14
+      )
+    )
+    (net N$41 1
+      (pins
+        MAX232A-2
+        C15-2
+      )
+    )
+    (net N$42 1
+      (pins
+        JP5-6
+        IC2-4
+      )
+    )
+    (net N$43 1
+      (pins
+        R3-2
+        IC2-32
+      )
+    )
+    (net N$44 1
+      (pins
+        JP7-7
+        IC2-55
+      )
+    )
+    (net N$45 1
+      (pins
+        JP2-8
+        IC2-10
+      )
+    )
+    (net N$46 1
+      (pins
+        JP2-3
+        IC2-15
+      )
+    )
+    (net N$47 1
+      (pins
+        JP2-6
+        IC2-12
+      )
+    )
+    (net N$48 1
+      (pins
+        JP7-6
+        IC2-56
+      )
+    )
+    (net N$49 1
+      (pins
+        JP7-5
+        IC2-57
+      )
+    )
+    (net N$50 1
+      (pins
+        R1-2
+        JP6-2
+      )
+    )
+    (net N$51 1
+      (pins
+        U$1-PIN2
+        R1-1
+        IC3-6
+      )
+    )
+    (net N$52 1
+      (pins
+        U$1-PIN1
+        JP6-1
+        IC3-7
+      )
+    )
+    (net N$53 1
+      (pins
+        JP7-4
+        IC2-58
+      )
+    )
+    (net N$54 1
+      (pins
+        JP7-3
+        IC2-59
+      )
+    )
+    (net N$55 1
+      (pins
+        JP7-2
+        IC2-60
+      )
+    )
+    (net N$56 1
+      (pins
+        JP7-1
+        IC2-61
+      )
+    )
+    (net PE 1
+      (pins
+        X1-5
+        U$1-PIN4
+        U$1-PIN3
+        "PROGRAM_IN"-6
+        "POWER_SUPPLY"-1
+        MAX232A-15
+        LED2-K
+        LED1-K
+        IC3-8
+        IC3-2
+        IC2-63
+        IC2-22
+        IC1-2
+        C19-2
+        C18-2
+        C14-2
+        C13-2
+        C12-2
+        C6-2
+        C5-2
+        C3-"-"
+        C2-1
+        C1-1
+      )
+    )
+    (net RESET 1
+      (pins
+        "PROGRAM_IN"-5
+        IC2-20
+      )
+    )
+    (net RXCAN 1
+      (pins
+        IC3-4
+        IC2-31
+      )
+    )
+    (net RXD1 1
+      (pins
+        MAX232A-12
+        IC2-27
+      )
+    )
+    (net SCK 1
+      (pins
+        "PROGRAM_IN"-3
+        JP2-7
+        IC2-11
+      )
+    )
+    (net TXCAN 1
+      (pins
+        IC3-1
+        IC2-30
+      )
+    )
+    (net TXD1 1
+      (pins
+        MAX232A-11
+        IC2-28
+      )
+    )
+    (net VCC 1
+      (pins
+        IC1-1
+        D1-C
+        C12-1
+        C3-+
+      )
+    )
+    (net VCC1 1
+      (pins
+        IC2-52
+      )
+    )
+    (via 
+      Round1$0.024000 Round1$0.024000 default
+    )
+    (via_rule
+      default Round1$0.024000
+    )
+    (class default
+      +5V GND1 MISO MOSI N$1 N$2 N$3 N$4
+      N$5 N$6 N$7 N$8 N$9 N$10 N$11 N$12
+      N$13 N$14 N$15 N$16 N$17 N$18 N$19 N$20
+      N$21 N$22 N$23 N$24 N$25 N$26 N$27 N$28
+      N$29 N$30 N$31 N$32 N$33 N$34 N$35 N$36
+      N$37 N$38 N$39 N$40 N$41 N$42 N$43 N$44
+      N$45 N$46 N$47 N$48 N$49 N$50 N$51 N$52
+      N$53 N$54 N$55 N$56 PE RESET RXCAN RXD1
+      SCK TXCAN TXD1 VCC VCC1
+      (clearance_class default)
+      (via_rule default)
+      (rule
+        (width 0.01)
+      )
+      (circuit 
+        (use_layer 1#Top 16#Bottom)
+      )
+    )
+  )
+  (wiring
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.4 1.45 1.400003937007874 1.45 
+        1.4 1.45 1.4 1.449996062992126 
+        0.0 1.384996062992126 3.937007874015748E-6 1.384996062992126 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.8929133858267717 1.771259842519685 1.8929133858267717 1.7712559055118111 
+        1.8929133858267717 1.771259842519685 1.8929094488188976 1.771259842519685 
+        1.8564094488188976 0.0 1.8564094488188976 -3.937007874015748E-6 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.8564094488188976 1.771259842519685 1.8564133858267717 1.7712559055118111 
+        1.8564094488188976 1.771259842519685 1.5614133858267716 1.476263779527559 
+        1.5614133858267716 1.476263779527559 1.5614133858267716 1.4009842519685038 
+        1.5614133858267716 1.4009842519685038 1.5259251968503937 1.365496062992126 
+        1.5259251968503937 1.365496062992126 1.4195 1.365496062992126 
+        1.4195 1.365496062992126 1.4 1.384996062992126 
+        1.4 1.384996062992126 1.400003937007874 1.385 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.4705826771653543 1.645275590551181 2.4705787401574804 1.6452716535433072 
+        2.4705826771653543 1.645275590551181 2.3445984251968506 1.771259842519685 
+        2.118755905511811 1.771259842519685 1.8819094488188977 1.771259842519685 
+        1.8929133858267717 1.771259842519685 1.8929133858267717 1.771263779527559 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.282 1.515007874015748 1.282003937007874 1.5150118110236221 
+        1.25 1.655496062992126 1.249996062992126 1.6555 
+        1.25 1.699996062992126 1.25 1.7 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.4 1.45 1.4 1.450003937007874 
+        0.0 1.515003937007874 -3.937007874015748E-6 1.515003937007874 
+        1.25 1.655496062992126 1.249996062992126 1.6555 
+        1.282 1.515007874015748 1.282003937007874 1.5150118110236221 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.95 1.610996062992126 0.950003937007874 1.611 
+        0.95 1.610996062992126 1.176992125984252 1.384003937007874 
+        1.176992125984252 1.384003937007874 1.2153582677165353 1.384003937007874 
+        1.2153582677165353 1.384003937007874 1.2482874015748031 1.4169330708661418 
+        1.2482874015748031 1.4169330708661418 1.2482874015748031 1.481295275590551 
+        1.2482874015748031 1.481295275590551 1.336244094488189 1.569251968503937 
+        1.336244094488189 1.569251968503937 1.336248031496063 1.569248031496063 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.95 1.65 0.950003937007874 1.65 
+        0.95 1.65 0.95 1.649996062992126 
+        0.0 1.610996062992126 3.937007874015748E-6 1.610996062992126 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.95 1.669503937007874 0.950003937007874 1.669503937007874 
+        0.95 1.659751968503937 0.95 1.6154251968503937 
+        0.95 1.65 0.949996062992126 1.65 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.598488188976378 1.34101968503937 1.7448070866141732 1.34101968503937 
+        1.7448070866141732 1.34101968503937 1.75 1.346212598425197 
+        1.75 1.360996062992126 1.75 1.361 
+        1.75 1.360996062992126 1.749996062992126 1.361 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.280507874015748 1.365503937007874 1.3 1.384996062992126 
+        1.3 1.384996062992126 1.300003937007874 1.384992125984252 
+        1.598488188976378 1.34101968503937 1.7448070866141732 1.34101968503937 
+        1.7448070866141732 1.34101968503937 1.7448031496062992 1.341023622047244 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.9 1.0691377952755905 1.899996062992126 1.0691377952755905 
+        1.9 1.0691377952755905 1.9 1.1962125984251968 
+        1.7448070866141732 1.34101968503937 1.7448031496062992 1.341023622047244 
+        1.75 1.346212598425197 1.7448070866141732 1.34101968503937 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.15641732283464566 1.4934645669291338 0.15641732283464566 0.9064173228346457 
+        0.24826377952755904 1.4937637795275591 0.24826771653543306 1.4937637795275591 
+        0.9180590551181103 1.5518149606299212 1.1066259842519686 1.3632480314960629 
+        1.1066259842519686 1.365968503937008 1.1066299212598425 1.365968503937008 
+        1.280507874015748 1.365503937007874 1.3 1.384996062992126 
+        1.3 1.384996062992126 1.300003937007874 1.384992125984252 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.4 1.45 1.399996062992126 1.45 
+        1.4 1.45 1.4 1.450003937007874 
+        0.0 1.515003937007874 -3.937007874015748E-6 1.515003937007874 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.25 1.7 1.250003937007874 1.7 
+        1.25 1.7 1.25 1.699996062992126 
+        0.0 1.655496062992126 3.937007874015748E-6 1.655496062992126 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.75 1.2 1.75 1.199996062992126 
+        1.75 1.2 1.749996062992126 1.2 
+        1.710996062992126 0.0 1.710996062992126 -3.937007874015748E-6 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.24826377952755904 1.4937637795275591 0.24826771653543306 1.4937637795275591 
+        0.15641732283464566 1.4934645669291338 0.15641732283464566 0.9064173228346457 
+        0.15641732283464566 0.9494212598425197 0.15642125984251967 0.9494212598425197 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.05 1.960996062992126 0.05000393700787402 1.961 
+        0.05 1.960996062992126 0.15641732283464566 1.8545787401574803 
+        0.15641732283464566 1.4934645669291338 0.15641732283464566 0.9064173228346457 
+        0.24826377952755904 1.4937637795275591 0.24826771653543306 1.4937637795275591 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.3 1.45 1.300003937007874 1.45 
+        1.3 1.45 1.3 1.449996062992126 
+        0.0 1.384996062992126 3.937007874015748E-6 1.384996062992126 
+      )
+      (net +5V 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.0515 2.25 0.051503937007874014 2.249996062992126 
+        0.0515 2.25 -0.026661417322834644 2.1718385826771653 
+        -0.026661417322834644 2.1718385826771653 -0.026661417322834644 0.8842913385826772 
+        -0.026661417322834644 0.8842913385826772 0.0646259842519685 0.793003937007874 
+        0.0646259842519685 0.793003937007874 0.1 0.793003937007874 
+        0.1 0.793003937007874 0.1 0.793 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.0515 2.25 0.0515 2.2290787401574805 
+        0.05 2.25 0.05000393700787402 2.25 
+        0.08900393700787401 0.0 0.08900393700787401 3.937007874015748E-6 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.05 2.25 0.05 2.250003937007874 
+        0.05 2.25 0.05000393700787402 2.25 
+        0.0515 2.25 0.0515 2.2290787401574805 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.75 1.4 1.749996062992126 1.4 
+        1.75 1.4 1.75 1.6333543307086613 
+        1.75 1.6333543307086613 1.8564094488188976 1.7397637795275591 
+        1.8564094488188976 1.7397637795275591 1.8564133858267717 1.739759842519685 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.75 1.4 1.750003937007874 1.4 
+        1.75 1.4 1.75 1.399996062992126 
+        0.0 1.360996062992126 3.937007874015748E-6 1.360996062992126 
+      )
+      (net +5V 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.9 0.9 1.899996062992126 0.9 
+        1.9 0.9845708661417323 1.9 1.0909094488188977 
+        1.9016181102362204 1.0691377952755905 1.9 1.0691377952755905 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.55 0.889 0.55 0.889007874015748 
+        0.55 0.889007874015748 0.5109921259842519 0.889007874015748 
+        0.389003937007874 1.05 0.389 1.050003937007874 
+        0.350003937007874 1.05 0.35 1.05 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.549996062992126 0.8 0.55 0.8 
+        0.55 0.889 0.55 0.889007874015748 
+        0.55 0.889007874015748 0.550003937007874 0.889007874015748 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.55 0.889 0.55 0.889007874015748 
+        0.55 0.889007874015748 0.550003937007874 0.889007874015748 
+        1.210996062992126 0.9 1.211 0.9000039370078741 
+        1.249996062992126 0.9 1.25 0.9 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.25 0.9 1.25 0.899996062992126 
+        1.25 0.9 1.249996062992126 0.9 
+        1.210996062992126 0.0 1.210996062992126 -3.937007874015748E-6 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.35 2.35 1.35 2.350003937007874 
+        1.35 2.35 1.350003937007874 2.35 
+        1.389003937007874 0.0 1.389003937007874 3.937007874015748E-6 
+      )
+      (net N$8 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.55 2.5 1.55 2.499996062992126 
+        1.55 2.5 1.549996062992126 2.5 
+        1.510996062992126 0.0 1.510996062992126 -3.937007874015748E-6 
+      )
+      (net N$8 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.35 2.35 1.350003937007874 2.35 
+        1.389003937007874 2.3661574803149605 1.389003937007874 2.3661614173228345 
+        1.510996062992126 2.5 1.511 2.500003937007874 
+        1.549996062992126 2.5 1.55 2.5 
+      )
+      (net N$8 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.95 1.669503937007874 0.9796574803149606 1.6398464566929134 
+        0.95 1.65 0.95 1.650003937007874 
+        0.0 1.689003937007874 -3.937007874015748E-6 1.689003937007874 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.15641732283464566 1.4934645669291338 0.15641732283464566 0.9064173228346457 
+        0.1 0.8930039370078741 0.09999606299212599 0.893 
+        0.1 0.850003937007874 0.1 0.85 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.15641732283464566 1.4934645669291338 0.15641732283464566 0.9064173228346457 
+        0.15641732283464566 0.9494212598425197 0.15642125984251967 0.9494212598425197 
+        0.310996062992126 0.85 0.311 0.8499960629921259 
+        0.349996062992126 0.85 0.35 0.85 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.35 0.85 0.35 0.8499960629921259 
+        0.35 0.85 0.349996062992126 0.85 
+        0.310996062992126 0.0 0.310996062992126 -3.937007874015748E-6 
+      )
+      (net +5V 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.1 0.85 0.09999606299212599 0.85 
+        0.1 0.85 0.1 0.850003937007874 
+        0.0 0.8930039370078741 -3.937007874015748E-6 0.8930039370078741 
+      )
+      (net +5V 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.65 0.6 1.65 0.5999960629921259 
+        1.65 0.6 1.649996062992126 0.6 
+        1.5944960629921259 0.0 1.5944960629921259 -3.937007874015748E-6 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.6056259842519685 0.6195 1.6056220472440945 0.6195 
+        1.289003937007874 0.9 1.289 0.9000039370078741 
+        1.289003937007874 0.9 1.289007874015748 0.9 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.65 0.6 1.649996062992126 0.6 
+        1.5944960629921259 0.6 1.594492125984252 0.600003937007874 
+        1.6056259842519685 0.6195 1.6056220472440945 0.6195 
+        1.569503937007874 0.6195 1.5695 0.619496062992126 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.289 0.9000039370078741 1.289003937007874 0.9 
+        1.569503937007874 0.6195 1.5695 0.619496062992126 
+        1.289003937007874 3.937007874015748E-6 1.289003937007874 0.0 
+        1.250003937007874 0.3 1.25 0.3 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.25 0.3 1.25 0.30000393700787403 
+        1.25 0.3 1.250003937007874 0.3 
+        1.289003937007874 0.0 1.289003937007874 3.937007874015748E-6 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.5 1.1175 1.5 1.117503937007874 
+        1.5 1.1175 1.6675 1.1175 
+        1.710996062992126 1.2 1.711 1.200003937007874 
+        1.749996062992126 1.2 1.75 1.2 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.5 1.1175 1.6675 1.1175 
+        1.5 1.15 1.5 1.149996062992126 
+        0.0 1.084996062992126 3.937007874015748E-6 1.084996062992126 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.5 1.15 1.500003937007874 1.15 
+        1.5 1.15 1.5 1.149996062992126 
+        1.5 1.1175 1.6675 1.1175 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.25 0.9 1.25 0.9000039370078741 
+        1.25 0.9 1.250003937007874 0.9 
+        1.289003937007874 0.0 1.289003937007874 3.937007874015748E-6 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.25 0.9 1.250003937007874 0.9 
+        1.289003937007874 0.9 1.289007874015748 0.9000039370078741 
+        1.4709488188976378 1.084996062992126 1.5 1.084996062992126 
+        1.5 1.084996062992126 1.5 1.0849921259842519 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.45 2.3 0.450003937007874 2.3 
+        0.45 2.3 0.45 2.299996062992126 
+        0.0 2.234996062992126 3.937007874015748E-6 2.234996062992126 
+      )
+      (net +5V 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.45 2.234996062992126 0.45 2.234992125984252 
+        0.45 2.234996062992126 0.284507874015748 2.234996062992126 
+        0.284507874015748 2.234996062992126 0.269503937007874 2.25 
+        0.269503937007874 2.25 0.26950787401574805 2.250003937007874 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.05 2.0 0.049996062992125986 2.0 
+        0.05 2.0 0.05 2.000003937007874 
+        0.0 2.039003937007874 -3.937007874015748E-6 2.039003937007874 
+      )
+      (net +5V 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.269503937007874 2.25 0.26950787401574805 2.249996062992126 
+        0.05693307086614173 2.0374291338582675 0.056929133858267714 2.0374251968503936 
+        0.0 2.039003937007874 -3.937007874015748E-6 2.039003937007874 
+        0.05 2.000003937007874 0.05 2.0 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.25 2.25 0.25 2.250003937007874 
+        0.25 2.25 0.250003937007874 2.25 
+        0.269503937007874 2.25 0.269503937007874 2.210992125984252 
+      )
+      (net +5V 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.05 2.0 0.05000393700787402 2.0 
+        0.05 2.0 0.05 1.999996062992126 
+        0.0 1.960996062992126 3.937007874015748E-6 1.960996062992126 
+      )
+      (net +5V 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.8929133858267717 1.6137795275590552 1.8929133858267717 1.6137834645669291 
+        1.8929133858267717 1.6137795275590552 1.8929173228346456 1.6137795275590552 
+        1.9294173228346456 0.0 1.9294173228346456 3.937007874015748E-6 
+      )
+      (net N$19 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.4 0.1 1.399996062992126 0.1 
+        1.4 0.1 1.4 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net N$19 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.4 0.173003937007874 1.399996062992126 0.17300787401574802 
+        1.4 0.173003937007874 1.939007874015748 0.7120118110236221 
+        1.939007874015748 0.7120118110236221 1.939007874015748 1.6041889763779527 
+        1.939007874015748 1.6041889763779527 1.9294173228346456 1.6137795275590552 
+        1.9294173228346456 1.6137795275590552 1.9294212598425198 1.6137834645669291 
+      )
+      (net N$19 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.45 0.6 0.450003937007874 0.6 
+        0.45 0.6 0.45 0.5999960629921259 
+        0.425 0.2637244094488189 0.5584606299212599 0.13026377952755905 
+        0.887 0.14068897637795275 0.887003937007874 0.14068897637795275 
+        1.010996062992126 0.3 1.011 0.30000393700787403 
+        1.049996062992126 0.3 1.05 0.3 
+      )
+      (net VCC 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.1 0.65 0.1 0.6500039370078741 
+        0.1 0.65 0.4 0.65 
+        0.4 0.65 0.45 0.6 
+        0.45 0.6 0.44999606299212597 0.5999960629921259 
+      )
+      (net VCC 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.05 0.3 1.05 0.299996062992126 
+        1.05 0.3 1.049996062992126 0.3 
+        1.010996062992126 0.0 1.010996062992126 -3.937007874015748E-6 
+      )
+      (net VCC 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.5712598425196851 0.25 0.571255905511811 0.25 
+        0.5712598425196851 0.25 0.5712598425196851 0.250003937007874 
+        0.0 0.35751181102362206 -3.937007874015748E-6 0.35751181102362206 
+      )
+      (net N$5 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.65 0.8 0.65 0.799996062992126 
+        0.65 0.8 0.649996062992126 0.8 
+        0.6069960629921259 0.0 0.6069960629921259 -3.937007874015748E-6 
+      )
+      (net N$5 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.5712598425196851 0.25 0.5712598425196851 0.250003937007874 
+        0.5712598425196851 0.35751181102362206 0.571263779527559 0.35751574803149605 
+        0.6069960629921259 0.28573622047244096 0.6069960629921259 0.8 
+        0.6069960629921259 0.8 0.607 0.8 
+      )
+      (net N$5 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.05 0.3 1.049996062992126 0.3 
+        1.05 0.3 1.05 0.6 
+        1.05 0.6 1.050003937007874 0.6 
+      )
+      (net VCC 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.866 2.586220472440945 0.866003937007874 2.586216535433071 
+        0.8207755905511811 2.540996062992126 0.8207716535433071 2.540992125984252 
+        0.8 2.540996062992126 0.8 2.2688346456692914 
+        0.8 2.2688346456692914 0.7661614173228346 2.234996062992126 
+        0.7661614173228346 2.234996062992126 0.7661574803149607 2.235 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.866 2.606996062992126 0.866003937007874 2.606992125984252 
+        0.866 2.606996062992126 0.866 2.606992125984252 
+        1.459515748031496 2.586220472440945 1.4595196850393701 2.586220472440945 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.866 2.606992125984252 0.866 2.606996062992126 
+        1.459515748031496 2.586220472440945 1.4595196850393701 2.586220472440945 
+        1.510996062992126 2.6 1.511 2.600003937007874 
+        1.549996062992126 2.6 1.55 2.6 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.55 2.6 1.55 2.599996062992126 
+        1.55 2.6 1.549996062992126 2.6 
+        1.510996062992126 0.0 1.510996062992126 -3.937007874015748E-6 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.8 2.2688346456692914 0.799996062992126 2.2688307086614175 
+        0.55 2.234996062992126 0.549996062992126 2.234996062992126 
+        0.55 2.234996062992126 0.550003937007874 2.235 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.8 2.2688346456692914 0.799996062992126 2.2688307086614175 
+        0.7661614173228346 2.234996062992126 0.7661653543307086 2.234992125984252 
+        0.9075 2.1613346456692915 0.9075 1.6925 
+        0.95 1.689003937007874 0.950003937007874 1.689 
+        0.95 1.650003937007874 0.95 1.65 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.55 2.3 0.550003937007874 2.3 
+        0.55 2.3 0.55 2.299996062992126 
+        0.0 2.234996062992126 3.937007874015748E-6 2.234996062992126 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.866 2.65 0.866003937007874 2.65 
+        0.866 2.65 0.866 2.649996062992126 
+        0.0 2.606996062992126 3.937007874015748E-6 2.606996062992126 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.55 2.3 0.549996062992126 2.3 
+        0.55 2.3 0.55 2.300003937007874 
+        0.0 2.365003937007874 -3.937007874015748E-6 2.365003937007874 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.55 2.365003937007874 0.55 2.365 
+        0.1674527559055118 2.365003937007874 0.1674488188976378 2.365003937007874 
+        0.08900393700787401 2.25 0.089 2.249996062992126 
+        0.05000393700787402 2.25 0.05 2.25 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.35 1.05 0.35 1.050003937007874 
+        0.35 1.05 0.350003937007874 1.05 
+        0.389003937007874 0.0 0.389003937007874 3.937007874015748E-6 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.35 1.05 0.349996062992126 1.05 
+        0.35 1.05 0.35 1.050003937007874 
+        0.0 1.0890039370078741 -3.937007874015748E-6 1.0890039370078741 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.35 1.05 0.35 1.050003937007874 
+        0.35 1.0890039370078741 0.349996062992126 1.089007874015748 
+        0.23188976377952755 1.1051023622047245 0.23188976377952755 1.2606299212598424 
+        0.23188976377952755 1.2606299212598424 0.23189370078740157 1.2606299212598424 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 1#Top 0.01
+        2.603196850393701 1.0691338582677166 2.603196850393701 1.0691377952755905 
+        1.9016181102362204 1.0691377952755905 1.9 1.0691377952755905 
+        1.9 1.0691377952755905 1.9 1.0691417322834647 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.6 0.1 2.599996062992126 0.1 
+        2.6 0.1 2.6 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net N$32 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.6 0.173003937007874 2.6 0.173 
+        2.6 0.173003937007874 2.599996062992126 0.17300787401574802 
+        2.278740157480315 0.42606692913385824 2.278740157480315 1.5429133858267716 
+        2.278740157480315 1.5429133858267716 2.278744094488189 1.5429133858267716 
+      )
+      (net N$32 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.2 1.45 1.199996062992126 1.45 
+        1.2 1.45 1.2 1.450003937007874 
+        0.0 1.515003937007874 -3.937007874015748E-6 1.515003937007874 
+      )
+      (net RXCAN 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.2 1.515003937007874 1.2 1.515 
+        1.2 1.515003937007874 1.199996062992126 1.515007874015748 
+        1.0 1.6531496062992126 1.0 2.154992125984252 
+        1.0 2.154992125984252 0.9103110236220473 2.244681102362205 
+        0.9103110236220473 2.244681102362205 0.9103110236220473 2.3421968503937007 
+        0.9103110236220473 2.3421968503937007 0.9353700787401574 2.367255905511811 
+        0.9353700787401574 2.367255905511811 1.166287401574803 2.367255905511811 
+        1.166287401574803 2.367255905511811 1.4788188976377952 2.054724409448819 
+        1.4788188976377952 2.054724409448819 1.8929133858267717 2.054724409448819 
+        1.8929133858267717 2.054724409448819 1.8929133858267717 2.0547204724409447 
+      )
+      (net RXCAN 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.9294173228346456 1.928740157480315 1.9294133858267717 1.928740157480315 
+        1.9294173228346456 1.928740157480315 1.9294173228346456 2.2261062992125984 
+        1.9294173228346456 2.2261062992125984 1.7658779527559054 2.3896456692913386 
+        1.7658779527559054 2.3896456692913386 1.4700275590551182 2.3896456692913386 
+        1.4700275590551182 2.3896456692913386 1.3893582677165355 2.308976377952756 
+        1.3893582677165355 2.308976377952756 1.3005708661417323 2.308976377952756 
+        1.3005708661417323 2.308976377952756 1.2242795275590552 2.385267716535433 
+        0.870259842519685 2.385263779527559 0.870255905511811 2.385263779527559 
+        0.870259842519685 2.385263779527559 0.85 2.365003937007874 
+        0.85 2.365003937007874 0.8499960629921259 2.365007874015748 
+      )
+      (net RXD1 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.75 1.65 0.749996062992126 1.65 
+        0.75 1.65 0.75 1.650003937007874 
+        0.0 1.689003937007874 -3.937007874015748E-6 1.689003937007874 
+      )
+      (net N$38 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.85 2.0 0.850003937007874 2.0 
+        0.85 2.0 0.85 1.75 
+        0.75 1.689003937007874 0.749996062992126 1.689 
+        0.75 1.650003937007874 0.75 1.65 
+      )
+      (net N$38 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.25 1.7 1.250003937007874 1.7 
+        1.25 1.6777480314960629 1.25 1.85 
+        1.25 1.85 1.250003937007874 1.85 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.8929133858267717 1.7397637795275591 1.8929133858267717 1.739759842519685 
+        1.8929133858267717 1.7397637795275591 1.8929094488188976 1.7397637795275591 
+        1.8564094488188976 0.0 1.8564094488188976 -3.937007874015748E-6 
+      )
+      (net +5V 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.0 0.1 2.000003937007874 0.1 
+        2.0 0.1 2.0 0.09999606299212599 
+        0.0 0.026996062992125983 3.937007874015748E-6 0.026996062992125983 
+      )
+      (net SCK 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.8 1.15 2.800003937007874 1.15 
+        2.8 1.15 2.8 1.149996062992126 
+        0.0 1.106996062992126 3.937007874015748E-6 1.106996062992126 
+      )
+      (net SCK 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.8 1.106996062992126 2.8 1.107 
+        2.8 1.106996062992126 2.8053740157480314 1.106996062992126 
+        2.8053740157480314 1.106996062992126 2.843200787401575 1.0691692913385826 
+        2.843200787401575 1.0691692913385826 2.843200787401575 0.051 
+        2.843200787401575 0.051 2.81748031496063 0.025279527559055118 
+        2.0 0.026996062992125983 1.999996062992126 0.026996062992125983 
+        2.0 0.026996062992125983 2.000003937007874 0.027 
+      )
+      (net SCK 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 1.6137795275590552 2.5070866141732284 1.613775590551181 
+        2.5070866141732284 1.6137795275590552 2.5070826771653545 1.6137795275590552 
+        2.4705826771653543 0.0 2.4705826771653543 -3.937007874015748E-6 
+      )
+      (net +5V 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.8929133858267717 1.7397637795275591 1.8929133858267717 1.739767716535433 
+        1.8929133858267717 1.7397637795275591 2.344807086614173 1.7397637795275591 
+        2.4705826771653543 1.6137795275590552 2.4705866141732282 1.613775590551181 
+        2.5070826771653545 1.6137795275590552 2.5070866141732284 1.6137795275590552 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 1.645275590551181 2.5070866141732284 1.6452716535433072 
+        2.5070866141732284 1.645275590551181 2.5070826771653545 1.645275590551181 
+        2.4705826771653543 0.0 2.4705826771653543 -3.937007874015748E-6 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 2.086220472440945 2.5070826771653545 2.086220472440945 
+        2.5070866141732284 2.086220472440945 2.5070866141732284 2.7340826771653544 
+        2.5070866141732284 2.7340826771653544 2.75 2.976996062992126 
+        2.75 2.976996062992126 2.750003937007874 2.976992125984252 
+      )
+      (net N$15 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.85 1.590791338582677 2.85 1.55 
+        2.6785433070866143 1.645275590551181 2.4795866141732286 1.645275590551181 
+        2.5070866141732284 1.645275590551181 2.5070866141732284 1.645279527559055 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.5 1.45 1.499996062992126 1.45 
+        1.5 1.45 1.5 1.450003937007874 
+        0.0 1.515003937007874 -3.937007874015748E-6 1.515003937007874 
+      )
+      (net TXCAN 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.95 2.3 0.950003937007874 2.3 
+        0.95 2.3 0.95 2.299996062992126 
+        0.0 2.234996062992126 3.937007874015748E-6 2.234996062992126 
+      )
+      (net TXD1 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.95 2.234996062992126 0.95 2.235 
+        0.9661535433070866 2.234996062992126 0.9661574803149606 2.234996062992126 
+        0.9735393700787401 2.2578464566929135 0.9735433070866142 2.2578425196850396 
+        1.3575708661417323 1.889279527559055 1.3575708661417323 1.6628503937007875 
+        1.3575708661417323 1.6628503937007875 1.45 1.5704212598425198 
+        1.45 1.5704212598425198 1.45 1.418 
+        1.45 1.418 1.4836062992125985 1.3843937007874016 
+        1.4836062992125985 1.3843937007874016 1.518759842519685 1.3843937007874016 
+        1.518759842519685 1.3843937007874016 1.5395905511811023 1.4052244094488189 
+        1.5395905511811023 1.4052244094488189 1.5395905511811023 1.5396181102362205 
+        1.5395905511811023 1.5396181102362205 1.4054921259842519 1.673716535433071 
+        1.4054921259842519 1.673716535433071 1.4054921259842519 1.8684370078740158 
+        1.4054921259842519 1.8684370078740158 1.4972913385826772 1.9602362204724408 
+        1.4972913385826772 1.9602362204724408 1.8929133858267717 1.9602362204724408 
+        1.8929133858267717 1.9602362204724408 1.8929133858267717 1.960232283464567 
+      )
+      (net TXD1 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.8929133858267717 2.0232283464566927 1.8929133858267717 2.0232244094488188 
+        1.8929133858267717 2.0232283464566927 1.5333897637795275 2.0232283464566927 
+        1.5333897637795275 2.0232283464566927 1.387488188976378 1.8773267716535433 
+        1.387488188976378 1.8773267716535433 1.387488188976378 1.6584133858267716 
+        1.387488188976378 1.6584133858267716 1.499996062992126 1.5459055118110236 
+        1.499996062992126 1.5459055118110236 1.499996062992126 1.45 
+        -3.937007874015748E-6 1.515003937007874 0.0 1.515003937007874 
+        1.5 1.450003937007874 1.5 1.45 
+      )
+      (net TXCAN 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.3 1.084996062992126 1.300003937007874 1.0849921259842519 
+        1.3 1.084996062992126 1.165003937007874 0.95 
+        1.165003937007874 0.95 0.7 0.95 
+        0.7 0.95 0.7 0.950003937007874 
+      )
+      (net N$51 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.95 3.05 2.950003937007874 3.05 
+        2.95 3.05 2.95 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$17 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 2.0232283464566927 2.5070866141732284 2.023232283464567 
+        2.5070866141732284 2.0232283464566927 2.5070905511811024 2.0232283464566927 
+        2.5435905511811026 0.0 2.5435905511811026 3.937007874015748E-6 
+      )
+      (net N$17 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5435905511811026 2.0232283464566927 2.543586614173228 2.023232283464567 
+        2.5435905511811026 2.0232283464566927 2.56159842519685 2.041236220472441 
+        2.56159842519685 2.041236220472441 2.56159842519685 2.656791338582677 
+        2.95 2.976996062992126 2.950003937007874 2.977 
+        2.95 2.976996062992126 2.95 2.976992125984252 
+      )
+      (net N$17 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5435905511811026 1.928740157480315 2.543586614173228 1.928744094488189 
+        2.5435905511811026 1.928740157480315 2.631334645669291 2.016484251968504 
+        2.631334645669291 2.6043346456692915 2.631334645669291 2.6043385826771654 
+        2.6313307086614173 2.6043346456692915 2.926996062992126 2.9 
+        2.926996062992126 2.9 2.927 2.899996062992126 
+      )
+      (net N$20 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.85 1.55 2.850003937007874 1.55 
+        2.85 1.55 2.85 1.549996062992126 
+        0.0 1.510996062992126 3.937007874015748E-6 1.510996062992126 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.7 1.25 2.699996062992126 1.25 
+        2.7 1.25 2.7 1.4 
+        2.85 1.510996062992126 2.850003937007874 1.511 
+        2.85 1.549996062992126 2.85 1.55 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.829724409448819 1.645275590551181 2.829728346456693 1.645275590551181 
+        2.85 1.590791338582677 2.85 1.55 
+        2.85 1.55 2.849996062992126 1.55 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.85 1.7 2.850003937007874 1.699996062992126 
+        2.85 1.590791338582677 2.85 1.55 
+        2.829724409448819 1.645275590551181 2.829728346456693 1.645275590551181 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.65 3.05 2.650003937007874 3.05 
+        2.65 3.05 2.65 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$14 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.436220472440945 2.1570866141732283 2.4362165354330707 2.1570866141732283 
+        2.436220472440945 2.1570866141732283 2.436220472440945 2.831413385826772 
+        2.65 2.976996062992126 2.650003937007874 2.977 
+        2.65 2.976996062992126 2.65 2.976992125984252 
+      )
+      (net N$14 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.65 1.55 2.65 1.549996062992126 
+        2.65 1.55 2.649996062992126 1.55 
+        2.610996062992126 0.0 2.610996062992126 -3.937007874015748E-6 
+      )
+      (net +5V 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 1.6137795275590552 2.5070866141732284 1.613775590551181 
+        2.5435944881889765 1.6137795275590552 2.586220472440945 1.6137795275590552 
+        2.610996062992126 1.55 2.611 1.549996062992126 
+        2.649996062992126 1.55 2.65 1.55 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.8 0.1 1.799996062992126 0.1 
+        1.8 0.1 1.8 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net N$22 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.8 0.173003937007874 1.8 0.17300787401574802 
+        1.8 0.173003937007874 1.800003937007874 0.17300787401574802 
+        2.058267716535433 0.3630748031496063 2.058267716535433 1.5429133858267716 
+        2.058267716535433 1.5429133858267716 2.058271653543307 1.5429133858267716 
+      )
+      (net N$22 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.026771653543307 1.5429133858267716 2.026775590551181 1.5429133858267716 
+        2.026771653543307 1.5429133858267716 2.026771653543307 0.4997755905511811 
+        2.026771653543307 0.4997755905511811 1.7 0.173003937007874 
+        1.7 0.173003937007874 1.699996062992126 0.17300787401574802 
+      )
+      (net N$40 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.8929133858267717 1.834251968503937 1.8929133858267717 1.834248031496063 
+        1.8929133858267717 1.834251968503937 1.710748031496063 1.834251968503937 
+        1.6661811023622046 1.8788188976377953 1.65 1.895 
+        1.65 1.895 1.650003937007874 1.895003937007874 
+      )
+      (net N$1 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.45 1.85 1.45 1.850003937007874 
+        1.45 1.85 1.450003937007874 1.85 
+        1.494503937007874 0.0 1.494503937007874 3.937007874015748E-6 
+      )
+      (net N$1 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.65 1.895 1.65 1.894996062992126 
+        1.65 1.895 1.495 1.895 
+        1.494503937007874 1.85 1.4945 1.849996062992126 
+        1.450003937007874 1.85 1.45 1.85 
+      )
+      (net N$1 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.65 1.705 1.649996062992126 1.705003937007874 
+        1.65 1.705 1.747755905511811 1.802755905511811 
+        1.747755905511811 1.802755905511811 1.8929133858267717 1.802755905511811 
+        1.8929133858267717 1.802755905511811 1.8929133858267717 1.802751968503937 
+      )
+      (net N$2 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.45 1.7 1.450003937007874 1.7 
+        1.4945 1.699996062992126 1.494503937007874 1.7 
+        1.574751968503937 1.705 1.6840590551181103 1.705 
+        1.65 1.705003937007874 1.65 1.705 
+      )
+      (net N$2 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.45 1.7 1.45 1.700003937007874 
+        1.45 1.7 1.450003937007874 1.7 
+        1.494503937007874 0.0 1.494503937007874 3.937007874015748E-6 
+      )
+      (net N$2 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.3 1.15 1.300003937007874 1.15 
+        1.3 1.15 1.3 1.149996062992126 
+        0.0 1.084996062992126 3.937007874015748E-6 1.084996062992126 
+      )
+      (net N$51 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.692 0.95 0.692 0.950003937007874 
+        0.696 0.95 1.0171811023622048 0.95 
+        0.7 0.95 0.7 0.949996062992126 
+      )
+      (net N$51 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.35 1.3787401574803149 0.349996062992126 1.378744094488189 
+        0.35 1.3787401574803149 0.37825590551181104 1.4069960629921259 
+        0.37825590551181104 1.4069960629921259 0.8 1.4069960629921259 
+        0.8 1.4069960629921259 0.8 1.406992125984252 
+      )
+      (net N$52 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.23188582677165354 1.2606299212598424 0.23188976377952755 1.2606299212598424 
+        0.23188976377952755 1.3196850393700787 0.23188976377952755 1.9554055118110236 
+        0.23189370078740157 1.3787401574803149 0.23188976377952755 1.3787401574803149 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.7 1.05 2.7 1.049996062992126 
+        2.7 1.05 2.6223346456692913 1.05 
+        2.6223346456692913 1.05 2.603196850393701 1.0691377952755905 
+        2.603196850393701 1.0691377952755905 2.603200787401575 1.0691417322834647 
+      )
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.8 1.25 2.8 1.249996062992126 
+        2.8 1.25 2.799996062992126 1.25 
+        2.756996062992126 0.0 2.756996062992126 -3.937007874015748E-6 
+      )
+      (net RESET 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.756996062992126 1.25 2.757 1.25 
+        2.756996062992126 1.25 2.756996062992126 1.2446259842519685 
+        2.756996062992126 1.2446259842519685 2.7192125984251967 1.2068425196850394 
+        2.7192125984251967 1.2068425196850394 2.6796535433070865 1.2068425196850394 
+        2.6796535433070865 1.2068425196850394 2.46240157480315 1.4240944881889763 
+        2.46240157480315 1.4240944881889763 2.46240157480315 1.572271653543307 
+        2.46240157480315 1.572271653543307 2.3264055118110236 1.708267716535433 
+        2.3264055118110236 1.708267716535433 1.8929133858267717 1.708267716535433 
+        1.8929133858267717 1.708267716535433 1.8929133858267717 1.7082716535433071 
+      )
+      (net RESET 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.1 0.75 0.09999606299212599 0.75 
+        0.1 0.75 0.1 0.750003937007874 
+        0.0 0.793003937007874 -3.937007874015748E-6 0.793003937007874 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.85 2.3 0.8499960629921259 2.3 
+        0.85 2.3 0.85 2.300003937007874 
+        0.0 2.365003937007874 -3.937007874015748E-6 2.365003937007874 
+      )
+      (net RXD1 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.8929133858267717 1.928740157480315 1.8929133858267717 1.928744094488189 
+        1.8929133858267717 1.928740157480315 1.8929173228346456 1.928740157480315 
+        1.9294173228346456 0.0 1.9294173228346456 3.937007874015748E-6 
+      )
+      (net RXD1 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.0 0.173003937007874 2.0 0.17300787401574802 
+        2.0 0.173003937007874 2.000003937007874 0.17300787401574802 
+        2.121259842519685 0.9185905511811023 2.121259842519685 1.5704133858267717 
+        2.121259842519685 1.5429133858267716 2.121263779527559 1.5429133858267716 
+      )
+      (net SCK 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 1.928740157480315 2.5070866141732284 1.928744094488189 
+        2.5070866141732284 1.928740157480315 2.5070905511811024 1.928740157480315 
+        2.5435905511811026 0.0 2.5435905511811026 3.937007874015748E-6 
+      )
+      (net N$20 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        3.0 2.9 3.0 2.899996062992126 
+        3.0 2.9 2.999996062992126 2.9 
+        2.926996062992126 0.0 2.926996062992126 -3.937007874015748E-6 
+      )
+      (net N$20 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5435905511811026 1.897244094488189 2.543586614173228 1.897248031496063 
+        2.5435905511811026 1.897244094488189 2.7742007874015746 2.1278543307086615 
+        2.7742007874015746 2.1278543307086615 2.7742007874015746 2.6472047244094488 
+        2.7742007874015746 2.6472047244094488 2.926996062992126 2.8 
+        2.926996062992126 2.8 2.927 2.799996062992126 
+      )
+      (net N$44 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 2.054724409448819 2.5070866141732284 2.054728346456693 
+        2.5070866141732284 2.054724409448819 2.5070905511811024 2.054724409448819 
+        2.5435905511811026 0.0 2.5435905511811026 3.937007874015748E-6 
+      )
+      (net N$16 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.85 3.05 2.850003937007874 3.05 
+        2.85 3.05 2.85 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$16 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.85 2.976996062992126 2.85 2.976992125984252 
+        2.85 2.976996062992126 2.849996062992126 2.976992125984252 
+        2.5435905511811026 3.937007874015748E-6 2.5435905511811026 0.0 
+        2.5070905511811024 2.054724409448819 2.5070866141732284 2.054724409448819 
+      )
+      (net N$16 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.506996062992126 0.8 0.506996062992126 0.799996062992126 
+        0.506996062992126 0.8 0.10699606299212598 0.8 
+        0.10699606299212598 0.8 0.1 0.793003937007874 
+        0.1 0.793003937007874 0.09999606299212599 0.793007874015748 
+      )
+      (net PE 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.55 0.8 0.55 0.799996062992126 
+        0.55 0.8 0.549996062992126 0.8 
+        0.506996062992126 0.0 0.506996062992126 -3.937007874015748E-6 
+      )
+      (net PE 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.55 2.0 0.549996062992126 2.0 
+        0.55 2.0 0.55 2.000003937007874 
+        0.0 2.065003937007874 -3.937007874015748E-6 2.065003937007874 
+      )
+      (net N$41 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.25 2.0 0.25 2.000003937007874 
+        0.25 2.0 0.250003937007874 2.0 
+        0.289003937007874 0.0 0.289003937007874 3.937007874015748E-6 
+      )
+      (net N$41 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.289003937007874 2.0 0.289 2.000003937007874 
+        0.289003937007874 2.0 0.3540511811023622 2.065047244094488 
+        0.55 2.065003937007874 0.550003937007874 2.065003937007874 
+        0.55 2.065003937007874 0.549996062992126 2.065 
+      )
+      (net N$41 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.25 3.05 2.250003937007874 3.05 
+        2.25 3.05 2.25 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$9 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.310236220472441 2.1570866141732283 2.310232283464567 2.1570866141732283 
+        2.310236220472441 2.1570866141732283 2.310236220472441 2.9849566929133857 
+        2.25 2.976996062992126 2.249996062992126 2.977 
+        2.25 2.976996062992126 2.25 2.977 
+      )
+      (net N$9 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.35 3.05 2.350003937007874 3.05 
+        2.35 3.05 2.35 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$11 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.341732283464567 2.1570866141732283 2.341728346456693 2.1570866141732283 
+        2.341732283464567 2.1570866141732283 2.341732283464567 3.041732283464567 
+        2.35 2.976996062992126 2.350003937007874 2.977 
+        2.35 3.049996062992126 2.35 3.05 
+      )
+      (net N$11 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.45 3.05 2.450003937007874 3.05 
+        2.45 3.05 2.45 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$12 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.373228346456693 2.1570866141732283 2.373224409448819 2.1570866141732283 
+        2.373228346456693 2.1570866141732283 2.373228346456693 2.9684212598425197 
+        2.45 2.976996062992126 2.450003937007874 2.977 
+        2.45 2.976996062992126 2.45 2.976992125984252 
+      )
+      (net N$12 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.4047244094488187 2.1570866141732283 2.404720472440945 2.1570866141732283 
+        2.4047244094488187 2.1570866141732283 2.4047244094488187 2.831720472440945 
+        2.4047244094488187 2.831720472440945 2.55 2.976996062992126 
+        2.55 2.976996062992126 2.550003937007874 2.976992125984252 
+      )
+      (net N$13 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.55 3.05 2.550003937007874 3.05 
+        2.55 3.05 2.55 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$13 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.75 3.05 2.750003937007874 3.05 
+        2.75 3.05 2.75 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$15 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.65 1.7 2.65 1.699996062992126 
+        2.65 1.7 2.649996062992126 1.7 
+        2.610996062992126 0.0 2.610996062992126 -3.937007874015748E-6 
+      )
+      (net N$10 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 1.676771653543307 2.5070866141732284 1.6767755905511812 
+        2.5070866141732284 1.676771653543307 2.626771653543307 1.676771653543307 
+        2.610996062992126 1.7 2.611 1.700003937007874 
+        2.649996062992126 1.7 2.65 1.7 
+      )
+      (net N$10 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.1 3.05 2.100003937007874 3.05 
+        2.1 3.05 2.1 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$29 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.1 2.976996062992126 2.1 2.977 
+        2.1 2.976996062992126 2.100003937007874 2.976992125984252 
+        2.247244094488189 2.8979488188976377 2.247244094488189 2.1570866141732283 
+        2.247244094488189 2.1570866141732283 2.247240157480315 2.1570866141732283 
+      )
+      (net N$29 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.0 2.976996062992126 2.000003937007874 2.977 
+        2.0 2.976996062992126 2.215748031496063 2.761248031496063 
+        2.215748031496063 2.761248031496063 2.215748031496063 2.1570866141732283 
+        2.215748031496063 2.1570866141732283 2.2157440944881888 2.1570866141732283 
+      )
+      (net N$28 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.0 3.05 2.000003937007874 3.05 
+        2.0 3.05 2.0 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$28 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.9 2.976996062992126 1.900003937007874 2.977 
+        1.9 2.976996062992126 2.184251968503937 2.692744094488189 
+        2.184251968503937 2.692744094488189 2.184251968503937 2.1570866141732283 
+        2.184251968503937 2.1570866141732283 2.184248031496063 2.1570866141732283 
+      )
+      (net N$27 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.9 3.05 1.900003937007874 3.05 
+        1.9 3.05 1.9 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$27 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.8 2.976996062992126 1.800003937007874 2.977 
+        1.8 2.976996062992126 2.152755905511811 2.624240157480315 
+        2.152755905511811 2.624240157480315 2.152755905511811 2.1570866141732283 
+        2.152755905511811 2.1570866141732283 2.152751968503937 2.1570866141732283 
+      )
+      (net N$26 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.8 3.05 1.800003937007874 3.05 
+        1.8 3.05 1.8 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$26 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.7 3.05 1.700003937007874 3.05 
+        1.7 3.05 1.7 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$25 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.7 2.976996062992126 1.7 2.977 
+        1.7 2.976996062992126 1.700003937007874 2.976992125984252 
+        2.121259842519685 2.623933070866142 2.121259842519685 2.1570866141732283 
+        2.121259842519685 2.1570866141732283 2.121255905511811 2.1570866141732283 
+      )
+      (net N$25 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.6 3.05 1.600003937007874 3.05 
+        1.6 3.05 1.6 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$24 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.6 2.976996062992126 1.6 2.977 
+        1.6 2.976996062992126 1.600003937007874 2.976992125984252 
+        2.089763779527559 2.5554291338582678 2.089763779527559 2.1570866141732283 
+        2.089763779527559 2.1570866141732283 2.089759842519685 2.1570866141732283 
+      )
+      (net N$24 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.5 2.976996062992126 1.500003937007874 2.977 
+        1.5 2.976996062992126 2.058267716535433 2.418728346456693 
+        2.058267716535433 2.418728346456693 2.058267716535433 2.1570866141732283 
+        2.058267716535433 2.1570866141732283 2.058263779527559 2.1570866141732283 
+      )
+      (net N$23 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.5 3.05 1.500003937007874 3.05 
+        1.5 3.05 1.5 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$23 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.4 2.976996062992126 1.400003937007874 2.977 
+        1.4 2.976996062992126 2.026771653543307 2.3502244094488187 
+        2.026771653543307 2.3502244094488187 2.026771653543307 2.1570866141732283 
+        2.026771653543307 2.1570866141732283 2.026767716535433 2.1570866141732283 
+      )
+      (net N$7 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.4 3.05 1.400003937007874 3.05 
+        1.4 3.05 1.4 3.049996062992126 
+        0.0 2.976996062992126 3.937007874015748E-6 2.976996062992126 
+      )
+      (net N$7 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.5 0.1 1.499996062992126 0.1 
+        1.5 0.1 1.5 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net N$18 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.5 0.173003937007874 1.5 0.17300787401574802 
+        1.5 0.173003937007874 1.500003937007874 0.17300787401574802 
+        1.963779527559055 0.5685866141732283 1.963779527559055 1.5429133858267716 
+        1.963779527559055 1.5429133858267716 1.9637834645669292 1.5429133858267716 
+      )
+      (net N$18 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.6 0.1 1.599996062992126 0.1 
+        1.6 0.1 1.6 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net N$46 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.6 0.173003937007874 1.6 0.17300787401574802 
+        1.6 0.173003937007874 1.600003937007874 0.17300787401574802 
+        1.9952755905511812 0.5000826771653544 1.9952755905511812 1.5429133858267716 
+        1.9952755905511812 1.5429133858267716 1.9952795275590551 1.5429133858267716 
+      )
+      (net N$46 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.7 0.1 1.699996062992126 0.1 
+        1.7 0.1 1.7 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net N$40 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.9 0.1 1.899996062992126 0.1 
+        1.9 0.1 1.9 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net N$47 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.9 0.173003937007874 1.9 0.17300787401574802 
+        1.9 0.173003937007874 1.900003937007874 0.17300787401574802 
+        2.089763779527559 0.2945708661417323 2.089763779527559 1.5429133858267716 
+        2.089763779527559 1.5429133858267716 2.089767716535433 1.5429133858267716 
+      )
+      (net N$47 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.0 0.1 1.999996062992126 0.1 
+        2.0 0.1 2.0 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net SCK 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.1 0.1 2.099996062992126 0.1 
+        2.1 0.1 2.1 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net N$45 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.1 0.173003937007874 2.1 0.17300787401574802 
+        2.1 0.173003937007874 2.100003937007874 0.17300787401574802 
+        2.152755905511811 0.15756299212598426 2.152755905511811 1.5429133858267716 
+        2.152755905511811 1.5429133858267716 2.152759842519685 1.5429133858267716 
+      )
+      (net N$45 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.3 0.1 2.299996062992126 0.1 
+        2.3 0.1 2.3 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net N$3 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.3 0.173003937007874 2.3 0.173 
+        2.3 0.173003937007874 2.299996062992126 0.17300787401574802 
+        2.184251968503937 0.22055511811023623 2.184251968503937 1.5429133858267716 
+        2.184251968503937 1.5429133858267716 2.184255905511811 1.5429133858267716 
+      )
+      (net N$3 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.4 0.1 2.399996062992126 0.1 
+        2.4 0.1 2.4 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net N$30 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.4 0.173003937007874 2.4 0.173 
+        2.4 0.173003937007874 2.399996062992126 0.17300787401574802 
+        2.215748031496063 0.28905905511811025 2.215748031496063 1.5429133858267716 
+        2.215748031496063 1.5429133858267716 2.215751968503937 1.5429133858267716 
+      )
+      (net N$30 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5 0.1 2.499996062992126 0.1 
+        2.5 0.1 2.5 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net N$31 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5 0.173003937007874 2.5 0.173 
+        2.5 0.173003937007874 2.499996062992126 0.17300787401574802 
+        2.247244094488189 0.35756299212598425 2.247244094488189 1.5429133858267716 
+        2.247244094488189 1.5429133858267716 2.247248031496063 1.5429133858267716 
+      )
+      (net N$31 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.7 0.1 2.699996062992126 0.1 
+        2.7 0.1 2.7 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net N$34 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.7 0.173003937007874 2.7 0.173 
+        2.7 0.173003937007874 2.699996062992126 0.17300787401574802 
+        2.310236220472441 0.4945708661417323 2.310236220472441 1.5429133858267716 
+        2.310236220472441 1.5429133858267716 2.310240157480315 1.5429133858267716 
+      )
+      (net N$34 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.8 0.173003937007874 2.799996062992126 0.173 
+        2.8 0.173003937007874 2.341732283464567 0.631271653543307 
+        2.341732283464567 0.631271653543307 2.341732283464567 1.5429133858267716 
+        2.341732283464567 1.5429133858267716 2.341736220472441 1.5429133858267716 
+      )
+      (net N$42 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.8 0.1 2.799996062992126 0.1 
+        2.8 0.1 2.8 0.10000393700787402 
+        0.0 0.173003937007874 -3.937007874015748E-6 0.173003937007874 
+      )
+      (net N$42 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.8 1.45 0.800003937007874 1.45 
+        0.8 1.45 0.8 1.449996062992126 
+        0.0 1.4069960629921259 3.937007874015748E-6 1.4069960629921259 
+      )
+      (net N$52 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.4 1.15 1.399996062992126 1.15 
+        1.4 1.15 1.4 1.150003937007874 
+        0.0 1.215003937007874 -3.937007874015748E-6 1.215003937007874 
+      )
+      (net N$52 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.8 1.45 0.8 1.449996062992126 
+        0.0 1.4069960629921259 3.937007874015748E-6 1.4069960629921259 
+        0.8 1.45 1.034996062992126 1.215003937007874 
+        1.034996062992126 1.215003937007874 1.4 1.215003937007874 
+        1.4 1.215003937007874 1.4 1.215 
+      )
+      (net N$52 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 1.708267716535433 2.5070866141732284 1.7082716535433071 
+        2.5070866141732284 1.708267716535433 2.5070905511811024 1.708267716535433 
+        2.5435905511811026 0.0 2.5435905511811026 3.937007874015748E-6 
+      )
+      (net N$56 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        3.0 2.2 3.000003937007874 2.2 
+        3.0 2.2 3.0 2.164677165354331 
+        3.0 2.164677165354331 2.5435905511811026 1.708267716535433 
+        2.5435905511811026 1.708267716535433 2.543586614173228 1.7082716535433071 
+      )
+      (net N$56 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        3.0 2.3 3.0 2.299996062992126 
+        3.0 2.3 2.999996062992126 2.3 
+        2.926996062992126 0.0 2.926996062992126 -3.937007874015748E-6 
+      )
+      (net N$55 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 1.7397637795275591 2.5070866141732284 1.739767716535433 
+        2.5070866141732284 1.7397637795275591 2.5070905511811024 1.7397637795275591 
+        2.5435905511811026 0.0 2.5435905511811026 3.937007874015748E-6 
+      )
+      (net N$55 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.926996062992126 2.3 2.927 2.3 
+        2.926996062992126 2.226996062992126 2.926996062992126 2.123169291338583 
+        2.926996062992126 2.123169291338583 2.5435905511811026 1.7397637795275591 
+        2.5435905511811026 1.7397637795275591 2.543586614173228 1.739767716535433 
+      )
+      (net N$55 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.926996062992126 2.4 2.927 2.399996062992126 
+        2.926996062992126 2.4 2.908992125984252 2.381996062992126 
+        2.908992125984252 2.1366653543307086 2.908992125984252 2.1366614173228347 
+        2.908996062992126 2.1366653543307086 2.5435905511811026 1.771259842519685 
+        2.5435905511811026 1.771259842519685 2.543586614173228 1.771263779527559 
+      )
+      (net N$54 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        3.0 2.4 3.0 2.399996062992126 
+        3.0 2.4 2.999996062992126 2.4 
+        2.926996062992126 0.0 2.926996062992126 -3.937007874015748E-6 
+      )
+      (net N$54 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 1.771259842519685 2.5070866141732284 1.771263779527559 
+        2.5070866141732284 1.771259842519685 2.5070905511811024 1.771259842519685 
+        2.5435905511811026 0.0 2.5435905511811026 3.937007874015748E-6 
+      )
+      (net N$54 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.926996062992126 2.5 2.927 2.499996062992126 
+        2.926996062992126 2.5 2.8652322834645667 2.438236220472441 
+        2.8652322834645667 2.438236220472441 2.8652322834645667 2.124397637795276 
+        2.8652322834645667 2.124397637795276 2.5435905511811026 1.802755905511811 
+        2.5435905511811026 1.802755905511811 2.543586614173228 1.8027598425196851 
+      )
+      (net N$53 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        3.0 2.5 3.0 2.499996062992126 
+        3.0 2.5 2.999996062992126 2.5 
+        2.926996062992126 0.0 2.926996062992126 -3.937007874015748E-6 
+      )
+      (net N$53 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 1.802755905511811 2.5070866141732284 1.8027598425196851 
+        2.5070866141732284 1.802755905511811 2.5070905511811024 1.802755905511811 
+        2.5435905511811026 0.0 2.5435905511811026 3.937007874015748E-6 
+      )
+      (net N$53 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.926996062992126 2.6 2.927 2.599996062992126 
+        2.926996062992126 2.6 2.8363582677165353 2.5093622047244093 
+        2.8363582677165353 2.5093622047244093 2.8363582677165353 2.12701968503937 
+        2.8363582677165353 2.12701968503937 2.5435905511811026 1.834251968503937 
+        2.5435905511811026 1.834251968503937 2.543586614173228 1.834255905511811 
+      )
+      (net N$49 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        3.0 2.6 3.0 2.599996062992126 
+        3.0 2.6 2.999996062992126 2.6 
+        2.926996062992126 0.0 2.926996062992126 -3.937007874015748E-6 
+      )
+      (net N$49 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 1.834251968503937 2.5070866141732284 1.834255905511811 
+        2.5070866141732284 1.834251968503937 2.5070905511811024 1.834251968503937 
+        2.5435905511811026 0.0 2.5435905511811026 3.937007874015748E-6 
+      )
+      (net N$49 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.926996062992126 2.7 2.927 2.699996062992126 
+        2.926996062992126 2.7 2.8025472440944883 2.5755511811023624 
+        2.8025472440944883 2.5755511811023624 2.8025472440944883 2.124704724409449 
+        2.8025472440944883 2.124704724409449 2.5435905511811026 1.865748031496063 
+        2.5435905511811026 1.865748031496063 2.543586614173228 1.865751968503937 
+      )
+      (net N$48 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        3.0 2.7 3.0 2.699996062992126 
+        3.0 2.7 2.999996062992126 2.7 
+        2.926996062992126 0.0 2.926996062992126 -3.937007874015748E-6 
+      )
+      (net N$48 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 1.865748031496063 2.5070866141732284 1.865751968503937 
+        2.5070866141732284 1.865748031496063 2.5070905511811024 1.865748031496063 
+        2.5435905511811026 0.0 2.5435905511811026 3.937007874015748E-6 
+      )
+      (net N$48 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        3.0 2.8 3.0 2.799996062992126 
+        3.0 2.8 2.999996062992126 2.8 
+        2.926996062992126 0.0 2.926996062992126 -3.937007874015748E-6 
+      )
+      (net N$44 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.5070866141732284 1.897244094488189 2.5070866141732284 1.897248031496063 
+        2.5070866141732284 1.897244094488189 2.5070905511811024 1.897244094488189 
+        2.5435905511811026 0.0 2.5435905511811026 3.937007874015748E-6 
+      )
+      (net N$44 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.45 2.0 0.450003937007874 2.000003937007874 
+        0.45 1.8920590551181102 0.45 1.85 
+        0.45 1.85 0.44999606299212597 1.85 
+      )
+      (net N$35 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.45 1.65 0.44999606299212597 1.65 
+        0.45 1.65 0.45 1.650003937007874 
+        0.0 1.689003937007874 -3.937007874015748E-6 1.689003937007874 
+      )
+      (net N$36 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.65 2.0 0.6500039370078741 2.0 
+        0.65 2.0 0.65 1.85 
+        0.45 1.689003937007874 0.44999606299212597 1.689 
+        0.45 1.650003937007874 0.45 1.65 
+      )
+      (net N$36 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.75 2.0 0.750003937007874 2.0 
+        0.75 1.934992125984252 0.75 1.85 
+        0.75 1.85 0.749996062992126 1.85 
+      )
+      (net N$37 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.95 2.0 0.950003937007874 2.0 
+        0.95 1.934992125984252 0.95 1.85 
+        0.95 1.85 0.949996062992126 1.85 
+      )
+      (net N$39 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.8 1.05 2.8 1.049996062992126 
+        2.8 1.05 2.799996062992126 1.05 
+        2.756996062992126 0.0 2.756996062992126 -3.937007874015748E-6 
+      )
+      (net MISO 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.756996062992126 1.05 2.756992125984252 1.05 
+        2.756996062992126 1.05 2.756996062992126 1.0930039370078741 
+        2.7193740157480315 1.0930039370078741 2.7193700787401576 1.093007874015748 
+        2.756996062992126 1.0930039370078741 2.695771653543307 1.0930039370078741 
+        2.695771653543307 1.0930039370078741 2.373228346456693 1.4155472440944883 
+        2.373228346456693 1.4155472440944883 2.373228346456693 1.5429133858267716 
+        2.373228346456693 1.5429133858267716 2.3732322834645667 1.5429133858267716 
+      )
+      (net MISO 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.7 1.15 2.699996062992126 1.149996062992126 
+        2.7 1.15 2.404728346456693 1.445271653543307 
+        2.404728346456693 1.445271653543307 2.404728346456693 1.5064094488188977 
+        2.404728346456693 1.5064094488188977 2.4047244094488187 1.5064094488188977 
+        2.4047244094488187 1.5064094488188977 2.4047244094488187 1.5064133858267716 
+      )
+      (net MOSI 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        2.4047244094488187 1.5429133858267716 2.404728346456693 1.5429133858267716 
+        2.4047244094488187 1.5429133858267716 2.4047244094488187 1.5429094488188977 
+        0.0 1.5064094488188977 3.937007874015748E-6 1.5064094488188977 
+      )
+      (net MOSI 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.692 0.95 0.692 0.950003937007874 
+        0.7 0.95 0.699996062992126 0.95 
+        0.660996062992126 0.0 0.660996062992126 -3.937007874015748E-6 
+      )
+      (net N$51 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.7 1.35 0.7 1.350003937007874 
+        0.7 1.35 0.8 1.35 
+        0.8 1.35 0.8 1.349996062992126 
+      )
+      (net N$50 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.5 0.9 1.5 0.899996062992126 
+        1.5 0.9 1.35 0.9 
+        1.35 0.9 1.35 0.9000039370078741 
+      )
+      (net N$6 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.8929133858267717 2.086220472440945 1.8929133858267717 2.086216535433071 
+        1.8929133858267717 2.086220472440945 1.8929094488188976 2.086220472440945 
+        1.8564094488188976 0.0 1.8564094488188976 -3.937007874015748E-6 
+      )
+      (net N$43 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.75 2.35 1.750003937007874 2.35 
+        1.75 2.35 1.75 2.349996062992126 
+        0.0 2.310996062992126 3.937007874015748E-6 2.310996062992126 
+      )
+      (net N$43 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        1.75 2.310996062992126 1.750003937007874 2.311 
+        1.75 2.310996062992126 1.8929133858267717 2.1680826771653545 
+        1.8564094488188976 2.1680826771653545 1.8564094488188976 2.086220472440945 
+        1.8564094488188976 2.086220472440945 1.8564055118110236 2.086220472440945 
+      )
+      (net N$43 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.6925196850393701 0.25 0.6925157480314961 0.25 
+        0.6925196850393701 0.25 0.6925196850393701 0.44251968503937006 
+        0.6925196850393701 0.44251968503937006 0.85 0.6 
+        0.85 0.6 0.850003937007874 0.5999960629921259 
+      )
+      (net N$4 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.35 1.2606299212598424 0.35 1.2606338582677166 
+        0.38900787401574805 1.2606299212598424 0.3893700787401575 1.2606299212598424 
+        0.660996062992126 0.95 0.661 0.949996062992126 
+        0.699996062992126 0.95 0.7 0.95 
+      )
+      (net N$51 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.65 2.3 0.649996062992126 2.3 
+        0.65 2.3 0.65 2.300003937007874 
+        0.0 2.365003937007874 -3.937007874015748E-6 2.365003937007874 
+      )
+      (net N$33 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.542 2.65 0.542003937007874 2.65 
+        0.542 2.65 0.542 2.4111496062992126 
+        0.65 2.365003937007874 0.6500039370078741 2.365 
+        0.65 2.365003937007874 0.65 2.365 
+      )
+      (net N$33 1)
+      (clearance_class default)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.75 2.3 0.749996062992126 2.3 
+        0.75 2.3 0.75 2.300003937007874 
+        0.0 2.365003937007874 -3.937007874015748E-6 2.365003937007874 
+      )
+      (net N$21 1)
+      (clearance_class default)
+      (type shove_fixed)
+    )
+    (wire
+      (polyline_path 16#Bottom 0.01
+        0.65 2.65 0.6500039370078741 2.65 
+        0.65 2.65 0.65 2.4031496062992126 
+        0.75 2.365003937007874 0.750003937007874 2.365 
+        0.75 2.365003937007874 0.75 2.365 
+      )
+      (net N$21 1)
+      (clearance_class default)
+    )
+    (via Round1$0.024000 2.603196850393701 1.0691377952755905
+      (net +5V 1)
+      (clearance_class default)
+    )
+    (via Round1$0.024000 1.9 1.0691377952755905
+      (net +5V 1)
+      (clearance_class default)
+    )
+  )
+)

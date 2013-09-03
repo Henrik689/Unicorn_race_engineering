@@ -1,0 +1,10 @@
+(Old)
+Sensor:		Connector:
+Green		Yellow
+White		Brown
+Brown		Green
+
+(New)
+Green		Yellow
+White		Brown
+Brown		White

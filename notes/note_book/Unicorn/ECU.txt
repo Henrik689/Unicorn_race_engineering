@@ -1,0 +1,10 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2011-08-19T14:41:37+02:00
+
+====== ECU ======
+Created Friday 19 August 2011
+
+TODO: @ECU
+[ ] Find ud af on konvertering af vand temperatur er rigtigt !!!
+

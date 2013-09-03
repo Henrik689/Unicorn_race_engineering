@@ -1,0 +1,28 @@
+Bosch stike:
+PIN 1: Ref, hvid
+PIN 2: BITE, gul
+PIN 3: 12 V, rød
+PIN 4: OutDRS, grøn
+PIN 5: OutBS, blå
+PIN 6: GND, sort
+
+Samler board:
+venstre side, forsyning og to sensor
+højre side 3x adc til MCU
+_____________________
+
+12 V in		
+GND		5V
+_________	Ref
+		GND
+12 V out	___	
+-	
+Ref		5V
+ACC		ACC
+YAW		GND
+GND		___
+
+		5V
+		YAW
+		GND
+_____________________

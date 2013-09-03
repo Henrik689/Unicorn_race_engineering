@@ -1,0 +1,1 @@
+Buildrooten installeres i linux og der køres kun versionstyring på de mappper som ligger i package

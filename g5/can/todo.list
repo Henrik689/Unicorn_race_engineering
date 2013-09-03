@@ -1,0 +1,23 @@
+AT90CAN128 / Casper
+	- Can indbygget
+	- Kan den bruges? Skal vi se efter evt nyere version
+		- Ja, den kan bruges
+			- CAN-bootloader, meget smart!!
+			- Der findes eksempler
+			- 150kr pr stk, ok pris
+	- Basic system konstrueres, der findes muligvis noget
+ 
+Beagle-Board / Christian og Casper
+	- Er det, det vi skal have?
+	- Hvad kan den?
+	- Hvad kan den ikke?
+	- Hvordan med CAN?
+	- Hvordan med Input/output
+
+Trådløs kommunikation / Christian
+	- Christian finder info
+	- Christian kender det allerede lidt
+	- Christian spørger Claus pænt om at vi får 100 eller bare 4
+
+
+

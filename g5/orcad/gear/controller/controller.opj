@@ -1,0 +1,76 @@
+(ExpressProject "controller"
+  (ProjectVersion "19981106")
+  (ProjectType "PCB")
+  (Folder "Design Resources"
+    (Folder "Library"
+      (File "z:\unicorn\orcad\lib\unicorn.olb"
+        (Type "Schematic Library")))
+    (NoModify)
+    (File ".\controller.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    ("Create Allegro Netlist" "TRUE")
+    ("Allegro Netlist Directory" "allegro")
+    ("View Allegro Netlist Files" "FALSE")
+    ("Update Allegro Board" "TRUE")
+    ("Allegro Netlist Input Board File"
+       "Z:\Unicorn\orcad\gear\controller\controller_pcb.brd")
+    ("Allegro Netlist Output Board File" "allegro\controller.brd")
+    ("Allegro Netlist Remove Etch" "FALSE")
+    ("Allegro Netlist Place Changed Component" "ALWAYS_REPLACE")
+    ("Allegro Netlist Open Board in Allegro" "ALLEGRO")
+    ("Allegro Setup Configuration File"
+       "Z:\programmer\orcad162\tools\capture\allegro.cfg")
+    ("Allegro Setup Backup Versions" "3")
+    ("Allegro Netlist Combine Property String" "PCB Footprint")
+    ("Allegro Netlist Ignore Fixed Property" "FALSE")
+    ("Allegro Netlist User Defined Property" "FALSE")
+    (Netlist_TAB "0"))
+  (Folder "Outputs"
+    (File ".\allegro\pstxnet.dat"
+      (Type "Report")
+      (DisplayName "pstxnet.dat"))
+    (File ".\allegro\pstxprt.dat"
+      (Type "Report")
+      (DisplayName "pstxprt.dat"))
+    (File ".\allegro\pstchip.dat"
+      (Type "Report")
+      (DisplayName "pstchip.dat")))
+  (Folder "Referenced Projects")
+  (PartMRUSelector
+    (CRYSTAL
+      (FullPartName "CRYSTAL.Normal")
+      (LibraryName "Z:\PROGRAMMER\ORCAD162\TOOLS\CAPTURE\LIBRARY\DISCRETE.OLB")
+      (DeviceIndex "0"))
+    (AT90CAN128
+      (FullPartName "AT90CAN128.Normal")
+      (LibraryName "Z:\UNICORN\ORCAD\LIB\UNICORN.OLB")
+      (DeviceIndex "0"))
+    (RESISTOR
+      (FullPartName "RESISTOR.Normal")
+      (LibraryName "Z:\PROGRAMMER\ORCAD162\TOOLS\CAPTURE\LIBRARY\DISCRETE.OLB")
+      (DeviceIndex "0")))
+  (LastUsedLibraryBrowseDirectory
+     "Z:\programmer\orcad162\tools\capture\library")
+  (ISPCBBASICLICENSE "false")
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources"
+         "L:\uni\unicorn\orcad\gear\controller\controller.dsn")
+      (Path "Design Resources"
+         "L:\uni\unicorn\orcad\gear\controller\controller.dsn" "SCHEMATIC1")
+      (Path "Design Resources"
+         "L:\uni\unicorn\orcad\gear\controller\controller.dsn" "Design Cache")
+      (Path "Design Resources" "Library")
+      (Path "Outputs")
+      (Select "Design Resources"
+         "L:\uni\unicorn\orcad\gear\controller\controller.dsn"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 -8 -28 0 200 0 312"))
+      (Tab 0)))
+  (MPSSessionName "Cmo"))

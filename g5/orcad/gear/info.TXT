@@ -1,0 +1,7 @@
+Kobling:
+	Kraft: 41kg
+	Vandring: 13mm
+
+Gear:
+	Kraft: 10kg
+	Vandring: 15mm

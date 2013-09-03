@@ -1,0 +1,25 @@
+FFJ Oversigt over genveje
+
+Page up / down  = 0.5% hvor motoren er
+Space           = drej 3D 90 deg
+Shift+pile      = markere
+Shift + enter   = Filtere
+K               = Faktor på markerede/alt
++               = tillæg/add til makerede/alt
+<->             = fratræk fra markerede/alt
+L               = priner til PCX sort/hvid fil
+U               = opdater filer
+Q               = quit til hovedmenu
+A               = vinkel 3D
+H               = hold stjerner 
+E               = exporter fra denne tabel
+I               = importer til denne tabel
+F1              = Luftmængdemåler / Benzin
+F2              = Potmeter/Benzin
+F3              = Tænding
+F4              = Rullefelt
+F5              = EGAS
+F10             = Lamda on/off
+D               = tabeller PC -> ECU
+N               = Navn på promfil
+C               = compare promfil

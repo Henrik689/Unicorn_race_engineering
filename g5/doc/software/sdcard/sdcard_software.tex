@@ -1,0 +1,11 @@
+\section{Sdkort software}
+
+\subsection{PC}
+Til at dekode data på sdkortet findes der et program i \textit{/car\_software/g5/pc} der hedder sd\_log\_2\_csv.py. Programmet kaldes med:
+\\
+python sd\_log\_2\_csv.py fileToConvert
+\\
+Resultatet bliver gemt i en csv fil med navnet fileToConvert.csv
+
+\subsection{Bil}
+Til at skrive til sdkortet på node1 bruges der kode, til et fat filsystem og low level interfacing, fundet på hjemmesiden http://elm-chan.org/fsw/ff/00index\_e.html \citep{chan}.

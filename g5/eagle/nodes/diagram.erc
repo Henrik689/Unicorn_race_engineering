@@ -1,0 +1,21 @@
+EAGLE Version 4.16r2 Copyright (c) 1988-2006 CadSoft
+
+Electrical Rule Check for /home/jeppejp/eagle/generic_node/diagram.sch at 10/15/2008 11:30:44 
+
+WARNING: Sheet 1/1: POWER Pin QG1 VCC connected to +3V3
+WARNING: Sheet 1/1, Net N$9: missing Junction at (-1 2.4)
+WARNING: Sheet 1/1, Net +3V3: missing Junction at (3.2 4)
+WARNING: Sheet 1/1, Net GND: missing Junction at (1.5 3.7)
+WARNING: Sheet 1/1, Net GND: missing Junction at (3.2 3.6)
+WARNING: Sheet 1/1, Net N$37: missing Junction at (4.9 -0.2)
+WARNING: Sheet 1/1, Net N$38: missing Junction at (5.9 0.8)
+WARNING: Sheet 1/1, Net N$38: missing Junction at (6.3 0.8)
+WARNING: Sheet 1/1, Net N$39: missing Junction at (4.9 0.2)
+WARNING: Sheet 1/1, Net N$40: missing Junction at (4.9 -0.6)
+WARNING: Sheet 1/1, Net N$41: missing Junction at (5.9 1.3)
+WARNING: Sheet 1/1, Net N$42: missing Junction at (5.9 0.4)
+
+Board and schematic are consistent
+
+    0 errors
+   12 warnings

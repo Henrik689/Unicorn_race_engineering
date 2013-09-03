@@ -1,0 +1,71 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Buff	main.c	/^BYTE Buff[1024];			\/* Working buffer *\/$/;"	v
+CanDataIndex	isr.c	/^uint8_t CanDataIndex = 0;$/;"	v
+CanSendData	isr.c	/^uint8_t CanSendData[8];$/;"	v
+Drives	main.c	/^const PARTITION Drives[] = { {0,0}, {0,1} };$/;"	v
+EcuCommError	error.c	/^U8 EcuCommError = 0;$/;"	v
+EcuData	ecu.c	/^uint8_t EcuData[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,$/;"	v
+EcuErrorTmp	error.c	/^U8 EcuErrorTmp = 0;$/;"	v
+Fatfs	main.c	/^FATFS Fatfs[1];				\/* File system object for each logical drive *\/$/;"	v
+Finfo	log.c	/^FILINFO Finfo;$/;"	v
+Finfo	main.c	/^FILINFO Finfo;$/;"	v
+ID_TAG_BASE	main.c	24;"	d	file:
+ISR	can.c	/^ISR(CANIT_vect)$/;"	f
+ISR	isr.c	/^ISR(TIMER0_COMP_vect)$/;"	f
+ISR	isr.c	/^ISR(USART0_RX_vect)$/;"	f
+ISR	isr.c	/^ISR(USART1_UDRE_vect)$/;"	f
+ISR	main.c	/^ISR(TIMER2_COMP_vect)$/;"	f
+IoInit	main.c	/^void IoInit ()$/;"	f	file:
+Lfname	log.c	/^char Lfname[_MAX_LFN+1];$/;"	v
+Lfname	main.c	/^char Lfname[_MAX_LFN+1];$/;"	v
+NB_TARGET	main.c	23;"	d	file:
+RecCanSend	isr.c	/^uint8_t RecCanSend = 0;$/;"	v
+RecCount	isr.c	/^uint8_t RecCount = 1;$/;"	v
+RecIndex	isr.c	/^int RecIndex = 0;	\/\/ Bruges til at tælle hvor mange bytes der er modtaget fra ECU'en$/;"	v
+RecJ	isr.c	/^uint8_t RecJ = 0;$/;"	v
+RecToSd	isr.c	/^uint8_t RecToSd = 0;$/;"	v
+RecXbeeSend	isr.c	/^uint8_t RecXbeeSend = 0;$/;"	v
+SdIdNum	isr.c	/^uint8_t SdIdNum = 0;$/;"	v
+Timer	main.c	/^volatile WORD Timer;		\/* 100Hz increment timer *\/$/;"	v
+USART0_Transmit	uart.c	/^void USART0_Transmit( unsigned char txData )$/;"	f
+USART1_Transmit	uart.c	/^void USART1_Transmit( unsigned char txData )$/;"	f
+USART_set_baud_rate	uart.c	/^void USART_set_baud_rate(double baudrate0, double baudrate1)$/;"	f
+acc_dirs	main.c	/^WORD acc_files, acc_dirs;$/;"	v
+acc_files	main.c	/^WORD acc_files, acc_dirs;$/;"	v
+acc_size	main.c	/^DWORD acc_size;				\/* Work register for fs command *\/$/;"	v
+canDataTest	test_vars.c	/^volatile char canDataTest[8];$/;"	v
+can_config_rx_mailbox	can.c	/^uint8_t can_config_rx_mailbox(st_cmd_t* msg, uint8_t count)$/;"	f
+can_send_non_blocking	can.c	/^uint8_t can_send_non_blocking(uint8_t msg_id, void* buf, uint8_t dlc)$/;"	f
+can_update_rx_msg	can.c	/^uint8_t can_update_rx_msg(st_cmd_t* msg, uint8_t msg_id, uint8_t dlc)$/;"	f
+ecu_data_handler	ecu.c	/^void ecu_data_handler( void )$/;"	f
+ecu_val_to_xbee	ecu.c	/^void ecu_val_to_xbee(uint8_t i, uint8_t j)$/;"	f
+get_fattime	main.c	/^DWORD get_fattime ()$/;"	f
+get_free_log_number	log.c	/^int get_free_log_number( DIR *dir )$/;"	f
+main	main.c	/^int main (void)$/;"	f
+nextId	isr.c	/^volatile uint8_t nextId = 0;$/;"	v
+sd_buf1_head	log.c	/^uint8_t sd_buf1_head = 0;$/;"	v
+sd_buf2_head	log.c	/^uint8_t sd_buf2_head = 0;$/;"	v
+sd_buf_in_use	log.c	/^uint8_t sd_buf_in_use = 1;$/;"	v
+sd_buf_write	log.c	/^uint8_t sd_buf_write = 0;$/;"	v
+sd_data_buf1	log.c	/^uint8_t sd_data_buf1[SD_BUF_SIZE];$/;"	v
+sd_data_buf2	log.c	/^uint8_t sd_data_buf2[SD_BUF_SIZE];$/;"	v
+sd_log_check	log.c	/^uint8_t sd_log_check(FIL *fp)$/;"	f
+sd_log_write	log.c	/^uint8_t sd_log_write(uint8_t *data, uint8_t len)$/;"	f
+tIntReg	test_vars.c	/^int tIntReg = 0;$/;"	v
+testvar	isr.c	/^int testvar = 0;	\/\/ Tmp var for at køre TIMER0_COMP_vect langsommere$/;"	v
+tx_remote_msg	can.c	/^st_cmd_t tx_remote_msg;$/;"	v
+uart1_put	uart.c	/^void uart1_put(uint8_t d)$/;"	f
+uart1_puts	uart.c	/^void uart1_puts(const char *s)$/;"	f
+uart_get	uart.c	/^uint8_t uart_get ()$/;"	f
+uart_init	uart.c	/^void uart_init()$/;"	f
+uart_put	uart.c	/^void uart_put(uint8_t d)$/;"	f
+uart_put_test	uart.c	/^void uart_put_test( uint8_t device, uint8_t d)$/;"	f
+uart_puts	uart.c	/^void uart_puts(const char *s)$/;"	f
+xbee_send_trigger	comm.c	/^void xbee_send_trigger( void )$/;"	f
+xbee_sending	isr.c	/^volatile uint8_t xbee_sending = 0;$/;"	v
+xbee_seq_index	comm.c	/^volatile uint8_t xbee_seq_index=0;$/;"	v

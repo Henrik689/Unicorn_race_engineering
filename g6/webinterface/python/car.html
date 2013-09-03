@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+
+ $(document).ready(function() {
+ 	 $("#data").load("http://127.0.0.1:9999/data.xml");
+   /*var refreshId = setInterval(function() {
+   	  $.ajax({
+   	  	url: 'http://127.0.0.1:9999/data.xml?randval='+ Math.random(),
+   	  	type: "GET",
+   	  	dataType: "xml",
+   	  	succes: function(result) {
+   	  		$("#data").load(result)}
+   }, 100000000);});
+   $.ajaxSetup({ cache: false });
+*/
+});
+/*
+$.get("http://127.0.0.1/data.xml", function(data) {
+	$("#data").html(data);});
+*/
+</script>
+</head>
+<body>
+<table>
+<tr><td>Speed:</td><td><div id="speed"></div></tr>
+<tr><td>Force:</td><td><div id="force"></div></tr>
+<tr><td>Heading:</td><td><div id="heading"></div></tr>
+</table>
+<div id="data"> </div>
+</body>
+</html>

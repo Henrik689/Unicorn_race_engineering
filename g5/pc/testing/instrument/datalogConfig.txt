@@ -1,0 +1,2 @@
+/home/cmo/lager/Uni/Unicorn/datalogs/
+/dev/ttyUSB0

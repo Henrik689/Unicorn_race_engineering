@@ -1,0 +1,43 @@
+Partlist
+
+Exported from node2.sch at 2/22/11 3:48 PM
+
+EAGLE Version 5.11.0 Copyright (c) 1988-2010 CadSoft
+
+Part         Value               Device              Package       Library        Sheet
+
+C1           22pF                C5/2.5              C5B2.5        capacitor-wima 1     c
+C2           22pF                C5/2.5              C5B2.5        capacitor-wima 1     c
+C3           330uF               CPOL-EUE15-5AXIAL   E15-5         rcl            1     c
+C5           100nF               C-EUC0603K          C0603K        rcl            1     c
+C6           100nF               C-EUC0603K          C0603K        rcl            1     c
+C13          100nF               C-EUC0603K          C0603K        rcl            1     c
+C19          100nF               C-EUC0603K          C0603K        rcl            1     c
+D1           GF1B-E3/5CA         DIODE-GF1           GF1           diode          1     f
+D2           GF1B-E3/5CA         DIODE-GF1           GF1           diode          1     f
+I2C-TEST                         PINHD-1X3           1X03          pinhead        1     c
+IC2          MEGA128-A           MEGA128-A           TQFP64        atmel          1     l
+IC3          PCA82C250T          PCA82C250T          SO8           micro-philips  1     c
+IC4          74HC00D             74HC00D             SO14          74xx-eu        1     f
+JP1                              PINHD-1X2           1X02          pinhead        1     c
+JP6                              M02-JST-2MM-SMT     S2B-PH        unicorn_v2     1     f
+KNAPPER                          PINHD-1X4           1X04          pinhead        1     c
+LED1         GREEN               LEDSMT1206          1206          led            1     f
+LED2         GREEN               LEDSMT1206          1206          led            1     f
+LED3         GREEN               LEDSMT1206          1206          led            1     f
+POWER_SUPPLY                     PINHD-1X2           1X02          pinhead        1     c
+PROGRAM_IN                       PINHD-2X3           2X03          pinhead        1     c
+Q1           18.4320 MHz         CRYSTALHC49U70      HC49U70       crystal        1     l
+R1           120                 R-EU_R0603          R0603         resistor       1     c
+R2           200                 R-EU_R0603          R0603         rcl            1     c
+R3           10k                 R-EU_R0603          R0603         rcl            1     c
+R4           10k                 R-EU_R0603          R0603         rcl            1     c
+R5           10k                 R-EU_R0603          R0603         rcl            1     c
+R6           10k                 R-EU_R0603          R0603         rcl            1     c
+R7           200                 R-EU_R0603          R0603         rcl            1     c
+R8           200                 R-EU_R0603          R0603         rcl            1     c
+U$1          MICROFIT4           MICROFIT4           MICROFIT4SOCK UNICORN        1     l
+U$4          M06                 M06                 S6B_PH        unicorn_v2     1     f
+U$5          M04                 M04                 S4B-PH        unicorn_v2     1     f
+U$6          TLV1117_VOLTAGE_REG TLV1117_VOLTAGE_REG SOT-232       unicorn_v2     1     f
+UART1                            PINHD-1X3           1X03          pinhead        1     c

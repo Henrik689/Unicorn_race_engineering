@@ -1,0 +1,42 @@
+Fejlsøgningsliste i tilfælde af at bilen ikke starter. Allier jer evt med Steffen eller Morten K
+
+Det vigtigste er at have tålmodighed. Ingen drastiske ændringer i ledningsnettet, medmindre i har snakket med mig først!
+Jeg kan ikke se nogen grund til at den ikke skulle være let at starte, men skulle det være tilfældet at den ikke virker, og i ikke kan finde nogen umiddelbar fejl, så enten ring til fartstrup eller vent på mig. 
+Det duer ikke at ledningsnettet er klippet og sprættet, hvis jeg kommer hjem og den ikke kan starte. Så må i bide den uge i jer, og gøre klar til england, .  
+
+
+Allerførst, så tjekker i lige status inde i hovedmenuen på motorstyringen. Der skal være udslag på lambda/afr, vandtemperatur, lufttemperatur, og på potentiometer/throttle.
+                                                                                                                                                 
+
+1.
+Tjek at tændrører gnister og at benzin pumpen kører(I kan høre om benzinpumpen kører)
+  1A. Tjek at ECU kører med IBM computeren. Hvis ikke ECU'en kører, så tjek stel, 12V forsyning(pin37), ignition(pin27) og konstant 12V(pin18). Husk at tænde for kontakterne. ElMorten og jeg har testet dette, så dette trin burde ikke være aktuelt 
+  1B. Ingen gnist. Tjek at dyserne får 12V på den lyserøde ledning, og mål ud at der er de rigtige forbindelser ned til ECU.
+  1C. Benzinpumpe kører ikke. Tjek forbindelser fra relæ til stel, 12V, ECU og til pumpen. Hvis forbindelser er i orden, kan relæet evt udskiftes. 
+ 
+2. Ingen gnist, og ingen udslag på RPM i status i hovedmenuen på ECU, når i cranker/kører på starteren
+  2A. Tjek forbindelser til VR(Krumtap) og Hallgiveren(Knast)
+      Der findes en hemmelig menu hvor motorstyringen bliver til et scop, vist nok en af F-tasterne, det kan i evt prøve.
+      
+3. Der er gnist, benzinpumpen kører, men bilen starter ikke.
+  3A. Allier jer med Steffen eller Morten, og prøv forsigtigt at løsne banjobolten på dysebroen. Prøv herefter at cranke motoren, hvis der ikke kommer benzin og pumpen kører, er der byttet om på plus og minus på pumpen.
+  3B. Mål på stikket i dyserne at de får 12V og der er de rigtige forbindelser til motorstyringen.
+  
+Det var de mest basic problemer i kan løbe ind i. Nu øger vi lige indsatsen lidt..
+
+4. Der er gnist, benzinpumpen kører, dyserne sprøjter benzin, og bilen kan evt prutte/skyde en gang i mellem.
+  4A. Tændingen står forkert. Dette kan skyldes flere ting
+      4A.1  Der kan være indlæst forkerte tabeller i motorstyringen. Start IBM op i dos og skriv g3. Når den spørger, så læs data fra PC til ECU. Husk at ændre MAP sensoren inde i sensor indstillinger.
+      4A.2  Tændingsrækkefølgen er forkert. ECU->Sensor instillinger-> Krumtap og knast trigger setup. Punktet dyser og tændspoleforbindelser ændres så står 1&1 2&2, 4&4 3&3. Mener det er korrekt, men ikke helt sikker. Husk hvad der stod og gå fra at tallene før & er rigtige, og ændrer de andre tal, så de matcher parvis. LAD VÆRE at ændre i ledningsnettet for at ændre rækkefølgen, det bliver et helvede at fejlsøge på, og hvis det jeg lige har beskrevet ikke hjælper er det IKKE fejlen. 
+      4A.3  Tændingen står forkert. Dette kan skyldes at ledningerne i VR-signalet(krumtap) vender forkert i stikket. Prøv at bytte ledningerne, hvis det ikke virker, så sæt dem tilbage hvor de var..
+      4A.4  Allier jer med Steffen eller Morten og prøv at tjekke tændingen med tændingpistolen.
+            I skal bruge Top Dead Center for motoren. Det er det punkt hvor stempel 1 er i top. Steffen og Morten kan hjælpe med at finde det. Den lette løsning er at skrue tændrøret af på cylinder 1, tage en skruetrækker der kan nå stemplet og så mærke hvornår stemplet er i top. Når stemplet er i top, så laves et mærke på remhjulet til kompressoren(Ved krumtappen), og et tilsvarende mærke på dækslet bag remhjulet. Med det kender i 0 punktet for tændingen. Find tændingspistolen, tag tændrøret ud af en spolerne og sæt en lednings i mellem. Tændrørets bund lægges til stel og tændingspistolen sættes på ledningen mellem spole og tændrør(Klemmen skal vende rigtigt). Lys på mærkene i har lavet og hvis tændingen står rigtigt, så skal mærket på remhjulet ramme 5-40grader før.   Hvis i trykker F3 kan i aflæse hvad tændingen bør være ved crank-rpm
+            Hvis tændingen ikke rammer det forventede, så kig punkt 4A.3
+            Hvis tændingen stadig står forkert, så prøv for sjov at ændre på punkt I og C i ECU->Sensor instillinger-> Krumtap og knast trigger setup, så det forventede antal grader nogenlunde passer på remhjulet. Husk de gamle indstillinger!
+            
+
+Hvis den stadig ikke starter, så mål alt ud i ledningsnettet som går til ECU. 
+
+Hvis den stadig er genstridig så må i enten ringe til Fartstrup 40503012 eller prøve at skrive en mail til mig. Jeg vil igen pointere på det kraftigste at jeg vil sætte stor pris på at i ikke begynder at klippe og ændre i ledningsnettet uden i har snakket med mig, for hvis jeg skal fejlsøge, når jeg kommer hjem, så bliver det langt sværere, hvis der er ændret på tingene.. Og det mener jeg fanme!          
+            
+           

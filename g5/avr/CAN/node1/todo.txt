@@ -1,0 +1,32 @@
+------------------------------- SD-KORT ----------------------------------------
+- Lav funktion til at bestemme hvad filnavn for log skal være baseret på hvad 
+  for nogle logs der allerede eksistere på kortet.		-- DONE --
+- Lav funktion til at logge ønskede værdier til kortet.		-- IGANG --
+- På lidt længere sigt kunne det være fedt at få lavet det sådan at man kan 
+  starte koden i enden log-mode eller setup-mode hvor der skal være mulighed for
+  at se filer der er på kortet og slette dem. Det skal også laves sådan at det
+  er muligt at hente logfilerne ned på en computer over den trådløse
+  forbindelse.
+
+--------------------------------- RTC ------------------------------------------
+- Når det nye board kommer skal der laves kode til at snakke med RTC chippen.
+
+--------------------------------- CAN ------------------------------------------
+- Rydde op i eksisterende kode og sikre at de grundlæggende funktioner virker
+  som de skal.
+- Få lavet noget kode der gør det muligt at tilføje flere bord uden at der skal
+  ændres en masse for at få dem ind i systemet.
+
+--------------------------------- Trådløs protokol -----------------------------
+- Tilføje bit der angiver om log til sd-kort kører til eksisterende protokol 
+  inden torsdag							-- IGANG --
+- Ændre protokolen og modtager programmet så det bliver muligt at sende pakker
+  med forskellig længde og indhold.
+- Få lavet en protokol til når systemet er i setup mode. Det skal blandet andet
+  være muligt at browse SD-kortet og hente filer ned så der er nok en del
+  arbejde i det.
+
+-----------------------------------  GUI ---------------------------------------
+- Der skal lægges en plan for noget gui. Det kunne være fedt at få lavet noget
+  hvor det er muligt at se filerne på SD-kortet og hente dem ned på computeren.
+  Det skal også være muligt at se da live når bilen kører.
