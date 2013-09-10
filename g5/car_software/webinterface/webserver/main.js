@@ -1,7 +1,6 @@
 console.log("Starting program");
 var bb = require('../bonescript');
 var fs = require('fs');
-var process = require('process');
 var serialport = require('serialport');
 var io = require('socket.io');
 var dataType = require('./sensor_config');
