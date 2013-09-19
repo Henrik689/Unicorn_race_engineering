@@ -5,6 +5,7 @@ var serialport = require('serialport');
 var io = require('socket.io');
 var dataType = require('./sensor_config');
 require('./server_files/server_functions');
+var db = require("./db");
 
 // Serial port
 var SerialPort = serialport.SerialPort; // localize object constructor
@@ -25,6 +26,9 @@ var valOut = 0;
 var dataTx = [];
 var dataCounter = 0;
 var dataType_active = {};
+
+var sensors = [];
+var numSensors = 0;
 
 // Client lists (socket connections)
 var clientSocketList = [];
@@ -91,7 +95,7 @@ var onconnect = function(socket) {
     // On client disconnect
     socket.on('disconnect', function() {
 		delete clientSocketList[socket.id];
-		delete clientSocketListID[socket.id];		
+		delete clientSocketListID[socket.id];
 		console.log("\n############################################################################");
 		console.log("\nClient disconnected ["+Object.size(clientSocketListID)+"]");
 		console.log("\n############################################################################");
@@ -114,7 +118,7 @@ var newdata = function(data){
 	for(var i=0; i<datain.length; i++){
 		var currByte = datain[i]; // the current byte in the stream
 
-		//console.log("("+currByte+")");	
+		//console.log("("+currByte+")");
 		
 		// Search data pack. start sequence, if found then next byte is a type
 		if((package_start_counter === 0) && (currByte === startSequence[0]))
@@ -131,7 +135,7 @@ var newdata = function(data){
 		if (package_start){	
 		
 			// Reset
-			package_start = false;			
+			package_start = false;
 			bytesToRead = -1;
 			valOut = 0;
 			
@@ -159,29 +163,31 @@ var newdata = function(data){
 			var name = dataType[dataTypeKey].name;
 			var  value = dataType[dataTypeKey].conv(valOut);
 			value = Math.min(value, dataType[dataTypeKey].max);
-			value = Math.max(value, dataType[dataTypeKey].min);	
+			value = Math.max(value, dataType[dataTypeKey].min);
 
-			var dataPackage = {
+			var sensor = {
 				name: name,
-				val: value
+				val: value,
+				timestamp: new Date().getTime()
 			};
+			sensors[numSensors++] = sensor;
 		
 			// Store the bytes
-			if(dataType[dataTypeKey].active === 1){	
+			if(dataType[dataTypeKey].active === 1){
 				// Add to data pack
-				dataTx[dataCounter++] = dataPackage;
-				//console.log("ID:\t"+dataType[dataTypeKey].ID+"\tType:\t"+nameTerm+"\tData:\t"+value);	
+				dataTx[dataCounter++] = sensor;
+				//console.log("ID:\t"+dataType[dataTypeKey].ID+"\tType:\t"+nameTerm+"\tData:\t"+value);
 			}
 			
 			// Reset
-			bytesToRead = -1;	
+			bytesToRead = -1;
 			valOut = 0;
 			
 			// Next data byte ?
-			dataTypeKey = getDataType(dataType,currByte);	
+			dataTypeKey = getDataType(dataType,currByte);
 			// Valid ?
 			if(dataTypeKey !== -1){ 
-				bytesToRead = (dataType[dataTypeKey].datalength/8);				
+				bytesToRead = (dataType[dataTypeKey].datalength/8);
 			}
 			 // No more data, transmit fetched data to client
 			 // Pak data her, og kald dataTx
@@ -191,6 +197,11 @@ var newdata = function(data){
 				txData(dataTx);
 				dataCounter = 0;
 				dataTx = [];
+
+				// flush all collected data to db
+				db.sensor.insert(sensors);
+				sensors = [];
+				numSensors = 0;
 			}
 
 		}
@@ -211,14 +222,14 @@ if(FROMFILE == 1){
 						storedData[index+2],storedData[index+3],
 						storedData[index+4],storedData[index+5]);
 
-		newdata(tmp);	
+		newdata(tmp);
 		
 		// Increase data index (from file)
-		index = index + 6;		
+		index = index + 6;
 		if(index >= datalen)
-			index = 0;	
+			index = 0;
 			
-		setTimeout(newStoredData, delay);	
+		setTimeout(newStoredData, delay);
 	};
 
 	fs.readFile('server_files/data.txt', function(err,datatmp){
@@ -228,7 +239,7 @@ if(FROMFILE == 1){
 		}
 		storedData = datatmp;
 		datalen = storedData.length;
-		setTimeout(newStoredData, delay);	
+		setTimeout(newStoredData, delay);
 	});
 }
 //##############################################################################
