@@ -18,17 +18,17 @@ var sp = new SerialPort(port, {
 
 // Global vars
 var dataTypeKey = -1;
-var package_start = new Boolean(false);
+var package_start = false;
 var package_start_counter = 0;
 var bytesToRead = -1;
 var valOut = 0;
-var dataTx = Array();
+var dataTx = [];
 var dataCounter = 0;
 var dataType_active = {};
 
 // Client lists (socket connections)
-var clientSocketList = Array();
-var clientSocketListID  = Array();
+var clientSocketList = [];
+var clientSocketListID  = [];
 
 // FROMFILE (data from stored file)
 var FROMFILE = 0;
@@ -109,68 +109,67 @@ var newdata = function(data){
 	
 	// Data from serialport
 	var datain = data;
+	var startSequence = [255, 123, 10];
 
-	for(var i=0;i<datain.length;i++){
+	for(var i=0; i<datain.length; i++){
+		var currByte = datain[i]; // the current byte in the stream
 
-		tmp = datain[i];
-
-		//console.log("("+tmp+")");	
+		//console.log("("+currByte+")");	
 		
 		// Search data pack. start sequence, if found then next byte is a type
-		if((package_start_counter == 0) && (tmp == 255))
+		if((package_start_counter === 0) && (currByte === startSequence[0]))
 			package_start_counter = 1;
-		else if((package_start_counter == 1) && (tmp == 123))
+		else if((package_start_counter === 1) && (currByte === startSequence[1]))
 			package_start_counter = 2;
-		else if((package_start_counter == 2) && (tmp == 10)){
+		else if((package_start_counter === 2) && (currByte === startSequence[2])){
 			package_start_counter = 0;
-			package_start = 1;
+			package_start = true;
 			continue;
 		}
 				
 		// Packet start found, get packet ID
-		if (package_start == 1){	
+		if (package_start){	
 		
 			// Reset
-			package_start = 0;			
+			package_start = false;			
 			bytesToRead = -1;
 			valOut = 0;
 			
-			dataTypeKey = getDataType(dataType,tmp);
+			dataTypeKey = getDataType(dataType,currByte);
 			
 			// Valid data type found
-			if(dataTypeKey != -1){		
+			if(dataTypeKey !== -1){		
 				bytesToRead = (dataType[dataTypeKey].datalength/8); // Bytes to read
 			}
 			else
-				console.log("Invalid data (ID: "+tmp+")");
+				console.log("Invalid data (ID: "+currByte+")");
 			continue;
 		}			
 		
 		// Data bytes 
 		if(bytesToRead > 0){	
-			valOut = valOut + (tmp << (8*(bytesToRead-1)));	// Shift bytes
+			valOut = valOut + (currByte << (8*(bytesToRead-1)));	// Shift bytes
 			bytesToRead -= 1; // Databyte counter
 			continue;
 		}	
 	
 		// No more data bytes, 
-		if(bytesToRead == 0){			
+		if(bytesToRead === 0){
+			var nameTerm = dataType[dataTypeKey].name.rpad(" ", 10); // Dette skal ikke ske
+			var name = dataType[dataTypeKey].name;
+			var  value = dataType[dataTypeKey].conv(valOut);
+			value = Math.min(value, dataType[dataTypeKey].max);
+			value = Math.max(value, dataType[dataTypeKey].min);	
+
+			var dataPackage = {
+				name: name,
+				val: value
+			};
 		
 			// Store the bytes
-			if(dataType[dataTypeKey].active == 1)
-			{
-				var nameTerm = dataType[dataTypeKey].name.rpad(" ", 10); // Dette skal ikke ske
-				var name = dataType[dataTypeKey].name;
-				var  value = dataType[dataTypeKey].conv(valOut);
-				value = Math.min(value, dataType[dataTypeKey].max);
-				value = Math.max(value, dataType[dataTypeKey].min);
-				
-				// Add to data pack.
-				dataTx[dataCounter] = new Object();
-				dataTx[dataCounter].name = name;
-				dataTx[dataCounter].val = value;	
-				dataCounter	++;
-				
+			if(dataType[dataTypeKey].active === 1){	
+				// Add to data pack
+				dataTx[dataCounter++] = dataPackage;
 				//console.log("ID:\t"+dataType[dataTypeKey].ID+"\tType:\t"+nameTerm+"\tData:\t"+value);	
 			}
 			
@@ -179,9 +178,9 @@ var newdata = function(data){
 			valOut = 0;
 			
 			// Next data byte ?
-			dataTypeKey = getDataType(dataType,tmp);	
+			dataTypeKey = getDataType(dataType,currByte);	
 			// Valid ?
-			if(dataTypeKey!=-1){ 
+			if(dataTypeKey !== -1){ 
 				bytesToRead = (dataType[dataTypeKey].datalength/8);				
 			}
 			 // No more data, transmit fetched data to client
