@@ -25,7 +25,6 @@ exports.sensor = (function(){
 	var insert = function(sensors, next){
 		db.serialize(function(){
 			var query = "INSERT INTO sensors(name, value, timestamp) VALUES(?, ?, ?)";
-			//var query = "INSERT INTO sensors(name, value) VALUES(?, ?)";
 			var stmt = db.prepare(query, function(err){
 				if(err) console.trace(err);
 			});
@@ -44,11 +43,9 @@ exports.sensor = (function(){
 
 	var getByNumber = function(number, next){
 		var query = "SELECT name, value, timestamp FROM sensors ORDER BY timestamp DESC LIMIT ?"
-		//var query = "SELECT name, value FROM sensors DESC LIMIT ?"
 		db.all(query, [number], function(err, rows){
 			if (err) console.trace(err);
 
-			console.log(rows);
 			if(!(typeof next === 'undefined')){
 				next(err, rows);
 			}
@@ -56,6 +53,9 @@ exports.sensor = (function(){
 
 	};
 
+	// We need to create the database schema before
+	// we can use the query the database so create
+	// before exposing the api
 	createSchema();
 
 	return {
