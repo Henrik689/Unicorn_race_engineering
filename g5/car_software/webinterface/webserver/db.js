@@ -4,7 +4,7 @@ var db = new sqlite3.Database("/Users/jepper_broge/Unicorn_race_engineering/g5/c
 exports.sensor = (function(){
 	//var ready = false;
 	var createSchema = function(){
-		var sensorTable = [
+		var sensorsTable = [
 			"CREATE TABLE IF NOT EXISTS sensors (",
 			"id			INTEGER PRIMARY KEY AUTOINCREMENT",
 			"					NOT NULL",
