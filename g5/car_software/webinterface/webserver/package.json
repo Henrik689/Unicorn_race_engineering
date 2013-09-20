@@ -1,0 +1,18 @@
+{
+  "name": "webserver",
+  "version": "0.0.0",
+  "description": "Creates a webserver that displays car infomation",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webserver"
+  ],
+  "author": "Unicorn",
+  "license": "NONE",
+  "dependencies": {
+    "serialport": "~1.1.3",
+    "sqlite3": "~2.1.17"
+  }
+}

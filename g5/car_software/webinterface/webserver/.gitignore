@@ -1,0 +1,6 @@
+# we dont want to put the node modules under version control
+node_modules/*
+
+
+# we dont want to version control databases
+*.db
