@@ -1,0 +1,83 @@
+\documentclass[a4paper,11pt,openright]{memoir}
+
+
+% Pakker indsættes herefter:
+\usepackage[danish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[footnote,draft,danish,silent,nomargin]{fixme}       % draft istedet for final, gør det muligt at compile med fixmes
+																
+\usepackage{hyperref}						% Laver indholdsfortegnelse, referencer og bibliografi til hyperlinks
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}						% Indsættelse af billeder mm.
+\usepackage{amsmath,amssymb,mathtools,bm}	% Diverse matematik
+\usepackage{color,xcolor}
+\usepackage{pdfpages}						% Giver mulighed for at sætte hele pdf sider ind f.eks. en forside
+\usepackage{natbib}							% Til referencer hører sammen med \bibliographystyle
+\usepackage{listings}						% Præsentering af kode
+\usepackage{booktabs}
+
+
+% Setup af dokumentet:
+\chapterstyle{ell}
+\setsecnumdepth{subsection}
+\settocdepth{subsection}
+\pretolerance=2500							% Sætter tolerancen for orddeling; jo højere, jo mindre orddeling
+\bibliographystyle{plainnat}				% Hvordan referencer vises i teksten
+
+\setlength{\parindent}{1.5mm}				% Størrelse af indryk
+\setlength{\parskip}{1.8mm}					% Afstand mellem afsnit ved brug af "double Enter"
+% \linespread{1,1}							% Linie afstand
+
+\pagestyle{ruled}							% Header og Footer - "plain" for intet, ud over sidetal i bunden
+
+\hyphenation{hvem hvad hvor}				% Fortæller latex hvordan den må dele et ord; kun relevant hvis et
+											% ord bliver delt forkert.
+
+\setlrmarginsandblock{3.5cm}{2.5cm}{*}		% \setlrmarginsandblock{Indbinding}{Kant}{Ratio}
+\setulmarginsandblock{2.5cm}{3.0cm}{*}		% \setulmarginsandblock{Top}{Bund}{Ratio}
+\checkandfixthelayout						% Laver forskellige beregninger og sætter de almindelige længder op
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstdefinelanguage{pbasm}
+{
+morekeywords={JUMP,CALL,RETURN,ADD,ADDCY,SUB,SUBCY,COMPARE,RETURNI,ENABLE,
+RETURNI,DISABLE,ENABLE,INTERRUPT,DISABLE,INTERRUPT,LOAD,OR,AND,XOR,
+TEST,STORE,FETCH,SR0,SR1,SRX,SRA,RR,SL0,SL1,SLX,SLA,RL,INPUT,OUTPUT,CONSTANT,NAMEREG},
+sensitive=false,
+morecomment=[l]{;},
+alsoletter={\$}
+}
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  stepnumber=2,
+  firstnumber=1,
+  escapeinside={@}{@},
+  numberfirstline=false,
+  numbers=left,
+  numbersep=8pt,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3,
+  captionpos=b,
+  keepspaces=true
+}
+
+% Makroer:
+\renewcommand\appendixtocname{Bilag}
+\newcommand{\degree}{\ensuremath{^\circ}}	% Gør det muligt at skrive \degree for at lave gradtegnet
+\newcommand{\g}{\ensuremath{\cdot}}			% \g istedet for \cdot
+\newcommand{\sq}{\ensuremath{^2}}			% opløfter i anden
+\newcommand{\ohm}{\ensuremath{\mathrm{\Omega}}}
