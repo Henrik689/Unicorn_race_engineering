@@ -54,9 +54,9 @@ int main(void)
 	//can_update_rx_msg(&rpm_msg, rpm_msgid, 8);
     can_update_rx_msg(&rpm_msg, gear_msgid, 8);
 
-	Can_sei();
-	Can_set_tx_int();
-	Can_set_rx_int();
+	Can_sei();			//Enable all interrupts
+	Can_set_tx_int();	//Enable interrupt on receive message complete on CAN bus
+	Can_set_rx_int();	//Enable interrupt on transceive message complete on CAN bus
     
 	while(1)
 	{
