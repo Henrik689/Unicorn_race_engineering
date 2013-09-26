@@ -1,0 +1,61 @@
+\input{preamble}
+
+\begin{document}
+
+\frontmatter
+% \input{}
+\cleardoublepage
+%\input{Titlepage}
+%\input{forord}
+
+\mainmatter
+\cleardoublepage
+\tableofcontents
+\clearpage
+
+%\input{Indledning}
+\input{formalia/introduction}
+\input{formalia/unicorn}
+
+\chapter{System analysis}
+
+\input{systemanalysis/tractioncontrol}
+\input{systemanalysis/electricpetrol}
+\input{systemanalysis/issues}
+
+% Systemanalyse
+
+\chapter{System specification}
+
+% Kracspecifikation
+
+\chapter{System description}
+
+% System beskrivelse
+
+\chapter{System development}
+
+% Problemløsning
+
+\input{systemdev/block1/block1}
+\input{systemdev/block2/block2}
+\input{systemdev/block3/block3}
+
+\chapter{Accept test}
+
+% Afrunding
+
+
+\clearpage
+\bibliography{bibtex/Referencer}
+
+%\clearpage
+%\listoffixmes
+
+% Bilag
+\appendix
+\appendixtocname
+\addappheadtotoc
+
+
+\end{document}
