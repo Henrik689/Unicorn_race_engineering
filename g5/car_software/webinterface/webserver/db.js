@@ -1,6 +1,10 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database("./testdb.db");
 
+exports.close = function(){
+	db.close();
+};
+
 exports.sensor = (function(){
 	//var ready = false;
 	var createSchema = function(){

@@ -1,6 +1,7 @@
 console.log("Starting program");
 var bb = require('../bonescript');
 var fs = require('fs');
+var process = require('process');
 var serialport = require('serialport');
 var io = require('socket.io');
 var dataType = require('./sensor_config');
@@ -245,3 +246,11 @@ if(FROMFILE == 1){
 //##############################################################################
 
 bb.run();
+
+process.on('SIGINT', function(){
+	console.log( "\ngracefully shutting down from  SIGINT (Crtl-C)" );
+
+	db.close();
+
+	process.exit()
+});
