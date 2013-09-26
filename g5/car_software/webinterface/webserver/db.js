@@ -1,5 +1,5 @@
 var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database("/Users/jepper_broge/Unicorn_race_engineering/g5/car_software/webinterface/webserver/testdb.db");
+var db = new sqlite3.Database("./testdb.db");
 
 exports.sensor = (function(){
 	//var ready = false;
@@ -10,6 +10,7 @@ exports.sensor = (function(){
 			"					NOT NULL",
 			"					UNIQUE,",
 			"name 		TEXT,",
+			"value 		INTEGER,",
 			"timestamp	INTEGER NOT NULL",
 			")"
 		].join("\n");
