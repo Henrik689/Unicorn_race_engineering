@@ -41,27 +41,30 @@ int main(void)
 	can_init(0);								//Can Setup
     pwm16Init2();								//Setup PWM controller
 	adcInit(1);									//Setup ADC for potmeter or Amp meter
-	st_cmd_t rpm_msg;			
+	st_cmd_t rpm_msg;							//Define struct for recived rpm message
 	counter0Init();								//Init interrupt counter to overflow with 168Hz
 
 	_delay_ms(500);
-	sei();
+
+	sei();										//Enable interrupt
     
-	sendtekst("\n\rUnicorn Gearnode v1.0 \n\r");
+	//sendtekst("\n\rUnicorn Gearnode v1.0 \n\r");
 
 	//rpm_msg.pt_data = rpm_response_buffer;
 	//rpm_msg.status = 0;
 
 	//can_update_rx_msg(&rpm_msg, rpm_msgid, 8);
-    can_update_rx_msg(&rpm_msg, gear_msgid, 8);
 
+    can_update_rx_msg(&rpm_msg, gear_msgid, 8);						//Wait on acceptens from MotorDriver, to see if RPM is 0
+
+    //Enable CAN
 	Can_sei();
 	Can_set_tx_int();
 	Can_set_rx_int();
     
+    //Main loop for veryfication of gear positioning
 	while(1)
 	{
-
         _delay_ms(100);
 		data_buf[0] = GearNeutral;
 		data_buf[1] = GEARNEUTRALMEAS;
@@ -72,20 +75,6 @@ int main(void)
 		data_buf[1] = 0;
 		data_buf[2] = GearEst_val;
 		can_send_non_blocking(rpm_msgid, data_buf, 3);
-        
-        /*
-        gearUp();
-		gearUp();
-		gearUp();
-		gearUp();
-        gearDown();
-		gearDown();
-		gearDown();
-		gearDown();
-		*/
-		
-        
-
     }
     return 0;
 }
