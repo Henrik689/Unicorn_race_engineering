@@ -10,5 +10,12 @@ edit sensor_config.js
 Requires:
 node.js
 dependencies:
-socket.io (rpm install socket.io)
+socket.io (must be installed in the bonescript dir)
 serialport
+sqlite3
+
+To run on raspberry pi the virtual com port drivers at http://www.ftdichip.com/Drivers/D2XX.htm must be installed.
+
+when installed do:
+modprobe ftdi_sio
+echo ftdi_sio >> /etc/modules
