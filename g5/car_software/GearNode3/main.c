@@ -19,7 +19,6 @@
 #include "../lib/can_defs.h"
 #include "../lib/data_def.h"
 
-
 unsigned int GearEst_val = 0;
 unsigned int gearPosition = 0;
 unsigned int gearPositionOld = 0;
