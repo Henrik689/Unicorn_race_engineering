@@ -33,15 +33,16 @@ unsigned short int gearButCAN = 0;
 
 int main(void)
 {
+	//Initialise the node
 	_delay_ms(500);
 	uint8_t data_buf[8];
-	ioinit();
-	uartinit();
-	can_init(0);
-    pwm16Init2();
-	adcInit(1);
-	st_cmd_t rpm_msg;
-	counter0Init();
+	ioinit();									//Port setup
+	uartinit();									//Serial communication
+	can_init(0);								//Can Setup
+    pwm16Init2();								//Setup PWM controller
+	adcInit(1);									//Setup ADC for potmeter or Amp meter
+	st_cmd_t rpm_msg;			
+	counter0Init();								//Init interrupt counter to overflow with 168Hz
 
 	_delay_ms(500);
 	sei();
