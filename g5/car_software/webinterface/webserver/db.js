@@ -14,7 +14,7 @@ exports.sensor = (function(){
 			"					NOT NULL",
 			"					UNIQUE,",
 			"name 		TEXT,",
-			"value 		INTEGER,",
+			"value 		REAL,",
 			"timestamp	INTEGER NOT NULL",
 			")"
 		].join("\n");
@@ -37,7 +37,7 @@ exports.sensor = (function(){
 			for(var i=0; i < sensors.length; i++){
 				var params = [
 					sensors[i].name,
-					sensors[i].val,
+					parseFloat(sensors[i].val.replace(",",".")), // the value is a string object
 					sensors[i].timestamp
 				]
 				stmt.run(params);
