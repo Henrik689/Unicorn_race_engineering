@@ -11,8 +11,9 @@
 #define MAX(x, y)	((x > y) ? x : y)
 
 double roundn(double value, int to){
-	double places = pow(10.0, to);
-	return round(value * places) / places;
+	//double places = pow(10.0, to);
+	//return round(value * places) / places;
+	return value;
 }
 
 // As C does not support any form of lambda functions
@@ -178,87 +179,86 @@ int getConfigFromID(int id){
 	return -1; // No ID was found
 }
 
-uint8_t testData[] = {123,255,10,4,51,32,25,32,123,255,10,25,123,10,123};
-
-void parse(uint8_t data[], int len){
+int parseNext(uint8_t dataByte, sensor_t *sensor){
 	const uint8_t startSequence[] = {255, 123, 10};
-	int i = 0;
 
-	int package_start_counter = 0; // how many of the start sequence bytes have we seen
-	int package_start = 0;
-	int bytesToRead = -1;
-	int valOut = 0;
+	static int package_start_counter = 0; // how many of the start sequence bytes have we seen
+	static int package_start = 0;
+	static int bytesToRead = -1;
+	static int valOut = 0;
 
-	int confIndex = -1;
+	static int confIndex = -1;
 
-	for (i = 0; i < len; ++i){
-		int currByte = data[i];
-
-		if((package_start_counter == 0) && (currByte == startSequence[0]))
-			package_start_counter = 1;
-		else if((package_start_counter == 1) && (currByte == startSequence[1]))
-			package_start_counter = 2;
-		else if((package_start_counter == 2) && (currByte == startSequence[2])){
-			package_start_counter = 0;
-			package_start = 1;
-			continue;
-		}
-
-		if(package_start){
-			// Reset
-			package_start = 0;
-			bytesToRead = -1;
-			valOut = 0;
-
-			confIndex = getConfigFromID(currByte);
-			if(confIndex != -1){
-				bytesToRead = config[confIndex].datalength/8;
-			}else{
-				// Invalid id found at currByte !
-				printf("Invalid ID found: %d\n", currByte);
-			}
-			continue;
-		}
-
-		if(bytesToRead > 0){
-			valOut = valOut + (currByte << (8*(bytesToRead-1)));
-			bytesToRead -= 1; // We have read a byte so we obviously have one less to read
-			continue;
-		}
-
-		if(bytesToRead == 0){
-			const char* name = config[confIndex].name;
-			float value = config[confIndex].conv(valOut, config[confIndex].rounddec);
-			value = MIN(value, config[confIndex].max);
-			value = MAX(value, config[confIndex].min);
-
-			printf("%s:\t%f\n", name, value); // print the found value
-
-			// Reset
-			bytesToRead = -1;
-			valOut = 0;
-
-			// Next data byte ?
-			confIndex = getConfigFromID(currByte);
-			if(confIndex != -1){
-				bytesToRead = config[confIndex].datalength/8;
-			}else{
-				// No more data
-			}
-		}
-
+	if((package_start_counter == 0) && (dataByte == startSequence[0]))
+		package_start_counter = 1;
+	else if((package_start_counter == 1) && (dataByte == startSequence[1]))
+		package_start_counter = 2;
+	else if((package_start_counter == 2) && (dataByte == startSequence[2])){
+		package_start_counter = 0;
+		package_start = 1;
+		return PARSER_NEEDNEXT; // we are ready for next byte
 	}
+
+	if(package_start){
+		// Reset
+		package_start = 0;
+		bytesToRead = -1;
+		valOut = 0;
+
+		confIndex = getConfigFromID(dataByte);
+		if(confIndex == -1){
+			// Invalid id found at currByte !
+			//printf("Invalid ID found: %d\n", dataByte);
+			return -(int)dataByte; // return the negative value as all other return codes are unsigned
+		}
+		bytesToRead = config[confIndex].datalength/8;
+		return PARSER_NEEDNEXT; // Ready for next byte
+	}
+
+	if(bytesToRead > 0){
+		valOut = valOut + (dataByte << (8*(bytesToRead-1)));
+		bytesToRead -= 1; // We have read a byte so we obviously have one less to read
+		return PARSER_NEEDNEXT; // We have read and added the byte, So ready for the next
+	}
+
+	if(bytesToRead == 0){
+		const char* name = config[confIndex].name;
+		float value = config[confIndex].conv(valOut, config[confIndex].rounddec);
+		value = MIN(value, config[confIndex].max);
+		value = MAX(value, config[confIndex].min);
+
+		sensor->name = name;
+		sensor->id = config[confIndex].id;
+		sensor->confIndex = confIndex;
+		sensor->value = value;
+
+		// Reset 
+		bytesToRead = -1;
+		valOut = 0;
+
+		// Are the a next data byte?
+		confIndex = getConfigFromID(dataByte);
+		if(confIndex == -1){
+			// No more data
+			return PARSER_FOUND;
+		}
+
+		bytesToRead = config[confIndex].datalength/8;
+		return PARSER_FOUND;
+		
+	}
+	return PARSER_NOTHINGTODO;
 }
+
 
 int main(int argc, char const *argv[]){
 	
 	if(argc < 2){
 		printf("Usage: %s path/file\n", argv[0]);
-		//parse(testData, ARR_LEN(testData));
 		return EXIT_FAILURE;
 	}
 
-	uint8_t* buff;
+	//uint8_t* buff;
 	int i;
 	FILE *fp = fopen(argv[1], "rb"); // open first argument as read binary
 
@@ -272,20 +272,30 @@ int main(int argc, char const *argv[]){
 	size_t fSize = ftell(fp); // get the file size
 	fseek(fp, 0L, SEEK_SET); // Reset the seeker to the beginning of the file
 
-	buff = (uint8_t*)calloc(fSize, sizeof(uint8_t));
+	//buff = (uint8_t*)calloc(fSize, sizeof(uint8_t));
 
+	printf("id,name,value\n");
 	for (i = 0; i < fSize; ++i){
 		int rc = getc(fp);
 		if(rc == EOF){
 			fputs("An error occurred while reading the file (Unexpected EOF).\n", stderr);
 			return EXIT_FAILURE;
 		}
-		buff[i] = rc;
+		//buff[i] = rc;
+
+		sensor_t s;
+		int k = parseNext((uint8_t)rc, &s);
+		if(k == PARSER_FOUND){
+			printf("%d,\"%s\",%.2f\n", s.id, s.name, s.value);
+		}else if( k < 0){
+			printf("Invalid ID found: %d\n", -k);
+		}
 	}
 	fclose(fp);
 	
-	parse(buff, fSize);
+	//parseArr(buff, fSize);
 
-	free(buff);
+
+	//free(buff);
 	return EXIT_SUCCESS;
 }

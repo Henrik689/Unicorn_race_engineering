@@ -11,6 +11,16 @@ typedef struct config_t {
    float (*conv)(int, int);		// Convert to human numbers
 } config_t;
 
+typedef struct sensor_t {
+   const char *name;			// Human readable name
+   int id;						// Can ID
+   int confIndex; 				// Index number in the config array
+   float value; 				// Value of the sensor
+} sensor_t;
 
+
+#define PARSER_FOUND 		0
+#define PARSER_NEEDNEXT		1
+#define PARSER_NOTHINGTODO	2
  
 #endif /* SENSORCONFIG_H */
