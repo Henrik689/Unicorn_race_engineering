@@ -1,5 +1,7 @@
-#ifndef SENSORCONFIG_H
-#define SENSORCONFIG_H
+#ifndef CANPARSER_H
+#define CANPARSER_H
+
+#include <stdint.h>
 
 typedef struct config_t {
    const char *name;			// Human readable name
@@ -23,4 +25,7 @@ typedef struct sensor_t {
 #define PARSER_NEEDNEXT		1
 #define PARSER_NOTHINGTODO	2
  
-#endif /* SENSORCONFIG_H */
+
+int parseNext(uint8_t dataByte, sensor_t *sensor);
+
+#endif /* CANPARSER_H */

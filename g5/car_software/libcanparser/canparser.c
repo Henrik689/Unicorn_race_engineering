@@ -4,13 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "./sensorsconfig.h"
+#include "./canparser.h"
 
 #define ARR_LEN(x)  (sizeof(x) / sizeof(x[0]))
 #define MIN(x, y)	((x < y) ? x : y)
 #define MAX(x, y)	((x > y) ? x : y)
 
-double roundn(double value, int to){
+static double roundn(double value, int to){
 	//double places = pow(10.0, to);
 	//return round(value * places) / places;
 	return value;
@@ -20,11 +20,11 @@ double roundn(double value, int to){
 // each convertion function must be declared here and
 // then added to the list(array) of sensor configs 
 
-float stdConv(int x, int rounddec){
+static float stdConv(int x, int rounddec){
 	return roundn((x*1+0), rounddec);
 }
 
-float StatusLambdaV2Conv(int x, int rounddec){
+static float StatusLambdaV2Conv(int x, int rounddec){
 	float val;
 	if(x > 32768){
 		x = -(65535-x);
@@ -33,32 +33,32 @@ float StatusLambdaV2Conv(int x, int rounddec){
 	return roundn(val, rounddec);
 }
 
-float airAndWaterTempConv(int x, int rounddec){
+static float airAndWaterTempConv(int x, int rounddec){
 	float val = (x * (-150.0/3840) + 120);
 	return roundn(val, rounddec);
 }
 
-float potmeterConvert(int x, int rounddec){
+static float potmeterConvert(int x, int rounddec){
 	float val = ((x-336)/26.9);
 	return roundn(val, rounddec);
 }
 
-float rpmConv(int x, int rounddec){
+static float rpmConv(int x, int rounddec){
 	float val = (x*0.9408);
 	return roundn(val, rounddec);
 }
 
-float mBarConv(int x, int rounddec){
+static float mBarConv(int x, int rounddec){
 	float val = (x*0.75);
 	return roundn(val, rounddec);
 }
 
-float batteryConv(int x, int rounddec){
+static float batteryConv(int x, int rounddec){
 	float val = (x*(1/210)+0);
 	return roundn(val, rounddec);
 }
 
-float StatusLambdaV2Conv2(int x, int rounddec){
+static float StatusLambdaV2Conv2(int x, int rounddec){
 	float val;
 	if(x > 32768){
 		x = -(65535-x);
@@ -67,12 +67,12 @@ float StatusLambdaV2Conv2(int x, int rounddec){
 	return roundn(val/100, rounddec);
 }
 
-float InjectorAndIgnitionTimeConv(int x, int rounddec){
+static float InjectorAndIgnitionTimeConv(int x, int rounddec){
 	float val = -0.75*x+120;
 	return roundn(val, rounddec);
 }
 
-float GXGYGZconv(int x, int rounddec){
+static float GXGYGZconv(int x, int rounddec){
 	float val;
 	if(x > 32768){
 		x = -(65535 - x);
@@ -81,7 +81,7 @@ float GXGYGZconv(int x, int rounddec){
 	return roundn(val, rounddec);
 }
 
-float gearboardTempConv(int x, int rounddec){
+static float gearboardTempConv(int x, int rounddec){
 	float val;
 	double resistance = ((10240000/(1024 - x)) - 10000);
 	double temp = log(resistance);
@@ -90,12 +90,12 @@ float gearboardTempConv(int x, int rounddec){
 	return roundn(val, rounddec);
 }
 
-float waterInOutletTemoConv(int x, int rounddec){
+static float waterInOutletTemoConv(int x, int rounddec){
 	float val = 127.5 * exp(-0.003286*x);
 	return roundn(val, rounddec);
 }
 
-float gearNeutralConv(int x, int rounddec){
+static float gearNeutralConv(int x, int rounddec){
 	float val;
 	if( x > 100){
 		x=1;
@@ -104,7 +104,7 @@ float gearNeutralConv(int x, int rounddec){
 	return roundn(val, rounddec);
 }
 
-config_t config[] = {
+static config_t config[] = {
 	{"Empty", 0, 2, 0, 9999, 0, &stdConv},
 	{"Fuel Press.", 1, 2, 16, 9999, 0, &stdConv},
 	{"StatusLapCount", 2, 2, 16, 9999, 0, &stdConv},
@@ -133,7 +133,6 @@ config_t config[] = {
 	{"Manifold press. (mBar)", 25, 2, 16, 1300, 0, &mBarConv},
 	{"Batt. volt", 26, 1, 16, 20, 0, &batteryConv},
 	{"Lambda (<1 => Rich)", 27, 2, 16, 2, 0, &StatusLambdaV2Conv2},
-
 	{"Load", 28, 2, 16, 9999, 0, &stdConv},
 	{"InjectorTime", 29, 2, 16, 9999, 0, &InjectorAndIgnitionTimeConv},
 	{"IgnitionTime", 29, 2, 16, 9999, 0, &InjectorAndIgnitionTimeConv},
@@ -141,7 +140,6 @@ config_t config[] = {
 	{"GX", 32, 2, 16, 2, -2, &GXGYGZconv},
 	{"GY", 33, 2, 16, 2, -2, &GXGYGZconv},
 	{"GZ", 34, 2, 16, 2, -2, &GXGYGZconv},
-
 	{"MotorFlags", 35, 2, 8, 9999, 0, &stdConv},
 	{"OutBits", 36, 2, 8, 9999, 0, &stdConv},
 	{"Time", 37, 2, 8, 9999, 0, &stdConv},
@@ -169,7 +167,7 @@ config_t config[] = {
 	{"ValueIdLength", 67, 2, 16, 9999, 0, &stdConv},
 };
 
-int getConfigFromID(int id){
+static int getConfigFromID(int id){
 	int i = 0;
 	for (i = 0; i < ARR_LEN(config); ++i){
 		if(id == config[i].id){
@@ -208,7 +206,6 @@ int parseNext(uint8_t dataByte, sensor_t *sensor){
 		confIndex = getConfigFromID(dataByte);
 		if(confIndex == -1){
 			// Invalid id found at currByte !
-			//printf("Invalid ID found: %d\n", dataByte);
 			return -(int)dataByte; // return the negative value as all other return codes are unsigned
 		}
 		bytesToRead = config[confIndex].datalength/8;
@@ -227,6 +224,7 @@ int parseNext(uint8_t dataByte, sensor_t *sensor){
 		value = MIN(value, config[confIndex].max);
 		value = MAX(value, config[confIndex].min);
 
+		// Copy the value into the sensor object
 		sensor->name = name;
 		sensor->id = config[confIndex].id;
 		sensor->confIndex = confIndex;
@@ -251,51 +249,4 @@ int parseNext(uint8_t dataByte, sensor_t *sensor){
 }
 
 
-int main(int argc, char const *argv[]){
-	
-	if(argc < 2){
-		printf("Usage: %s path/file\n", argv[0]);
-		return EXIT_FAILURE;
-	}
 
-	//uint8_t* buff;
-	int i;
-	FILE *fp = fopen(argv[1], "rb"); // open first argument as read binary
-
-	if( fp == NULL ){
-		//char *str = (char*)calloc(sizeof(argv[1]) * sizeof(char));
-		perror("Failed to open file");
-		return EXIT_FAILURE;
-	}
-	
-	fseek(fp, 0L, SEEK_END); // Seek to the end
-	size_t fSize = ftell(fp); // get the file size
-	fseek(fp, 0L, SEEK_SET); // Reset the seeker to the beginning of the file
-
-	//buff = (uint8_t*)calloc(fSize, sizeof(uint8_t));
-
-	printf("id,name,value\n");
-	for (i = 0; i < fSize; ++i){
-		int rc = getc(fp);
-		if(rc == EOF){
-			fputs("An error occurred while reading the file (Unexpected EOF).\n", stderr);
-			return EXIT_FAILURE;
-		}
-		//buff[i] = rc;
-
-		sensor_t s;
-		int k = parseNext((uint8_t)rc, &s);
-		if(k == PARSER_FOUND){
-			printf("%d,\"%s\",%.2f\n", s.id, s.name, s.value);
-		}else if( k < 0){
-			printf("Invalid ID found: %d\n", -k);
-		}
-	}
-	fclose(fp);
-	
-	//parseArr(buff, fSize);
-
-
-	//free(buff);
-	return EXIT_SUCCESS;
-}
