@@ -55,11 +55,11 @@ int main(int argc, char const *argv[]){
 			//buff[k] = rc;
 
 			sensor_t s;
-			int k = parseNext((uint8_t)rc, &s);
-			if(k == PARSER_FOUND){
+			int nextRC = parseNext((uint8_t)rc, &s);
+			if(nextRC == PARSER_FOUND){
 				fprintf(outfp, "%d,\"%s\",%.2f\n", s.id, s.name, s.value);
-			}else if( k < 0){
-				printf("Invalid ID found: %d in \"%s\" at offset %d\n", -k, argv[i], k);
+			}else if( nextRC < 0){
+				printf("Invalid ID found: %d in \"%s\" at offset %d\n", -nextRC, argv[i], k);
 			}
 		}
 		fclose(fp);
