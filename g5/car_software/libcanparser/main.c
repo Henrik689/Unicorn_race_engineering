@@ -49,7 +49,7 @@ int main(int argc, char const *argv[]){
 		for (k = 0; k < fSize; ++k){
 			int rc = getc(fp);
 			if(rc == EOF){
-				fputs("An error occurred while reading the file (Unexpected EOF).\n", stderr);
+				printf("An error occurred while reading the file \"%s\" (Unexpected EOF).\n", argv[i]);
 				return EXIT_FAILURE;
 			}
 			//buff[k] = rc;
