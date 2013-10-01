@@ -177,72 +177,69 @@ static int getConfigFromID(int id){
 	return -1; // No ID was found
 }
 
-int parseNext(uint8_t dataByte, sensor_t *sensor){
+int parseNext(uint8_t dataByte, sensor_t *sensor, parser_t *p){
 	const uint8_t startSequence[] = {255, 123, 10};
 
-	static int package_start_counter = 0; // how many of the start sequence bytes have we seen
-	static int package_start = 0;
-	static int bytesToRead = -1;
-	static int valOut = 0;
+	p->sensorFound = 0; // we dont yet know if a sensor is found
 
-	static int confIndex = -1;
-
-	if((package_start_counter == 0) && (dataByte == startSequence[0]))
-		package_start_counter = 1;
-	else if((package_start_counter == 1) && (dataByte == startSequence[1]))
-		package_start_counter = 2;
-	else if((package_start_counter == 2) && (dataByte == startSequence[2])){
-		package_start_counter = 0;
-		package_start = 1;
+	if((p->package_start_counter == 0) && (dataByte == startSequence[0]))
+		p->package_start_counter = 1;
+	else if((p->package_start_counter == 1) && (dataByte == startSequence[1]))
+		p->package_start_counter = 2;
+	else if((p->package_start_counter == 2) && (dataByte == startSequence[2])){
+		p->package_start_counter = 0;
+		p->package_start = 1;
 		return PARSER_NEEDNEXT; // we are ready for next byte
 	}
 
-	if(package_start){
+	if(p->package_start){
 		// Reset
-		package_start = 0;
-		bytesToRead = -1;
-		valOut = 0;
+		p->package_start = 0;
+		p->bytesToRead = -1;
+		p->valOut = 0;
 
-		confIndex = getConfigFromID(dataByte);
-		if(confIndex == -1){
+		p->confIndex = getConfigFromID(dataByte);
+		if(p->confIndex == -1){
 			// Invalid id found at currByte !
 			return -(int)dataByte; // return the negative value as all other return codes are unsigned
 		}
-		bytesToRead = config[confIndex].datalength/8;
+		p->bytesToRead = config[p->confIndex].datalength/8;
 		return PARSER_NEEDNEXT; // Ready for next byte
 	}
 
-	if(bytesToRead > 0){
-		valOut = valOut + (dataByte << (8*(bytesToRead-1)));
-		bytesToRead -= 1; // We have read a byte so we obviously have one less to read
+	if(p->bytesToRead > 0){
+		p->valOut = p->valOut + (dataByte << (8*(p->bytesToRead-1)));
+		p->bytesToRead -= 1; // We have read a byte so we obviously have one less to read
 		return PARSER_NEEDNEXT; // We have read and added the byte, So ready for the next
 	}
 
-	if(bytesToRead == 0){
-		const char* name = config[confIndex].name;
-		float value = config[confIndex].conv(valOut, config[confIndex].rounddec);
-		value = MIN(value, config[confIndex].max);
-		value = MAX(value, config[confIndex].min);
+	if(p->bytesToRead == 0){
+		const char* name = config[p->confIndex].name;
+		float value = config[p->confIndex].conv(p->valOut, config[p->confIndex].rounddec);
+		value = MIN(value, config[p->confIndex].max);
+		value = MAX(value, config[p->confIndex].min);
 
 		// Copy the value into the sensor object
 		sensor->name = name;
-		sensor->id = config[confIndex].id;
-		sensor->confIndex = confIndex;
+		sensor->id = config[p->confIndex].id;
+		sensor->confIndex = p->confIndex;
 		sensor->value = value;
 
+		p->sensorFound = 1; // we have found a sensor
+
 		// Reset 
-		bytesToRead = -1;
-		valOut = 0;
+		p->bytesToRead = -1;
+		p->valOut = 0;
 
 		// Are the a next data byte?
-		confIndex = getConfigFromID(dataByte);
-		if(confIndex == -1){
+		p->confIndex = getConfigFromID(dataByte);
+		if(p->confIndex == -1){
 			// No more data
-			return PARSER_FOUND;
+			return PARSER_NOMOREDATA;
 		}
 
-		bytesToRead = config[confIndex].datalength/8;
-		return PARSER_FOUND;
+		p->bytesToRead = config[p->confIndex].datalength/8;
+		return PARSER_NEEDNEXT;
 		
 	}
 	return PARSER_NOTHINGTODO;

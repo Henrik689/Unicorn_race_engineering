@@ -44,7 +44,7 @@ int main(int argc, char const *argv[]){
 			return EXIT_FAILURE;
 		}
 
-
+		parser_t p = INIT_PARSER;
 		fprintf(outfp, "id,name,value\n");
 		for (k = 0; k < fSize; ++k){
 			int rc = getc(fp);
@@ -52,11 +52,10 @@ int main(int argc, char const *argv[]){
 				printf("An error occurred while reading the file \"%s\" (Unexpected EOF).\n", argv[i]);
 				return EXIT_FAILURE;
 			}
-			//buff[k] = rc;
 
 			sensor_t s;
-			int nextRC = parseNext((uint8_t)rc, &s);
-			if(nextRC == PARSER_FOUND){
+			int nextRC = parseNext((uint8_t)rc, &s, &p);
+			if(p.sensorFound){
 				fprintf(outfp, "%d,\"%s\",%.2f\n", s.id, s.name, s.value);
 			}else if( nextRC < 0){
 				printf("Invalid ID found: %d in \"%s\" at offset %d\n", -nextRC, argv[i], k);
