@@ -20,12 +20,12 @@ static double roundn(double value, int to){
 // each convertion function must be declared here and
 // then added to the list(array) of sensor configs 
 
-static float stdConv(int x, int rounddec){
+double stdConv(int x, int rounddec){
 	return roundn((x*1+0), rounddec);
 }
 
-static float StatusLambdaV2Conv(int x, int rounddec){
-	float val;
+double StatusLambdaV2Conv(int x, int rounddec){
+	double val;
 	if(x > 32768){
 		x = -(65535-x);
 	}
@@ -33,33 +33,33 @@ static float StatusLambdaV2Conv(int x, int rounddec){
 	return roundn(val, rounddec);
 }
 
-static float airAndWaterTempConv(int x, int rounddec){
-	float val = (x * (-150.0/3840) + 120);
+double airAndWaterTempConv(int x, int rounddec){
+	double val = (x * (-150.0/3840) + 120);
 	return roundn(val, rounddec);
 }
 
-static float potmeterConvert(int x, int rounddec){
-	float val = ((x-336)/26.9);
+double potmeterConvert(int x, int rounddec){
+	double val = ((x-336)/26.9);
 	return roundn(val, rounddec);
 }
 
-static float rpmConv(int x, int rounddec){
-	float val = (x*0.9408);
+double rpmConv(int x, int rounddec){
+	double val = (x*0.9408);
 	return roundn(val, rounddec);
 }
 
-static float mBarConv(int x, int rounddec){
-	float val = (x*0.75);
+double mBarConv(int x, int rounddec){
+	double val = (x*0.75);
 	return roundn(val, rounddec);
 }
 
-static float batteryConv(int x, int rounddec){
-	float val = (x*(1/210)+0);
+double batteryConv(int x, int rounddec){
+	double val = (x*(1/210)+0);
 	return roundn(val, rounddec);
 }
 
-static float StatusLambdaV2Conv2(int x, int rounddec){
-	float val;
+double StatusLambdaV2Conv2(int x, int rounddec){
+	double val;
 	if(x > 32768){
 		x = -(65535-x);
 	}
@@ -67,13 +67,13 @@ static float StatusLambdaV2Conv2(int x, int rounddec){
 	return roundn(val/100, rounddec);
 }
 
-static float InjectorAndIgnitionTimeConv(int x, int rounddec){
-	float val = -0.75*x+120;
+double InjectorAndIgnitionTimeConv(int x, int rounddec){
+	double val = -0.75*x+120;
 	return roundn(val, rounddec);
 }
 
-static float GXGYGZconv(int x, int rounddec){
-	float val;
+double GXGYGZconv(int x, int rounddec){
+	double val;
 	if(x > 32768){
 		x = -(65535 - x);
 	}
@@ -81,8 +81,8 @@ static float GXGYGZconv(int x, int rounddec){
 	return roundn(val, rounddec);
 }
 
-static float gearboardTempConv(int x, int rounddec){
-	float val;
+double gearboardTempConv(int x, int rounddec){
+	double val;
 	double resistance = ((10240000/(1024 - x)) - 10000);
 	double temp = log(resistance);
 	temp = 1 / (0.001129148 + (0.000234125 * temp) + (0.0000000876741 * temp * temp * temp));
@@ -90,13 +90,13 @@ static float gearboardTempConv(int x, int rounddec){
 	return roundn(val, rounddec);
 }
 
-static float waterInOutletTemoConv(int x, int rounddec){
-	float val = 127.5 * exp(-0.003286*x);
+double waterInOutletTemoConv(int x, int rounddec){
+	double val = 127.5 * exp(-0.003286*x);
 	return roundn(val, rounddec);
 }
 
-static float gearNeutralConv(int x, int rounddec){
-	float val;
+double gearNeutralConv(int x, int rounddec){
+	double val;
 	if( x > 100){
 		x=1;
 	}
@@ -104,7 +104,7 @@ static float gearNeutralConv(int x, int rounddec){
 	return roundn(val, rounddec);
 }
 
-static config_t config[] = {
+const config_t config[] = {
 	{"Empty", 0, 2, 0, 9999, 0, &stdConv},
 	{"Fuel Press.", 1, 2, 16, 9999, 0, &stdConv},
 	{"StatusLapCount", 2, 2, 16, 9999, 0, &stdConv},
@@ -167,7 +167,7 @@ static config_t config[] = {
 	{"ValueIdLength", 67, 2, 16, 9999, 0, &stdConv},
 };
 
-static int getConfigFromID(int id){
+static inline int getConfigFromID(int id){
 	int i = 0;
 	for (i = 0; i < ARR_LEN(config); ++i){
 		if(id == config[i].id){
@@ -215,7 +215,7 @@ int parseNext(uint8_t dataByte, sensor_t *sensor, parser_t *p){
 
 	if(p->bytesToRead == 0){
 		const char* name = config[p->confIndex].name;
-		float value = config[p->confIndex].conv(p->valOut, config[p->confIndex].rounddec);
+		double value = config[p->confIndex].conv(p->valOut, config[p->confIndex].rounddec);
 		value = MIN(value, config[p->confIndex].max);
 		value = MAX(value, config[p->confIndex].min);
 

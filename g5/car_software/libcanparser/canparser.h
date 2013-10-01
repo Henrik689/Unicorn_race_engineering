@@ -10,8 +10,9 @@ typedef struct config_t {
    int datalength;				// Length in bits
    int max;						// Maximum expected value
    int min;						// Minimum expected value
-   float (*conv)(int, int);		// Convert to human numbers
+   double (*conv)(int, int);		// Convert to human numbers
 } config_t;
+
 
 typedef struct parser_t {
 	int package_start_counter; // how many of the start sequence bytes have we seen
@@ -28,7 +29,7 @@ typedef struct sensor_t {
    const char *name;			// Human readable name
    int id;						// Can ID
    int confIndex; 				// Index number in the config array
-   float value; 				// Value of the sensor
+   double value; 				// Value of the sensor
 } sensor_t;
 
 
