@@ -27,7 +27,6 @@ int main(int argc, char const *argv[]){
 		FILE *fp = fopen(argv[i], "rb"); // open first argument as read binary
 
 		if( fp == NULL ){
-			//char *str = (char*)calloc(sizeof(argv[i]) * sizeof(char));
 			perror("Failed to open file");
 			return EXIT_FAILURE;
 		}
@@ -44,7 +43,8 @@ int main(int argc, char const *argv[]){
 			return EXIT_FAILURE;
 		}
 
-		parser_t p = INIT_PARSER;
+		config_t cfg[] = INIT_CONFIG;
+		parser_t p = INIT_PARSER(cfg);
 		fprintf(outfp, "id,name,value\n");
 		for (k = 0; k < fSize; ++k){
 			int rc = getc(fp);
@@ -54,11 +54,11 @@ int main(int argc, char const *argv[]){
 			}
 
 			sensor_t s;
-			int nextRC = parseNext((uint8_t)rc, &s, &p);
+			int rv = parseNext((uint8_t)rc, &s, &p);
 			if(p.sensorFound){
 				fprintf(outfp, "%d,\"%s\",%.2f\n", s.id, s.name, s.value);
-			}else if( nextRC < 0){
-				printf("Invalid ID found: %d in \"%s\" at offset %d\n", -nextRC, argv[i], k);
+			}else if( rv < 0){
+				printf("Invalid ID found: %d in \"%s\" at offset %d\n", -rv, argv[i], k);
 			}
 		}
 		fclose(fp);

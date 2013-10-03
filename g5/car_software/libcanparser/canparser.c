@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "./canparser.h"
 
@@ -104,72 +105,10 @@ double gearNeutralConv(int x, int rounddec){
 	return roundn(val, rounddec);
 }
 
-const config_t config[] = {
-	{"Empty", 0, 2, 0, 9999, 0, &stdConv},
-	{"Fuel Press.", 1, 2, 16, 9999, 0, &stdConv},
-	{"StatusLapCount", 2, 2, 16, 9999, 0, &stdConv},
-	{"StatusInjSum", 3, 2, 16, 9999, 0, &stdConv},
-	{"LastGearShift", 4, 2, 16, 9999, 0, &stdConv},
-	{"MotorOilTemp", 5, 2, 16, 9999, 0, &stdConv},
-	{"OilPressure", 6, 2, 16, 9999, 0, &stdConv},
-	{"StatusTime", 7, 2, 16, 9999, 0, &stdConv},
-	{"StatusLapTime", 8, 2, 16, 9999, 0, &stdConv},
-	{"GearOilTemp", 9, 2, 16, 9999, 0, &stdConv},
-	{"StatusTraction", 10, 2, 16, 9999, 0, &stdConv},
-	{"StatusGas", 11, 2, 16, 9999, 0, &stdConv},
-	{"StatusLambdaV2", 12, 2, 16, 9999, 0, &StatusLambdaV2Conv},
-	{"StatusCamTrigP1", 13, 2, 16, 9999, 0, &stdConv},
-	{"StatusCamTrigP2", 14, 2, 16, 9999, 0, &stdConv},
-	{"StatusChokerAdd", 15, 2, 16, 9999, 0, &stdConv},
-	{"StatusLambdaPWM", 16, 2, 16, 9999, 0, &stdConv},
-	{"WaterMotor temp.", 17, 0, 16, 150, 0, &airAndWaterTempConv},
-	{"ManifoldAir temp.", 18, 1, 16, 120, 0, &airAndWaterTempConv},
-	{"Potmeter (0-100%)", 19, 2, 16, 100, 0, &potmeterConvert},
-	{"RPM", 20, 0, 16, 15000, 0, &rpmConv},
-	{"TriggerErr", 21, 2, 16, 9999, 0, &stdConv},
-	{"CamAngle1", 22, 2, 16, 9999, 0, &stdConv},
-	{"CamAngle2", 23, 2, 16, 9999, 0, &stdConv},
-	{"RoadSpeed (km/h)", 24, 2, 16, 9999, 0, &stdConv},
-	{"Manifold press. (mBar)", 25, 2, 16, 1300, 0, &mBarConv},
-	{"Batt. volt", 26, 1, 16, 20, 0, &batteryConv},
-	{"Lambda (<1 => Rich)", 27, 2, 16, 2, 0, &StatusLambdaV2Conv2},
-	{"Load", 28, 2, 16, 9999, 0, &stdConv},
-	{"InjectorTime", 29, 2, 16, 9999, 0, &InjectorAndIgnitionTimeConv},
-	{"IgnitionTime", 29, 2, 16, 9999, 0, &InjectorAndIgnitionTimeConv},
-	{"DwellTime", 31, 2, 16, 9999, 0, &stdConv},
-	{"GX", 32, 2, 16, 2, -2, &GXGYGZconv},
-	{"GY", 33, 2, 16, 2, -2, &GXGYGZconv},
-	{"GZ", 34, 2, 16, 2, -2, &GXGYGZconv},
-	{"MotorFlags", 35, 2, 8, 9999, 0, &stdConv},
-	{"OutBits", 36, 2, 8, 9999, 0, &stdConv},
-	{"Time", 37, 2, 8, 9999, 0, &stdConv},
-	{"GearChange", 38, 2, 8, 9999, 0, &stdConv},
-	{"FWheelL", 39, 2, 16, 9999, 0, &stdConv},
-	{"FWheelL", 40, 2, 16, 9999, 0, &stdConv},
-	{"BWheelL", 41, 2, 16, 9999, 0, &stdConv},
-	{"BWheelR", 42, 2, 16, 9999, 0, &stdConv},
 
-	// id gab
-	{"GearBoard temp.", 52, 2, 16, 50, 0, &gearboardTempConv},
-
-	// id gab
-	{"OilPress (0 = Low)", 56, 2, 16, 1024, 0, &stdConv},
-	{"WaterInlet temp.", 57, 0, 16, 150, 0, &waterInOutletTemoConv},
-	{"WaterOutlet temp.", 58, 0, 16, 150, 0, &waterInOutletTemoConv},
-	{"GPS-sattelites", 59, 2, 8, 10, 0, &stdConv},
-	{"GPS-speed (km/h)", 60, 2, 16, 120, 0, &stdConv},
-	{"GPS-time-h", 61, 2, 16, 25, 0, &stdConv},
-	{"GPS-time-m", 62, 2, 16, 61, 0, &stdConv},
-	{"GPS-time-s", 63, 2, 16, 61, 0, &stdConv},
-	{"GearNeutral", 64, 2, 16, 1, 0, &gearNeutralConv},
-	{"GearEst", 65, 2, 16, 7, 0, &stdConv},
-	{"Debug", 66, 2, 16, 9999, 0, &stdConv},
-	{"ValueIdLength", 67, 2, 16, 9999, 0, &stdConv},
-};
-
-static inline int getConfigFromID(int id){
+static inline int getConfigFromID(int id, const config_t *config, size_t confLength){
 	int i = 0;
-	for (i = 0; i < ARR_LEN(config); ++i){
+	for (i = 0; i < confLength; ++i){
 		if(id == config[i].id){
 			return i; // index in the config list
 		}
@@ -188,22 +127,22 @@ int parseNext(uint8_t dataByte, sensor_t *sensor, parser_t *p){
 		p->package_start_counter = 2;
 	else if((p->package_start_counter == 2) && (dataByte == startSequence[2])){
 		p->package_start_counter = 0;
-		p->package_start = 1;
+		p->package_start = true;
 		return PARSER_NEEDNEXT; // we are ready for next byte
 	}
 
 	if(p->package_start){
 		// Reset
-		p->package_start = 0;
+		p->package_start = false;
 		p->bytesToRead = -1;
 		p->valOut = 0;
 
-		p->confIndex = getConfigFromID(dataByte);
+		p->confIndex = getConfigFromID(dataByte, p->config, p->confLength);
 		if(p->confIndex == -1){
 			// Invalid id found at currByte !
 			return -(int)dataByte; // return the negative value as all other return codes are unsigned
 		}
-		p->bytesToRead = config[p->confIndex].datalength/8;
+		p->bytesToRead = p->config[p->confIndex].datalength/8;
 		return PARSER_NEEDNEXT; // Ready for next byte
 	}
 
@@ -214,14 +153,14 @@ int parseNext(uint8_t dataByte, sensor_t *sensor, parser_t *p){
 	}
 
 	if(p->bytesToRead == 0){
-		const char* name = config[p->confIndex].name;
-		double value = config[p->confIndex].conv(p->valOut, config[p->confIndex].rounddec);
-		value = MIN(value, config[p->confIndex].max);
-		value = MAX(value, config[p->confIndex].min);
+		const char* name = p->config[p->confIndex].name;
+		double value = p->config[p->confIndex].conv(p->valOut, p->config[p->confIndex].rounddec);
+		value = MIN(value, p->config[p->confIndex].max);
+		value = MAX(value, p->config[p->confIndex].min);
 
 		// Copy the value into the sensor object
 		sensor->name = name;
-		sensor->id = config[p->confIndex].id;
+		sensor->id = p->config[p->confIndex].id;
 		sensor->confIndex = p->confIndex;
 		sensor->value = value;
 
@@ -232,13 +171,13 @@ int parseNext(uint8_t dataByte, sensor_t *sensor, parser_t *p){
 		p->valOut = 0;
 
 		// Are the a next data byte?
-		p->confIndex = getConfigFromID(dataByte);
+		p->confIndex = getConfigFromID(dataByte, p->config, p->confLength);
 		if(p->confIndex == -1){
 			// No more data
 			return PARSER_NOMOREDATA;
 		}
 
-		p->bytesToRead = config[p->confIndex].datalength/8;
+		p->bytesToRead = p->config[p->confIndex].datalength/8;
 		return PARSER_NEEDNEXT;
 		
 	}
