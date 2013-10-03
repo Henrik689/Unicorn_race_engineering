@@ -1,1 +1,29 @@
 \chapter{AVR programmering ved at bruge windows}
+\section{Software krævet}
+Til brænding med AVRISP mk2 i Windows kræves følgende software:
+\begin{enumerate}
+	\item[-]{Avr-dude:				http://sourceforge.net/projects/winavr/}
+	\item[-]{AVRISP mkII libusb:	http://mightyohm.com/blog/2010/09/avrisp-mkii-libusb-drivers-for-windows-7-vista-x64/}
+\end{enumerate}
+
+For at installere driversne til AVRIPS mk2 ordentligt skal man i enhedshåndteringen i kontrolpanelet, manuelt ind og opdatere driversne til enheden, og led den frem til destinations mappen for AVRISP mkII libusb.
+
+\section{Brænding af software}
+Til brænding af software skal man i Windows være i "tvunget" admin rettigheder.
+\newline
+Dette gøres ved at man i cmd.exe skriver kommandoen:
+\begin{lstlisting}
+runas /noprofile /user:<brugernavn> cmd\newline
+\end{lstlisting}
+Dette åbner en nyt vindue som brændingen skal foregå i.\\
+når man er i den rigtige mappesti til den node man ønsker at brænde software til, som f.eks kunne se sådanne ud:\\
+\url{c:\\users\\<brugernavn>\\documents\\github\\Unicorn_race_engineering\\g5\\car_software\\node1} \\
+når du er i den mappe som du ønsker at brænde kode for har du kommandoer der kan bruges:
+\begin{lstlisting}
+make
+\end{lstlisting}
+Bruges til kun at compile koden så man hurtigt kan se om der er fejl i det nye kode.
+\begin{lstlisting}
+make install
+\end{lstlisting}
+Brænder koden til chippen.
