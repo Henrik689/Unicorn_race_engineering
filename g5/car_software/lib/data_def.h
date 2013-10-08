@@ -70,7 +70,7 @@ enum valueID {
 	gpstime_h,		// 61
 	gpstime_m,		// 62
 	gpstime_s,		// 63
-	GearNeutral,		// 64
+	GearNeutral,	// 64
 	GearEst,		// 65
 	debug,			// 66
 	ValueIdLength	// 67
