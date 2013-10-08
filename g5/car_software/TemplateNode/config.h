@@ -1,3 +1,6 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
 /*********************************************
  * Config header
  *********************************************/
@@ -47,3 +50,5 @@
 #define ERRORMSG_NOERROR 0
 #define ERRORMSG_OVERCURRENT 1
 #define ERRORMSG_GEARSTUCK 2
+
+#endif /* CONFIG_H */

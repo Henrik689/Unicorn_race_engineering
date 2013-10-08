@@ -83,72 +83,73 @@ typedef struct {
 
 /* Remember to set a queue size in comm.h large enough to hold enough data 
  * based on how many values from the ecu that are send via xbee */
-static const valueObject valueObjects[] =	{0, 0,	// empty 
-						16, 0,	// fuelPressure
-						16, 0,	// statusLapCount
-						16, 0,	// statusInjSum
-						16, 0,	// lastGearShift
-						16, 0,	// motorOilTemp
-						16, 0,	// oilPressure
-						16, 0,	// statusTime
-						16, 0,	// statusLapTime
-						16, 0,	// gearOilTemp
-						16, 0,	// statusTraction
-						16, 0,	// statusGas
-						16, 0,	// statusLambdaV2
-						16, 0,	// statusCamTrigP1
-						16, 0,	// statusCamTrigP2
-						16, 0,	// statusChokerAdd
-						16, 0,	// statusLambdaPWM
-						16, TO_SD | TO_CAN | TO_XBEE  ,	// waterTemp
-						16, TO_SD | TO_XBEE ,	// airTemp
-						16, TO_SD | TO_XBEE , // potmeter
-						16, TO_SD | TO_CAN | TO_XBEE  ,	// rpm
-						16, 0,	// triggerErr
-						16, 0,	// camAngle1
-						16, 0,	// camAngle2
-						16, TO_SD | TO_XBEE,	// roadSpeed
-						16, TO_SD | TO_XBEE,	// mapSensor
-						16, TO_SD | TO_CAN | TO_XBEE ,	// batteryV
-						16, TO_SD | TO_XBEE,	// lambdaV
-						16, 0,	// load
-						16, 0,	// injectorTime
-						16, 0,	// ignitionTime
-						16, 0,	// dwellTime
-						16, TO_SD | TO_XBEE,	// gX
-						16, TO_SD | TO_XBEE,	// gY
-						16, TO_SD | TO_XBEE,	// gZ
-						8, 0,	// motorFlags
-						8, 0,	// outBits
-						8, 0,	// time
-						8, TO_XBEE,	// gear
-						16, 0, // FWheelL
-						16, 0, // FWheelR
-						16, 0, // BWheelL
-						16, 0, // BWheelR
-						16, 0, // Node 5 ADC0
-						16, 0, // Node 5 ADC1
-						16, 0, // Node 5 ADC2
-						16, 0, // Node 5 ADC3
-						16, 0, // Node 5 ADC4
-						16, 0, // Node 5 ADC5
-						16, 0, // Node 5 ADC6
-						16, 0, // Node 5 ADC7
-						16, 0, // Node 6 ADC0
-						16, TO_SD | TO_XBEE, // Node 6 ADC1 Gearbox temp.
-						16, 0, // Node 6 ADC2
-						16, 0, // Node 6 ADC3
-						16, 0, // Node 6 ADC4
-						16, TO_SD | TO_XBEE, // Node 6 ADC5 Engine oil press.
-						16, TO_SD | TO_XBEE, // Node 6 ADC6 Cooler inlet temp.
-						16, TO_SD | TO_XBEE, // Node 6 ADC7 Cooler outlet temp.
-						8,  TO_XBEE, // gpssat
-						16, TO_SD | TO_XBEE, // gpsspeed
-						16, 0, // gpstime_h
-						16, 0, // gpstime_m
-						16, 0, // gpstime_s
-						16, TO_XBEE, // GearNeutral
-						16, TO_XBEE, // GearEst
-						16, TO_XBEE}; // debug
+static const valueObject valueObjects[] =	{
+						{0, 0},	// empty 
+						{16, 0},	// fuelPressure
+						{16, 0},	// statusLapCount
+						{16, 0},	// statusInjSum
+						{16, 0},	// lastGearShift
+						{16, 0},	// motorOilTemp
+						{16, 0},	// oilPressure
+						{16, 0},	// statusTime
+						{16, 0},	// statusLapTime
+						{16, 0},	// gearOilTemp
+						{16, 0},	// statusTraction
+						{16, 0},	// statusGas
+						{16, 0},	// statusLambdaV2
+						{16, 0},	// statusCamTrigP1
+						{16, 0},	// statusCamTrigP2
+						{16, 0},	// statusChokerAdd
+						{16, 0},	// statusLambdaPWM
+						{16, TO_SD | TO_CAN | TO_XBEE},	// waterTemp
+						{16, TO_SD | TO_XBEE},	// airTemp
+						{16, TO_SD | TO_XBEE}, // potmeter
+						{16, TO_SD | TO_CAN | TO_XBEE},	// rpm
+						{16, 0},	// triggerErr
+						{16, 0},	// camAngle1
+						{16, 0},	// camAngle2
+						{16, TO_SD | TO_XBEE},	// roadSpeed
+						{16, TO_SD | TO_XBEE},	// mapSensor
+						{16, TO_SD | TO_CAN | TO_XBEE},	// batteryV
+						{16, TO_SD | TO_XBEE},	// lambdaV
+						{16, 0},	// load
+						{16, 0},	// injectorTime
+						{16, 0},	// ignitionTime
+						{16, 0},	// dwellTime
+						{16, TO_SD | TO_XBEE},	// gX
+						{16, TO_SD | TO_XBEE},	// gY
+						{16, TO_SD | TO_XBEE},	// gZ
+						{8, 0},	// motorFlags
+						{8, 0},	// outBits
+						{8, 0},	// time
+						{8, TO_XBEE},	// gear
+						{16, 0}, // FWheelL
+						{16, 0}, // FWheelR
+						{16, 0}, // BWheelL
+						{16, 0}, // BWheelR
+						{16, 0}, // Node 5 ADC0}
+						{16, 0}, // Node 5 ADC1
+						{16, 0}, // Node 5 ADC2
+						{16, 0}, // Node 5 ADC3
+						{16, 0}, // Node 5 ADC4
+						{16, 0}, // Node 5 ADC5
+						{16, 0}, // Node 5 ADC6
+						{16, 0}, // Node 5 ADC7
+						{16, 0}, // Node 6 ADC0}
+						{16, TO_SD | TO_XBEE}, // Node 6 ADC1 Gearbox temp.
+						{16, 0}, // Node 6 ADC2
+						{16, 0}, // Node 6 ADC3
+						{16, 0}, // Node 6 ADC4
+						{16, TO_SD | TO_XBEE}, // Node 6 ADC5 Engine oil press.
+						{16, TO_SD | TO_XBEE}, // Node 6 ADC6 Cooler inlet temp.
+						{16, TO_SD | TO_XBEE}, // Node 6 ADC7 Cooler outlet temp.
+						{8,  TO_XBEE}, // gpssat
+						{16, TO_SD | TO_XBEE}, // gpsspeed
+						{16, 0}, // gpstime_h
+						{16, 0}, // gpstime_m
+						{16, 0}, // gpstime_s
+						{16, TO_XBEE}, // GearNeutral
+						{16, TO_XBEE}, // GearEst
+						{16, TO_XBEE}}; // debug
 
 #endif // _DATA_DEF_

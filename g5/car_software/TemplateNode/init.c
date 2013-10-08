@@ -2,20 +2,19 @@
  * Hardware init
  *********************************************/
 
-#include "config.h"
-//#include "extern.h"
-//#include "prototyper.h"
-#include "init.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
+#include "config.h"
+
+//#include "init.h"
 /*************************************************
 * Timer
 *
 * Counter0  (8-bit): Timer til ADC konvertering
 *************************************************/
 
-void ioinit(void)
+int ioinit(void)
 {
     // Servo
     DDRE|= (1<<PE5);    // PWM til Servo
@@ -29,6 +28,7 @@ void ioinit(void)
 	DDRE &=~ (1<<PE7);
 	PORTE |= (1<<PE7); // Pull-up
 
+	return 0;
 }
 
 void uartinit(void)

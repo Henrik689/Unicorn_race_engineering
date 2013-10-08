@@ -6,14 +6,10 @@
 #include "../lib/can_defs.h"
 #include "../lib/data_def.h"
 
-#include "init.h"
-
 st_cmd_t tx_remote_msg;
 
-unsigned short int can_update_rx_msg(st_cmd_t* msg, U8 msg_id, U8 dlc)
+void can_update_rx_msg(st_cmd_t* msg, U8 msg_id, U8 dlc)
 {
-        U8 i;
-        
         msg->id.std = msg_id;
         msg->ctrl.ide = 0;
         msg->ctrl.rtr = 0;
@@ -27,14 +23,14 @@ unsigned short int can_update_rx_msg(st_cmd_t* msg, U8 msg_id, U8 dlc)
 ISR(CANIT_vect)
 {
 	uint8_t i,interrupt, mob_back;
-	uint16_t tmp,tmp2,mask=1;
+	uint16_t tmp,mask=1;
 
 	U8 rpm_response_buffer[8];
 	st_cmd_t rpm_msg;
 
 	rpm_msg.pt_data = rpm_response_buffer;
 	rpm_msg.status = 0;
-	char tempchar[10];
+	//char tempchar[10];
 	/*
 	 * Function to clear only the mob that generated the interrupt 
 	 * ------------- Code flow --------------------

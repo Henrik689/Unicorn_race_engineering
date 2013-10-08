@@ -140,7 +140,7 @@ CFLAGS=-I. $(INC) -g -mmcu=$(MCU) -O$(OPTLEVEL) \
 	-fpack-struct -fshort-enums             \
 	-Wl,-u,vfprintf -lprintf_flt -lm	\
 	-funsigned-bitfields -funsigned-char    \
-	-Wall -Wstrict-prototypes               \
+	-Wall -Wstrict-prototypes -Werror	 \
 	-Wa,-ahlms=$(firstword                  \
 	$(filter %.lst, $(<:.c=.lst)))
 

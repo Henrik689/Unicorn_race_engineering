@@ -10,7 +10,7 @@
 #include "debug.h"
 #include <util/delay.h>
 
-#include "init.h"
+#include "functions.h"
 
 void servoPosition(unsigned int position) {
 	count = 0;
@@ -93,10 +93,10 @@ void servoCheck(void)
     }
 }
 
-static void adcStop(void)
+/*static void adcStop(void)
 {
 	ADCSRA &=~(1<<ADEN); // ADC prescaler disable
-}
+}*/
 
 void sendtekst(char *tekstarray)
 {
