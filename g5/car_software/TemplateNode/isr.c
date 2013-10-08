@@ -8,12 +8,13 @@
 
 #include "config.h"
 #include "extern.h"
-#include "prototyper.h"
 #include <avr/io.h>
 #include <stdlib.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "debug.h"
+
+#include "init.h"
 
 // ADC
 unsigned int ADCconv = 0;

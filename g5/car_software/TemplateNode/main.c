@@ -11,7 +11,6 @@
 
 #include "config.h"
 #include "extern.h"
-#include "prototyper.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>

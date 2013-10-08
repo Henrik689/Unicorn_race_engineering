@@ -80,7 +80,6 @@ U8 can_cmd(st_cmd_t* cmd)
 {
   U8 mob_handle, cpt;
   U32 u32_temp;
-  U16 tmp;
   
   if (cmd->cmd == CMD_ABORT)
   {

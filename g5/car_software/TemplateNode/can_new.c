@@ -5,7 +5,8 @@
 #include "test_vars.h"
 #include "../lib/can_defs.h"
 #include "../lib/data_def.h"
-#include "prototyper.h"
+
+#include "init.h"
 
 st_cmd_t tx_remote_msg;
 

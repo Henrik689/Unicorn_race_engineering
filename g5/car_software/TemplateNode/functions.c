@@ -4,12 +4,13 @@
 
 #include "config.h"
 #include "extern.h"
-#include "prototyper.h"
 #include <avr/io.h>
 #include <stdlib.h>
 #include <avr/interrupt.h>
 #include "debug.h"
 #include <util/delay.h>
+
+#include "init.h"
 
 void servoPosition(unsigned int position) {
 	count = 0;
@@ -92,7 +93,7 @@ void servoCheck(void)
     }
 }
 
-void adcStop(void)
+static void adcStop(void)
 {
 	ADCSRA &=~(1<<ADEN); // ADC prescaler disable
 }

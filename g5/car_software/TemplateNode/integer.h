@@ -2,11 +2,8 @@
 /* Integer type definitions for FatFs module */
 /*-------------------------------------------*/
 
-#ifndef _INTEGER
-
-#if 0
-#include <windows.h>
-#else
+#ifndef INTEGER_H
+#define INTEGER_H
 
 /* These types must be 16-bit, 32-bit or larger integer */
 typedef int				INT;
@@ -31,7 +28,4 @@ typedef unsigned long	DWORD;
 /* Boolean type */
 typedef enum { FALSE = 0, TRUE } BOOL;
 
-#endif
-
-#define _INTEGER
-#endif
+#endif /* INTEGER_H */
