@@ -1,12 +1,11 @@
 /*********************************************
- * Unicorn main gear kontrol
+ * Unicorn main gear control
  *********************************************/
 /*
 	- Gear servo is controlled through PE5 PWM.
 	- Measures the position on the gear actuator through ADC.
--Timer overflow (TIMER0_OVF_vect) styrer opdateringen af signal til aktuator (~170 Hz)
-	- Timer overflow (TIMER0_OVF_vect) is a interrupt which controls the sampling frequency  
--Signal fra gearkontakter, kommer fra node 2 over CAN
+	- Timer overflow (TIMER0_OVF_vect) is an interrupt which controls the update frequency of the gear actuator (~170 Hz)
+	- Signal from gear buttons originates from node 2 through Can-bus.
 */
 
 #include "config.h"
@@ -63,15 +62,17 @@ int main(void)
     //Main loop for verification of gear positioning
 	while(1)
 	{
+		//Send a non-blocking 3 byte message to the CAN with ID and gear neutral state 
         _delay_ms(100);
-		data_buf[0] = GearNeutral;
-		data_buf[1] = GEARNEUTRALMEAS;
+		data_buf[0] = GearNeutral;							//Gear neutral ID
+		data_buf[1] = GEARNEUTRALMEAS;						//Gear neutral state
 		data_buf[2] = 0;
 		can_send_non_blocking(gear_msgid, data_buf, 3);
         
-		data_buf[0] = GearEst;
-		data_buf[1] = 0;
-		data_buf[2] = GearEst_val;
+        //Send a non-blocking 3 byte message to the CAN with ID and the estimated gear value 
+		data_buf[0] = GearEst;								//Gear estimated ID
+		data_buf[1] = 0;	
+		data_buf[2] = GearEst_val;							//Gear estimated value
 		can_send_non_blocking(rpm_msgid, data_buf, 3);
     }
     return 0;
