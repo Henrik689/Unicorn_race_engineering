@@ -1,3 +1,6 @@
+#ifndef INIT_H
+#define INIT_H
+
 // OI
 void ioinit(void);
 
@@ -12,3 +15,5 @@ void uartinit(void);
 void sendtekst(char*);
 
 void counter0Init(void);
+
+#endif /* INIT_H */
