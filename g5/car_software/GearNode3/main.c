@@ -5,7 +5,7 @@
 	- Gear servo is controlled through PE5 PWM.
 	- Measures the position on the gear actuator through ADC.
 -Timer overflow (TIMER0_OVF_vect) styrer opdateringen af signal til aktuator (~170 Hz)
-	- Timer overflow (TIMER0_OVF_vect)
+	- Timer overflow (TIMER0_OVF_vect) is a interrupt which controls the sampling frequency  
 -Signal fra gearkontakter, kommer fra node 2 over CAN
 */
 
