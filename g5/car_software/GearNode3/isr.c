@@ -1,8 +1,8 @@
 /*********************************************
- * Interrupt-service-rutiner
+ * Interrupt service rutine
  *
- * Max er helt ude
- * Min er helt inde
+ * Max is furthest away
+ * Min is closest
  *
  *********************************************/
 
@@ -15,14 +15,13 @@
 #include <util/delay.h>
 #include "debug.h"
 
-// ADC
-unsigned int ADCconv = 0;
+unsigned int ADCconv = 0;                                       // ADC value
 
 // Debugging
 char tempchar[10];
 unsigned short int count = 0;
 
-// ADC convert complete
+// ADC convert complete interrupt
 ISR(ADC_vect,ISR_NOBLOCK)
 {
 	unsigned int adlow = 0;
@@ -30,15 +29,20 @@ ISR(ADC_vect,ISR_NOBLOCK)
 
     gearPositionOld = gearPosition;
     
-	// Read ADC convertion
-    adlow=ADCL;
-    adhigh=ADCH;
-	ADCconv = (unsigned int)((adhigh<<8)|(adlow & 0xFF));
-    //ADCconv = (ADCconv-1023)*-1; //Hvis det skal vendes
+	// Read the ADC data register (By default the ADC is RIGHT AJUSTED)
+    adlow = ADCL;                                                       // ADCL is the least significant byte in the ADC data register
+    adhigh = ADCH;                                                      // ADSH is the most significant byte in the ADC data register
+	ADCconv = (unsigned int)((adhigh<<8)|(adlow & 0xFF));               // Assemble the two ADC data registers to a 10 bit value (ADCconv = ADCH + ADCL)
+    
     gearPosition = ADCconv;
 }
 
-// Timer0 (8-bit) overflow interrupt (168 Hz)
+/*
+    - Timer0 (8-bit) overflow interrupt (168 Hz)
+    - GEARDOWNBUT and GEARUPBUT is switched for now (Date: 08-10-2013)
+    - Main purpose is to control the gear position and check for different states
+    - WARNING: The ISR contains sleeping functions (gearNeutral1() and gearNeutral2())(Date: 08-10-2013) 
+*/
 ISR(TIMER0_OVF_vect)
 {
     gearButActive = 0;
@@ -46,16 +50,18 @@ ISR(TIMER0_OVF_vect)
     gearBut = gearButCAN;
     gearButNeuMeas = GEARNEUTRALMEAS;
     
+    // Conditions for when to gear up and down
     if((gearBut == GEARDOWNBUT) && (gearButNeuMeas == 0)){
         if(GearEst_val < 6){
             GearEst_val++;
         }
     }
     else if((gearBut == GEARUPBUT) && (gearButNeuMeas == 0)){
-        if(GearEst_val>1){
+        if(GearEst_val > 1){
             GearEst_val--;
         }
     }
+    // Conditions for when to gear down to 1 and 2 from neutral gear
     else if((gearBut == GEARUPBUT) && (gearButNeuMeas == 1)){
         GearEst_val = 1;
     }
