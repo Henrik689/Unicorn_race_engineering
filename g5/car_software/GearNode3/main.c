@@ -2,11 +2,13 @@
  * Unicorn main gear kontrol
  *********************************************/
 /*
--Gear Servo styres gennem PE5 PWM
--Maaler Position paa gear aktuater gennem ADC (ADC1)
+	- Gear servo is controlled through PE5 PWM.
+	- Measures the position on the gear actuator through ADC.
 -Timer overflow (TIMER0_OVF_vect) styrer opdateringen af signal til aktuator (~170 Hz)
+	- Timer overflow (TIMER0_OVF_vect)
 -Signal fra gearkontakter, kommer fra node 2 over CAN
 */
+
 #include "config.h"
 #include "extern.h"
 #include "prototyper.h"
@@ -33,34 +35,32 @@ unsigned short int gearButCAN = 0;
 
 int main(void)
 {
-	//Initialise the node
+	//Initialise the Gear node
 	_delay_ms(500);
 	uint8_t data_buf[8];
 	ioinit();									//Port setup
 	uartinit();									//Serial communication
-	can_init(0);								//Can Setup
+	can_init(0);								//Can setup
     pwm16Init2();								//Setup PWM controller
-	adcInit(1);									//Setup ADC for potmeter or Amp meter
-	st_cmd_t rpm_msg;							//Define struct for recived rpm message
+	adcInit(1);									//Setup ADC for pot-meter or Amp meter
+	st_cmd_t rpm_msg;							//Define struct for received rpm message
 	counter0Init();								//Init interrupt counter to overflow with 168Hz
 
 	_delay_ms(500);
 
 	sei();										//Enable interrupt
-    
-	//sendtekst("\n\rUnicorn Gearnode v1.0 \n\r");
 
 	//rpm_msg.pt_data = rpm_response_buffer;
 	//rpm_msg.status = 0;
 
-    can_update_rx_msg(&rpm_msg, gear_msgid, 8);		//Wait on acceptens from MotorDriver, to see if RPM is 0
+    can_update_rx_msg(&rpm_msg, gear_msgid, 8);	//Wait on acceptances from MotorDriver, to see if RPM is 0
 
 	//Enable CAN
-	Can_sei();			//Enable all interrupts
-	Can_set_tx_int();	//Enable interrupt on receive message complete on CAN bus
-	Can_set_rx_int();	//Enable interrupt on transceive message complete on CAN bus
+	Can_sei();									//Enable all interrupts
+	Can_set_tx_int();							//Enable interrupt on transmit message complete on CAN bus
+	Can_set_rx_int();							//Enable interrupt on receive message complete on CAN bus
     
-    //Main loop for veryfication of gear positioning
+    //Main loop for verification of gear positioning
 	while(1)
 	{
         _delay_ms(100);
