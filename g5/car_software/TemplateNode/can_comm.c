@@ -1,11 +1,10 @@
 #include "config.h"
-#include "extern.h"
 #include "can_std/can_lib.h"
-#include "test_vars.h"
 #include "../lib/can_defs.h"
 #include "../lib/data_def.h"
 #include "can_comm.h"
-#include "test_vars.h"
+
+unsigned char canDataTest[8];
 
 st_cmd_t tx_remote_msg;
 
@@ -62,26 +61,7 @@ ISR(CANIT_vect)
 					can_update_rx_msg(&rpm_msg, gear_msgid, 8);
 //					Can_config_rx();	// Config mob for rx again
 //					Can_set_mob_int(i);	// Enable interrupt
-					/* Take care of the data code */
-//					sendtekst("CAN val: ");
-//					itoa(canDataTest[0],tempchar,10);
-//					sendtekst(tempchar);
-//					sendtekst("\r\n");
-
-					if (canDataTest[0] == gear) 
-					{  
-						gearButCAN = canDataTest[1];
-					}
-					/*	Kan bruges til udregning af gearratio
-					else if (canDataTest[0] == roadSpeed) 
-					{  
-						roadSpeed_val = ((canDataTest[1]<<8) + canDataTest[2]); // speed x 100
-					}
-					else if (canDataTest[0] == rpm) 
-					{  
-						rpm_val = ((canDataTest[1]<<8) + canDataTest[2])*0.9408;
-					}
-					*/
+					
 					break;
 				case MOB_TX_COMPLETED:
 					Can_mob_abort();        // Freed the MOB

@@ -84,7 +84,7 @@ PROJECTNAME=gearnode
 # (list all files to compile, e.g. 'a.c b.cpp as.S'):
 # Use .cc, .cpp or .C suffix for C++ files, use .S 
 # (NOT .s !!!) for assembly source code files.
-PRJSRC=main.c isr.c functions.c init.c can_std/can_drv.c can_std/can_lib.c can_comm.c test_vars.c
+PRJSRC=main.c isr.c functions.c init.c can_std/can_drv.c can_std/can_lib.c can_comm.c
 
 # additional includes (e.g. -I/path/to/mydir)
 #INC=-I/path/to/include

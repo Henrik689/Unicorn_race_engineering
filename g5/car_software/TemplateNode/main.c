@@ -17,21 +17,9 @@
 #include "../lib/data_def.h"
 #include "init.h"
 
-unsigned int GearEst_val = 0;
-unsigned int gearPosition = 0;
-unsigned int gearPositionOld = 0;
-unsigned int gearGotoPosition = 0;
-unsigned int gearCounter = 0;
-unsigned int gearBut = 0;
-unsigned int gearButNeuMeas = 0;
-unsigned short int gearActive = 0;
-unsigned short int gearButActive = 0;
-unsigned short int gearButCAN = 0;
-
 
 int main(void)
 {
-	uint8_t data_buf[8];
 	//Initialise the Gear node
 	ioinit();									//Port setup
 	uartinit();									//Serial communication
@@ -60,20 +48,20 @@ int main(void)
 
 		sendtekst("\n\nNu laver vi ballede!\n\n");
 
-    //Main loop for verification of gear positioning
-	while(1)
-	{
-        _delay_ms(100);
-		data_buf[0] = GearNeutral;
-		data_buf[1] = GEARNEUTRALMEAS;
-		data_buf[2] = 0;
-		can_send_non_blocking(gear_msgid, data_buf, 3);
+ //    //Main loop for verification of gear positioning
+	// while(1)
+	// {
+ //        _delay_ms(100);
+	// 	data_buf[0] = GearNeutral;
+	// 	data_buf[1] = GEARNEUTRALMEAS;
+	// 	data_buf[2] = 0;
+	// 	can_send_non_blocking(gear_msgid, data_buf, 3);
         
-		data_buf[0] = GearEst;
-		data_buf[1] = 0;
-		data_buf[2] = GearEst_val;
-		can_send_non_blocking(rpm_msgid, data_buf, 3);
-    }
+	// 	data_buf[0] = GearEst;
+	// 	data_buf[1] = 0;
+	// 	data_buf[2] = GearEst_val;
+	// 	can_send_non_blocking(rpm_msgid, data_buf, 3);
+ //    }
     return 0;
    
 }
