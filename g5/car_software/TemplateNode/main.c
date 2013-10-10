@@ -12,17 +12,17 @@
 #include "config.h"
 #include <util/delay.h>
 #include "can_std/can_lib.h"
-#include "can_new.h"
+#include "can_comm.h"
 #include "../lib/can_defs.h"
 #include "../lib/data_def.h"
 #include "init.h"
 
-unsigned int GearEst_val = 0;
-unsigned int gearPosition = 0;
-unsigned int gearPositionOld = 0;
-unsigned int gearGotoPosition = 0;
-unsigned int gearCounter = 0;
-unsigned int gearBut = 0;
+unsigned int GearEst_val = 23;
+unsigned int gearPosition = 55;
+unsigned int gearPositionOld = 90;
+unsigned int gearGotoPosition = 100;
+unsigned int gearCounter = 1;
+unsigned int gearBut = 2;
 unsigned int gearButNeuMeas = 0;
 unsigned short int gearActive = 0;
 unsigned short int gearButActive = 0;
