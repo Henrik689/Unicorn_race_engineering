@@ -4,16 +4,11 @@
 
 #include "config.h"
 #include "extern.h"
-#include <avr/io.h>
 #include <stdlib.h>
-#include <avr/interrupt.h>
-#include "debug.h"
 #include <util/delay.h>
-
 #include "functions.h"
 
 void servoPosition(unsigned int position) {
-	count = 0;
 	gearCounter = 0;
     gearGotoPosition = position;
     gearActive = 1;

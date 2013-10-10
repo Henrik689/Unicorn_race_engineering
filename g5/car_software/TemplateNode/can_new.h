@@ -1,4 +1,4 @@
-#include "integer.h"
+//#include "integer.h"
 
 extern st_cmd_t tx_remote_msg;
 

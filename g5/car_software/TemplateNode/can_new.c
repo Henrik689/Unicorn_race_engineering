@@ -1,7 +1,6 @@
 #include "config.h"
 #include "extern.h"
 #include "can_std/can_lib.h"
-#include "can_new.h"
 #include "test_vars.h"
 #include "../lib/can_defs.h"
 #include "../lib/data_def.h"

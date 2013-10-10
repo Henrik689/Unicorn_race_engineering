@@ -10,16 +10,11 @@
 */
 
 #include "config.h"
-#include "extern.h"
-#include <avr/io.h>
-#include <avr/interrupt.h>
 #include <util/delay.h>
-#include <stdlib.h>
 #include "can_std/can_lib.h"
 #include "can_new.h"
 #include "../lib/can_defs.h"
 #include "../lib/data_def.h"
-
 #include "init.h"
 
 unsigned int GearEst_val = 0;

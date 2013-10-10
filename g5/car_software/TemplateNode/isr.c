@@ -6,16 +6,9 @@
  *
  *********************************************/
 
-#include <avr/io.h>
 #include <stdlib.h>
-#include <avr/interrupt.h>
-#include "config.h" // F_CPU is defined here and must be defined before util/delay.h is included
-#include <util/delay.h>
- 
-
+#include "config.h" // F_CPU is defined here and must be defined before util/delay.h is included 
 #include "extern.h"
-#include "debug.h"
-
 #include "functions.h"
 
 // ADC
