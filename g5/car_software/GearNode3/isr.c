@@ -38,7 +38,7 @@ ISR(ADC_vect,ISR_NOBLOCK)
 }
 
 /*
-    - Timer0 (8-bit) overflow interrupt (168 Hz)
+    - Timer0 (8-bit) is an overflow interrupt (168 Hz)
     - GEARDOWNBUT and GEARUPBUT is switched for now (Date: 08-10-2013)
     - Main purpose is to control the gear position and check for different states
     - WARNING: The ISR contains sleeping functions (gearNeutral1() and gearNeutral2())(Date: 08-10-2013) 
@@ -50,7 +50,7 @@ ISR(TIMER0_OVF_vect)
     gearBut = gearButCAN;
     gearButNeuMeas = GEARNEUTRALMEAS;
     
-    // Conditions for when to gear up and down
+    // Conditions for when to set the estimated gear value up or down
     if((gearBut == GEARDOWNBUT) && (gearButNeuMeas == 0)){
         if(GearEst_val < 6){
             GearEst_val++;
@@ -61,7 +61,7 @@ ISR(TIMER0_OVF_vect)
             GearEst_val--;
         }
     }
-    // Conditions for when to gear down to 1 and 2 from neutral gear
+    // Conditions for when to gear down to 1 or up to gear 2 from neutral gear
     else if((gearBut == GEARUPBUT) && (gearButNeuMeas == 1)){
         GearEst_val = 1;
     }
@@ -69,25 +69,28 @@ ISR(TIMER0_OVF_vect)
         GearEst_val = 2;
     }
     
-    
+    //  Check if the gear should gear up half a gear from 1 to neutral
     if(gearButActive == 0 && (gearBut == GEARNEUBUT1)){
         gearButActive = 1;
         gearNeutral1();
         GearEst_val = 0;
     }
+    //  Check if the gear should gear down half a gear from 2 to neutral
     else if(gearButActive == 0 && (gearBut == GEARNEUBUT2)){
         gearButActive = 1;
         gearNeutral2();
         GearEst_val = 0;
     }
+    //  Check if the gear it should gear down
     else if(gearButActive == 0 && gearBut == GEARUPBUT){
         gearButActive = 1;
-        sendtekst("1");
+        //sendtekst("1");
         gearDown();
     }
+    //  Check if the gear it should gear up
     else if(gearButActive == 0 && gearBut == GEARDOWNBUT){
         gearButActive = 1;
-        sendtekst("3");
+        //sendtekst("3");
         gearUp();
     }
     

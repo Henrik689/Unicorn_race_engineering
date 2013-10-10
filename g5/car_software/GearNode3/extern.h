@@ -9,7 +9,7 @@ extern unsigned int gearCounter;
 extern unsigned int gearBut;
 extern unsigned int gearButNeuMeas;
 extern unsigned short int gearActive;
-extern unsigned short int gearButActive;
+extern unsigned short int gearButActive;							//	Flag for when the gear has been chanced
 extern unsigned short int gearButCAN;
 
 extern unsigned int GearEst_val;
