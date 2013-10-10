@@ -28,7 +28,7 @@ unsigned int gearCounter = 0;
 unsigned int gearBut = 0;
 unsigned int gearButNeuMeas = 0;
 unsigned short int gearActive = 0;
-unsigned short int gearButActive = 0;
+unsigned short int gearButActive = 0;			//Set if gear button was active 
 unsigned short int gearButCAN = 0;
 
 
@@ -55,9 +55,9 @@ int main(void)
     can_update_rx_msg(&rpm_msg, gear_msgid, 8);	//Wait on acceptances from MotorDriver, to see if RPM is 0
 
 	//Enable CAN
-	Can_sei();									//Enable all interrupts
-	Can_set_tx_int();							//Enable interrupt on transmit message complete on CAN bus
-	Can_set_rx_int();							//Enable interrupt on receive message complete on CAN bus
+	Can_sei();												//Enable all interrupts
+	Can_set_tx_int();										//Enable interrupt on transmit message complete on CAN bus
+	Can_set_rx_int();										//Enable interrupt on receive message complete on CAN bus
     
     //Main loop for verification of gear positioning
 	while(1)

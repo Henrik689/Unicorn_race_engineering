@@ -17,8 +17,8 @@
 #include "../lib/data_def.h"
 #include "init.h"
 
-unsigned int GearEst_val = 0;
-unsigned int gearPosition = 0;
+unsigned int GearEst_val = 1337;
+unsigned int gearPosition = "8=>";
 unsigned int gearPositionOld = 0;
 unsigned int gearGotoPosition = 0;
 unsigned int gearCounter = 0;
