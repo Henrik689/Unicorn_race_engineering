@@ -1,4 +1,5 @@
 #include "config.h"
+#include <avr/interrupt.h>
 #include "can_std/can_lib.h"
 #include "../lib/can_defs.h"
 #include "../lib/data_def.h"

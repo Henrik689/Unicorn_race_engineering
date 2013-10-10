@@ -2,6 +2,7 @@
  * Functions
  *********************************************/
 
+#include <avr/interrupt.h>
 #include "config.h"
 #include <stdlib.h>
 #include <util/delay.h>

@@ -11,8 +11,8 @@
 
 // CAN
 #include "compiler.h"
-#include <avr/io.h>
-#include <avr/interrupt.h>
+//#include <avr/io.h>
+//#include <avr/interrupt.h>
 #include "can_std/at90can_drv.h"
 #define CAN_BAUDRATE   250        // in kBit
 

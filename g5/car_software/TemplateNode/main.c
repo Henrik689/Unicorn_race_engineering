@@ -9,6 +9,7 @@
 -Signal fra gearkontakter, kommer fra node 2 over CAN
 */
 
+#include <avr/interrupt.h>
 #include "config.h"
 #include <util/delay.h>
 #include "can_std/can_lib.h"

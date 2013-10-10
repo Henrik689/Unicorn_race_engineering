@@ -21,6 +21,7 @@
 
 //_____ I N C L U D E S ________________________________________________________
 #include "../config.h"
+#include <avr/interrupt.h>
 #include "can_lib.h"
 #include "can_drv.h"
 
