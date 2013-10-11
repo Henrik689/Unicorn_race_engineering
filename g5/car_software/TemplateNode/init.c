@@ -3,7 +3,7 @@
  *********************************************/
 
 #include <avr/interrupt.h>
-#include "config.h"
+#include "init.h"
 
 /*************************************************
 * Timer
@@ -11,7 +11,7 @@
 * Counter0  (8-bit): Timer til ADC konvertering
 *************************************************/
 
-int ioinit(void)
+void ioinit(void)
 {
     // Servo
     DDRE|= (1<<PE5);    // PWM til Servo
@@ -25,7 +25,6 @@ int ioinit(void)
 	DDRE &=~ (1<<PE7);
 	PORTE |= (1<<PE7); // Pull-up
 
-	return 0;
 }
 
 void uartinit(void)
