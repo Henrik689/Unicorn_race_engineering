@@ -77,14 +77,14 @@ PROGRAMMER_MCU=c128
 
 # Name of our project
 # (use a single word, e.g. 'myproject')
-PROJECTNAME=gearnode
+PROJECTNAME=TemplateNode
 
 # Source files
 # List C/C++/Assembly source files:
 # (list all files to compile, e.g. 'a.c b.cpp as.S'):
 # Use .cc, .cpp or .C suffix for C++ files, use .S 
 # (NOT .s !!!) for assembly source code files.
-PRJSRC=main.c isr.c functions.c init.c can_std/can_drv.c can_std/can_lib.c can_comm.c
+PRJSRC=main.c isr.c uart.c init.c can_std/can_drv.c can_std/can_lib.c can_comm.c
 
 # additional includes (e.g. -I/path/to/mydir)
 #INC=-I/path/to/include
@@ -215,8 +215,8 @@ GENASMFILES=$(filter %.s, $(OBJDEPS:.o=.s))
 .PHONY: writeflash clean stats gdbinit stats
 
 # Make targets:
-# all, disasm, stats, hex, writeflash/install, clean
-all: $(TRG) clean
+# all, disasm, stats, hex, writeflash/install
+all: $(TRG)
 
 disasm: $(DUMPTRG) stats
 
