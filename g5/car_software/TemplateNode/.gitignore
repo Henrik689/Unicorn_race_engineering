@@ -1,0 +1,5 @@
+
+# compiler output
+*.o
+*.lst
+*.map
