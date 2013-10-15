@@ -77,7 +77,7 @@ PROGRAMMER_MCU=c128
 
 # Name of our project
 # (use a single word, e.g. 'myproject')
-PROJECTNAME=gearnode
+PROJECTNAME=TemplateNode
 
 # Source files
 # List C/C++/Assembly source files:
