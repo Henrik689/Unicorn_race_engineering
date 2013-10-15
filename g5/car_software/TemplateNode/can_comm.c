@@ -1,4 +1,5 @@
 #include "config.h"
+#include <stdint.h>
 #include <avr/interrupt.h>
 #include "can_std/can_lib.h"
 #include "../lib/can_defs.h"
@@ -9,8 +10,7 @@ unsigned char canDataTest[8];
 
 st_cmd_t tx_remote_msg;
 
-void can_update_rx_msg(st_cmd_t* msg, U8 msg_id, U8 dlc)
-{
+void can_update_rx_msg(st_cmd_t* msg, uint8_t msg_id, uint8_t dlc){
         msg->id.std = msg_id;
         msg->ctrl.ide = 0;
         msg->ctrl.rtr = 0;
@@ -21,12 +21,11 @@ void can_update_rx_msg(st_cmd_t* msg, U8 msg_id, U8 dlc)
 }
 
 /* Interrupt routine to take care of can interrupts */
-ISR(CANIT_vect)
-{
+ISR(CANIT_vect){
 	uint8_t i,interrupt, mob_back;
 	uint16_t tmp,mask=1;
 
-	U8 rpm_response_buffer[8];
+	uint8_t rpm_response_buffer[8];
 	st_cmd_t rpm_msg;
 
 	rpm_msg.pt_data = rpm_response_buffer;
@@ -101,8 +100,7 @@ ISR(CANIT_vect)
  * 0 = Besked ikke kommet i udbakke
  * 1 = Besked kommet i udbakke
 */
-U8 can_send_non_blocking(U8 msg_id, void* buf, U8 dlc)
-{
+uint8_t can_send_non_blocking(uint8_t msg_id, void* buf, uint8_t dlc){
 	tx_remote_msg.pt_data = buf; 
 	tx_remote_msg.id.std = msg_id;
 	tx_remote_msg.ctrl.ide = 0;
