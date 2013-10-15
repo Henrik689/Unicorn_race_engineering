@@ -128,5 +128,6 @@ typedef struct sensor_t {
 
 
 int parseNext(uint8_t dataByte, sensor_t *sensor, parser_t *p);
+void canfile2csv(const char *path);
 
 #endif /* CANPARSER_H */

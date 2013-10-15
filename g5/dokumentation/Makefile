@@ -1,16 +1,16 @@
-
-
 all:
-	pdflatex main.tex
+	pdflatex Elektronik-G6.tex
+	pdflatex Elektronik-G6.tex
 
 clean:
-	rm *.aux
-	rm *.out
-	rm *.toc
-	rm main.pdf
-	rm *.bbl
-	rm *.blg
-	rm *.log
-	rm *.lox
-	rm *.tps
+	rm *.aux \
+	*.log \
+	*.out \
+	*.toc \
+	*.bbl \
+	*.blg \
+	*.lox \
+	*.tps \
+	Elektronik-G6.pdf
+
 	echo "Junk Deleted"

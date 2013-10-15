@@ -9,6 +9,7 @@
 -Signal fra gearkontakter, kommer fra node 2 over CAN
 */
 
+#include <avr/interrupt.h>
 #include "config.h"
 #include <util/delay.h>
 #include "can_std/can_lib.h"
@@ -16,15 +17,16 @@
 #include "../lib/can_defs.h"
 #include "../lib/data_def.h"
 #include "init.h"
+#include "uart.h"
 
 
 int main(void)
 {
 	//Initialise the Gear node
 	ioinit();									//Port setup
-	uartinit();									//Serial communication
+	uart_init();									//Serial communication
 
-	sendtekst("\n\nStarting template!\n\n");
+	uart_txstring("\n\nStarting template!\n\n");
 
 	can_init(0);								//Can setup
     pwm16Init2();								//Setup PWM controller
@@ -46,7 +48,7 @@ int main(void)
 	Can_set_tx_int();							//Enable interrupt on transmit message complete on CAN bus
 	Can_set_rx_int();							//Enable interrupt on receive message complete on CAN bus
 
-		sendtekst("\n\nNu laver vi ballede!\n\n");
+	uart_txstring("\n\nNu laver vi ballede!\n\n");
 
  //    //Main loop for verification of gear positioning
 	// while(1)
