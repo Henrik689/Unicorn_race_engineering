@@ -1,0 +1,8 @@
+Data: giver måling i V, Hz, ms, 
+
+for at finde hastigheden, så skal der findes: 
+Skal der frekvensen måles, 100 gange i sekundet. 
+Derer 48 huller i den yderste ring.
+Derfra skal frekvensen så afgøre hvor ofte hullerne passere sensoren.
+jo større en frekvens, jo hurtigere ruller hjulet.
+

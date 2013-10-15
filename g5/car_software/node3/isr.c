@@ -29,7 +29,7 @@ ISR(ADC_vect,ISR_NOBLOCK)
 	unsigned int adhigh = 0;
 
     gearPositionOld = gearPosition;
-
+    
 	// Read ADC convertion
     adlow=ADCL;
     adhigh=ADCH;
@@ -45,8 +45,8 @@ ISR(TIMER0_OVF_vect)
     //servoCheck();
     gearBut = gearButCAN;
     gearButNeuMeas = GEARNEUTRALMEAS;
-
-    if((gearBut == GEARDOWNBUT) && (gearButNeuMeas == 0)){ // GAERDOWNBUT <=> GEARUPBUT The two commands has been switched
+    
+    if((gearBut == GEARDOWNBUT) && (gearButNeuMeas == 0)){
         if(GearEst_val < 6){
             GearEst_val++;
         }
@@ -62,8 +62,8 @@ ISR(TIMER0_OVF_vect)
     else if((gearBut == GEARDOWNBUT) && (gearButNeuMeas == 1)){
         GearEst_val = 2;
     }
-
-
+    
+    
     if(gearButActive == 0 && (gearBut == GEARNEUBUT1)){
         gearButActive = 1;
         gearNeutral1();
@@ -84,9 +84,9 @@ ISR(TIMER0_OVF_vect)
         sendtekst("3");
         gearUp();
     }
-
-
-
+    
+   
+    
 	if((count%50)==0)
 	{
 
@@ -96,34 +96,34 @@ ISR(TIMER0_OVF_vect)
 		itoa(gearBut,tempchar,2);
 		sendtekst(tempchar);
 		sendtekst("\t");
-
+        
         sendtekst("gearBut10: ");
 		itoa(gearBut,tempchar,10);
 		sendtekst(tempchar);
 		sendtekst("\t");
         */
-
+        
         sendtekst("gearNeutralMeas: ");
 		itoa(GEARNEUTRALMEAS,tempchar,10);
 		sendtekst(tempchar);
 		sendtekst("\t");
-
+            
         sendtekst("gearButCAN: ");
 		itoa(gearButCAN,tempchar,2);
 		sendtekst(tempchar);
 		sendtekst("\t");
-
+        
         sendtekst("gearButActive: ");
 		itoa(gearButActive,tempchar,2);
 		sendtekst(tempchar);
 		sendtekst("\r\n");
-
+        
         /* Data til leg med gear positioner */
 		//sendtekst("Pos: ");
 		//itoa(gearPosition,tempchar,10);
 		//sendtekst(tempchar);
 		//sendtekst("\t");
-
+        
         //sendtekst("PosOld: ");
 		//itoa(gearPositionOld,tempchar,10);
 		//sendtekst(tempchar);
@@ -133,7 +133,7 @@ ISR(TIMER0_OVF_vect)
 		//itoa(gearGotoPosition,tempchar,10);
 		//sendtekst(tempchar);
 		//sendtekst("\t");
-
+        
         //sendtekst("GearActive: ");
 		//itoa(gearActive,tempchar,10);
 		//sendtekst(tempchar);
@@ -148,7 +148,7 @@ ISR(TIMER0_OVF_vect)
 		count = 0;
 	}
 	count++;
-
+    
     // Is only down here because we want to print
     gearButCAN = 0;
 }
