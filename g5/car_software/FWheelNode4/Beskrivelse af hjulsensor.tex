@@ -1,0 +1,82 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[danish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\begin{document}
+
+\chapter{Hjul sensor}
+Dette afsnit omhandler sensorerne som sidder på hver af forhjulene såvel som baghjulene. Disse sensorer er til for at kunne beregne hastigheden hvor med bilen bevæger sig og med yderligere henblik på behandling af tacktion controll.
+
+\section{Sensoren}
+Selve sensoren er en fra Bosch model nr.: 265 006. Det er en magnet sensor som giver udslag for hver gang der passere en metal flade. Brugen af denne er sat i forbindelse med bremseskiverne som er designet med huller, hvor der i mellem hvert hul er en flade metal. Dette giver et udslag i form af frekvens ($\left[\text{Hz} = \frac{1}{\text{s}}\right]$).
+
+\subsection*{Beregning af hastighed}
+For at beregne hastigheden af bilen er der blevet lavet nogle mål, disse mål er blevet beskrevet nærmere i ligningen \ref{eq:maal}.
+
+\begin{center}
+	\begin{subequations} \label{eq:maal}
+		\begin{align}
+H_{0} = 48 ~~ \left[\text{1}\right] \\
+H_{1} = 56 ~~ \left[\text{1}\right] \\
+H_{2} = 56 ~~ \left[\text{1}\right] \\
+O_{h} = 6,83 ~~ \left[\text{m}\right] \\
+		\end{align}	
+	\end{subequations}
+\end{center}
+hvor
+\begin{center}
+	\begin{tabular}{ l l l }
+	  $H_{0}$ & Er antallet af huller på de forreste bremseskiver på G5-bilen & $\left[1\right]$ \\
+	  $H_{1}$ & Er antallet af huller på de Bagerste bremseskiver på G5-bilen & $\left[1\right]$\\
+	  $H_{2}$ & Er antallet af huller på alle bremseskiverne på G6-bilen & $\left[1\right]$ \\
+	  $O_{h}$ & Er omkredsen på hjulene på G5- og G6-bilen & $\left[\text{m}\right]$ \\
+	\end{tabular}  
+\end{center}  
+Hullerne er talt af én person og blevet beskrevet af tegne programmet. Omkredsen er blevet målt ved at tage en snor rundt langs den øverste kant af hjulet.
+
+Med disse mål kan der nu bestemmes en afstand som vil være tilbagelagt pr. hul i bremseskiven. Dette kommer af at der altid vil være lige så mange metal flader, som der vil være huller i en enkelt række i en kreds. Beregningerne for disse kommer af \ref{eq:distance}.
+
+\begin{center}
+	\begin{subequations} \label{eq:distance}
+		\begin{align}
+l_{0} = \frac{O_{h}}{H_{0}} ~~ \left[\text{m}\right] \\
+l_{1} = \frac{O_{h}}{H_{1}} ~~ \left[\text{m}\right] \\
+l_{2} = \frac{O_{h}}{H_{2}} ~~ \left[\text{m}\right] \\
+		\end{align}	
+	\end{subequations}
+\end{center}
+hvor
+\begin{center}
+	\begin{tabular}{ l l l }
+	  $l_{0}$ & Er distancen tilbagelagt pr. hul for de forreste hjul på G5-bilen & $\left[\text{m}\right]$ \\
+	  $l_{1}$ & Er distancen tilbagelagt pr. hul for de bagerste hjul på G5-bilen & $\left[\text{m}\right]$\\
+	  $l_{2}$ & Er distancen tilbagelagt pr. hul for hjulene på G6-bilen & $\left[\text{m}\right]$ \\
+	\end{tabular}  
+\end{center}
+
+Nu hvor der er blevet lavet en beskrivelse af distancen som er tilbage lagt pr. hul kan hastigheden nu blive beregnet da sensoren reagere i frekvens. Her ved kan distancen multipliceret med frekvensen give en hastighed, dette er vist som et eksempel for hver i ligningerne \ref{eq:fart}
+
+\begin{center}
+	\begin{subequations} \label{eq:fart}
+		\begin{align}
+V_{0} = l_{0} \cdot f ~~ \left[\frac{\text{m}}{\text{s}}\right] \\
+V_{1} = l_{1} \cdot f ~~ \left[\frac{\text{m}}{\text{s}}\right] \\
+V_{2} = l_{2} \cdot f ~~ \left[\frac{\text{m}}{\text{s}}\right] \\
+		\end{align}	
+	\end{subequations}
+\end{center}
+hvor
+\begin{center}
+	\begin{tabular}{ l l l }
+	  $V_{0}$ & Er hastigheden for de forreste hjul på G5-bilen & $\left[\text{m}\right]$ \\
+	  $V_{1}$ & Er hastigheden for de bagerste hjul på G5-bilen & $\left[\text{m}\right]$\\
+	  $V_{2}$ & Er hastigheden for hjulene på G6-bilen & $\left[\text{m}\right]$ \\
+	  $f$ & Er den givne frekvens målt fra sensoren & $\left[\text{Hz} = \frac{1}{\text{s}}\right]$ \\
+	\end{tabular}  
+\end{center}
+
+Der er nu blevet beskrevet hvilken sensor som der i afsnittet her er blevet arbejdet med, samt hvordan der er blevet regnet frem til en hastighed for hjulene på henholdsvis G5- og G6-bilen.
+\end{document}
