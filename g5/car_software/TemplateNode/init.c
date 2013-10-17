@@ -24,7 +24,6 @@ void ioinit(void)
 	// Neutral gear (input)
 	DDRE &=~ (1<<PE7);
 	PORTE |= (1<<PE7); // Pull-up
-
 }
 
 

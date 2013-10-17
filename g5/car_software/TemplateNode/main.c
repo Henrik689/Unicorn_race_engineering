@@ -1,14 +1,3 @@
-/*********************************************
- * Unicorn main gear kontrol
- *********************************************/
-/*
-	- Gear servo is controlled through PE5 PWM.
-	- Measures the position on the gear actuator through ADC.
--Timer overflow (TIMER0_OVF_vect) styrer opdateringen af signal til aktuator (~170 Hz)
-	- Timer overflow (TIMER0_OVF_vect) is a interrupt which controls the sampling frequency  
--Signal fra gearkontakter, kommer fra node 2 over CAN
-*/
-
 #include <avr/interrupt.h>
 #include "config.h"
 #include <util/delay.h>
@@ -24,31 +13,18 @@ int main(void)
 {
 	//Initialise the Gear node
 	ioinit();									//Port setup
-	uart_init();									//Serial communication
-
-	uart_txstring("\n\nStarting template!\n\n");
-
+	uart_init();								//Serial communication
 	can_init(0);								//Can setup
     pwm16Init2();								//Setup PWM controller
 	adcInit(1);									//Setup ADC for pot-meter or Amp meter
-	st_cmd_t rpm_msg;							//Define struct for received rpm message
 	counter0Init();								//Init interrupt counter to overflow with 168Hz
 
-	_delay_ms(500);
-
 	sei();										//Enable interrupt
-
-	//rpm_msg.pt_data = rpm_response_buffer;
-	//rpm_msg.status = 0;
-
-    can_update_rx_msg(&rpm_msg, gear_msgid, 8);	//Wait on acceptances from MotorDriver, to see if RPM is 0
 
 	//Enable CAN
 	Can_sei();									//Enable all interrupts
 	Can_set_tx_int();							//Enable interrupt on transmit message complete on CAN bus
 	Can_set_rx_int();							//Enable interrupt on receive message complete on CAN bus
-
-	uart_txstring("\n\nNu laver vi ballede!\n\n");
 
 	while(1){
 		// Main work loop
