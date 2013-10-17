@@ -93,7 +93,7 @@ typedef struct{
 //             received.
 // 6) status:  manage by the library.
 // 7) ctrl  :  field ide to signal a extended frame .
-typedef  struct{
+typedef struct{
   U8         handle; 
   can_cmd_t  cmd; 
   can_id_t   id;

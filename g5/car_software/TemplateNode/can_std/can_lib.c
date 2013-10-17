@@ -310,18 +310,3 @@ U8 can_get_status (st_cmd_t* cmd)
  
     return (rtn_val);
 }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
