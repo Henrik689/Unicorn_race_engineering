@@ -1,6 +1,8 @@
 #ifndef ADC_H
 #define ADC_H
 
+#include <stdint.h>
+
 enum adc_prescalar_t {
 	PRESCALAR_2 = 2,
 	PRESCALAR_4 = 4,
@@ -18,6 +20,7 @@ enum adc_vref_t {
 };
 
 void adc_setPrescaler(enum adc_prescalar_t p);
-void adc_setChannel(unsigned int ch);
+void adc_setChannel(uint8_t ch);
+uint16_t adc_readChannel(uint8_t ch);
 
 #endif /* ADC_H */

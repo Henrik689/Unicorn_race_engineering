@@ -1,4 +1,5 @@
 #include <avr/interrupt.h>
+#include <stdint.h>
 #include "adc.h"
 
 void adc_setPrescaler(enum adc_prescalar_t p){
@@ -48,9 +49,11 @@ void adc_setPrescaler(enum adc_prescalar_t p){
 	}
 }
 
-void adc_setChannel(unsigned int ch){
+void adc_setChannel(uint8_t ch){
 	// set the channel between 0 and 7 (including)
-	ADMUX |= (ch & 0x0F); // maybe change |= to =
+	//ADMUX |= (ch & 0x0F); // maybe change |= to =
+	ch &= 0x07; // 
+	ADMUX = (ADMUX & 0xF8)|ch;
 }
 
 void adc_setVref(enum adc_vref_t vref){
@@ -70,5 +73,21 @@ void adc_setVref(enum adc_vref_t vref){
 			ADMUX |= (1<<REFS1);
 			break;
 	}
+}
+
+
+uint16_t adc_readChannel(uint8_t ch){
+	adc_setChannel(ch);
+
+	//Start Single conversion
+   ADCSRA|=(1<<ADSC);
+
+   //Wait for conversion to complete
+   while(!(ADCSRA & (1<<ADIF)));
+
+   //Clear ADIF by writing one to it
+   ADCSRA|=(1<<ADIF);
+
+   return(ADC);
 }
 
