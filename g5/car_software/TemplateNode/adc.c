@@ -1,7 +1,7 @@
 #include <avr/interrupt.h>
 #include "adc.h"
 
-void adc_setPrescaler(enum prescalar_t p){
+void adc_setPrescaler(enum adc_prescalar_t p){
 	// The ADC requires a frequency between 50KHz to 200KHz
 	// this frequency is set by the prescalar and the cpu_f
 	// ADC frequency = cpu_f / prescalar
@@ -52,3 +52,23 @@ void adc_setChannel(unsigned int ch){
 	// set the channel between 0 and 7 (including)
 	ADMUX = (ch & 0x0F);
 }
+
+void adc_setVref(enum adc_vref_t vref){
+	switch(vref){
+		case AREF:
+			ADMUX &=~ (1<<REFS0); 
+			ADMUX &=~ (1<<REFS1);
+			break;
+
+		case AVCC:
+			ADMUX |= (1<<REFS0); 
+			ADMUX &=~ (1<<REFS1);
+			break;
+
+		case INTERNAL:
+			ADMUX |= (1<<REFS0); 
+			ADMUX |= (1<<REFS1);
+			break;
+	}
+}
+
