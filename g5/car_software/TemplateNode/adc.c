@@ -83,9 +83,8 @@ void adc_setPrescaler(enum adc_prescalar_t p){
 
 void adc_setChannel(uint8_t ch){
 	// set the channel between 0 and 7 (including)
-	//ADMUX |= (ch & 0x0F); // maybe change |= to =
-	ch &= 0x07; // 
-	ADMUX = (ADMUX & 0xF8)|ch;
+	BIT_CLEAR(ch, 0x07);
+	BIT_SET(ADMUX, ch);
 }
 
 void adc_setVref(enum adc_vref_t vref){
