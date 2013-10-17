@@ -4,6 +4,7 @@
 
 #include <avr/interrupt.h>
 #include "init.h"
+#include "timer.h"
 
 /*************************************************
 * Timer
@@ -34,10 +35,11 @@ void pwm16Init2(void)
     DDRE |= (1<<PE5);
 
     // Set Wave Generator mode to mode 14, FAST-PWM TOP = ICRn (table 13-4)
-	TCCR3A &=~ (1<<WGM30);
-	TCCR3A |= (1<<WGM31);
-	TCCR3B |= (1<<WGM32);
-	TCCR3B |= (1<<WGM33);
+	//TCCR3A &=~ (1<<WGM30);
+	//TCCR3A |= (1<<WGM31);
+	//TCCR3B |= (1<<WGM32);
+	//TCCR3B |= (1<<WGM33);
+	timer_setMode(TIMER3, 14);
     
 	// These bits are set in order to control the behavior of Output Compare pin (OC0)(table 13-2)
 	TCCR3A |= (1<<COM3C1);
@@ -58,7 +60,7 @@ void pwm16Init2(void)
 
 void counter0Init(void)
 {
-	TCCR0A |= counter0prescale256;
+	timer_setPrescaler(PRESCALAR_256);
 	TIMSK0 |= (1<<TOIE0);
 }
 

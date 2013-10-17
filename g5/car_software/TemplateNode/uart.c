@@ -11,7 +11,7 @@
 // 	ADCSRA &=~(1<<ADEN); // ADC prescaler disable
 // }
 
-void uart_init(void){
+void uart_init(void) {
 	//Enable TXen og RXen
 	UCSR1B = (1<<RXEN1)|(1<<TXEN1); 
 	
@@ -29,20 +29,14 @@ void uart_init(void){
 	//UCSR0B|=(1<<TXCIE0);
 }
 
-void uart_txchar(char c){
+void uart_txchar(char c) {
 	while ( !(UCSR1A & (1 << UDRE1)) ); 
 	UDR1 = c;
 }
 
-void uart_txstring(char *str){
-	/*
-	short int i;
-	for (i = 0; str[i] != '\0'; i++){	
-		while ((UCSR1A & (1 << UDRE1)) == 0) {};
-		UDR1 = str[i];
-	}
-	*/
-	while(*str){
-		uart_txchar(*str++);
+void uart_txstring(char *str) {
+	char *c = str;
+	while(*c){
+		uart_txchar(*c++);
 	}
 }

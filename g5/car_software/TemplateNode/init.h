@@ -1,9 +1,6 @@
 #ifndef INIT_H
 #define INIT_H
 
-// Counter0 Prescaler
-#define counter0prescale256 4
-
 // OI
 void ioinit(void);
 
