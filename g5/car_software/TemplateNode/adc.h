@@ -3,18 +3,6 @@
 
 #include <stdint.h>
 
-/* a=target variable, b=bit number to act upon 0-n */
-#define BIT_SET(a,b) ((a) |= (1<<(b)))
-#define BIT_CLEAR(a,b) ((a) &= ~(1<<(b)))
-#define BIT_FLIP(a,b) ((a) ^= (1<<(b)))
-#define BIT_CHECK(a,b) ((a) & (1<<(b)))
-
-/* x=target variable, y=mask */
-#define BITMASK_SET(x,y) ((x) |= (y))
-#define BITMASK_CLEAR(x,y) ((x) &= (~(y)))
-#define BITMASK_FLIP(x,y) ((x) ^= (y))
-#define BITMASK_CHECK(x,y) ((x) & (y))
-
 enum adc_prescalar_t {
 	PRESCALAR_2 = 2,
 	PRESCALAR_4 = 4,
@@ -32,20 +20,30 @@ enum adc_vref_t {
 };
 
 enum adc_triggerSource_t {
-	FREE_RUNNING,
-	ANALOG_COMPARE,
-	EXTERNAL_INTERUPT_REQUEST,
-	COUNTER_0_COMPARE_MATCH,
-	COUNTER_0_OVERFLOW,
-	COUNTER_COMPARE_MATCH_B,
-	COUNTER_1_OVERFLOW,
-	COUNTER_1_CAPTURE_EVENT
-}
+	FREE_RUNNING = 0,
+	ANALOG_COMPARE = 1,
+	EXTERNAL_INTERUPT_REQUEST = 2,
+	COUNTER_0_COMPARE_MATCH = 3,
+	COUNTER_0_OVERFLOW = 4,
+	COUNTER_COMPARE_MATCH_B = 5,
+	COUNTER_1_OVERFLOW = 6,
+	COUNTER_1_CAPTURE_EVENT = 7
+};
+
+void adc_enable(void);
+void adc_disable(void);
+void adc_autoTriggerEnable(void);
+void adc_autoTriggerDisable(void);
+void adc_InteruptEnable(void);
+void adc_InteruptDisable(void);
+void adc_setTriggerSource(enum adc_triggerSource_t source);
 
 void adc_setPrescaler(enum adc_prescalar_t p);
 void adc_setChannel(uint8_t ch);
+void adc_setVref(enum adc_vref_t vref);
 uint16_t adc_read(void);
 uint16_t adc_readChannel(uint8_t ch);
+void adc_init(void);
 
 #endif /* ADC_H */
 	

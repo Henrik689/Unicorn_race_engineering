@@ -3,11 +3,11 @@
 #include "adc.h"
 #include "bitwise.h"
 
-void adc_enable(){
+void adc_enable(void){
 	BIT_SET(ADCSRA, ADEN);
 }
 
-void adc_disable(){
+void adc_disable(void){
 	BIT_CLEAR(ADCSRA, ADEN);
 }
 
@@ -19,47 +19,17 @@ void adc_autoTriggerDisable(void){
 	BIT_CLEAR(ADCSRA, ADATE);
 }
 
-adc_InteruptEnable(void){
+void adc_InteruptEnable(void){
 	BIT_SET(ADCSRA, ADIE);
 }
 
-adc_InteruptDisable(void){
+void adc_InteruptDisable(void){
 	BIT_CLEAR(ADCSRA, ADIE);
 }
 
-adc_setTriggerSource(enum adc_triggerSource_t source){
-	switch(source){
-		case FREE_RUNNING:
-			ADCSRB &= ~(1<<ADTS0);
-     		ADCSRB &= ~(1<<ADTS1);
-     		ADCSRB &= ~(1<<ADTS2);
-			break;
-		case ANALOG_COMPARE:
-			ADCSRB |= (1<<ADTS0);
-     		ADCSRB &= ~(1<<ADTS1);
-     		ADCSRB &= ~(1<<ADTS2);
-			break;
-		case EXTERNAL_INTERUPT_REQUEST:
-			ADCSRB &= ~(1<<ADTS0);
-     		ADCSRB |= (1<<ADTS1);
-     		ADCSRB &= ~(1<<ADTS2);
-			break;
-		case COUNTER_0_COMPARE_MATCH:
-			ADCSRB |= (1<<ADTS0);
-     		ADCSRB |= (1<<ADTS1);
-     		ADCSRB &= ~(1<<ADTS2);
-			break;
-		case COUNTER_0_OVERFLOW:
-			ADCSRB &= ~(1<<ADTS0);
-     		ADCSRB &= ~(1<<ADTS1);
-     		ADCSRB |= (1<<ADTS2);
-			break;
-		case COUNTER_COMPARE_MATCH_B:
-			ADCSRB &= ~(1<<ADTS0);
-     		ADCSRB &= ~(1<<ADTS1);
-     		ADCSRB |= (1<<ADTS2);
-			break;
-	}
+void adc_setTriggerSource(enum adc_triggerSource_t source){
+	BITMASK_CLEAR(ADCSRB, (0x07<<5));
+	BITMASK_SET(ADCSRB, (source<<5));
 }
 
 void adc_setPrescaler(enum adc_prescalar_t p){
@@ -69,6 +39,8 @@ void adc_setPrescaler(enum adc_prescalar_t p){
 	// 16mhz / 128 = 150khz
 	// this is well explaind at:
 	// http://www.avrbeginners.net/architecture/adc/adc.html#adcsr
+
+	// TODO: use BITMASK_CLEAR and BITMAST_SET to do this
 
 	switch(p){
 		case PRESCALAR_2:
@@ -119,18 +91,18 @@ void adc_setChannel(uint8_t ch){
 void adc_setVref(enum adc_vref_t vref){
 	switch(vref){
 		case AREF:
-			ADMUX &= ~(1<<REFS0); 
-			ADMUX &= ~(1<<REFS1);
+			BIT_CLEAR(ADMUX, REFS0);
+			BIT_CLEAR(ADMUX, REFS1);
 			break;
 
 		case AVCC:
-			ADMUX |= (1<<REFS0); 
-			ADMUX &= ~(1<<REFS1);
+			BIT_SET(ADMUX, REFS0);
+			BIT_CLEAR(ADMUX, REFS1);
 			break;
 
 		case INTERNAL:
-			ADMUX |= (1<<REFS0); 
-			ADMUX |= (1<<REFS1);
+			BIT_SET(ADMUX, REFS0);
+			BIT_SET(ADMUX, REFS1);
 			break;
 	}
 }
@@ -156,6 +128,10 @@ uint16_t adc_readChannel(uint8_t ch){
 void adc_init(void){
 	adc_setChannel(1);
 	adc_setVref(AVCC);
+	adc_enable();
 	adc_setPrescaler(PRESCALAR_128);
+	adc_autoTriggerEnable();
+	adc_setTriggerSource(ANALOG_COMPARE);
+	adc_InteruptEnable();
 }
 
