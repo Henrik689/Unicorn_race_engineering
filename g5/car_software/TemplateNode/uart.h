@@ -7,6 +7,8 @@
 #define BAUD_PRESCALE (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)
 
 void uart_init(void);
-void uart_txstring(char *tekstarray);
+
+void uart_txchar(char c);
+void uart_txstring(char *str);
 
 #endif /* UART_H */

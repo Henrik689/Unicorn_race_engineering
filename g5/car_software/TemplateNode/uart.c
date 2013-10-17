@@ -29,10 +29,20 @@ void uart_init(void){
 	//UCSR0B|=(1<<TXCIE0);
 }
 
-void uart_txstring(char *tekstarray){
+void uart_txchar(char c){
+	while ( !(UCSR1A & (1 << UDRE1)) ); 
+	UDR1 = c;
+}
+
+void uart_txstring(char *str){
+	/*
 	short int i;
-	for (i = 0; tekstarray[i] != '\0'; i++){	
+	for (i = 0; str[i] != '\0'; i++){	
 		while ((UCSR1A & (1 << UDRE1)) == 0) {};
-		UDR1 = tekstarray[i];
+		UDR1 = str[i];
+	}
+	*/
+	while(*str){
+		uart_txchar(*str++);
 	}
 }
