@@ -11,32 +11,32 @@ void adc_setPrescaler(enum adc_prescalar_t p){
 
 	switch(p){
 		case PRESCALAR_2:
-			ADCSRA |= (0<<ADPS0);
-			ADCSRA |= (0<<ADPS1);
-			ADCSRA |= (0<<ADPS2);
+			ADCSRA &= ~(1<<ADPS0);
+			ADCSRA &= ~(1<<ADPS1);
+			ADCSRA &= ~(1<<ADPS2);
 			break;
 		case PRESCALAR_4:
 			ADCSRA |= (1<<ADPS0);
-			ADCSRA |= (0<<ADPS1);
-			ADCSRA |= (0<<ADPS2);
+			ADCSRA &= ~(1<<ADPS1);
+			ADCSRA &= ~(1<<ADPS2);
 			break;
 		case PRESCALAR_8:
-			ADCSRA |= (0<<ADPS0);
+			ADCSRA &= ~(1<<ADPS0);
 			ADCSRA |= (1<<ADPS1);
-			ADCSRA |= (0<<ADPS2);
+			ADCSRA &= ~(1<<ADPS2);
 			break;
 		case PRESCALAR_16:
 			ADCSRA |= (1<<ADPS0);
 			ADCSRA |= (1<<ADPS1);
-			ADCSRA |= (0<<ADPS2);
+			ADCSRA &= ~(1<<ADPS2);
 			break;
 		case PRESCALAR_32:
-			ADCSRA |= (0<<ADPS0);
-			ADCSRA |= (0<<ADPS1);
+			ADCSRA &= ~(1<<ADPS0);
+			ADCSRA &= ~(1<<ADPS1);
 			ADCSRA |= (1<<ADPS2);
 			break;
 		case PRESCALAR_64:
-			ADCSRA |= (0<<ADPS0);
+			ADCSRA &= ~(1<<ADPS0);
 			ADCSRA |= (1<<ADPS1);
 			ADCSRA |= (1<<ADPS2);
 			break;
@@ -56,13 +56,13 @@ void adc_setChannel(unsigned int ch){
 void adc_setVref(enum adc_vref_t vref){
 	switch(vref){
 		case AREF:
-			ADMUX &=~ (1<<REFS0); 
-			ADMUX &=~ (1<<REFS1);
+			ADMUX &= ~(1<<REFS0); 
+			ADMUX &= ~(1<<REFS1);
 			break;
 
 		case AVCC:
 			ADMUX |= (1<<REFS0); 
-			ADMUX &=~ (1<<REFS1);
+			ADMUX &= ~(1<<REFS1);
 			break;
 
 		case INTERNAL:
