@@ -50,7 +50,7 @@ void adc_setPrescaler(enum adc_prescalar_t p){
 
 void adc_setChannel(unsigned int ch){
 	// set the channel between 0 and 7 (including)
-	ADMUX = (ch & 0x0F);
+	ADMUX |= (ch & 0x0F); // maybe change |= to =
 }
 
 void adc_setVref(enum adc_vref_t vref){
