@@ -21,6 +21,7 @@ enum adc_vref_t {
 
 void adc_setPrescaler(enum adc_prescalar_t p);
 void adc_setChannel(uint8_t ch);
+uint16_t adc_read(void);
 uint16_t adc_readChannel(uint8_t ch);
 
 #endif /* ADC_H */

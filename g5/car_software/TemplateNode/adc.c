@@ -75,10 +75,7 @@ void adc_setVref(enum adc_vref_t vref){
 	}
 }
 
-
-uint16_t adc_readChannel(uint8_t ch){
-	adc_setChannel(ch);
-
+uint16_t adc_read(void){
 	//Start Single conversion
    ADCSRA|=(1<<ADSC);
 
@@ -89,5 +86,10 @@ uint16_t adc_readChannel(uint8_t ch){
    ADCSRA|=(1<<ADIF);
 
    return(ADC);
+}
+
+uint16_t adc_readChannel(uint8_t ch){
+	adc_setChannel(ch);
+	return(adc_read());
 }
 
