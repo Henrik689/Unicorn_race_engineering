@@ -1,6 +1,66 @@
 #include <avr/interrupt.h>
 #include <stdint.h>
 #include "adc.h"
+#include "bitwise.h"
+
+void adc_enable(){
+	BIT_SET(ADCSRA, ADEN);
+}
+
+void adc_disable(){
+	BIT_CLEAR(ADCSRA, ADEN);
+}
+
+void adc_autoTriggerEnable(void){
+	BIT_SET(ADCSRA, ADATE);
+}
+
+void adc_autoTriggerDisable(void){
+	BIT_CLEAR(ADCSRA, ADATE);
+}
+
+adc_InteruptEnable(void){
+	BIT_SET(ADCSRA, ADIE);
+}
+
+adc_InteruptDisable(void){
+	BIT_CLEAR(ADCSRA, ADIE);
+}
+
+adc_setTriggerSource(enum adc_triggerSource_t source){
+	switch(source){
+		case FREE_RUNNING:
+			ADCSRB &= ~(1<<ADTS0);
+     		ADCSRB &= ~(1<<ADTS1);
+     		ADCSRB &= ~(1<<ADTS2);
+			break;
+		case ANALOG_COMPARE:
+			ADCSRB |= (1<<ADTS0);
+     		ADCSRB &= ~(1<<ADTS1);
+     		ADCSRB &= ~(1<<ADTS2);
+			break;
+		case EXTERNAL_INTERUPT_REQUEST:
+			ADCSRB &= ~(1<<ADTS0);
+     		ADCSRB |= (1<<ADTS1);
+     		ADCSRB &= ~(1<<ADTS2);
+			break;
+		case COUNTER_0_COMPARE_MATCH:
+			ADCSRB |= (1<<ADTS0);
+     		ADCSRB |= (1<<ADTS1);
+     		ADCSRB &= ~(1<<ADTS2);
+			break;
+		case COUNTER_0_OVERFLOW:
+			ADCSRB &= ~(1<<ADTS0);
+     		ADCSRB &= ~(1<<ADTS1);
+     		ADCSRB |= (1<<ADTS2);
+			break;
+		case COUNTER_COMPARE_MATCH_B:
+			ADCSRB &= ~(1<<ADTS0);
+     		ADCSRB &= ~(1<<ADTS1);
+     		ADCSRB |= (1<<ADTS2);
+			break;
+	}
+}
 
 void adc_setPrescaler(enum adc_prescalar_t p){
 	// The ADC requires a frequency between 50KHz to 200KHz
@@ -77,13 +137,13 @@ void adc_setVref(enum adc_vref_t vref){
 
 uint16_t adc_read(void){
 	//Start Single conversion
-   ADCSRA|=(1<<ADSC);
+	BIT_SET(ADCSRA, ADSC);
 
    //Wait for conversion to complete
-   while(!(ADCSRA & (1<<ADIF)));
+	while(!BIT_CHECK(ADCSRA, ADIF));
 
    //Clear ADIF by writing one to it
-   ADCSRA|=(1<<ADIF);
+   BIT_SET(ADCSRA, ADIF);
 
    return(ADC);
 }
@@ -91,5 +151,11 @@ uint16_t adc_read(void){
 uint16_t adc_readChannel(uint8_t ch){
 	adc_setChannel(ch);
 	return(adc_read());
+}
+
+void adc_init(void){
+	adc_setChannel(1);
+	adc_setVref(AVCC);
+	adc_setPrescaler(PRESCALAR_128);
 }
 
