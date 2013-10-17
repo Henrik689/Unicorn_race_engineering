@@ -6,6 +6,8 @@ void adc_setPrescaler(enum prescalar_t p){
 	// this frequency is set by the prescalar and the cpu_f
 	// ADC frequency = cpu_f / prescalar
 	// 16mhz / 128 = 150khz
+	// this is well explaind at:
+	// http://www.avrbeginners.net/architecture/adc/adc.html#adcsr
 
 	switch(p){
 		case PRESCALAR_2:
@@ -44,4 +46,9 @@ void adc_setPrescaler(enum prescalar_t p){
 			ADCSRA |= (1<<ADPS2);
 			break;
 	}
+}
+
+void adc_setChannel(unsigned int ch){
+	// set the channel between 0 and 7 (including)
+	ADMUX = (ch & 0x0F);
 }

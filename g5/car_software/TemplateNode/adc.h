@@ -11,4 +11,7 @@ enum prescalar_t {
 	PRESCALAR_128 = 128
 };
 
+void adc_setPrescaler(enum prescalar_t p);
+void adc_setChannel(unsigned int ch);
+
 #endif /* ADC_H */
