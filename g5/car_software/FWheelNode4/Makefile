@@ -77,14 +77,14 @@ PROGRAMMER_MCU=c128
 
 # Name of our project
 # (use a single word, e.g. 'myproject')
-PROJECTNAME=node4
+PROJECTNAME=TemplateNode
 
 # Source files
 # List C/C++/Assembly source files:
 # (list all files to compile, e.g. 'a.c b.cpp as.S'):
 # Use .cc, .cpp or .C suffix for C++ files, use .S 
 # (NOT .s !!!) for assembly source code files.
-PRJSRC=main.c isr.c functions.c init.c
+PRJSRC=main.c adc.c isr.c uart.c init.c can_std/can_drv.c can_std/can_lib.c can_comm.c timer.c
 
 # additional includes (e.g. -I/path/to/mydir)
 #INC=-I/path/to/include
@@ -111,7 +111,7 @@ OPTLEVEL=3
 # one of the valid "-c PROGRAMMER-ID" values 
 # described in the avrdude info page.
 # 
-AVRDUDE_PROGRAMMERID= avrispmkii #usbtiny
+AVRDUDE_PROGRAMMERID=avrispmkii#usbtiny#
 
 # port--serial or parallel port to which your 
 # hardware programmer is attached
@@ -140,7 +140,7 @@ CFLAGS=-I. $(INC) -g -mmcu=$(MCU) -O$(OPTLEVEL) \
 	-fpack-struct -fshort-enums             \
 	-Wl,-u,vfprintf -lprintf_flt -lm	\
 	-funsigned-bitfields -funsigned-char    \
-	-Wall -Wstrict-prototypes               \
+	-Wall -Wstrict-prototypes -Werror	 \
 	-Wa,-ahlms=$(firstword                  \
 	$(filter %.lst, $(<:.c=.lst)))
 
@@ -215,8 +215,9 @@ GENASMFILES=$(filter %.s, $(OBJDEPS:.o=.s))
 .PHONY: writeflash clean stats gdbinit stats
 
 # Make targets:
-# all, disasm, stats, hex, writeflash/install, clean
-all: $(TRG) clean
+# all, disasm, stats, hex, writeflash/install
+all: $(TRG)
+	@echo "All Done!"
 
 disasm: $(DUMPTRG) stats
 
@@ -229,7 +230,7 @@ hex: $(HEXTRG)
 
 writeflash: hex
 	$(AVRDUDE) -c $(AVRDUDE_PROGRAMMERID)   \
-	 -p $(PROGRAMMER_MCU) -P usb -B 1      \
+	 -p $(PROGRAMMER_MCU) -P usb -B 0.5      \
 	 -U flash:w:$(HEXROMTRG)
 
 install: writeflash clean
