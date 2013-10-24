@@ -83,8 +83,13 @@ void adc_setPrescaler(enum adc_prescalar_t p){
 
 void adc_setChannel(uint8_t ch){
 	// set the channel between 0 and 7 (including)
-	BIT_CLEAR(ch, 0x07);
-	BIT_SET(ADMUX, ch);
+	//BIT_CLEAR(ch, 0x07);
+	//BIT_SET(ADMUX, ch);
+	//ADMUX = (ch & 0x0f);
+
+	//ch = ch & 0x07;
+   	//ADMUX |= ch;
+   	ADMUX |= BITMASK_CHECK(ch, 0x07);
 }
 
 void adc_setVref(enum adc_vref_t vref){
@@ -117,6 +122,7 @@ uint16_t adc_read(void){
    BIT_SET(ADCSRA, ADIF);
 
    return(ADC);
+   //return (ADCH << 8) | ADCL ;
 }
 
 uint16_t adc_readChannel(uint8_t ch){

@@ -233,7 +233,7 @@ writeflash: hex
 	 -p $(PROGRAMMER_MCU) -P usb -B 0.5      \
 	 -U flash:w:$(HEXROMTRG)
 
-install: writeflash clean
+install: writeflash
 
 $(DUMPTRG): $(TRG) 
 	$(OBJDUMP) -S  $< > $@
