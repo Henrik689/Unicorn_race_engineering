@@ -28,8 +28,10 @@ void adc_InteruptDisable(void){
 }
 
 void adc_setTriggerSource(enum adc_triggerSource_t source){
-	BITMASK_CLEAR(ADCSRB, (0x07<<5));
-	BITMASK_SET(ADCSRB, (source<<5));
+	const uint16_t three_heighest_bits = 0x07 << 5;
+	source = source << 5; // shift the source up to match the mask
+	BITMASK_CLEAR(ADCSRB, three_heighest_bits);
+	BITMASK_SET(ADCSRB, source);
 }
 
 void adc_setPrescaler(enum adc_prescalar_t p){
@@ -44,52 +46,53 @@ void adc_setPrescaler(enum adc_prescalar_t p){
 
 	switch(p){
 		case PRESCALAR_2:
-			ADCSRA &= ~(1<<ADPS0);
-			ADCSRA &= ~(1<<ADPS1);
-			ADCSRA &= ~(1<<ADPS2);
+			BIT_CLEAR(ADCSRA, ADPS0);
+			BIT_CLEAR(ADCSRA, ADPS1);
+			BIT_CLEAR(ADCSRA, ADPS2);
 			break;
 		case PRESCALAR_4:
-			ADCSRA |= (1<<ADPS0);
-			ADCSRA &= ~(1<<ADPS1);
-			ADCSRA &= ~(1<<ADPS2);
+			BIT_SET(ADCSRA, ADPS0);
+			BIT_CLEAR(ADCSRA, ADPS1);
+			BIT_CLEAR(ADCSRA, ADPS2);
 			break;
 		case PRESCALAR_8:
-			ADCSRA &= ~(1<<ADPS0);
-			ADCSRA |= (1<<ADPS1);
-			ADCSRA &= ~(1<<ADPS2);
+			BIT_CLEAR(ADCSRA, ADPS0);
+			BIT_SET(ADCSRA, ADPS1);
+			BIT_CLEAR(ADCSRA, ADPS2);
 			break;
 		case PRESCALAR_16:
-			ADCSRA |= (1<<ADPS0);
-			ADCSRA |= (1<<ADPS1);
-			ADCSRA &= ~(1<<ADPS2);
+			BIT_SET(ADCSRA, ADPS0);
+			BIT_SET(ADCSRA, ADPS1);
+			BIT_CLEAR(ADCSRA, ADPS2);
 			break;
 		case PRESCALAR_32:
-			ADCSRA &= ~(1<<ADPS0);
-			ADCSRA &= ~(1<<ADPS1);
-			ADCSRA |= (1<<ADPS2);
+			BIT_CLEAR(ADCSRA, ADPS0);
+			BIT_CLEAR(ADCSRA, ADPS1);
+			BIT_SET(ADCSRA, ADPS2);
 			break;
 		case PRESCALAR_64:
-			ADCSRA &= ~(1<<ADPS0);
-			ADCSRA |= (1<<ADPS1);
-			ADCSRA |= (1<<ADPS2);
+			BIT_CLEAR(ADCSRA, ADPS0);
+			BIT_SET(ADCSRA, ADPS1);
+			BIT_SET(ADCSRA, ADPS2);
 			break;
 		case PRESCALAR_128:
-			ADCSRA |= (1<<ADPS0);
-			ADCSRA |= (1<<ADPS1);
-			ADCSRA |= (1<<ADPS2);
+			BIT_SET(ADCSRA, ADPS0);
+			BIT_SET(ADCSRA, ADPS1);
+			BIT_SET(ADCSRA, ADPS2);
 			break;
 	}
 }
 
 void adc_setChannel(uint8_t ch){
 	// set the channel between 0 and 7 (including)
-	//BIT_CLEAR(ch, 0x07);
-	//BIT_SET(ADMUX, ch);
-	//ADMUX = (ch & 0x0f);
 
-	//ch = ch & 0x07;
-   	//ADMUX |= ch;
-   	ADMUX |= BITMASK_CHECK(ch, 0x07);
+	// We check if the channel value
+	// is between 0 and 7 (represented with the three lowest bits).
+	// We then set the channel value in the ADMUX register.
+	const unsigned int three_lowest_bits = 0x07; 
+
+	BITMASK_CLEAR(ADMUX, three_lowest_bits);
+	BITMASK_SET(ADMUX, BITMASK_CHECK(ch, three_lowest_bits));
 }
 
 void adc_setVref(enum adc_vref_t vref){
@@ -121,8 +124,10 @@ uint16_t adc_read(void){
    //Clear ADIF by writing one to it
    BIT_SET(ADCSRA, ADIF);
 
+   // Alternatively ADCH and ADCL
+   // hold the heigh and low bit
+   // values of the ADC
    return(ADC);
-   //return (ADCH << 8) | ADCL ;
 }
 
 uint16_t adc_readChannel(uint8_t ch){
