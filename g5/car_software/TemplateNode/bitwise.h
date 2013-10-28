@@ -14,6 +14,6 @@
 #define BITMASK_CHECK(x,y) ((x) & (y))
 
 
-#define IS_POW2(x) (x && !(x & (x - 1)))
+#define IS_POW2(x) ((x) && !((x) & ((x) - 1)))
 
 #endif /* BITWISE_H */
