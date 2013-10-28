@@ -3,6 +3,7 @@
  *********************************************/
 
 #include <avr/interrupt.h>
+#include "bitwise.h"
 #include "uart.h"
 
 
@@ -13,7 +14,8 @@
 
 void uart_init(void) {
 	//Enable TXen og RXen
-	UCSR1B = (1<<RXEN1)|(1<<TXEN1); 
+	BIT_SET(UCSR1B, RXEN1);
+	BIT_SET(UCSR1B, TXEN1);
 	
 	// Format: 8data, 1 stop bit
 	UCSR1C = (3<<UCSZ10);
@@ -29,8 +31,8 @@ void uart_init(void) {
 	//UCSR0B|=(1<<TXCIE0);
 }
 
-void uart_txchar(char c) {
-	while ( !(UCSR1A & (1 << UDRE1)) ); 
+void uart_txchar(const char c) {
+	while ( !(BIT_CHECK(UCSR1A, UDRE1)) ); 
 	UDR1 = c;
 }
 
