@@ -3,6 +3,7 @@
  *********************************************/
 
 #include <avr/interrupt.h>
+#include <stdint.h>
 #include "config.h" // F_CPU
 #include "bitwise.h"
 #include "uart.h"
@@ -10,14 +11,34 @@
 //#define USART_BAUDRATE 115200
 //#define BAUD_PRESCALE (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)
 
-// static void adcStop(void)
-// {
-// 	ADCSRA &=~(1<<ADEN); // ADC prescaler disable
-// }
+/*
+	UBRRn: Baud Rate Registor
+		value of UBRRnL and UBRRnH
+
+*/
+
+uint16_t uart_baud2ubrr(const uint32_t baudrate, const enum uart_operationModes_t mode){
+	uint16_t val;
+	switch (mode){
+		case UART_MODE_ASYNC_NORMAL:
+			val = ((F_CPU / (baudrate * 16UL))) - 1;
+			break;
+		case UART_MODE_ASYNC_DOUBLE:
+			val = ((F_CPU / (baudrate * 8UL))) - 1;
+			break;
+		case UART_MODE_SYNC_MASTER:
+			val = ((F_CPU / (baudrate * 2UL))) - 1;
+			break;
+		default:
+			val = 0;
+			break;
+	}
+	return val;
+}
 
 void uart_init(void) {
 	const uint32_t baudrate = 115200;
-	const uint32_t prescale = ((F_CPU / (baudrate * 16UL))) - 1;
+	const uint16_t prescale = uart_baud2ubrr(baudrate, UART_MODE_ASYNC_NORMAL);
 
 	//Enable TXen og RXen
 	BIT_SET(UCSR1B, RXEN1);
