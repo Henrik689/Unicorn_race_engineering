@@ -2,49 +2,51 @@
 #include "timer.h"
 #include "bitwise.h"
 
-void timer_setPrescaler(enum timer_prescalar_t p) {
+void timer_setPrescaler(const enum timer_prescalar_t p) {
 	switch(p) {
 		case PRESCALAR_1:
-			TCCR0A |= (1 << CS00);
-			TCCR0A &= ~(1 << CS01);
-			TCCR0A &= ~(1 << CS02);
+			BIT_SET(TCCR0A, CS00);
+			BIT_CLEAR(TCCR0A, CS01);
+			BIT_CLEAR(TCCR0A, CS02);
 			break;
 		case PRESCALAR_8:
-			TCCR0A &= ~(1 << CS00);
-			TCCR0A |= (1 << CS01);
-			TCCR0A &= ~(1 << CS02);
+			BIT_CLEAR(TCCR0A, CS00);
+			BIT_SET(TCCR0A, CS01);
+			BIT_CLEAR(TCCR0A, CS02);
 			break;
 		case PRESCALAR_64:
-			TCCR0A |= (1 << CS00);
-			TCCR0A |= (1 << CS01);
-			TCCR0A &= ~(1 << CS02);
+			BIT_SET(TCCR0A, CS00);
+			BIT_SET(TCCR0A, CS01);
+			BIT_CLEAR(TCCR0A, CS02);
 			break;
 		case PRESCALAR_256:
-			TCCR0A &= ~(1 << CS00);
-			TCCR0A &= ~(1 << CS01);
-			TCCR0A |= (1 << CS02);
+			BIT_CLEAR(TCCR0A, CS00);
+			BIT_CLEAR(TCCR0A, CS01);
+			BIT_SET(TCCR0A, CS02);
 			break;
 		case PRESCALAR_1024:
-			TCCR0A |= (1 << CS00);
-			TCCR0A &= ~(1 << CS01);
-			TCCR0A |= (1 << CS02);
+			BIT_SET(TCCR0A, CS00);
+			BIT_CLEAR(TCCR0A, CS01);
+			BIT_SET(TCCR0A, CS02);
 			break;
 	}
 }
 
-void timer_setMode(enum timer_16bit_ConReg timer, int Waveform_Generation_Mode) {
+void timer_setMode(const enum timer_16bit_ConReg timer, const unsigned int Waveform_Generation_Mode) {
+	const unsigned int mask = 0x03;
+
 	switch (timer) {
 		case TIMER1:
-			TCCR1A &= ~0x03;
-			TCCR1B &= ~0x03;
-			TCCR1A |= (Waveform_Generation_Mode & 0x03);
-			TCCR1B |= ((Waveform_Generation_Mode >> 2) & 0x03);
+			BIT_CLEAR(TCCR1A, mask);
+			BIT_CLEAR(TCCR1B, mask);
+			BIT_SET(TCCR1A, BITMASK_CHECK(Waveform_Generation_Mode, mask));
+			BIT_SET(TCCR1B, BITMASK_CHECK((Waveform_Generation_Mode >> 2), mask));
 			break;
 		case TIMER3:
-			TCCR3A &= ~0x03;
-			TCCR3B &= ~0x03;
-			TCCR3A |= (Waveform_Generation_Mode & 0x03);
-			TCCR3B |= ((Waveform_Generation_Mode >> 2) & 0x03);
+			BIT_CLEAR(TCCR3A, mask);
+			BIT_CLEAR(TCCR3B, mask);
+			BIT_SET(TCCR3A, BITMASK_CHECK(Waveform_Generation_Mode, mask));
+			BIT_SET(TCCR3B, BITMASK_CHECK((Waveform_Generation_Mode >> 2), mask));
 			break;
 	}
 }

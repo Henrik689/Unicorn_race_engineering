@@ -17,7 +17,7 @@ enum timer_16bit_ConReg {
 int Waveform_Generation_Mode;
 
 
-void timer_setPrescaler(enum timer_prescalar_t p);
-void timer_setMode(enum timer_16bit_ConReg, int Waveform_Generation_Mode);
+void timer_setPrescaler(const enum timer_prescalar_t p);
+void timer_setMode(const enum timer_16bit_ConReg, const unsigned int Waveform_Generation_Mode);
 
 #endif /* TIMER_H */
