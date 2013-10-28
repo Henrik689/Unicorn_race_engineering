@@ -33,9 +33,9 @@ int main(void)
 	adc_enable();
 	adc_setPrescaler(PRESCALAR_128);
 
-	uart_txstring("\r\n");
-	uart_txstring("\r\n");
-	uart_txstring("\r\n");
+	uart_txstring(UART_NUMBER_1, "\r\n");
+	uart_txstring(UART_NUMBER_1, "\r\n");
+	uart_txstring(UART_NUMBER_1, "\r\n");
 
 	int i=0;
 	while(1){
@@ -49,11 +49,11 @@ int main(void)
 		sprintf(buff, "ADC channel %d = %d \r\n", i, res);
 
 		
-		uart_txstring(buff);
+		uart_txstring(UART_NUMBER_1, buff);
 		
 		if(++i == 8){
 			i = 0;
-			uart_txstring("\r\n");
+			uart_txstring(UART_NUMBER_1, "\r\n");
 		}
 		
 	}

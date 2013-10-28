@@ -17,6 +17,26 @@
 
 */
 
+void uart_enableRX(const enum uart_number_t number){
+	switch(number){
+		case UART_NUMBER_0:
+			BIT_SET(UCSR0B, RXEN1);
+			break;
+		case UART_NUMBER_1:
+			BIT_SET(UCSR1B, RXEN1);	
+	}
+}
+
+void uart_enableTX(const enum uart_number_t number){
+	switch(number){
+		case UART_NUMBER_0:
+			BIT_SET(UCSR0B, TXEN1);
+			break;
+		case UART_NUMBER_1:
+			BIT_SET(UCSR1B, TXEN1);
+	}
+}
+
 uint16_t uart_baud2ubrr(const uint32_t baudrate, const enum uart_operationModes_t mode){
 	uint16_t val;
 	switch (mode){
@@ -41,8 +61,8 @@ void uart_init(void) {
 	const uint16_t prescale = uart_baud2ubrr(baudrate, UART_MODE_ASYNC_NORMAL);
 
 	//Enable TXen og RXen
-	BIT_SET(UCSR1B, RXEN1);
-	BIT_SET(UCSR1B, TXEN1);
+	uart_enableRX(UART_NUMBER_1);
+	uart_enableTX(UART_NUMBER_1);
 	
 	// Format: 8data, 1 stop bit
 	UCSR1C = (3<<UCSZ10);
@@ -58,14 +78,22 @@ void uart_init(void) {
 	//UCSR0B|=(1<<TXCIE0);
 }
 
-void uart_txchar(const char c) {
-	while ( !(BIT_CHECK(UCSR1A, UDRE1)) ); 
-	UDR1 = c;
+void uart_txchar(enum uart_number_t n, const char c) {
+	switch(n){
+		case UART_NUMBER_0:
+			while ( !(BIT_CHECK(UCSR0A, UDRE0)) ); 
+			UDR0 = c;
+			break;
+		case UART_NUMBER_1:
+			while ( !(BIT_CHECK(UCSR1A, UDRE1)) ); 
+			UDR1 = c;
+			break;
+	}
 }
 
-void uart_txstring(char *str) {
+void uart_txstring(enum uart_number_t n, char *str) {
 	char *c = str;
 	while(*c){
-		uart_txchar(*c++);
+		uart_txchar(n, *c++);
 	}
 }

@@ -3,6 +3,11 @@
 
 #include <stdint.h>
 
+enum uart_number_t { 
+	UART_NUMBER_0,
+	UART_NUMBER_1
+};
+
 enum uart_operationModes_t {
 	UART_MODE_ASYNC_NORMAL,
 	UART_MODE_ASYNC_DOUBLE,
@@ -13,7 +18,7 @@ uint16_t uart_baud2ubrr(const uint32_t baudrate, const enum uart_operationModes_
 
 void uart_init(void);
 
-void uart_txchar(const char c);
-void uart_txstring(char *str);
+void uart_txchar(enum uart_number_t n, const char c);
+void uart_txstring(enum uart_number_t n, char *str);
 
 #endif /* UART_H */
