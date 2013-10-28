@@ -3,9 +3,12 @@
  *********************************************/
 
 #include <avr/interrupt.h>
+#include "config.h" // F_CPU
 #include "bitwise.h"
 #include "uart.h"
 
+//#define USART_BAUDRATE 115200
+//#define BAUD_PRESCALE (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)
 
 // static void adcStop(void)
 // {
@@ -13,6 +16,9 @@
 // }
 
 void uart_init(void) {
+	const uint32_t baudrate = 115200;
+	const uint32_t prescale = ((F_CPU / (baudrate * 16UL))) - 1;
+
 	//Enable TXen og RXen
 	BIT_SET(UCSR1B, RXEN1);
 	BIT_SET(UCSR1B, TXEN1);
@@ -21,8 +27,8 @@ void uart_init(void) {
 	UCSR1C = (3<<UCSZ10);
 
 	// Baud rate
-	UBRR1L = BAUD_PRESCALE;
-	UBRR1H = (BAUD_PRESCALE >> 8);
+	UBRR1L = prescale;
+	UBRR1H = (prescale >> 8);
 	
 	// Rx Uart interrupt (Receive Complete Interrupt)
 	//UCSR1B|=(1<<RXCIE1);
