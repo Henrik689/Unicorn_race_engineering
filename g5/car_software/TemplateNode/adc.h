@@ -36,11 +36,11 @@ void adc_autoTriggerEnable(void);
 void adc_autoTriggerDisable(void);
 void adc_InteruptEnable(void);
 void adc_InteruptDisable(void);
-void adc_setTriggerSource(enum adc_triggerSource_t source);
 
-void adc_setPrescaler(enum adc_prescalar_t p);
-void adc_setChannel(uint8_t ch);
-void adc_setVref(enum adc_vref_t vref);
+void adc_setTriggerSource(enum adc_triggerSource_t source);
+void adc_setPrescaler(const enum adc_prescalar_t p);
+void adc_setChannel(const uint8_t ch);
+void adc_setVref(const enum adc_vref_t vref);
 uint16_t adc_read(void);
 uint16_t adc_readChannel(uint8_t ch);
 void adc_init(void);

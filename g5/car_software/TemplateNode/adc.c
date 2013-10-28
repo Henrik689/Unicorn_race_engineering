@@ -28,13 +28,14 @@ void adc_InteruptDisable(void){
 }
 
 void adc_setTriggerSource(enum adc_triggerSource_t source){
-	const uint16_t three_heighest_bits = 0x07 << 5;
+	const uint16_t three_heighest_bits = 0x07 << 5; 
 	source = source << 5; // shift the source up to match the mask
+
 	BITMASK_CLEAR(ADCSRB, three_heighest_bits);
 	BITMASK_SET(ADCSRB, BITMASK_CHECK(source, three_heighest_bits));
 }
 
-void adc_setPrescaler(enum adc_prescalar_t p){
+void adc_setPrescaler(const enum adc_prescalar_t p){
 	// The ADC requires a frequency between 50KHz to 200KHz
 	// this frequency is set by the prescalar and the cpu_f
 	// ADC frequency = cpu_f / prescalar
@@ -95,7 +96,7 @@ void adc_setChannel(uint8_t ch){
 	BITMASK_SET(ADMUX, BITMASK_CHECK(ch, three_lowest_bits));
 }
 
-void adc_setVref(enum adc_vref_t vref){
+void adc_setVref(const enum adc_vref_t vref){
 	switch(vref){
 		case AREF:
 			BIT_CLEAR(ADMUX, REFS0);
@@ -130,7 +131,7 @@ uint16_t adc_read(void){
    return(ADC);
 }
 
-uint16_t adc_readChannel(uint8_t ch){
+uint16_t adc_readChannel(const uint8_t ch){
 	adc_setChannel(ch);
 	return(adc_read());
 }
