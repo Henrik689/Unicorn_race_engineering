@@ -41,7 +41,7 @@ int main(void)
 	while(1){
 		// Main work loop
 		_delay_ms(250);
-		i=1;
+
 		char buff[32] = {};
 
 		uint16_t res = adc_readChannel(i);
