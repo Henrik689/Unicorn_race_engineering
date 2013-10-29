@@ -37,6 +37,8 @@ int main(void)
 	uart_txstring(UART_NUMBER_1, "\r\n");
 	uart_txstring(UART_NUMBER_1, "\r\n");
 
+	uart_txstring(UART_NUMBER_1, "STARTING \r\n");
+
 	int i=0;
 	while(1){
 		// Main work loop
@@ -55,7 +57,7 @@ int main(void)
 			i = 0;
 			uart_txstring(UART_NUMBER_1, "\r\n");
 		}
-		
+
 	}
 
     return 0;
