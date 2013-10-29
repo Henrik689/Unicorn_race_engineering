@@ -8,8 +8,6 @@
 #include "bitwise.h"
 #include "uart.h"
 
-//#define USART_BAUDRATE 115200
-//#define BAUD_PRESCALE (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)
 
 /*
 	UBRRn: Baud Rate Registor
@@ -56,9 +54,22 @@ uint16_t uart_baud2ubrr(const uint32_t baudrate, const enum uart_operationModes_
 	return val;
 }
 
+void uart_setBaudRate(enum uart_number_t number, const uint32_t baudrate, enum uart_operationModes_t mode){
+	const uint16_t prescale = uart_baud2ubrr(baudrate, mode);
+	switch(number){
+		case UART_NUMBER_0:
+			UBRR0L = prescale;
+			UBRR0H = (prescale >> 8);
+			break;
+		case UART_NUMBER_1:
+			UBRR1L = prescale;
+			UBRR1H = (prescale >> 8);
+			break;
+	}
+}
+
 void uart_init(void) {
 	const uint32_t baudrate = 115200;
-	const uint16_t prescale = uart_baud2ubrr(baudrate, UART_MODE_ASYNC_NORMAL);
 
 	//Enable TXen og RXen
 	uart_enableRX(UART_NUMBER_1);
@@ -68,8 +79,7 @@ void uart_init(void) {
 	UCSR1C = (3<<UCSZ10);
 
 	// Baud rate
-	UBRR1L = prescale;
-	UBRR1H = (prescale >> 8);
+	uart_setBaudRate(UART_NUMBER_1, baudrate, UART_MODE_ASYNC_NORMAL);
 	
 	// Rx Uart interrupt (Receive Complete Interrupt)
 	//UCSR1B|=(1<<RXCIE1);
