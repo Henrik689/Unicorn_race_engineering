@@ -15,25 +15,61 @@
 
 */
 
+
+/*
+UCSRB: USART Control and Status Register B
+------------------------------------------
+*/
+
 void uart_enableRX(const enum uart_number_t number){
+	// use RXEN1 instead?
 	switch(number){
 		case UART_NUMBER_0:
-			BIT_SET(UCSR0B, RXEN1);
+			BIT_SET(UCSR0B, RXEN); 
 			break;
 		case UART_NUMBER_1:
-			BIT_SET(UCSR1B, RXEN1);	
+			BIT_SET(UCSR1B, RXEN);	
 	}
 }
 
 void uart_enableTX(const enum uart_number_t number){
+	// use TXEN1 instead?
 	switch(number){
 		case UART_NUMBER_0:
-			BIT_SET(UCSR0B, TXEN1);
+			BIT_SET(UCSR0B, TXEN);
 			break;
 		case UART_NUMBER_1:
-			BIT_SET(UCSR1B, TXEN1);
+			BIT_SET(UCSR1B, TXEN);
 	}
 }
+
+void uart_enableRXInterupt(const enum uart_number_t number){
+	switch(number){
+		case UART_NUMBER_0:
+			BIT_SET(UCSR0B, RXCIE);
+			break;
+		case UART_NUMBER_1:
+			BIT_SET(UCSR1B, RXCIE);
+	}
+}
+
+void uart_enableTXInterupt(const enum uart_number_t number){
+	switch(number){
+		case UART_NUMBER_0:
+			BIT_SET(UCSR0B, TXCIE);
+			break;
+		case UART_NUMBER_1:
+			BIT_SET(UCSR1B, TXCIE);
+	}
+}
+
+/*
+UCSRC: USART Control And Status Register C
+------------------------------------------
+*/
+
+
+
 
 uint16_t uart_baud2ubrr(const uint32_t baudrate, const enum uart_operationModes_t mode){
 	uint16_t val;
@@ -87,6 +123,8 @@ void uart_init(enum uart_number_t uartNum) {
 	// Tx Uart interrupt (Transmit Complete Interrupt)
 	//UCSR0B|=(1<<TXCIE0);
 }
+
+
 
 void uart_txchar(enum uart_number_t n, const unsigned char c) {
 	switch(n){

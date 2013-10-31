@@ -14,6 +14,12 @@ enum uart_operationModes_t {
 	UART_MODE_SYNC_MASTER
 };
 
+
+void uart_enableRX(const enum uart_number_t number);
+void uart_enableTX(const enum uart_number_t number);
+void uart_enableRXInterupt(const enum uart_number_t number);
+void uart_enableTXInterupt(const enum uart_number_t number);
+
 uint16_t uart_baud2ubrr(const uint32_t baudrate, const enum uart_operationModes_t mode);
 
 void uart_init(enum uart_number_t);
