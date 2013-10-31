@@ -16,7 +16,7 @@ int main(void)
 	//Initialise the Gear node
 	ioinit();									//Port setup
 	uart_init();								//Serial communication
-	can_init(0);								//Can setup
+	can_init(0);								//Can setup (0 = start CAN bit timing evaluation from faster baudrate)
     pwm16Init2();								//Setup PWM controller
 	//adcInit(1);									//Setup ADC for pot-meter or Amp meter
 	counter0Init();								//Init interrupt counter to overflow with 168Hz
