@@ -23,10 +23,8 @@ int main(void)
 
 	sei();										//Enable interrupt
 
-	//Enable CAN
+	//Enable all interrupts
 	Can_sei();									//Enable all interrupts
-	Can_set_tx_int();							//Enable interrupt on transmit message complete on CAN bus
-	Can_set_rx_int();							//Enable interrupt on receive message complete on CAN bus
 
 	adc_setChannel(1);
 	adc_setVref(INTERNAL);
