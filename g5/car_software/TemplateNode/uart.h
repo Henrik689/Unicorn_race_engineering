@@ -14,6 +14,14 @@ enum uart_operationModes_t {
 	UART_MODE_SYNC_MASTER
 };
 
+enum uart_charSelect_t {
+	UART_CHAR_5BIT = 0x00,
+	UART_CHAR_6BIT = 0x01,
+	UART_CHAR_7BIT = 0x02,
+	UART_CHAR_8BIT = 0x03,
+	UART_CHAR_9BIT = 0x07
+};
+
 /*
 UCSRB: USART Control and Status Register B
 ------------------------------------------
@@ -31,7 +39,7 @@ UCSRC: USART Control And Status Register C
 void uart_setModeAsync(const enum uart_number_t number);
 void uart_setModeSync(const enum uart_number_t number);
 void uart_setNumberOfStopBits(const enum uart_number_t number, unsigned int numStopBits);
-
+void uart_setCharSize(enum uart_number_t number, enum uart_charSelect_t size);
 
 uint16_t uart_baud2ubrr(const uint32_t baudrate, const enum uart_operationModes_t mode);
 
