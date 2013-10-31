@@ -68,6 +68,27 @@ UCSRC: USART Control And Status Register C
 ------------------------------------------
 */
 
+void uart_setModeAsync(const enum uart_number_t number){
+	// UMSEL: USART Mode Select
+	switch(number){
+		case UART_NUMBER_0:
+			BIT_CLEAR(UCSR0C, UMSEL);
+			break;
+		case UART_NUMBER_1:
+			BIT_CLEAR(UCSR1C, UMSEL);
+	}
+}
+
+void uart_setModeSync(const enum uart_number_t number){
+	// UMSEL: USART Mode Select
+	switch(number){
+		case UART_NUMBER_0:
+			BIT_SET(UCSR0C, UMSEL);
+			break;
+		case UART_NUMBER_1:
+			BIT_SET(UCSR1C, UMSEL);
+	}
+}
 
 
 
