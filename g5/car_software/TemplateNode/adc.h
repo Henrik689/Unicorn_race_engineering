@@ -30,6 +30,9 @@ enum adc_triggerSource_t {
 	COUNTER_1_CAPTURE_EVENT = 7
 };
 
+
+float adc_toVolt(uint16_t ADCReading);
+
 void adc_enable(void);
 void adc_disable(void);
 void adc_autoTriggerEnable(void);

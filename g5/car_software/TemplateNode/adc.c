@@ -3,6 +3,15 @@
 #include "adc.h"
 #include "bitwise.h"
 
+float adc_toVolt(uint16_t ADCReading){
+	const float maxAdcBits = 1023.0f; // Using Float for clarity
+	const float maxVolts = 5.0f;      // Using Float for clarity
+	const float voltsPerBit = (maxVolts / maxAdcBits);
+
+	float voltage = ADCReading * voltsPerBit;
+	return voltage;
+}
+
 void adc_enable(void){
 	BIT_SET(ADCSRA, ADEN);
 }
