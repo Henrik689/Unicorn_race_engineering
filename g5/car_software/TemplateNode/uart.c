@@ -88,7 +88,7 @@ void uart_init(void) {
 	//UCSR0B|=(1<<TXCIE0);
 }
 
-void uart_txchar(enum uart_number_t n, const char c) {
+void uart_txchar(enum uart_number_t n, const unsigned char c) {
 	switch(n){
 		case UART_NUMBER_0:
 			while ( !(BIT_CHECK(UCSR0A, UDRE0)) ); 
