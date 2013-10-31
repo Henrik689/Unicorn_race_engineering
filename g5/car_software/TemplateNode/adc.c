@@ -128,16 +128,16 @@ uint16_t adc_read(void){
 	//Start Single conversion
 	BIT_SET(ADCSRA, ADSC);
 
-   //Wait for conversion to complete
+	//Wait for conversion to complete
 	while(!BIT_CHECK(ADCSRA, ADIF));
 
-   //Clear ADIF by writing one to it
-   BIT_SET(ADCSRA, ADIF);
+	//Clear ADIF by writing one to it
+	BIT_SET(ADCSRA, ADIF);
 
-   // Alternatively ADCH and ADCL
-   // hold the heigh and low bit
-   // values of the ADC
-   return(ADC);
+	// Alternatively ADCH and ADCL
+	// hold the heigh and low bit
+	// values of the ADC
+	return(ADC);
 }
 
 uint16_t adc_readChannel(const uint8_t ch){
