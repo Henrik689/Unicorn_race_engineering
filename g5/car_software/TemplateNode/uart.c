@@ -120,6 +120,7 @@ void uart_setNumberOfStopBits(const enum uart_number_t number, unsigned int numS
 }
 
 
+
 uint16_t uart_baud2ubrr(const uint32_t baudrate, const enum uart_operationModes_t mode){
 	uint16_t val;
 	switch (mode){
@@ -173,7 +174,21 @@ void uart_init(enum uart_number_t uartNum) {
 	//UCSR0B|=(1<<TXCIE0);
 }
 
+unsigned char uart_getChar(enum uart_number_t n){
+	unsigned char result = 0;
 
+	switch(n){
+		case UART_NUMBER_0:
+			while(!BIT_CHECK(UCSR0A, RXC0));
+			result = UDR0;
+			break;
+		case UART_NUMBER_1:
+			while(!BIT_CHECK(UCSR1A, RXC1));
+			result = UDR1;
+			break;
+	}
+	return result;
+}
 
 void uart_txchar(enum uart_number_t n, const unsigned char c) {
 	switch(n){
