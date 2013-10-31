@@ -68,18 +68,18 @@ void uart_setBaudRate(enum uart_number_t number, const uint32_t baudrate, enum u
 	}
 }
 
-void uart_init(void) {
+void uart_init(enum uart_number_t uartNum) {
 	const uint32_t baudrate = 115200;
 
 	//Enable TXen og RXen
-	uart_enableRX(UART_NUMBER_1);
-	uart_enableTX(UART_NUMBER_1);
+	uart_enableRX(uartNum);
+	uart_enableTX(uartNum);
 	
 	// Format: 8data, 1 stop bit
 	UCSR1C = (3<<UCSZ10);
 
 	// Baud rate
-	uart_setBaudRate(UART_NUMBER_1, baudrate, UART_MODE_ASYNC_NORMAL);
+	uart_setBaudRate(uartNum, baudrate, UART_MODE_ASYNC_NORMAL);
 	
 	// Rx Uart interrupt (Receive Complete Interrupt)
 	//UCSR1B|=(1<<RXCIE1);
@@ -88,7 +88,7 @@ void uart_init(void) {
 	//UCSR0B|=(1<<TXCIE0);
 }
 
-void uart_txchar(enum uart_number_t n, const char c) {
+void uart_txchar(enum uart_number_t n, const unsigned char c) {
 	switch(n){
 		case UART_NUMBER_0:
 			while ( !(BIT_CHECK(UCSR0A, UDRE0)) ); 
