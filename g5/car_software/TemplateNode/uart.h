@@ -30,6 +30,7 @@ UCSRC: USART Control And Status Register C
 */
 void uart_setModeAsync(const enum uart_number_t number);
 void uart_setModeSync(const enum uart_number_t number);
+void uart_setNumberOfStopBits(const enum uart_number_t number, unsigned int numStopBits);
 
 
 uint16_t uart_baud2ubrr(const uint32_t baudrate, const enum uart_operationModes_t mode);

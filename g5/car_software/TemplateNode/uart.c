@@ -90,6 +90,26 @@ void uart_setModeSync(const enum uart_number_t number){
 	}
 }
 
+void uart_setNumberOfStopBits(const enum uart_number_t number, unsigned int numStopBits){
+	// USBS: USART Stop Bit Select
+	if(numStopBits == 1){
+		switch(number){
+			case UART_NUMBER_0:
+				BIT_CLEAR(UCSR0C, USBS);
+				break;
+			case UART_NUMBER_1:
+				BIT_CLEAR(UCSR1C, USBS);
+		}
+	}else if(numStopBits == 2){
+		switch(number){
+			case UART_NUMBER_0:
+				BIT_SET(UCSR0C, USBS);
+				break;
+			case UART_NUMBER_1:
+				BIT_SET(UCSR1C, USBS);
+		}
+	}
+}
 
 
 uint16_t uart_baud2ubrr(const uint32_t baudrate, const enum uart_operationModes_t mode){
