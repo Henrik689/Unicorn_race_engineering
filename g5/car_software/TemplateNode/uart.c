@@ -28,7 +28,8 @@ void uart_enableRX(const enum uart_number_t number){
 			BIT_SET(UCSR0B, RXEN); 
 			break;
 		case UART_NUMBER_1:
-			BIT_SET(UCSR1B, RXEN);	
+			BIT_SET(UCSR1B, RXEN);
+			break;
 	}
 }
 
@@ -40,6 +41,7 @@ void uart_enableTX(const enum uart_number_t number){
 			break;
 		case UART_NUMBER_1:
 			BIT_SET(UCSR1B, TXEN);
+			break;
 	}
 }
 
@@ -50,6 +52,7 @@ void uart_enableRXInterupt(const enum uart_number_t number){
 			break;
 		case UART_NUMBER_1:
 			BIT_SET(UCSR1B, RXCIE);
+			break;
 	}
 }
 
@@ -60,6 +63,7 @@ void uart_enableTXInterupt(const enum uart_number_t number){
 			break;
 		case UART_NUMBER_1:
 			BIT_SET(UCSR1B, TXCIE);
+			break;
 	}
 }
 
@@ -76,6 +80,7 @@ void uart_setModeAsync(const enum uart_number_t number){
 			break;
 		case UART_NUMBER_1:
 			BIT_CLEAR(UCSR1C, UMSEL);
+			break;
 	}
 }
 
@@ -87,6 +92,7 @@ void uart_setModeSync(const enum uart_number_t number){
 			break;
 		case UART_NUMBER_1:
 			BIT_SET(UCSR1C, UMSEL);
+			break;
 	}
 }
 
@@ -99,6 +105,7 @@ void uart_setNumberOfStopBits(const enum uart_number_t number, unsigned int numS
 				break;
 			case UART_NUMBER_1:
 				BIT_CLEAR(UCSR1C, USBS);
+				break;
 		}
 	}else if(numStopBits == 2){
 		switch(number){
@@ -107,6 +114,7 @@ void uart_setNumberOfStopBits(const enum uart_number_t number, unsigned int numS
 				break;
 			case UART_NUMBER_1:
 				BIT_SET(UCSR1C, USBS);
+				break;
 		}
 	}
 }
