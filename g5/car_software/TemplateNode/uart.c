@@ -177,7 +177,10 @@ void uart_init(enum uart_number_t uartNum) {
 	uart_enableTX(uartNum);
 	
 	// Format: 8data, 1 stop bit
-	UCSR1C = (3<<UCSZ10);
+	//UCSR1C = (3<<UCSZ10);
+	uart_setModeAsync(uartNum);
+	uart_setNumberOfStopBits(uartNum, 1);
+	uart_setCharSize(uartNum, UART_CHAR_8BIT);
 
 	// Baud rate
 	uart_setBaudRate(uartNum, baudrate, UART_MODE_ASYNC_NORMAL);
