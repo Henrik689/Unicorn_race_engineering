@@ -15,7 +15,7 @@ int main(void)
 {
 	//Initialise the Gear node
 	ioinit();									//Port setup
-	uart_init();								//Serial communication
+	uart_init(UART_NUMBER_1);								//Serial communication
 	can_init(0);								//Can setup
     pwm16Init2();								//Setup PWM controller
 	//adcInit(1);									//Setup ADC for pot-meter or Amp meter
