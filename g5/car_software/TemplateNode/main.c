@@ -1,15 +1,18 @@
-#include <avr/interrupt.h>
+#include <stdint.h>
+#include <stdio.h>
+
 #include "config.h"
+#include <avr/interrupt.h>
 #include <util/delay.h>
+
 #include "can_std/can_lib.h"
 #include "can_comm.h"
 #include "../lib/can_defs.h"
 #include "../lib/data_def.h"
 #include "init.h"
 #include "uart.h"
-#include <stdio.h>
 #include "adc.h"
-#include <stdint.h>
+
 
 int main(void)
 {

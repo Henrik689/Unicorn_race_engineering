@@ -2,7 +2,7 @@
  * Hardware init
  *********************************************/
 
-#include <avr/interrupt.h>
+#include <avr/io.h>
 #include "init.h"
 #include "timer.h"
 

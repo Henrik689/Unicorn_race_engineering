@@ -3,7 +3,7 @@
  *********************************************/
 
 #include <stdlib.h>
- #include <avr/interrupt.h>
+#include <avr/interrupt.h>
 #include "config.h" // F_CPU is defined here and must be defined before util/delay.h is included 
 
 // ADC convert complete

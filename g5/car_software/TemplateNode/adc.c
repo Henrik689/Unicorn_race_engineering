@@ -1,5 +1,5 @@
-#include <avr/interrupt.h>
 #include <stdint.h>
+#include <avr/io.h>
 #include "adc.h"
 #include "bitwise.h"
 

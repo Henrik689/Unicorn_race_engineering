@@ -2,9 +2,10 @@
  * Functions
  *********************************************/
 
-#include <avr/interrupt.h>
 #include <stdint.h>
 #include "config.h" // F_CPU
+
+#include <avr/io.h>
 #include "bitwise.h"
 #include "uart.h"
 
