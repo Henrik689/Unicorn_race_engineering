@@ -122,17 +122,20 @@ void uart_setNumberOfStopBits(const enum uart_number_t number, unsigned int numS
 
 void uart_setCharSize(enum uart_number_t number, enum uart_charSelect_t size){
 	// UCSZ: USART Character size
-	const unsigned int bitmask = (0x07 << 1); 
+	//const unsigned int bitmask = (0x07 << 1); 
+	//const unsigned int bitmask = (1 << 0x07);
 
 	switch(number){
 		case UART_NUMBER_0:
-			BITMASK_CLEAR(UCSR0C, bitmask);
-			BITMASK_SET(UCSR0C, BITMASK_CHECK(size, bitmask));
+			//BITMASK_CLEAR(UCSR0C, bitmask);
+			//BITMASK_SET(UCSR0C, BITMASK_CHECK(size, bitmask));
+			UCSR0C |= (size << UCSZ0);
 			break;
 
 		case UART_NUMBER_1:
-			BITMASK_CLEAR(UCSR1C, bitmask);
-			BITMASK_SET(UCSR1C, BITMASK_CHECK(size, bitmask));
+			UCSR1C |= (size << UCSZ1);
+			//BITMASK_CLEAR(UCSR1C, bitmask);
+			//BITMASK_SET(UCSR1C, BITMASK_CHECK(size, bitmask));
 			break;
 	}
 }
