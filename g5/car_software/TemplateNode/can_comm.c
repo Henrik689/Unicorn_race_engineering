@@ -8,7 +8,10 @@
 #include "../lib/data_def.h"
 #include "can_comm.h"
 
+#include "uart.h"
+
 unsigned char canDataTest[8];
+st_cmd_t tx_remote_msg;
 
 void can_update_rx_msg(st_cmd_t* msg, uint8_t msg_id, uint8_t dlc){
         msg->id.std = msg_id;
@@ -22,6 +25,7 @@ void can_update_rx_msg(st_cmd_t* msg, uint8_t msg_id, uint8_t dlc){
 
 /* Interrupt routine to take care of can interrupts */
 ISR(CANIT_vect){
+	int k = 0; // DEBUG
 	uint8_t i,interrupt, mob_back;
 	uint16_t tmp,mask=1;
 
@@ -44,6 +48,8 @@ ISR(CANIT_vect){
 	 * Proper action for all other types is TODO
 	*/
 
+	uart_txchar(UART_NUMBER_1, '!');
+
 	/* Test mob's for pending interrupt */
 	tmp = CANSIT2+(CANSIT1<<8);
 
@@ -58,7 +64,13 @@ ISR(CANIT_vect){
 					can_get_data(&canDataTest[0]);	// Copy data to canDataTest
 					Can_mob_abort();        // Freed the MOB
 					Can_clear_status_mob(); // and reset MOb status
-					can_update_rx_msg(&rpm_msg, gear_msgid, 8);
+					//can_update_rx_msg(&rpm_msg, gear_msgid, 8);
+					can_update_rx_msg(&rpm_msg, 141, 5); // DEBUG MSG CAN BE REMOVED
+
+					for(k=0; k < 5; k++){
+						uart_txchar(UART_NUMBER_1, canDataTest[k]);
+					}
+
 //					Can_config_rx();	// Config mob for rx again
 //					Can_set_mob_int(i);	// Enable interrupt
 					
@@ -101,7 +113,6 @@ ISR(CANIT_vect){
  * 1 = Besked kommet i udbakke
 */
 uint8_t can_send_non_blocking(uint8_t msg_id, void* buf, uint8_t dlc){
-	st_cmd_t tx_remote_msg;
 
 	tx_remote_msg.pt_data = buf; 
 	tx_remote_msg.id.std = msg_id;
@@ -114,13 +125,13 @@ uint8_t can_send_non_blocking(uint8_t msg_id, void* buf, uint8_t dlc){
 	/* can_cmd function extended with a feature to enable interrupt for
 	 * the message mob picked for the message
 	*/
-	return (can_cmd(&tx_remote_msg) == CAN_CMD_ACCEPTED);
-	/*
+	//return (can_cmd(&tx_remote_msg) == CAN_CMD_ACCEPTED);
+	
 	if (can_cmd(&tx_remote_msg) != CAN_CMD_ACCEPTED){
 		return 0;	// No free mob could not put message in mail box
 	}else{
 		return 1;
 	}
-	*/
+	
 }
 

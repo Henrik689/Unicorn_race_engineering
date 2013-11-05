@@ -13,6 +13,14 @@
 #include "uart.h"
 #include "adc.h"
 
+#define SIZEOF_ARR(arr) (sizeof(arr) / sizeof(arr[0]))
+
+void testCanTX(void){
+	uint8_t databuff[5] = {'H', 'e', 'l', 'l', 'o'}; 
+	uint8_t id = 141;
+
+	can_send_non_blocking(id, &databuff, SIZEOF_ARR(databuff));
+}
 
 int main(void)
 {
@@ -44,6 +52,8 @@ int main(void)
 	while(1){
 		// Main work loop
 		_delay_ms(250);
+
+		testCanTX();
 
 		char buff[32] = {};
 

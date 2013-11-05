@@ -94,7 +94,7 @@ PRJSRC=main.c adc.c isr.c uart.c init.c can_std/can_drv.c can_std/can_lib.c can_
 
 # Optimization level, 
 # use s (size opt), 1, 2, 3 or 0 (off)
-OPTLEVEL=3
+OPTLEVEL=s
 
 
 #####      AVR Dude 'writeflash' options       #####
@@ -230,7 +230,7 @@ hex: $(HEXTRG)
 
 writeflash: hex
 	$(AVRDUDE) -c $(AVRDUDE_PROGRAMMERID)   \
-	 -p $(PROGRAMMER_MCU) -P usb -B 6      \
+	 -p $(PROGRAMMER_MCU) -P usb -B 5      \
 	 -U flash:w:$(HEXROMTRG)
 
 install: writeflash
