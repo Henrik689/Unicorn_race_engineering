@@ -102,7 +102,7 @@ ISR(CANIT_vect){
 */
 uint8_t can_send_non_blocking(uint8_t msg_id, void* buf, uint8_t dlc){
 	st_cmd_t tx_remote_msg;
-	
+
 	tx_remote_msg.pt_data = buf; 
 	tx_remote_msg.id.std = msg_id;
 	tx_remote_msg.ctrl.ide = 0;
@@ -114,7 +114,7 @@ uint8_t can_send_non_blocking(uint8_t msg_id, void* buf, uint8_t dlc){
 	/* can_cmd function extended with a feature to enable interrupt for
 	 * the message mob picked for the message
 	*/
-	return (can_cmd(&tx_remote_msg) == CAN_CMD_ACCEPTED));
+	return (can_cmd(&tx_remote_msg) == CAN_CMD_ACCEPTED);
 	/*
 	if (can_cmd(&tx_remote_msg) != CAN_CMD_ACCEPTED){
 		return 0;	// No free mob could not put message in mail box
