@@ -9,6 +9,7 @@
 #include "can_comm.h"
 
 #include "uart.h"
+#include "bitwise.h"
 
 unsigned char canDataTest[8];
 st_cmd_t tx_remote_msg;
@@ -25,15 +26,51 @@ void can_update_rx_msg(st_cmd_t* msg, uint8_t msg_id, uint8_t dlc){
 
 /* Interrupt routine to take care of can interrupts */
 ISR(CANIT_vect){
-	int k = 0; // DEBUG
+	uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n");
+	uart_txstring(UART_NUMBER_1, "Got can interrupt \r\n");
+/*
+	if(BIT_CHECK(CANGIT, 0x07)){
+		uart_txstring(UART_NUMBER_1, "General interrupt\r\n");
+	}
+
+	if(BIT_CHECK(CANGIT, 0x06)){
+		uart_txstring(UART_NUMBER_1, "Bus Off Interrupt Flag\r\n");
+	}
+
+	if(BIT_CHECK(CANGIT, 0x05)){
+		uart_txstring(UART_NUMBER_1, "Overrun CAN Timer\r\n");
+	}
+
+	if(BIT_CHECK(CANGIT, 0x04)){
+		uart_txstring(UART_NUMBER_1, "Frame Buffer Receive Interrupt\r\n");
+	}
+
+	if(BIT_CHECK(CANGIT, 0x03)){
+		uart_txstring(UART_NUMBER_1, "Stuff Error General\r\n");
+	}
+
+	if(BIT_CHECK(CANGIT, 0x02)){
+		uart_txstring(UART_NUMBER_1, "CRC Error General\r\n");
+	}
+
+	if(BIT_CHECK(CANGIT, 0x01)){
+		uart_txstring(UART_NUMBER_1, "Form Error General\r\n");
+	}
+
+	if(BIT_CHECK(CANGIT, 0x00)){
+		uart_txstring(UART_NUMBER_1, "Acknowledgment Error General\r\n");
+	}
+*/
+	
 	uint8_t i,interrupt, mob_back;
-	uint16_t tmp,mask=1;
+	uint16_t canstatus, current_MOB = 1;
 
 	uint8_t rpm_response_buffer[8];
 	st_cmd_t rpm_msg;
 
 	rpm_msg.pt_data = rpm_response_buffer;
 	rpm_msg.status = 0;
+	
 	//char tempchar[10];
 	/*
 	 * Function to clear only the mob that generated the interrupt 
@@ -48,53 +85,53 @@ ISR(CANIT_vect){
 	 * Proper action for all other types is TODO
 	*/
 
-	uart_txchar(UART_NUMBER_1, '!');
-
-	/* Test mob's for pending interrupt */
-	tmp = CANSIT2+(CANSIT1<<8);
+	// Test mob's for pending interrupt 
+	canstatus = CANSIT2+(CANSIT1<<8);
 
 	mob_back = CANPAGE;	// Save CANPAGE state
-	for(i=0;i<=14;i++){
-		if(tmp & mask){	/* True if mob have pending interrupt */
-			Can_set_mob(i); /* Switch to mob */
-			interrupt = (CANSTMOB & INT_MOB_MSK);
+	for(i=0; i <= 14; i++){
+		if(BITMASK_CHECK(canstatus, current_MOB)){	// True if mob have pending interrupt
+			Can_set_mob(i); // Switch to mob 
+			interrupt = BITMASK_CHECK(CANSTMOB, INT_MOB_MSK);
 			switch (interrupt){
 				case MOB_RX_COMPLETED:
-					/* Can specific code */
+					uart_txstring(UART_NUMBER_1, "MOB_RX_COMPLETED \r\n");
+					// Can specific code 
 					can_get_data(&canDataTest[0]);	// Copy data to canDataTest
 					Can_mob_abort();        // Freed the MOB
 					Can_clear_status_mob(); // and reset MOb status
-					//can_update_rx_msg(&rpm_msg, gear_msgid, 8);
-					can_update_rx_msg(&rpm_msg, 141, 5); // DEBUG MSG CAN BE REMOVED
-
-					for(k=0; k < 5; k++){
-						uart_txchar(UART_NUMBER_1, canDataTest[k]);
-					}
+					can_update_rx_msg(&rpm_msg, gear_msgid, 8);
 
 //					Can_config_rx();	// Config mob for rx again
 //					Can_set_mob_int(i);	// Enable interrupt
 					
 					break;
 				case MOB_TX_COMPLETED:
+					uart_txstring(UART_NUMBER_1, "MOB_TX_COMPLETED \r\n");
 					Can_mob_abort();        // Freed the MOB
 					Can_clear_status_mob(); // and reset MOb status	
-					/* Disable interrupt */
+					// Disable interrupt 
 					Can_unset_mob_int(i);
 					break;				
 				case MOB_ACK_ERROR:
-					/* TODO */
+					uart_txstring(UART_NUMBER_1, "MOB_ACK_ERROR \r\n");
+					// TODO 
 					break;
 				case MOB_FORM_ERROR:
-					/* TODO */
+					uart_txstring(UART_NUMBER_1, "MOB_FORM_ERROR \r\n");
+					// TODO 
 					break;
 				case MOB_CRC_ERROR:
-					/* TODO */
+					uart_txstring(UART_NUMBER_1, "MOB_CRC_ERROR \r\n");
+					// TODO 
 					break;
 				case MOB_STUFF_ERROR:
-					/* TODO */
+					uart_txstring(UART_NUMBER_1, "MOB_STUFF_ERROR \r\n");
+					// TODO 
 					break;
 				case MOB_BIT_ERROR:
-					/* TODO */
+					uart_txstring(UART_NUMBER_1, "MOB_BIT_ERROR \r\n");
+					// TODO 
 					break;
 				default:
 					Can_mob_abort();        // Freed the MOB
@@ -102,9 +139,10 @@ ISR(CANIT_vect){
 					break;
 			}
 		}
-		mask = mask<<1;
+		current_MOB = current_MOB<<1;
 	}
-	CANPAGE |= mob_back & 0xf0;	// Restore CANPAGE state
+	CANPAGE |= mob_back & 0xF0;	// Restore CANPAGE state
+	
 }
 
 /* funktion til at sende en besked der er dlc byte lang og er ikke blocking 

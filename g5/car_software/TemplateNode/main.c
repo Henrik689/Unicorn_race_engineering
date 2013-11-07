@@ -59,6 +59,7 @@ void canTestReceiver(void){
 	_delay_ms(50); // Wait 50 ms and if the msg has not completed abort
 	if(can_get_status(&response_msg) == CAN_STATUS_COMPLETED){
 		// print the received msg
+		uart_txstring(UART_NUMBER_1, "CAN rev: ");
 		int i;
 		for(i=0; i < 5; i++){
 			uart_txchar(UART_NUMBER_1, response_buffer[i]);
@@ -66,6 +67,8 @@ void canTestReceiver(void){
 		uart_txchar(UART_NUMBER_1, '\r');
 		uart_txchar(UART_NUMBER_1, '\n');
 	}else{
+		uart_txstring(UART_NUMBER_1, "CAN ERROR: ABORTING\r\n");
+
 		response_msg.cmd = CMD_ABORT;
 		while(can_cmd(&response_msg) != CAN_CMD_ACCEPTED);
 	}
@@ -103,6 +106,8 @@ int main(void)
 
 	//Enable all interrupts
 	Can_sei();									//Enable all interrupts
+	Can_set_tx_int();
+	Can_set_rx_int();
 
 	adc_setChannel(1);
 	adc_setVref(INTERNAL);
@@ -121,20 +126,21 @@ int main(void)
 		_delay_ms(250);
 
 		//testCanTX();
-		canTestSender();
+		//canTestSender();
+		canTestReceiver();
 
 		char buff[32] = {};
 
-		uint16_t res = adc_readChannel(i);
+		//uint16_t res = adc_readChannel(i);
 
-		sprintf(buff, "ADC channel %d = %d \r\n", i, res);
+		//sprintf(buff, "ADC channel %d = %d \r\n", i, res);
 
 		
 		uart_txstring(UART_NUMBER_1, buff);
 		
 		if(++i == 8){
 			i = 0;
-			uart_txstring(UART_NUMBER_1, "\r\n");
+			//uart_txstring(UART_NUMBER_1, "\r\n");
 		}
 
 	}
