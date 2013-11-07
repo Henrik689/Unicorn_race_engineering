@@ -15,49 +15,29 @@
 
 #define SIZEOF_ARR(arr) (sizeof(arr) / sizeof(arr[0]))
 
-void testCanTX(void){
-	uint8_t databuff[5] = {'H', 'e', 'l', 'l', 'o'}; 
-	uint8_t id = 141;
-
-	can_send_non_blocking(id, &databuff, SIZEOF_ARR(databuff));
-}
+char str[32] = {};
 
 void canTestReceiver(void){
-	uint8_t rx_remote_buffer[5] = {};
-	st_cmd_t tx_remote_msg;
-
 	uint8_t response_buffer[5] = {};
-	st_cmd_t response_msg;
+	st_cmd_t response_msg = {
+		.pt_data = &response_buffer[0],
+		.status = 0,
 
-	tx_remote_msg.pt_data = &rx_remote_buffer[0];
-	tx_remote_msg.status = 0;
+		.id.std = 4,
+		.ctrl.ide = 0,
+		.ctrl.rtr = 0,
+		.dlc = 5,
+		.cmd = CMD_RX_DATA_MASKED // CMD_RX_DATA_MASKED gives interrupt while CMD_RX_DATA does not
+	};
+	int cnt = 0;
+	while(can_cmd(&response_msg) != CAN_CMD_ACCEPTED){cnt++;} // Rx cmd
+	sprintf(str, "can_cmd counted to %d\r\n", cnt);
+	uart_txstring(UART_NUMBER_1, str);
 
-	response_msg.pt_data = &response_buffer[0];
-	response_msg.status = 0;
-
-	// ------ Done with init
-
-	// Do the Rx
-	response_msg.id.std = 4; // sender_id
-	response_msg.ctrl.ide = 0;
-	response_msg.ctrl.rtr = 0;
-	response_msg.dlc = 5;
-	response_msg.cmd = CMD_RX_DATA_MASKED;
-	while(can_cmd(&response_msg) != CAN_CMD_ACCEPTED); // Rx cmd
-
-
-	// Do the Tx
-	tx_remote_msg.id.std = 4; // sender_id
-	tx_remote_msg.ctrl.ide = 0;
-	tx_remote_msg.ctrl.rtr = 1;
-	tx_remote_msg.dlc = 5;
-	tx_remote_msg.cmd = CMD_TX_REMOTE;
-	while(can_cmd(&tx_remote_msg) != CAN_CMD_ACCEPTED); // tx cmd
-	while(can_get_status(&tx_remote_msg) == CAN_STATUS_NOT_COMPLETED); // wait for tx to complete
-
-
-	_delay_ms(50); // Wait 50 ms and if the msg has not completed abort
-	if(can_get_status(&response_msg) == CAN_STATUS_COMPLETED){
+	//_delay_ms(50); // Wait 50 ms and if the msg has not completed abort
+	cnt=0;
+	while( can_get_status(&response_msg) != CAN_STATUS_COMPLETED){cnt++;}
+	//if(can_get_status(&response_msg) == CAN_STATUS_COMPLETED){
 		// print the received msg
 		uart_txstring(UART_NUMBER_1, "CAN rev: ");
 		int i;
@@ -66,12 +46,15 @@ void canTestReceiver(void){
 		}
 		uart_txchar(UART_NUMBER_1, '\r');
 		uart_txchar(UART_NUMBER_1, '\n');
-	}else{
-		uart_txstring(UART_NUMBER_1, "CAN ERROR: ABORTING\r\n");
+	//}else{
+	//	uart_txstring(UART_NUMBER_1, "CAN ERROR: ABORTING\r\n");
 
-		response_msg.cmd = CMD_ABORT;
-		while(can_cmd(&response_msg) != CAN_CMD_ACCEPTED);
-	}
+	//	response_msg.cmd = CMD_ABORT;
+	//	while(can_cmd(&response_msg) != CAN_CMD_ACCEPTED);
+	//}
+
+	sprintf(str, "can_get_status counted to %d\r\n", cnt);
+	uart_txstring(UART_NUMBER_1, str);
 
 }
 
@@ -79,17 +62,16 @@ void canTestSender(void){
 	const uint8_t sender_id = 4;
 	uint8_t databuffer[5] = {'H', 'e', 'l', 'l', 'o'}; 
 
-	st_cmd_t sensor_message;
+	st_cmd_t msg = {
+		.pt_data = &databuffer[0],
+		.ctrl.ide = 0,
+		.dlc = 5,
+		.id.std = sender_id,
+		.cmd = CMD_TX_DATA
+	};
 
-	sensor_message.pt_data = &databuffer[0];
-
-	sensor_message.ctrl.ide = 0;            //- CAN 2.0A
-	sensor_message.dlc = 5; // size of databuffer
-	sensor_message.id.std = sender_id;
-	sensor_message.cmd = CMD_REPLY_MASKED;
-
-	while(can_cmd(&sensor_message) != CAN_CMD_ACCEPTED);
-	while(can_get_status(&sensor_message) == CAN_STATUS_NOT_COMPLETED);
+	while(can_cmd(&msg) != CAN_CMD_ACCEPTED);
+	while(can_get_status(&msg) == CAN_STATUS_NOT_COMPLETED);
 }
 
 int main(void)
@@ -106,7 +88,7 @@ int main(void)
 
 	//Enable all interrupts
 	Can_sei();									//Enable all interrupts
-	Can_set_tx_int();
+	//Can_set_tx_int();
 	Can_set_rx_int();
 
 	adc_setChannel(1);
@@ -123,9 +105,8 @@ int main(void)
 	int i=0;
 	while(1){
 		// Main work loop
-		_delay_ms(250);
+		//_delay_ms(250);
 
-		//testCanTX();
 		//canTestSender();
 		canTestReceiver();
 

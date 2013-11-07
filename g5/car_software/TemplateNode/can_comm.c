@@ -26,42 +26,41 @@ void can_update_rx_msg(st_cmd_t* msg, uint8_t msg_id, uint8_t dlc){
 
 /* Interrupt routine to take care of can interrupts */
 ISR(CANIT_vect){
-	uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n");
-	uart_txstring(UART_NUMBER_1, "Got can interrupt \r\n");
-/*
-	if(BIT_CHECK(CANGIT, 0x07)){
-		uart_txstring(UART_NUMBER_1, "General interrupt\r\n");
-	}
+	//uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n");
+	//uart_txstring(UART_NUMBER_1, "Got can interrupt \r\n");
+	/*
 
-	if(BIT_CHECK(CANGIT, 0x06)){
-		uart_txstring(UART_NUMBER_1, "Bus Off Interrupt Flag\r\n");
-	}
+	uint8_t response_buffer[5] = {};
+	st_cmd_t response_msg;
 
-	if(BIT_CHECK(CANGIT, 0x05)){
-		uart_txstring(UART_NUMBER_1, "Overrun CAN Timer\r\n");
-	}
+	response_msg.pt_data = &response_buffer[0];
+	response_msg.status = 0;
 
-	if(BIT_CHECK(CANGIT, 0x04)){
-		uart_txstring(UART_NUMBER_1, "Frame Buffer Receive Interrupt\r\n");
-	}
+	// Do the Rx
+	response_msg.id.std = 4; // sender_id
+	response_msg.ctrl.ide = 0;
+	response_msg.ctrl.rtr = 0;
+	response_msg.dlc = 5;
+	response_msg.cmd = CMD_RX_DATA_MASKED;
+	while(can_cmd(&response_msg) != CAN_CMD_ACCEPTED); // Rx cmd
 
-	if(BIT_CHECK(CANGIT, 0x03)){
-		uart_txstring(UART_NUMBER_1, "Stuff Error General\r\n");
-	}
+	if(can_get_status(&response_msg) == CAN_STATUS_COMPLETED){
+		// print the received msg
+		uart_txstring(UART_NUMBER_1, "CAN rev in interrupt: ");
+		int i;
+		for(i=0; i < 5; i++){
+			uart_txchar(UART_NUMBER_1, response_buffer[i]);
+		}
+		uart_txchar(UART_NUMBER_1, '\r');
+		uart_txchar(UART_NUMBER_1, '\n');
+	}else{
+		uart_txstring(UART_NUMBER_1, "CAN ERROR: ABORTING\r\n");
 
-	if(BIT_CHECK(CANGIT, 0x02)){
-		uart_txstring(UART_NUMBER_1, "CRC Error General\r\n");
+		response_msg.cmd = CMD_ABORT;
+		while(can_cmd(&response_msg) != CAN_CMD_ACCEPTED);
 	}
-
-	if(BIT_CHECK(CANGIT, 0x01)){
-		uart_txstring(UART_NUMBER_1, "Form Error General\r\n");
-	}
-
-	if(BIT_CHECK(CANGIT, 0x00)){
-		uart_txstring(UART_NUMBER_1, "Acknowledgment Error General\r\n");
-	}
-*/
-	
+	*/
+/*	
 	uint8_t i,interrupt, mob_back;
 	uint16_t canstatus, current_MOB = 1;
 
@@ -70,7 +69,7 @@ ISR(CANIT_vect){
 
 	rpm_msg.pt_data = rpm_response_buffer;
 	rpm_msg.status = 0;
-	
+	*/
 	//char tempchar[10];
 	/*
 	 * Function to clear only the mob that generated the interrupt 
@@ -84,7 +83,7 @@ ISR(CANIT_vect){
 	 * TXOK just need to call Can_mob_abort() and Can_clear_status_mob()
 	 * Proper action for all other types is TODO
 	*/
-
+/*
 	// Test mob's for pending interrupt 
 	canstatus = CANSIT2+(CANSIT1<<8);
 
@@ -142,7 +141,7 @@ ISR(CANIT_vect){
 		current_MOB = current_MOB<<1;
 	}
 	CANPAGE |= mob_back & 0xF0;	// Restore CANPAGE state
-	
+	*/
 }
 
 /* funktion til at sende en besked der er dlc byte lang og er ikke blocking 
