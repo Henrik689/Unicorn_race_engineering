@@ -1,5 +1,5 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+//#ifndef CONFIG_H
+//#define CONFIG_H
 
 /*********************************************
  * Config header
@@ -13,5 +13,5 @@
 #include "compiler.h"
 #define CAN_BAUDRATE   250        // in kBit
 
-#endif /* CONFIG_H */
+//#endif /* CONFIG_H */
  

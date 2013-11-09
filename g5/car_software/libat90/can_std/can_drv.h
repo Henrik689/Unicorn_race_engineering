@@ -24,7 +24,7 @@
 #define _CAN_DRV_H_
 
 //_____ I N C L U D E S ________________________________________________________
-
+#include "../config.h" // We inserted this line. Check licence if this is ok!?
 //_____ D E F I N I T I O N S __________________________________________________
 
     // ----------
