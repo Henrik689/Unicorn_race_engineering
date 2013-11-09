@@ -84,10 +84,11 @@ PROJECTNAME=TemplateNode
 # (list all files to compile, e.g. 'a.c b.cpp as.S'):
 # Use .cc, .cpp or .C suffix for C++ files, use .S 
 # (NOT .s !!!) for assembly source code files.
-PRJSRC=main.c adc.c isr.c uart.c init.c can_std/can_drv.c can_std/can_lib.c can_comm.c timer.c
+LIB_AT90 = ../libat90/adc.c ../libat90/can_comm.c ../libat90/can_std/can_drv.c ../libat90/can_std/can_lib.c ../libat90/timer.c ../libat90/uart.c  
+PRJSRC=main.c isr.c init.c $(LIB_AT90)
 
 # additional includes (e.g. -I/path/to/mydir)
-#INC=-I/path/to/include
+INC=-I../libat90
 
 # libraries to link in (e.g. -lmylib)
 #LIBS=
