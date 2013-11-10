@@ -43,7 +43,7 @@ void can_receive(int id, uint8_t *data, size_t length){
 	CAN_FORCE_COMPLETE(&received_msg);
 }
 
-void canTestReceiver(void){
+void can_testReceiver(void){
 	uint8_t received_data[TEST_MSG_LEN] = {};
 	can_receive(TEST_MSG_ID, &received_data[0], TEST_MSG_LEN);
 
@@ -52,7 +52,7 @@ void canTestReceiver(void){
 	uart_txstring(UART_NUMBER_1, "\r\n");
 }
 
-void canTestSender(void){
+void can_testSender(void){
 	uint8_t databuffer[TEST_MSG_LEN] = {'H', 'e', 'l', 'l', 'o'}; 
 	can_send(TEST_MSG_ID, &databuffer[0], TEST_MSG_LEN);
 }
@@ -62,5 +62,5 @@ ISR(CANIT_vect){
 	uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n");
 	uart_txstring(UART_NUMBER_1, "Got can interrupt \r\n");
 
-	canTestReceiver();
+	can_testReceiver();
 }

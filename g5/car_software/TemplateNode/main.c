@@ -47,8 +47,8 @@ int main(void)
 		// Main work loop
 		//_delay_ms(250);
 
-		//canTestSender();
-		canTestReceiver();
+		//can_testSender();
+		can_testReceiver();
 
 		char buff[32] = {};
 
