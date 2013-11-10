@@ -5,8 +5,8 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#include "can.h"
 #include "can_std/can_lib.h"
+#include "can.h"
 #include "uart.h"
 
 #define SIZEOF_ARR(arr) (sizeof(arr) / sizeof(arr[0]))

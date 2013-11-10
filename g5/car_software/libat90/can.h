@@ -1,7 +1,7 @@
 #ifndef CAN_H
 #define CAN_H
 
-#include "config.h"
+//#include "config.h"
 #include "can_std/can_lib.h"
 
 #define CAN_INIT()		(can_init(0))
