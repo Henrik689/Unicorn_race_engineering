@@ -11,57 +11,50 @@
 
 #define SIZEOF_ARR(arr) (sizeof(arr) / sizeof(arr[0]))
 
-char str[32] = {};
+#define TEST_MSG_LEN	5 // length of the test message used for debugging
 
 void canTestReceiver(void){
-	uint8_t response_buffer[5] = {};
-	st_cmd_t response_msg = {
-		.pt_data = &response_buffer[0],
+	uint8_t received_data[TEST_MSG_LEN] = {};
+	st_cmd_t received_msg = {
+		.pt_data = &received_data[0],
 		.status = 0,
 
 		.id.std = 4,
 		.ctrl.ide = 0,
 		.ctrl.rtr = 0,
-		.dlc = 5,
+		.dlc = TEST_MSG_LEN,
 		.cmd = CMD_RX_DATA_MASKED // CMD_RX_DATA_MASKED gives interrupt while CMD_RX_DATA does not
 	};
-	int cnt = 0;
-	while(can_cmd(&response_msg) != CAN_CMD_ACCEPTED){cnt++;} // Rx cmd
-	sprintf(str, "can_cmd counted to %d\r\n", cnt);
-	uart_txstring(UART_NUMBER_1, str);
+	while(can_cmd(&received_msg) != CAN_CMD_ACCEPTED); // Rx cmd
 
 	//_delay_ms(50); // Wait 50 ms and if the msg has not completed abort
-	cnt=0;
-	while( can_get_status(&response_msg) != CAN_STATUS_COMPLETED){cnt++;}
-	//if(can_get_status(&response_msg) == CAN_STATUS_COMPLETED){
+	while( can_get_status(&received_msg) != CAN_STATUS_COMPLETED);
+	//if(can_get_status(&received_msg) == CAN_STATUS_COMPLETED){
 		// print the received msg
 		uart_txstring(UART_NUMBER_1, "CAN rev: ");
 		int i;
-		for(i=0; i < 5; i++){
-			uart_txchar(UART_NUMBER_1, response_buffer[i]);
+		for(i=0; i < TEST_MSG_LEN; i++){
+			uart_txchar(UART_NUMBER_1, received_data[i]);
 		}
 		uart_txchar(UART_NUMBER_1, '\r');
 		uart_txchar(UART_NUMBER_1, '\n');
 	//}else{
 	//	uart_txstring(UART_NUMBER_1, "CAN ERROR: ABORTING\r\n");
 
-	//	response_msg.cmd = CMD_ABORT;
-	//	while(can_cmd(&response_msg) != CAN_CMD_ACCEPTED);
+	//	received_msg.cmd = CMD_ABORT;
+	//	while(can_cmd(&received_msg) != CAN_CMD_ACCEPTED);
 	//}
-
-	sprintf(str, "can_get_status counted to %d\r\n", cnt);
-	uart_txstring(UART_NUMBER_1, str);
 
 }
 
 void canTestSender(void){
 	const uint8_t sender_id = 4;
-	uint8_t databuffer[5] = {'H', 'e', 'l', 'l', 'o'}; 
+	uint8_t databuffer[TEST_MSG_LEN] = {'H', 'e', 'l', 'l', 'o'}; 
 
 	st_cmd_t msg = {
 		.pt_data = &databuffer[0],
 		.ctrl.ide = 0,
-		.dlc = 5,
+		.dlc = TEST_MSG_LEN,
 		.id.std = sender_id,
 		.cmd = CMD_TX_DATA
 	};
