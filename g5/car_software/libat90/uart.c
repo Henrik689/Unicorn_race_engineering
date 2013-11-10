@@ -3,6 +3,7 @@
  *********************************************/
 
 #include <stdint.h>
+#include <stdlib.h> // size_t
 #include "config.h" // F_CPU
 
 #include <avr/io.h>
@@ -213,6 +214,15 @@ unsigned char uart_getChar(enum uart_number_t n){
 	return result;
 }
 
+void uart_txarr(enum uart_number_t n, const unsigned char *arr, size_t length){
+	if(arr == NULL) return;
+
+	int i;
+	for(i = 0; i < length; i++){
+		uart_txchar(n, arr[i]);
+	}
+}
+
 void uart_txchar(enum uart_number_t n, const unsigned char c) {
 	switch(n){
 		case UART_NUMBER_0:
@@ -227,6 +237,7 @@ void uart_txchar(enum uart_number_t n, const unsigned char c) {
 }
 
 void uart_txstring(enum uart_number_t n, char *str) {
+	if(str == NULL) return;
 	char *c = str;
 	while(*c){
 		uart_txchar(n, *c++);

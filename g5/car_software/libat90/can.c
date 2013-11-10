@@ -30,12 +30,8 @@ void canTestReceiver(void){
 	CAN_FORCE_COMPLETE(&received_msg);
 
 	uart_txstring(UART_NUMBER_1, "CAN rev: ");
-	int i;
-	for(i=0; i < TEST_MSG_LEN; i++){
-		uart_txchar(UART_NUMBER_1, received_data[i]);
-	}
-	uart_txchar(UART_NUMBER_1, '\r');
-	uart_txchar(UART_NUMBER_1, '\n');
+	uart_txarr(UART_NUMBER_1, &received_data[0], TEST_MSG_LEN);
+	uart_txstring(UART_NUMBER_1, "\r\n");
 }
 
 void canTestSender(void){
