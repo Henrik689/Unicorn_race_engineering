@@ -14,6 +14,35 @@
 #define TEST_MSG_ID		4
 #define TEST_MSG_LEN	5 // length of the test message used for debugging
 
+void can_send(int id, uint8_t *data, size_t length){
+	st_cmd_t msg = {
+		.pt_data = &data[0],
+		.ctrl.ide = 0,
+		.dlc = length,
+		.id.std = id,
+		.cmd = CMD_TX_DATA
+	};
+
+	CAN_FORCE_CMD(&msg);
+	CAN_FORCE_COMPLETE(&msg);
+}
+
+void can_receive(int id, uint8_t *data, size_t length){
+	st_cmd_t received_msg = {
+		.pt_data = &data[0],
+		.status = 0,
+
+		.id.std = id,
+		.ctrl.ide = 0,
+		.ctrl.rtr = 0,
+		.dlc = length,
+		.cmd = CMD_RX_DATA_MASKED // CMD_RX_DATA_MASKED gives interrupt while CMD_RX_DATA does not
+	};
+
+	CAN_FORCE_CMD(&received_msg);
+	CAN_FORCE_COMPLETE(&received_msg);
+}
+
 void canTestReceiver(void){
 	uint8_t received_data[TEST_MSG_LEN] = {};
 	st_cmd_t received_msg = {

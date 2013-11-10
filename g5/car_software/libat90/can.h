@@ -13,6 +13,9 @@
 #define CAN_FORCE_CMD(cmd)			while(can_cmd((cmd)) != CAN_CMD_ACCEPTED)
 #define CAN_FORCE_COMPLETE(cmd)	while( can_get_status((cmd)) != CAN_STATUS_COMPLETED)
 
+void can_send(int id, uint8_t *data, size_t length);
+void can_receive(int id, uint8_t *data, size_t length);
+
 void canTestReceiver(void);
 void canTestSender(void);
 
