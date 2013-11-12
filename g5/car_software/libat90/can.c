@@ -17,9 +17,13 @@
 void can_send(int id, uint8_t *data, uint8_t length){
 	st_cmd_t msg = {
 		.pt_data = &data[0],
-		.ctrl.ide = 0,
-		.dlc = length,
 		.id.std = id,
+
+		.ctrl.ide = 0, // ide : identifier extension: 0 = can2.0A (11bit), 1 = can2.0B (29bit)
+		//.ctrl.rtr = 0, // rtr : request remote transmission
+		
+		.dlc = length,
+		
 		.cmd = CMD_TX_DATA
 	};
 
@@ -59,8 +63,11 @@ void can_testSender(void){
 
 /* Interrupt routine to take care of can interrupts */
 ISR(CANIT_vect){
-	uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n");
+	uint8_t save_page = CANPAGE;
+	//uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n");
 	uart_txstring(UART_NUMBER_1, "Got can interrupt \r\n");
 
-	can_testReceiver();
+	//can_testReceiver();
+
+	CANPAGE = save_page;
 }

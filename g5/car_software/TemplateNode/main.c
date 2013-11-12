@@ -36,7 +36,7 @@ int main(void)
 	int i=0;
 	while(1){
 		// Main work loop
-		//_delay_ms(250);
+		_delay_ms(250);
 
 		//can_testSender();
 		can_testReceiver();
