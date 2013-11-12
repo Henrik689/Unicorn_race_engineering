@@ -14,7 +14,7 @@
 #define TEST_MSG_ID		4 // Debuggin msg id
 #define TEST_MSG_LEN	5 // length of the test message used for debugging
 
-void can_send(int id, uint8_t *data, size_t length){
+void can_send(int id, uint8_t *data, uint8_t length){
 	st_cmd_t msg = {
 		.pt_data = &data[0],
 		.ctrl.ide = 0,
@@ -27,7 +27,7 @@ void can_send(int id, uint8_t *data, size_t length){
 	CAN_FORCE_COMPLETE(&msg);
 }
 
-void can_receive(int id, uint8_t *data, size_t length){
+void can_receive(int id, uint8_t *data, uint8_t length){
 	st_cmd_t received_msg = {
 		.pt_data = &data[0],
 		.status = 0,

@@ -1,6 +1,7 @@
 #ifndef CAN_H
 #define CAN_H
 
+#include <stdint.h>
 #include "can_std/can_lib.h"
 
 
@@ -16,8 +17,8 @@
 #define CAN_FORCE_CMD(cmd)			while( can_cmd((cmd)) != CAN_CMD_ACCEPTED 				)
 #define CAN_FORCE_COMPLETE(cmd)		while( can_get_status((cmd)) != CAN_STATUS_COMPLETED 	)
 
-void can_send(int id, uint8_t *data, size_t length);
-void can_receive(int id, uint8_t *data, size_t length);
+void can_send(int id, uint8_t *data, uint8_t length);
+void can_receive(int id, uint8_t *data, uint8_t length);
 
 // Debugging test functions
 void can_testReceiver(void);
