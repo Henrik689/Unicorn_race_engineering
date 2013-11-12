@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include "can_std/can_lib.h"
-
+#include "bitwise.h"
 
 #define CAN_SEI()		( Can_sei()			)
 #define CAN_RX_SEI()	( Can_set_rx_int() 	)
