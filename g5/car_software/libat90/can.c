@@ -71,20 +71,21 @@ char str[64] = {};
 uint8_t buffer[TEST_MSG_LEN] = {};
 int cnt = 0;
 ISR(CANIT_vect){
-	int i = 0; // loop counter
 	const uint16_t cansit = CANSIT2+(CANSIT1<<8);
 	const uint8_t mob_back = CANPAGE;	// Save CANPAGE state
 	uint16_t thisMOBpos = 0x01;
 
+	// Loop over each MOB and check if it have pending interrupt
+	int i;
 	for(i = 0; i <= LAST_MOB_NB; i++){
 		if(BITMASK_CHECK(cansit, thisMOBpos)){	/* True if mob have pending interrupt */
 			Can_set_mob(i); /* Switch to mob */
+
 			const uint8_t interrupt = BITMASK_CHECK(CANSTMOB, INT_MOB_MSK);
 			switch (interrupt){
 				case MOB_RX_COMPLETED:
 					/* Can specific code */
 					can_get_data(&buffer[0]);	// Copy data to canDataTest
-					//can_receive(TEST_MSG_ID, &buffer[0], TEST_MSG_LEN);
 					Can_mob_abort();        // Freed the MOB
 					Can_clear_status_mob(); // and reset MOb status
 
@@ -94,9 +95,6 @@ ISR(CANIT_vect){
 					sprintf(str, " msg %d", cnt++);
 					uart_txstring(UART_NUMBER_1, str);
 					uart_txstring(UART_NUMBER_1, "\r\n");
-					//Can_unset_mob_int(i);
-
-//					xbee_send_trigger();				/* TODO Der skal nok være den i main */
 					break;
 				case MOB_TX_COMPLETED:
 					Can_mob_abort();        // Freed the MOB
