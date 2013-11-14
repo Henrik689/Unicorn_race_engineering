@@ -49,7 +49,7 @@ void can_receive(int id, uint8_t *data, uint8_t length){
 	//can_cmd(&received_msg);
 	//can_get_status(&received_msg);
 	//CAN_FORCE_CMD(&received_msg);
-	CAN_FORCE_COMPLETE(&received_msg);
+	//CAN_FORCE_COMPLETE(&received_msg);
 }
 
 void can_testReceiver(void){
@@ -71,57 +71,27 @@ char str[64] = {};
 uint8_t buffer[TEST_MSG_LEN] = {};
 int cnt = 0;
 ISR(CANIT_vect){
-	/*
-	uint8_t save_page = CANPAGE;
-	volatile int test = CANSTMOB;
-	static int nInterrupt = 0;
-	//uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n"); uart_txstring(UART_NUMBER_1, "\r\n");
-	
-	sprintf(str, "interrupt number %d ", nInterrupt++);
-	uart_txstring(UART_NUMBER_1, str);
+	int i = 0; // loop counter
+	const uint16_t cansit = CANSIT2+(CANSIT1<<8);
+	const uint8_t mob_back = CANPAGE;	// Save CANPAGE state
+	uint16_t thisMOBpos = 0x01;
 
-	sprintf(str, "CANSTMOB %d ", test);
-	uart_txstring(UART_NUMBER_1, str);
-
-	sprintf(str, "CANREC %d ", CANREC);
-	uart_txstring(UART_NUMBER_1, str);
-
-	sprintf(str, "CANGIT %d ", CANGIT);
-	uart_txstring(UART_NUMBER_1, str);
-	
-	sprintf(str, "CANSIT1: %d CANSIT2: %d\r\n", CANSIT1, CANSIT2);
-	uart_txstring(UART_NUMBER_1, str);
-
-	//BIT_SET(CANSTMOB, RXOK);
-	//uart_txstring(UART_NUMBER_1, "Got can interrupt \r\n");
-
-	//can_testReceiver();
-
-	CANPAGE = save_page; */
-
-
-	uint8_t mob_back = CANPAGE;	// Save CANPAGE state
-	int i = 0;
-	uint8_t interrupt = 0;
-	uint16_t tmp = CANSIT2+(CANSIT1<<8);
-	uint16_t mask = 1;
-
-	for(i=0;i<=14;i++){
-		if(tmp & mask){	/* True if mob have pending interrupt */
+	for(i = 0; i <= LAST_MOB_NB; i++){
+		if(BITMASK_CHECK(cansit, thisMOBpos)){	/* True if mob have pending interrupt */
 			Can_set_mob(i); /* Switch to mob */
-			interrupt = (CANSTMOB & INT_MOB_MSK);
+			const uint8_t interrupt = BITMASK_CHECK(CANSTMOB, INT_MOB_MSK);
 			switch (interrupt){
 				case MOB_RX_COMPLETED:
 					/* Can specific code */
-					//can_get_data(&buffer[0]);	// Copy data to canDataTest
+					can_get_data(&buffer[0]);	// Copy data to canDataTest
 					//can_receive(TEST_MSG_ID, &buffer[0], TEST_MSG_LEN);
-					//Can_mob_abort();        // Freed the MOB
-					//Can_clear_status_mob(); // and reset MOb status
+					Can_mob_abort();        // Freed the MOB
+					Can_clear_status_mob(); // and reset MOb status
 
-					
+					can_receive(TEST_MSG_ID, &buffer[0], TEST_MSG_LEN);
 					uart_txarr(UART_NUMBER_1, &buffer[0], TEST_MSG_LEN);
 
-					sprintf(str, "msg %d", cnt++);
+					sprintf(str, " msg %d", cnt++);
 					uart_txstring(UART_NUMBER_1, str);
 					uart_txstring(UART_NUMBER_1, "\r\n");
 					//Can_unset_mob_int(i);
@@ -154,10 +124,8 @@ ISR(CANIT_vect){
 					break;
 			}
 		}
-		mask = mask<<1;
+		thisMOBpos = thisMOBpos << 1;
 	}
-	//CANPAGE = mob_back;
-	CANPAGE |= mob_back & 0xF0;	// Restore CANPAGE state
 
-
+	CANPAGE |= BITMASK_CHECK(mob_back, 0xF0); // Restore CANPAGE state
 }
