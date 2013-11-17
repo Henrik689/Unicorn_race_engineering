@@ -49,5 +49,6 @@ unsigned char uart_getChar(enum uart_number_t n);
 void uart_txarr(enum uart_number_t n, const unsigned char *arr, size_t length);
 void uart_txchar(enum uart_number_t n, const unsigned char c);
 void uart_txstring(enum uart_number_t n, char *str);
+void uart_printf(enum uart_number_t n, char *str, ...);
 
 #endif /* UART_H */

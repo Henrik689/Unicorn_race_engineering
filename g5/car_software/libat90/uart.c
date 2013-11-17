@@ -4,6 +4,8 @@
 
 #include <stdint.h>
 #include <stdlib.h> // size_t
+#include <stdarg.h> // va args
+#include <stdio.h> // vsprintf
 #include "config.h" // F_CPU
 
 #include <avr/io.h>
@@ -243,3 +245,14 @@ void uart_txstring(enum uart_number_t n, char *str) {
 		uart_txchar(n, *c++);
 	}
 }
+
+void uart_printf(enum uart_number_t n, char *str, ...){
+	char buffer[256]; // Warning this might overflow on long str
+	va_list args;
+	
+	va_start (args, str);
+	vsprintf (buffer, str, args);
+	uart_txstring(n, str);
+	va_end (args);
+}
+
