@@ -53,7 +53,7 @@ void can_receive(int id, uint8_t *data, uint8_t length){
 }
 
 void can_testReceiver(void){
-	uint8_t received_data[TEST_MSG_LEN] = {};
+	uint8_t received_data[TEST_MSG_LEN] = {0};
 	can_receive(TEST_MSG_ID, &received_data[0], TEST_MSG_LEN);
 
 	uart_txstring(UART_NUMBER_1, "CAN rev: ");
@@ -67,8 +67,8 @@ void can_testSender(void){
 }
 
 /* Interrupt routine to take care of can interrupts */
-char str[64] = {};
-uint8_t buffer[TEST_MSG_LEN] = {};
+char str[64] = {0};
+uint8_t buffer[TEST_MSG_LEN] = {0};
 int cnt = 0;
 ISR(CANIT_vect){
 	const uint16_t cansit = CANSIT2+(CANSIT1<<8);

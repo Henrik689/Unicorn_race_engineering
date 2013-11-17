@@ -41,7 +41,7 @@ int main(void)
 		//can_testSender();
 		//can_testReceiver();
 
-		char buff[32] = {};
+		char buff[32] = {0};
 
 		uint16_t res = adc_readChannel(i);
 

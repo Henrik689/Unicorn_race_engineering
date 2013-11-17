@@ -247,7 +247,7 @@ void uart_txstring(enum uart_number_t n, char *str) {
 }
 
 void uart_printf(enum uart_number_t n, char *str, ...){
-	char buffer[256]; // Warning this might overflow on long str
+	char buffer[256] = {0}; // Warning this might overflow on long str
 	va_list args;
 	
 	va_start (args, str);
