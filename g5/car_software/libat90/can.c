@@ -89,7 +89,7 @@ ISR(CANIT_vect){
 					Can_mob_abort();        // Freed the MOB
 					Can_clear_status_mob(); // and reset MOb status
 
-					can_receive(TEST_MSG_ID, &buffer[0], TEST_MSG_LEN);
+					can_receive(TEST_MSG_ID, &buffer[0], TEST_MSG_LEN); // put this before can_get_data and see if it works
 					uart_txarr(UART_NUMBER_1, &buffer[0], TEST_MSG_LEN);
 
 					sprintf(str, " msg %d", cnt++);
