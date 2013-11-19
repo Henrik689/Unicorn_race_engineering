@@ -55,37 +55,37 @@ void adc_setPrescaler(const enum adc_prescalar_t p){
 	// TODO: use BITMASK_CLEAR and BITMAST_SET to do this
 
 	switch(p){
-		case PRESCALAR_2:
+		case ADC_PRESCALAR_2:
 			BIT_CLEAR(ADCSRA, ADPS0);
 			BIT_CLEAR(ADCSRA, ADPS1);
 			BIT_CLEAR(ADCSRA, ADPS2);
 			break;
-		case PRESCALAR_4:
+		case ADC_PRESCALAR_4:
 			BIT_SET(ADCSRA, ADPS0);
 			BIT_CLEAR(ADCSRA, ADPS1);
 			BIT_CLEAR(ADCSRA, ADPS2);
 			break;
-		case PRESCALAR_8:
+		case ADC_PRESCALAR_8:
 			BIT_CLEAR(ADCSRA, ADPS0);
 			BIT_SET(ADCSRA, ADPS1);
 			BIT_CLEAR(ADCSRA, ADPS2);
 			break;
-		case PRESCALAR_16:
+		case ADC_PRESCALAR_16:
 			BIT_SET(ADCSRA, ADPS0);
 			BIT_SET(ADCSRA, ADPS1);
 			BIT_CLEAR(ADCSRA, ADPS2);
 			break;
-		case PRESCALAR_32:
+		case ADC_PRESCALAR_32:
 			BIT_CLEAR(ADCSRA, ADPS0);
 			BIT_CLEAR(ADCSRA, ADPS1);
 			BIT_SET(ADCSRA, ADPS2);
 			break;
-		case PRESCALAR_64:
+		case ADC_PRESCALAR_64:
 			BIT_CLEAR(ADCSRA, ADPS0);
 			BIT_SET(ADCSRA, ADPS1);
 			BIT_SET(ADCSRA, ADPS2);
 			break;
-		case PRESCALAR_128:
+		case ADC_PRESCALAR_128:
 			BIT_SET(ADCSRA, ADPS0);
 			BIT_SET(ADCSRA, ADPS1);
 			BIT_SET(ADCSRA, ADPS2);
@@ -149,7 +149,7 @@ void adc_init(void){
 	adc_setChannel(1);
 	adc_setVref(AVCC);
 	adc_enable();
-	adc_setPrescaler(PRESCALAR_128);
+	adc_setPrescaler(ADC_PRESCALAR_128);
 	adc_autoTriggerEnable();
 	adc_setTriggerSource(ANALOG_COMPARE);
 	adc_InteruptEnable();

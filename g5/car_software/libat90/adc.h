@@ -4,13 +4,13 @@
 #include <stdint.h>
 
 enum adc_prescalar_t {
-	PRESCALAR_2 = 2,
-	PRESCALAR_4 = 4,
-	PRESCALAR_8 = 8,
-	PRESCALAR_16 = 16,
-	PRESCALAR_32 = 32,
-	PRESCALAR_64 = 64,
-	PRESCALAR_128 = 128
+	ADC_PRESCALAR_2 = 2,
+	ADC_PRESCALAR_4 = 4,
+	ADC_PRESCALAR_8 = 8,
+	ADC_PRESCALAR_16 = 16,
+	ADC_PRESCALAR_32 = 32,
+	ADC_PRESCALAR_64 = 64,
+	ADC_PRESCALAR_128 = 128
 };
 
 enum adc_vref_t {

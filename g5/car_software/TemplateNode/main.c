@@ -29,7 +29,7 @@ int main(void)
 	adc_setChannel(1);
 	adc_setVref(INTERNAL);
 	adc_enable();
-	adc_setPrescaler(PRESCALAR_128);
+	adc_setPrescaler(ADC_PRESCALAR_128);
 
 	uart1_txstring("\r\n\r\n\r\nSTARTING \r\n");
 	can_testReceiver();
