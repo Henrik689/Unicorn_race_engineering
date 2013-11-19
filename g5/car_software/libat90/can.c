@@ -87,13 +87,16 @@ ISR(CANIT_vect){
 					/* Can specific code */
 					//can_receive(TEST_MSG_ID, &buffer[0], TEST_MSG_LEN);
 					can_get_data(&buffer[0]);	// Copy data to canDataTest
-					Can_mob_abort();        // Freed the MOB
+					//Can_mob_abort();        // Freed the MOB
 					Can_clear_status_mob(); // and reset MOb status
+					BIT_SET(CANCDMOB, CONMOB1);
+					BIT_SET(CANCDMOB, DLC0);
+					BIT_SET(CANCDMOB, DLC2);
 
-					can_receive(TEST_MSG_ID, &buffer[0], TEST_MSG_LEN); // put this before can_get_data and see if it works
+					//can_receive(TEST_MSG_ID, &buffer[0], TEST_MSG_LEN); // put this before can_get_data and see if it works
 					uart_txarr(UART_NUMBER_1, &buffer[0], TEST_MSG_LEN);
 
-					uart_printf(UART_NUMBER_1, " msg %d\r\n", cnt++);
+					uart_printf(UART_NUMBER_1, "  MOB_%d msg %d\r\n", i, cnt++);
 					break;
 				case MOB_TX_COMPLETED:
 					Can_mob_abort();        // Freed the MOB
