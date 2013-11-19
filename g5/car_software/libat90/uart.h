@@ -44,8 +44,8 @@ more pleasent.
 #define uart0_txstring(str) uart_txstring(UART_NUMBER_0, (str))
 #define uart1_txstring(str) uart_txstring(UART_NUMBER_1, (str))
 
-#define uart0_printf(str, ...) uart_printf(UART_NUMBER_0, (str), __VA_ARGS__)
-#define uart1_printf(str, ...) uart_printf(UART_NUMBER_1, (str), __VA_ARGS__)
+#define uart0_printf(str, ...) uart_printf(UART_NUMBER_0, (str), ##__VA_ARGS__)
+#define uart1_printf(str, ...) uart_printf(UART_NUMBER_1, (str), ##__VA_ARGS__)
 
 
 
