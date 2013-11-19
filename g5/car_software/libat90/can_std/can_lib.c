@@ -78,157 +78,149 @@ U8 can_init(U8 mode)
 //------------------------------------------------------------------------------
 U8 can_cmd(st_cmd_t* cmd)
 {
-  U8 mob_handle, cpt;
-  U32 u32_temp;
-  
-  if (cmd->cmd == CMD_ABORT)
-  {
-    if (cmd->status == MOB_PENDING)
-    {
-      // Rx or Tx not yet performed
-      Can_set_mob(cmd->handle);
-      Can_mob_abort();
-      Can_clear_status_mob();       // To be sure !
-      cmd->handle = 0;
-    }
-    cmd->status = STATUS_CLEARED; 
-  }
-  else
-  {
-    mob_handle = can_get_mob_free();
-    if (mob_handle!= NO_MOB)
-    {
-      cmd->status = MOB_PENDING; 
-      cmd->handle = mob_handle;
-      Can_set_mob(mob_handle);
-      Can_clear_mob();
-          
-      switch (cmd->cmd)
-      {
-        //------------      
-        case CMD_TX:    
-          if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
-          else              { Can_set_std_id(cmd->id.std);}
-          for (cpt=0;cpt<cmd->dlc;cpt++) CANMSG = *(cmd->pt_data + cpt);
-          if (cmd->ctrl.rtr) Can_set_rtr(); 
-            else Can_clear_rtr();    
-          Can_set_dlc(cmd->dlc);
-          Can_config_tx();
-          break;
-        //------------      
-        case CMD_TX_DATA:    
-          if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
-          else              { Can_set_std_id(cmd->id.std);}
-          for (cpt=0;cpt<cmd->dlc;cpt++) CANMSG = *(cmd->pt_data + cpt);
-          cmd->ctrl.rtr=0; Can_clear_rtr();
-          Can_set_dlc(cmd->dlc);
-          Can_config_tx();
-	  if(!cmd->blocking){	/* Enable interrupt */
-        Can_set_mob_int(mob_handle) /* Ser ud til at virke */
-	  }
-          break;
-        //------------      
-        case CMD_TX_REMOTE:       
-          if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
-          else              { Can_set_std_id(cmd->id.std);}
-          cmd->ctrl.rtr=1; Can_set_rtr();
-          Can_set_dlc(cmd->dlc);
-          Can_config_tx();
-          break;
-        //------------      
-        case CMD_RX:
-          u32_temp=0; Can_set_ext_msk(u32_temp);
-          Can_set_dlc(cmd->dlc);
-          Can_clear_rtrmsk();
-          Can_clear_idemsk();
-          Can_config_rx();       
-          break;
-        //------------      
-        case CMD_RX_DATA:
-          u32_temp=0; Can_set_ext_msk(u32_temp);
-          Can_set_dlc(cmd->dlc);
-          cmd->ctrl.rtr=0; Can_set_rtrmsk(); Can_clear_rtr();
-          Can_clear_idemsk();
-          Can_config_rx();       
-          break;
-        //------------      
-        case CMD_RX_REMOTE:
-          u32_temp=0; Can_set_ext_msk(u32_temp);
-          Can_set_dlc(cmd->dlc);
-          cmd->ctrl.rtr=1; Can_set_rtrmsk(); Can_set_rtr();
-          Can_clear_rplv();
-          Can_clear_idemsk();
-          Can_config_rx();       
-          break;
-        //------------      
-        case CMD_RX_MASKED:
-          if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
-          else              { Can_set_std_id(cmd->id.std);}
-          u32_temp=~0; Can_set_ext_msk(u32_temp);
-          Can_set_dlc(cmd->dlc);
-          Can_clear_rtrmsk();
-          Can_set_idemsk();
-          Can_config_rx();  
-          break;
-        //------------      
-        case CMD_RX_DATA_MASKED:
-          if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
-          else              { Can_set_std_id(cmd->id.std);}
-          u32_temp=~0; Can_set_ext_msk(u32_temp);
-          Can_set_dlc(cmd->dlc);
-          cmd->ctrl.rtr=0; Can_set_rtrmsk(); Can_clear_rtr();
-          Can_set_idemsk();
-          Can_config_rx();  
-	Can_set_mob_int(mob_handle) /* Ser ud til at virke */          
-          break;
-        //------------      
-        case CMD_RX_REMOTE_MASKED:
-          if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
-          else              { Can_set_std_id(cmd->id.std);}
-          u32_temp=~0; Can_set_ext_msk(u32_temp);
-          Can_set_dlc(cmd->dlc);
-          cmd->ctrl.rtr=1; Can_set_rtrmsk(); Can_set_rtr();
-          Can_clear_rplv();
-          Can_set_idemsk();
-          Can_config_rx();       
-          break;
-        //------------      
-        case CMD_REPLY:
-          for (cpt=0;cpt<cmd->dlc;cpt++) CANMSG = *(cmd->pt_data + cpt);
-          u32_temp=0; Can_set_ext_msk(u32_temp);
-          Can_set_dlc(cmd->dlc);
-          cmd->ctrl.rtr=1; Can_set_rtrmsk(); Can_set_rtr();
-          Can_set_rplv();
-          Can_clear_idemsk();
-          Can_config_rx();       
-          break;
-        //------------      
-        case CMD_REPLY_MASKED:
-          if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
-          else              { Can_set_std_id(cmd->id.std);}
-          for (cpt=0;cpt<cmd->dlc;cpt++) CANMSG = *(cmd->pt_data + cpt);
-          u32_temp=~0; Can_set_ext_msk(u32_temp);
-          Can_set_dlc(cmd->dlc);
-          cmd->ctrl.rtr=1; Can_set_rtrmsk(); Can_set_rtr();
-          Can_set_rplv();
-          Can_set_idemsk();
-          Can_config_rx();       
-          break;
-        //------------      
-        default:
-          // case CMD_NONE or not implemented command
-          cmd->status = STATUS_CLEARED; 
-          break;
-        //------------      
-      } // switch (cmd ...
-    } // if (mob_handle ...
-    else
-    {
-      cmd->status = MOB_NOT_REACHED;
-      return CAN_CMD_REFUSED;
-    }
-  } // else of no CMD_ABORT
-  return CAN_CMD_ACCEPTED;
+	U8 mob_handle, cpt;
+	U32 u32_temp;
+
+	if (cmd->cmd == CMD_ABORT) {
+		if (cmd->status == MOB_PENDING) {
+			// Rx or Tx not yet performed
+			Can_set_mob(cmd->handle);
+			Can_mob_abort();
+			Can_clear_status_mob();       // To be sure !
+			cmd->handle = 0;
+		}
+		cmd->status = STATUS_CLEARED; 
+	} else {
+		mob_handle = can_get_mob_free();
+		if (mob_handle!= NO_MOB) {
+			cmd->status = MOB_PENDING; 
+			cmd->handle = mob_handle;
+			Can_set_mob(mob_handle);
+			Can_clear_mob();
+
+			switch (cmd->cmd) {
+				//------------      
+				case CMD_TX:    
+				if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
+				else              { Can_set_std_id(cmd->id.std);}
+				for (cpt=0;cpt<cmd->dlc;cpt++) CANMSG = *(cmd->pt_data + cpt);
+				if (cmd->ctrl.rtr) Can_set_rtr(); 
+				else Can_clear_rtr();    
+				Can_set_dlc(cmd->dlc);
+				Can_config_tx();
+				break;
+				//------------      
+				case CMD_TX_DATA:    
+				if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
+				else              { Can_set_std_id(cmd->id.std);}
+				for (cpt=0;cpt<cmd->dlc;cpt++) CANMSG = *(cmd->pt_data + cpt);
+				cmd->ctrl.rtr=0; Can_clear_rtr();
+				Can_set_dlc(cmd->dlc);
+				Can_config_tx();
+				if(!cmd->blocking) {	/* Enable interrupt */
+					Can_set_mob_int(mob_handle) /* Ser ud til at virke */
+				}
+				break;
+				//------------      
+				case CMD_TX_REMOTE:       
+				if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
+				else              { Can_set_std_id(cmd->id.std);}
+				cmd->ctrl.rtr=1; Can_set_rtr();
+				Can_set_dlc(cmd->dlc);
+				Can_config_tx();
+				break;
+				//------------      
+				case CMD_RX:
+				u32_temp=0; Can_set_ext_msk(u32_temp);
+				Can_set_dlc(cmd->dlc);
+				Can_clear_rtrmsk();
+				Can_clear_idemsk();
+				Can_config_rx();       
+				break;
+				//------------      
+				case CMD_RX_DATA:
+				u32_temp=0; Can_set_ext_msk(u32_temp);
+				Can_set_dlc(cmd->dlc);
+				cmd->ctrl.rtr=0; Can_set_rtrmsk(); Can_clear_rtr();
+				Can_clear_idemsk();
+				Can_config_rx();       
+				break;
+				//------------      
+				case CMD_RX_REMOTE:
+				u32_temp=0; Can_set_ext_msk(u32_temp);
+				Can_set_dlc(cmd->dlc);
+				cmd->ctrl.rtr=1; Can_set_rtrmsk(); Can_set_rtr();
+				Can_clear_rplv();
+				Can_clear_idemsk();
+				Can_config_rx();       
+				break;
+				//------------      
+				case CMD_RX_MASKED:
+				if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
+				else              { Can_set_std_id(cmd->id.std);}
+				u32_temp=~0; Can_set_ext_msk(u32_temp);
+				Can_set_dlc(cmd->dlc);
+				Can_clear_rtrmsk();
+				Can_set_idemsk();
+				Can_config_rx();  
+				break;
+				//------------      
+				case CMD_RX_DATA_MASKED:
+				if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
+				else              { Can_set_std_id(cmd->id.std);}
+				u32_temp=~0; Can_set_ext_msk(u32_temp);
+				Can_set_dlc(cmd->dlc);
+				cmd->ctrl.rtr=0; Can_set_rtrmsk(); Can_clear_rtr();
+				Can_set_idemsk();
+				Can_config_rx();  
+				Can_set_mob_int(mob_handle) /* Ser ud til at virke */          
+				break;
+				//------------      
+				case CMD_RX_REMOTE_MASKED:
+				if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
+				else              { Can_set_std_id(cmd->id.std);}
+				u32_temp=~0; Can_set_ext_msk(u32_temp);
+				Can_set_dlc(cmd->dlc);
+				cmd->ctrl.rtr=1; Can_set_rtrmsk(); Can_set_rtr();
+				Can_clear_rplv();
+				Can_set_idemsk();
+				Can_config_rx();       
+				break;
+				//------------      
+				case CMD_REPLY:
+				for (cpt=0;cpt<cmd->dlc;cpt++) CANMSG = *(cmd->pt_data + cpt);
+				u32_temp=0; Can_set_ext_msk(u32_temp);
+				Can_set_dlc(cmd->dlc);
+				cmd->ctrl.rtr=1; Can_set_rtrmsk(); Can_set_rtr();
+				Can_set_rplv();
+				Can_clear_idemsk();
+				Can_config_rx();       
+				break;
+				//------------      
+				case CMD_REPLY_MASKED:
+				if (cmd->ctrl.ide){ Can_set_ext_id(cmd->id.ext);}
+				else              { Can_set_std_id(cmd->id.std);}
+				for (cpt=0;cpt<cmd->dlc;cpt++) CANMSG = *(cmd->pt_data + cpt);
+				u32_temp=~0; Can_set_ext_msk(u32_temp);
+				Can_set_dlc(cmd->dlc);
+				cmd->ctrl.rtr=1; Can_set_rtrmsk(); Can_set_rtr();
+				Can_set_rplv();
+				Can_set_idemsk();
+				Can_config_rx();       
+				break;
+				//------------      
+				default:
+				// case CMD_NONE or not implemented command
+				cmd->status = STATUS_CLEARED; 
+				break;
+				//------------      
+			} // switch (cmd ...
+		} else { // if (mob_handle ... 
+			cmd->status = MOB_NOT_REACHED;
+			return CAN_CMD_REFUSED;
+		}
+	} // else of no CMD_ABORT
+	return CAN_CMD_ACCEPTED;
 }
 
 //------------------------------------------------------------------------------

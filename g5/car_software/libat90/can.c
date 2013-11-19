@@ -14,7 +14,7 @@
 #define SIZEOF_ARR(arr) (sizeof(arr) / sizeof(arr[0]))
 
 #define TEST_MSG_ID		4 // Debuggin msg id
-#define TEST_MSG_LEN	5 // length of the test message used for debugging
+#define TEST_MSG_LEN	3 // length of the test message used for debugging
 
 void can_send(int id, uint8_t *data, uint8_t length){
 	st_cmd_t msg = {
@@ -33,7 +33,28 @@ void can_send(int id, uint8_t *data, uint8_t length){
 	CAN_FORCE_COMPLETE(&msg);
 }
 
-void can_receive(int id, uint8_t *data, uint8_t length){
+
+void mob_create(int mob_id, st_cmd_t* descriptor) {
+	Can_set_mob(mob_id);
+
+	Can_clear_mob();
+	
+	Can_set_std_id(descriptor->id.std)
+	
+	//uint32_t temp = UINT32_MAX;
+	Can_set_ext_msk((uint32_t){UINT32_MAX});
+
+	uart_printf(UART_NUMBER_1, "SETUP dlc = %d", descriptor->dlc);
+	Can_set_dlc(descriptor->dlc);
+
+	Can_set_rtrmsk();
+	Can_clear_rtr();
+	Can_set_idemsk();
+	Can_config_rx();  
+	Can_set_mob_int(mob_id);
+}
+
+void can_receive(int mob_id, int id, uint8_t *data, uint8_t length){
 	st_cmd_t received_msg = {
 		.pt_data = &data[0],
 		.status = 0,
@@ -45,7 +66,8 @@ void can_receive(int id, uint8_t *data, uint8_t length){
 		.cmd = CMD_RX_DATA_MASKED // CMD_RX_DATA_MASKED gives interrupt while CMD_RX_DATA does not
 	};
 
-	CAN_FORCE_CMD(&received_msg);
+	mob_create(mob_id, &received_msg);
+	//CAN_FORCE_CMD(&received_msg);
 	//can_cmd(&received_msg);
 	//can_get_status(&received_msg);
 	//CAN_FORCE_CMD(&received_msg);
@@ -54,7 +76,9 @@ void can_receive(int id, uint8_t *data, uint8_t length){
 
 void can_testReceiver(void){
 	uint8_t received_data[TEST_MSG_LEN] = {0};
-	can_receive(TEST_MSG_ID, &received_data[0], TEST_MSG_LEN);
+	uint8_t received_data_other[6] = {0};
+	can_receive(10, 5, &received_data_other[0], 6);
+	can_receive(4, TEST_MSG_ID, &received_data[0], TEST_MSG_LEN);
 
 	uart_txstring(UART_NUMBER_1, "CAN rev: ");
 	uart_txarr(UART_NUMBER_1, &received_data[0], TEST_MSG_LEN);
@@ -62,7 +86,7 @@ void can_testReceiver(void){
 }
 
 void can_testSender(void){
-	uint8_t databuffer[TEST_MSG_LEN] = {'H', 'E', 'L', 'L', 'O'}; 
+	uint8_t databuffer[TEST_MSG_LEN] = {'H', 'E', 'L'/*, 'L', 'O'*/}; 
 	can_send(TEST_MSG_ID, &databuffer[0], TEST_MSG_LEN);
 }
 
