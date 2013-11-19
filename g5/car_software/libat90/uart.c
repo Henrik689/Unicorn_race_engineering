@@ -49,7 +49,7 @@ void uart_enableTX(const enum uart_number_t number){
 	}
 }
 
-void uart_enableRXInterupt(const enum uart_number_t number){
+void uart_enableRXInterrupt(const enum uart_number_t number){
 	switch(number){
 		case UART_NUMBER_0:
 			BIT_SET(UCSR0B, RXCIE);
@@ -60,7 +60,7 @@ void uart_enableRXInterupt(const enum uart_number_t number){
 	}
 }
 
-void uart_enableTXInterupt(const enum uart_number_t number){
+void uart_enableTXInterrupt(const enum uart_number_t number){
 	switch(number){
 		case UART_NUMBER_0:
 			BIT_SET(UCSR0B, TXCIE);

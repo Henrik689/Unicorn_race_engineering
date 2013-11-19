@@ -19,7 +19,7 @@ int main(void)
 {
 	//Initialise the Gear node
 	ioinit();									//Port setup
-	uart_init(UART_NUMBER_1);					//Serial communication
+	uart1_init();					//Serial communication
 	CAN_INIT_RX();								//Can setup
     pwm16Init2();								//Setup PWM controller
 	counter0Init();								//Init interrupt counter to overflow with 168Hz
@@ -31,7 +31,7 @@ int main(void)
 	adc_enable();
 	adc_setPrescaler(PRESCALAR_128);
 
-	uart_txstring(UART_NUMBER_1, "\r\n\r\n\r\nSTARTING \r\n");
+	uart1_txstring("\r\n\r\n\r\nSTARTING \r\n");
 	can_testReceiver();
 	int i=0;
 	while(1){
@@ -41,18 +41,12 @@ int main(void)
 		//can_testSender();
 		//can_testReceiver();
 
-		char buff[32] = {0};
-
 		uint16_t res = adc_readChannel(i);
-
-		sprintf(buff, "ADC channel %d = %d \r\n", i, res);
-
-		
-		uart_txstring(UART_NUMBER_1, buff);
+		uart1_printf("ADC channel %d = %d \r\n", i, res);
 		
 		if(++i == 8){
 			i = 0;
-			uart_txstring(UART_NUMBER_1, "\r\n");
+			uart1_txstring("\r\n");
 		}
 
 	}

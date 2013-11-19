@@ -3,6 +3,47 @@
 
 #include <stdint.h>
 
+#define uart0_enableRX()			uart_enableRX(UART_NUMBER_0)
+#define uart0_enableTX()			uart_enableTX(UART_NUMBER_0)
+#define uart0_enableRXInterrupt() 	uart_enableRXInterrupt(UART_NUMBER_0)
+#define uart0_enableTXInterrupt() 	uart_enableTXInterrupt(UART_NUMBER_0)
+
+#define uart1_enableRX()			uart_enableRX(UART_NUMBER_1)
+#define uart1_enableTX()			uart_enableTX(UART_NUMBER_1)
+#define uart1_enableRXInterrupt() 	uart_enableRXInterrupt(UART_NUMBER_1)
+#define uart1_enableTXInterrupt() 	uart_enableTXInterrupt(UART_NUMBER_1)
+
+
+#define uart0_setModeAsync() 					uart_setModeAsync(UART_NUMBER_0)
+#define uart0_setModeSync()						uart_setModeSync(UART_NUMBER_0)
+#define uart0_setNumberOfStopBits(numStopBits) 	uart_setNumberOfStopBits(UART_NUMBER_0, (numStopBits))
+#define uart0_setCharSize(size)					uart_setCharSize(UART_NUMBER_0, (size))
+
+#define uart1_setModeAsync() 					uart_setModeAsync(UART_NUMBER_1)
+#define uart1_setModeSync()						uart_setModeSync(UART_NUMBER_1)
+#define uart1_setNumberOfStopBits(numStopBits) 	uart_setNumberOfStopBits(UART_NUMBER_1, (numStopBits))
+#define uart1_setCharSize(size)					uart_setCharSize(UART_NUMBER_1, (size))
+
+
+#define uart0_init()	uart_init(UART_NUMBER_0)
+#define uart1_init()	uart_init(UART_NUMBER_1)
+
+
+#define uart0_getChar()	uart_getChar(UART_NUMBER_0)
+#define uart1_getChar()	uart_getChar(UART_NUMBER_1)
+
+#define uart0_txarr(arr, length)	(UART_NUMBER_0, (arr), (length))
+#define uart1_txarr(arr, length)	(UART_NUMBER_1, (arr), (length))
+
+#define uart0_txchar(c)		uart_txchar(UART_NUMBER_0, (c))
+#define uart1_txchar(c)		uart_txchar(UART_NUMBER_1, (c))
+
+#define uart0_txstring(str) uart_txstring(UART_NUMBER_0, (str))
+#define uart1_txstring(str) uart_txstring(UART_NUMBER_1, (str))
+
+#define uart0_printf(str, ...) uart_printf(UART_NUMBER_0, (str), __VA_ARGS__)
+#define uart1_printf(str, ...) uart_printf(UART_NUMBER_1, (str), __VA_ARGS__)
+
 enum uart_number_t { 
 	UART_NUMBER_0,
 	UART_NUMBER_1
@@ -28,8 +69,8 @@ UCSRB: USART Control and Status Register B
 */
 void uart_enableRX(const enum uart_number_t number);
 void uart_enableTX(const enum uart_number_t number);
-void uart_enableRXInterupt(const enum uart_number_t number);
-void uart_enableTXInterupt(const enum uart_number_t number);
+void uart_enableRXInterrupt(const enum uart_number_t number);
+void uart_enableTXInterrupt(const enum uart_number_t number);
 
 
 /*
