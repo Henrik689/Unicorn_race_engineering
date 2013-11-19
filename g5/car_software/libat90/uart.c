@@ -250,9 +250,10 @@ void uart_printf(enum uart_number_t n, char *str, ...){
 	char buffer[256] = {0}; // Warning this might overflow on long str
 	va_list args;
 	
-	va_start (args, str);
-	vsprintf (buffer, str, args);
-	uart_txstring(n, str);
-	va_end (args);
+	va_start(args, str);
+	vsprintf(buffer, str, args);
+	va_end(args);
+	uart_txstring(n, buffer);
+	
 }
 
