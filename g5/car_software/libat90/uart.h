@@ -92,9 +92,9 @@ uint16_t uart_baud2ubrr(const uint32_t baudrate, const enum uart_operationModes_
 void uart_init(enum uart_number_t);
 
 unsigned char uart_getChar(enum uart_number_t n);
-void uart_txarr(enum uart_number_t n, const unsigned char *arr, size_t length);
-void uart_txchar(enum uart_number_t n, const unsigned char c);
-void uart_txstring(enum uart_number_t n, char *str);
-void uart_printf(enum uart_number_t n, char *str, ...);
+int uart_txarr(enum uart_number_t n, const unsigned char *arr, size_t length);
+int uart_txchar(enum uart_number_t n, const unsigned char c);
+int uart_txstring(enum uart_number_t n, const char *str);
+int uart_printf(enum uart_number_t n, const char *str, ...);
 
 #endif /* UART_H */

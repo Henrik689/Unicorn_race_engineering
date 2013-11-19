@@ -213,19 +213,22 @@ unsigned char uart_getChar(enum uart_number_t n){
 			result = UDR1;
 			break;
 	}
+
 	return result;
 }
 
-void uart_txarr(enum uart_number_t n, const unsigned char *arr, size_t length){
-	if(arr == NULL) return;
+int uart_txarr(enum uart_number_t n, const unsigned char *arr, size_t length){
+	if(arr == NULL) return -1;
 
 	int i;
 	for(i = 0; i < length; i++){
 		uart_txchar(n, arr[i]);
 	}
+
+	return i;
 }
 
-void uart_txchar(enum uart_number_t n, const unsigned char c) {
+int uart_txchar(enum uart_number_t n, const unsigned char c) {
 	switch(n){
 		case UART_NUMBER_0:
 			while ( !(BIT_CHECK(UCSR0A, UDRE0)) ); 
@@ -236,24 +239,41 @@ void uart_txchar(enum uart_number_t n, const unsigned char c) {
 			UDR1 = c;
 			break;
 	}
+
+	return c;
 }
 
-void uart_txstring(enum uart_number_t n, char *str) {
-	if(str == NULL) return;
-	char *c = str;
-	while(*c){
-		uart_txchar(n, *c++);
+int uart_txstring(enum uart_number_t n, const char *str) {
+	if(str == NULL) return -1;
+	int i = 0;
+
+	while(str[i] != '\0'){
+		uart_txchar(n, str[i++]);
 	}
+
+	return i;
 }
 
-void uart_printf(enum uart_number_t n, char *str, ...){
+int uart_printf(enum uart_number_t n, const char *str, ...){
+	if(str == NULL) return -1;
+
 	char buffer[256] = {0}; // Warning this might overflow on long str
 	va_list args;
+	int rc_vsprintf;
+	int rc_tx;
 	
 	va_start(args, str);
-	vsprintf(buffer, str, args);
+	if((rc_vsprintf = vsprintf(buffer, str, args)) < 0){
+		return rc_vsprintf; // vsprintf return a negative value on err
+	}
 	va_end(args);
-	uart_txstring(n, buffer);
-	
+
+	if((rc_tx = uart_txstring(n, buffer)) != rc_vsprintf){
+		return -1; // We havn't send the same amount as sprintf wrote the the buffer
+	}
+
+	if(rc_tx > 256) return -256; // if buffer overflow
+
+	return rc_tx;
 }
 

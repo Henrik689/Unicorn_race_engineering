@@ -42,8 +42,8 @@ int main(void)
 		//can_testReceiver();
 
 		uint16_t res = adc_readChannel(i);
-		uart1_printf("ADC channel %d = %d \r\n", i, res);
-		
+		uart1_printf("ADC channel %d = %d \r\n", i, res);	
+
 		if(++i == 8){
 			i = 0;
 			uart1_txstring("\r\n");
