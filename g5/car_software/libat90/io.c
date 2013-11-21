@@ -1,3 +1,9 @@
+/**
+* @file io.c
+* @brief 
+*	Used for simple digital pin IO operations
+*/
+
 #include <stdint.h>
 #include <stdlib.h>
 #include <avr/io.h>
@@ -7,10 +13,54 @@
 #include "bitwise.h"
 #include "io.h"
 
+/** 
+* @brief 
+* 	Read the digital value of a given pin
+*
+* This function is used to see if a pin is currently
+* either HIGH or LOW. If we want to do something
+* if pin 5 on port A is high we would do the following
+* example: \n
+* 	if( digitalRead(&PINA, PA5) == HIGH ) { DoSomething() }
+*
+* @note
+*	The pin must be set to the appropriate mode
+* 	(typically this is either INPUT or INPUT_PULLUP)
+*	using the function pinMode() before use 
+*	
+*
+* @param[in] inputPinRegister
+* 	Pointer to the pin register that the pin is
+* 	located on.
+*
+* @param[in] pin
+* 	The pin to read from
+*
+* @return
+*	Either HIGH or LOW depending on the pin reading
+* 	where HIGH is 1 and LOW is 0
+*
+*/
 int digitalRead(volatile uint8_t *inputPinRegister, int pin){
 	return bit_is_clear(inputPinRegister, pin) != 0 ? HIGH : LOW;
 }
 
+/**
+* @brief
+*	Write a digital value to a specified port pin
+*
+* @note
+*	The pin must be set to the appropriate mode
+*	(typically this is OUTPUT) using pinMode()
+*	before use
+*
+* @param[in] port
+*	The port the pin is located on
+* @param[in] pin
+*	The	pin to write to
+* @param[in] value
+*	The value (HIGH or LOW) to write
+*/
 void digitalWrite(volatile uint8_t *port, int pin, int value){
 	if (value == LOW) {
 		BIT_CLEAR(*port, pin);
@@ -37,6 +87,21 @@ static inline volatile uint8_t* getDDRXFromPORTX(volatile uint8_t* port){
 	return ddr_port;
 }
 
+/**
+* @brief
+*	Set the pin to INPUT, OUTPUT or INPUT_PULLUP
+*
+* @param[in] port volatile uint8_t
+*	The port that the pin in located on
+* @param[in] pin int
+*	The pin to set the mode on
+* @param[in] mode enum io_pinmode_t
+*	The mode that the pin will be set to
+*
+* @return
+*	1 if error \n
+*	0 on success
+*/
 int pinMode(volatile uint8_t *port, int pin, enum io_pinmode_t mode){
 	volatile uint8_t *ddr_port = getDDRXFromPORTX(port);
 	if( ddr_port == NULL ) return 1;
