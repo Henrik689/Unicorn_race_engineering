@@ -36,18 +36,25 @@ void can_send(int id, uint8_t *data, uint8_t length){
 	CAN_FORCE_COMPLETE(&msg);
 }
 
+/*
+ * The Can_clear_mob() function clears the following registers:
+ * CANSTMOB 			-- Contains interrupt status
+ * CANCDMOB 			-- Defines MOB mode and msg length
+ * CANIDT1 ... CANIDT4	-- CAN Identifier Tag Registers
+ * CANIDM1 ... CANIDT4 	-- CAN Identifier Mask Registers
+ */
 
 void mob_create(int mob_id, st_cmd_t* descriptor) {
-	Can_set_mob(mob_id);
-	Can_clear_mob();
-	Can_set_std_id(descriptor->id.std)
-	Can_set_ext_msk((uint32_t){UINT32_MAX});
-	Can_set_dlc(descriptor->dlc);
-	Can_set_rtrmsk();
-	Can_clear_rtr();
-	Can_set_idemsk();
-	Can_config_rx();  
-	Can_set_mob_int(mob_id);
+	Can_set_mob(mob_id);						/* Move CANPAGE to point at given MOB */
+	Can_clear_mob();							/* Clear ALL status registers for MOB*/
+	Can_set_std_id(descriptor->id.std)			/* Sets the id */	
+	Can_set_std_msk((uint16_t){0});				/*  */
+	Can_set_dlc(descriptor->dlc);				/* Expected msg length*/
+	Can_clear_rtr();							/* no remote transmission request */
+	Can_set_rtrmsk();							/* Remote Transmission Request - comparison true forced */
+	Can_set_idemsk();							/* Identifier Extension - comparison true forced */
+	Can_config_rx();  							/* Set MOB in recieve mode */
+	Can_set_mob_int(mob_id);					/* Enable interrupt for MOB */
 }
 
 void can_receive(int mob_id, int id, uint8_t *data, uint8_t length){
@@ -74,7 +81,7 @@ void can_testReceiver(void){
 	uint8_t received_data[TEST_MSG_LEN] = {0};
 	uint8_t received_data_other[6] = {0};
 	can_receive(10, 5, &received_data_other[0], 6);
-	can_receive(4, TEST_MSG_ID, &received_data[0], TEST_MSG_LEN);
+	can_receive(4, 4, &received_data[0], TEST_MSG_LEN);
 
 	uart_txstring(UART_NUMBER_1, "CAN rev: ");
 	uart_txarr(UART_NUMBER_1, &received_data[0], TEST_MSG_LEN);
