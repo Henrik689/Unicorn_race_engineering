@@ -229,6 +229,10 @@ int uart_txarr(enum uart_number_t n, const unsigned char *arr, size_t length){
 }
 
 int uart_txchar(enum uart_number_t n, const unsigned char c) {
+	if(c == '\n'){
+		uart_txchar(n, '\r');
+	}
+
 	switch(n){
 		case UART_NUMBER_0:
 			while ( !(BIT_CHECK(UCSR0A, UDRE0)) ); 
