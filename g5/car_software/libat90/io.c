@@ -7,11 +7,11 @@
 #include "bitwise.h"
 #include "io.h"
 
-int digitalRead(int inputPinRegister, int pin){
+int digitalRead(uint8_t inputPinRegister, int pin){
 	return bit_is_clear(inputPinRegister, pin) != 0 ? HIGH : LOW;
 }
 
-void digitalWrite(volatile int *port, int pin, int value){
+void digitalWrite(volatile uint8_t *port, int pin, int value){
 	if (value == LOW) {
 		BIT_CLEAR(*port, pin);
 	} else {
@@ -19,8 +19,8 @@ void digitalWrite(volatile int *port, int pin, int value){
 	} 
 }
 
-static inline volatile int* getDDRXFromPORTX(volatile int* port){
-	volatile int *ddr_port = NULL;
+static inline volatile uint8_t* getDDRXFromPORTX(volatile uint8_t* port){
+	volatile uint8_t *ddr_port = NULL;
 	if (*port == PORTA){
 		*ddr_port = DDRA;
 	} else if (*port == PORTB){
@@ -37,8 +37,8 @@ static inline volatile int* getDDRXFromPORTX(volatile int* port){
 	return ddr_port;
 }
 
-int pinMode(volatile int *port, int pin, enum io_pinmode_t mode){
-	volatile int *ddr_port = getDDRXFromPORTX(port);
+int pinMode(volatile uint8_t *port, int pin, enum io_pinmode_t mode){
+	volatile uint8_t *ddr_port = getDDRXFromPORTX(port);
 	if( ddr_port == NULL ) return 1;
 
 	if(mode == OUTPUT){

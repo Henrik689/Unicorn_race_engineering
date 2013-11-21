@@ -3,8 +3,10 @@
  *********************************************/
 
 #include <avr/io.h>
-#include "init.h"
+#include <io.h>
+#include <bitwise.h>
 #include "timer.h"
+#include "init.h"
 
 /*************************************************
 * Timer
@@ -15,16 +17,23 @@
 void ioinit(void)
 {
     // Servo
-    DDRE|= (1<<PE5);    // PWM til Servo
-	DDRF &=~(1<<PF1);	// Position sense
+    //pinMode(&PORTE, PE5);
+    //digitalWrite(&PORTD, PORTD6, 0);
+    pinMode(&PORTE, PE5, OUTPUT);
+    pinMode(&PORTF, PF1, INPUT);
+    //DDRE|= (1<<PE5);    // PWM til Servo
+	//DDRF &=~(1<<PF1);	// Position sense
 
 	// Ign cut (output)
-	DDRE|= (1<<PE4);
-	PORTE &=~ (1<<PE4);
+	pinMode(&PORTE, PE4, OUTPUT);
+	digitalWrite(&PORTE, PE4, LOW);
+	//DDRE|= (1<<PE4);
+	//PORTE &=~ (1<<PE4);
 
 	// Neutral gear (input)
-	DDRE &=~ (1<<PE7);
-	PORTE |= (1<<PE7); // Pull-up
+	pinMode(&PORTE, PE7, INPUT_PULLUP);
+	//DDRE &=~ (1<<PE7);
+	//PORTE |= (1<<PE7); // Pull-up
 }
 
 
@@ -32,7 +41,8 @@ void pwm16Init2(void)
 {
 	//PWM, 16 bit counter (counter3)
 	// (OC3c) Output
-    DDRE |= (1<<PE5);
+    //DDRE |= (1<<PE5);
+    pinMode(&PORTE, PE5, OUTPUT);
 
     // Set Wave Generator mode to mode 14, FAST-PWM TOP = ICRn (table 13-4)
 	//TCCR3A &=~ (1<<WGM30);
@@ -42,8 +52,10 @@ void pwm16Init2(void)
 	timer_setMode(TIMER3, 14);
     
 	// These bits are set in order to control the behavior of Output Compare pin (OC0)(table 13-2)
-	TCCR3A |= (1<<COM3C1);
-	TCCR3A &=~ (1<<COM3C0);
+	BIT_SET(TCCR3A, COM3C1);
+	BIT_CLEAR(TCCR3A, COM3C0);
+	//TCCR3A |= (1<<COM3C1);
+	//TCCR3A &=~ (1<<COM3C0);
     
     
 	// set the Input Capture Registers Top (11-bit)
@@ -51,9 +63,12 @@ void pwm16Init2(void)
 	ICR3L = 0xFF;
     
 	// Set Clock Select Bits for a Prescaler = 64 (table 13-5)
-    TCCR3B |= (1<<CS30);
-	TCCR3B |= (1<<CS31);
-	TCCR3B &=~ (1<<CS32);
+	BIT_SET(TCCR3B, CS30);
+	BIT_SET(TCCR3B, CS31);
+	BIT_CLEAR(TCCR3B, CS32);
+    //TCCR3B |= (1<<CS30);
+	//TCCR3B |= (1<<CS31);
+	//TCCR3B &=~ (1<<CS32);
 }
 
 
