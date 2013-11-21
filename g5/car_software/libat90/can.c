@@ -1,6 +1,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -14,7 +15,9 @@
 #define SIZEOF_ARR(arr) (sizeof(arr) / sizeof(arr[0]))
 
 #define TEST_MSG_ID		4 // Debuggin msg id
-#define TEST_MSG_LEN	3 // length of the test message used for debugging
+#define TEST_MSG_LEN	5 // length of the test message used for debugging
+
+#define INT_MOB_MSK_ALT ((1<<DLCW)|(1<<TXOK)|(1<<RXOK)|(1<<BERR)|(1<<SERR)|(1<<CERR)|(1<<FERR)|(1<<AERR)) //! MaSK for MOb INTerrupts
 
 void can_send(int id, uint8_t *data, uint8_t length){
 	st_cmd_t msg = {
@@ -36,17 +39,10 @@ void can_send(int id, uint8_t *data, uint8_t length){
 
 void mob_create(int mob_id, st_cmd_t* descriptor) {
 	Can_set_mob(mob_id);
-
 	Can_clear_mob();
-	
 	Can_set_std_id(descriptor->id.std)
-	
-	//uint32_t temp = UINT32_MAX;
 	Can_set_ext_msk((uint32_t){UINT32_MAX});
-
-	uart_printf(UART_NUMBER_1, "SETUP dlc = %d", descriptor->dlc);
 	Can_set_dlc(descriptor->dlc);
-
 	Can_set_rtrmsk();
 	Can_clear_rtr();
 	Can_set_idemsk();
@@ -86,41 +82,40 @@ void can_testReceiver(void){
 }
 
 void can_testSender(void){
-	uint8_t databuffer[TEST_MSG_LEN] = {'H', 'E', 'L'/*, 'L', 'O'*/}; 
+	uint8_t databuffer[TEST_MSG_LEN] = {'H', 'E', 'L', 'L', 'O'};
 	can_send(TEST_MSG_ID, &databuffer[0], TEST_MSG_LEN);
 }
 
 /* Interrupt routine to take care of can interrupts */
 char str[64] = {0};
-uint8_t buffer[TEST_MSG_LEN] = {0};
-int cnt = 0;
+uint8_t buffer[9] = {0};
+
 ISR(CANIT_vect){
-	const uint16_t cansit = CANSIT2+(CANSIT1<<8);
-	const uint8_t mob_back = CANPAGE;	// Save CANPAGE state
-	uint16_t thisMOBpos = 0x01;
+	const uint16_t cansit = CANSIT2 + (CANSIT1 << 8); /* CAN Status Interrupt MOb Registers */
+	//const uint8_t mob_back = CANPAGE;	// Save CANPAGE state
+	//uint16_t thisMOBpos = 0x01;
 
 	// Loop over each MOB and check if it have pending interrupt
 	int i;
-	for(i = 0; i <= LAST_MOB_NB; i++){
-		if(BITMASK_CHECK(cansit, thisMOBpos)){	/* True if mob have pending interrupt */
+	for (i = 0; i <= LAST_MOB_NB; i++) {
+		if (BITMASK_CHECK(cansit, (0x01 << i))) { /* True if mob have pending interrupt */
 			Can_set_mob(i); /* Switch to mob */
 
-			const uint8_t interrupt = BITMASK_CHECK(CANSTMOB, INT_MOB_MSK);
-			switch (interrupt){
+			const uint8_t interrupt = BITMASK_CHECK(CANSTMOB, INT_MOB_MSK_ALT); /* Check for interrupt flags */
+			switch (interrupt) {
+				//case MOB_RX_COMPLETED_DLCW:
 				case MOB_RX_COMPLETED:
-					/* Can specific code */
 					//can_receive(TEST_MSG_ID, &buffer[0], TEST_MSG_LEN);
 					can_get_data(&buffer[0]);	// Copy data to canDataTest
 					//Can_mob_abort();        // Freed the MOB
-					Can_clear_status_mob(); // and reset MOb status
-					BIT_SET(CANCDMOB, CONMOB1);
-					BIT_SET(CANCDMOB, DLC0);
-					BIT_SET(CANCDMOB, DLC2);
 
 					//can_receive(TEST_MSG_ID, &buffer[0], TEST_MSG_LEN); // put this before can_get_data and see if it works
-					uart_txarr(UART_NUMBER_1, &buffer[0], TEST_MSG_LEN);
+					//uart_txarr(UART_NUMBER_1, &buffer[0], TEST_MSG_LEN);
+					uart_printf(UART_NUMBER_1, "MOB_%d msg:%s\r\n", i, buffer);
+					memset(buffer, 0, 9);
 
-					uart_printf(UART_NUMBER_1, "  MOB_%d msg %d\r\n", i, cnt++);
+					Can_clear_status_mob(); // and reset MOb status
+					BIT_SET(CANCDMOB, CONMOB1); /* enable reception. Need a define for this*/
 					break;
 				case MOB_TX_COMPLETED:
 					Can_mob_abort();        // Freed the MOB
@@ -148,8 +143,8 @@ ISR(CANIT_vect){
 					break;
 			}
 		}
-		thisMOBpos = thisMOBpos << 1;
+		//thisMOBpos = thisMOBpos << 1;
 	}
 
-	CANPAGE |= BITMASK_CHECK(mob_back, 0xF0); // Restore CANPAGE state
+	//CANPAGE |= BITMASK_CHECK(mob_back, 0xF0); // Restore CANPAGE state
 }

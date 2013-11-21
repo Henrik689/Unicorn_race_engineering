@@ -70,7 +70,7 @@ typedef enum {
 typedef union{
   U32 ext;
   U16 std;
-  U8  tab[4];
+  U8  tab[4]; /*NOTE: doesn't seem to be used anywhere...*/
 } can_id_t; 
 
 // ----------
