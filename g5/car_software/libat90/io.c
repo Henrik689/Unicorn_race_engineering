@@ -2,6 +2,10 @@
 * @file io.c
 * @brief 
 *	Used for simple digital pin IO operations
+* @details
+*	Provides functions to read and write 
+*	digital values from specified pin
+*	as well as pin setup modes.
 */
 
 #include <stdint.h>
