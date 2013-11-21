@@ -17,8 +17,6 @@
 void ioinit(void)
 {
     // Servo
-    //pinMode(&PORTE, PE5);
-    //digitalWrite(&PORTD, PORTD6, 0);
     pinMode(&PORTE, PE5, OUTPUT);
     pinMode(&PORTF, PF1, INPUT);
     //DDRE|= (1<<PE5);    // PWM til Servo

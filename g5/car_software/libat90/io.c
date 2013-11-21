@@ -7,7 +7,7 @@
 #include "bitwise.h"
 #include "io.h"
 
-int digitalRead(uint8_t inputPinRegister, int pin){
+int digitalRead(volatile uint8_t *inputPinRegister, int pin){
 	return bit_is_clear(inputPinRegister, pin) != 0 ? HIGH : LOW;
 }
 

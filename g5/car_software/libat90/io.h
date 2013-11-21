@@ -12,7 +12,7 @@ enum io_pinmode_t {
 	INPUT_PULLUP
 };
 
-int digitalRead(uint8_t inputPinRegister, int pin);
+int digitalRead(volatile uint8_t *inputPinRegister, int pin);
 void digitalWrite(volatile uint8_t *port, int pin, int value);
 
 int pinMode(volatile uint8_t *port, int pin, enum io_pinmode_t mode);

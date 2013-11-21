@@ -12,6 +12,7 @@
 #include "../lib/can_defs.h"
 #include "../lib/data_def.h"
 #include "init.h"
+#include <io.h>
 
 
 
@@ -48,9 +49,7 @@ int main(void)
 			i = 0;
 			uart1_txstring("\r\n");
 		}
-
 	}
 
     return 0;
-   
 }
