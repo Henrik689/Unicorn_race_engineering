@@ -17,10 +17,11 @@
 * @brief 
 * 	Read the digital value of a given pin
 *
-* This function is used to see if a pin is currently
-* either HIGH or LOW. If we want to do something
-* if pin 5 on port A is high we would do the following
-* example: \n
+* @details
+* 	This function is used to see if a pin is currently
+* 	either HIGH or LOW. If we want to do something
+* 	if pin 5 on port A is high we would do the following
+* 	example: \n
 * 	if( digitalRead(&PINA, PA5) == HIGH ) { DoSomething() }
 *
 * @note
@@ -69,6 +70,20 @@ void digitalWrite(volatile uint8_t *port, int pin, int value){
 	} 
 }
 
+/**
+* @brief
+*	if PORTA is provided DDRB will be returned
+*
+* @details
+* 	Returns a pointer to the DDR register for the
+* 	provided port. So if we have PORTA it will return DDRA
+*
+* @param[in] port
+*	PORTA through PORTF
+*
+* @return
+*	the corresponding DDRx
+*/
 static inline volatile uint8_t* getDDRXFromPORTX(volatile uint8_t* port){
 	volatile uint8_t *ddr_port = NULL;
 	if (*port == PORTA){
