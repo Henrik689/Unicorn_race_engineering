@@ -1,8 +1,27 @@
+/**
+* @file adc.c
+* @brief 
+*	Used for setting up and reading from the ADC
+*/
+
 #include <stdint.h>
 #include <avr/io.h>
 #include "adc.h"
 #include "bitwise.h"
 
+/**
+* @brief
+*	Converts a digital ADC reading
+*	the the same value in Volts
+*
+* @param[in] ADCReading
+*	The digital ADC reading that
+*	should be converted.
+*
+* @return
+*	The ADC reading converted
+*	to Volts
+*/
 float adc_toVolt(uint16_t ADCReading){
 	const float maxAdcBits = 1023.0f; // Using Float for clarity
 	const float maxVolts = 5.0f;      // Using Float for clarity
@@ -93,6 +112,15 @@ void adc_setPrescaler(const enum adc_prescalar_t p){
 	}
 }
 
+/**
+* @brief
+*	Set the ADC to a specific channel. \n
+*	Channels available are normally 0-7 including.
+*
+* @param[in] ch
+*	The channel that the ADC will be set to.
+*	This must be a integer value ranging from 0 to 7
+*/
 void adc_setChannel(uint8_t ch){
 	// set the channel between 0 and 7 (including)
 
@@ -124,6 +152,17 @@ void adc_setVref(const enum adc_vref_t vref){
 	}
 }
 
+/**
+* @brief
+*	Reads from the adc on the current channel
+*
+* @note
+*	A channel must be set with adc_setChannel()
+*	before calling
+*
+* @return
+*	The digital value read from the ADC
+*/
 uint16_t adc_read(void){
 	//Start Single conversion
 	BIT_SET(ADCSRA, ADSC);
@@ -140,6 +179,21 @@ uint16_t adc_read(void){
 	return(ADC);
 }
 
+/**
+* @brief
+*	Same as adc_read() but sets
+*	to the specified channel
+*	before reading.
+*
+* @see adc_read()
+*
+* @param[in] ch
+*	The channe the ADC will
+*	be set to before reading.
+*
+* @return
+*	The digital value read from the ADC
+*/
 uint16_t adc_readChannel(const uint8_t ch){
 	adc_setChannel(ch);
 	return(adc_read());
