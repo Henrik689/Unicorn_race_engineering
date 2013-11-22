@@ -2,6 +2,9 @@
 * @file adc.c
 * @brief 
 *	Used for setting up and reading from the ADC
+* @todo
+*	Write one line functions such as
+*	adc_Xenable/disable into simple macros 
 */
 
 #include <stdint.h>
@@ -55,6 +58,14 @@ void adc_InteruptDisable(void){
 	BIT_CLEAR(ADCSRA, ADIE);
 }
 
+/**
+* @brief
+*	Set the trigger for the ADC Interrupt
+*
+* @param[in] source
+*	The trigger source that should trigger
+*	the ADC ISR
+*/
 void adc_setTriggerSource(enum adc_triggerSource_t source){
 	const uint16_t three_heighest_bits = (0x07 << 5); 
 	source = (source << 5); // shift the source up to match the mask
@@ -63,11 +74,27 @@ void adc_setTriggerSource(enum adc_triggerSource_t source){
 	BITMASK_SET(ADCSRB, BITMASK_CHECK(source, three_heighest_bits));
 }
 
+/**
+* @brief
+*	Sets the ADC prescalar
+*
+* @details
+*	The ADC requires a frequency between 50KHz to 200KHz
+*	this frequency is set as the relation between the 
+*	ADC prescalar and the cpu_f.
+*	ADC frequency = cpu_f / prescalar
+*	For example if we have: \n
+*	cpu_f = 16mHz and set the prescalar to 128
+* 	we get 16mHz / 128 = 150kHz. \n
+*	A higher ADC frequency yields a faster
+*	conversion rate but lower precision and
+* 	vice versa.
+*
+* @param[in] p
+*	The ADC prescalar value that should
+*	define the ADC frequency.
+*/
 void adc_setPrescaler(const enum adc_prescalar_t p){
-	// The ADC requires a frequency between 50KHz to 200KHz
-	// this frequency is set by the prescalar and the cpu_f
-	// ADC frequency = cpu_f / prescalar
-	// 16mhz / 128 = 150khz
 	// this is well explaind at:
 	// http://www.avrbeginners.net/architecture/adc/adc.html#adcsr
 
@@ -133,6 +160,15 @@ void adc_setChannel(uint8_t ch){
 	BITMASK_SET(ADMUX, BITMASK_CHECK(ch, three_lowest_bits));
 }
 
+/**
+* @brief
+*	Set the reference voltage used
+*	by the ADC
+*
+* @param[in] vref
+*	The reference voltage that the
+*	ADC should be using.
+*/
 void adc_setVref(const enum adc_vref_t vref){
 	switch(vref){
 		case AREF:
