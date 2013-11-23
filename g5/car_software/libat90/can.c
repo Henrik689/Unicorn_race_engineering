@@ -17,8 +17,6 @@
 #define TEST_MSG_ID		4 // Debuggin msg id
 #define TEST_MSG_LEN	5 // length of the test message used for debugging
 
-#define INT_MOB_MSK_ALT ((1<<DLCW)|(1<<TXOK)|(1<<RXOK)|(1<<BERR)|(1<<SERR)|(1<<CERR)|(1<<FERR)|(1<<AERR)) //! MaSK for MOb INTerrupts
-
 void can_send(int id, uint8_t *data, uint8_t length){
 	st_cmd_t msg = {
 		.pt_data = &data[0],
@@ -70,11 +68,6 @@ void can_receive(int mob_id, int id, uint8_t *data, uint8_t length){
 	};
 
 	mob_create(mob_id, &received_msg);
-	//CAN_FORCE_CMD(&received_msg);
-	//can_cmd(&received_msg);
-	//can_get_status(&received_msg);
-	//CAN_FORCE_CMD(&received_msg);
-	//CAN_FORCE_COMPLETE(&received_msg);
 }
 
 void can_testReceiver(void){
@@ -82,10 +75,6 @@ void can_testReceiver(void){
 	uint8_t received_data_other[6] = {0};
 	can_receive(10, 5, &received_data_other[0], 6);
 	can_receive(4, 4, &received_data[0], TEST_MSG_LEN);
-
-	uart_txstring(UART_NUMBER_1, "CAN rev: ");
-	uart_txarr(UART_NUMBER_1, &received_data[0], TEST_MSG_LEN);
-	uart_txstring(UART_NUMBER_1, "\r\n");
 }
 
 void can_testSender(void){
@@ -97,10 +86,8 @@ void can_testSender(void){
 char str[64] = {0};
 uint8_t buffer[9] = {0};
 
-ISR(CANIT_vect){
+ISR (CANIT_vect) {
 	const uint16_t cansit = CANSIT2 + (CANSIT1 << 8); /* CAN Status Interrupt MOb Registers */
-	//const uint8_t mob_back = CANPAGE;	// Save CANPAGE state
-	//uint16_t thisMOBpos = 0x01;
 
 	// Loop over each MOB and check if it have pending interrupt
 	int i;
@@ -108,8 +95,7 @@ ISR(CANIT_vect){
 		if (BITMASK_CHECK(cansit, (0x01 << i))) { /* True if mob have pending interrupt */
 			Can_set_mob(i); /* Switch to mob */
 
-			const uint8_t interrupt = BITMASK_CHECK(CANSTMOB, INT_MOB_MSK_ALT); /* Check for interrupt flags */
-			switch (interrupt) {
+			switch (CANSTMOB) {
 				//case MOB_RX_COMPLETED_DLCW:
 				case MOB_RX_COMPLETED:
 					//can_receive(TEST_MSG_ID, &buffer[0], TEST_MSG_LEN);
@@ -145,13 +131,9 @@ ISR(CANIT_vect){
 					/* TODO */
 					break;
 				default:
-					Can_mob_abort();        // Freed the MOB
 					Can_clear_status_mob(); // and reset MOb status
 					break;
 			}
 		}
-		//thisMOBpos = thisMOBpos << 1;
 	}
-
-	//CANPAGE |= BITMASK_CHECK(mob_back, 0xF0); // Restore CANPAGE state
 }
