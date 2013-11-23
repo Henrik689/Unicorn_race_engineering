@@ -137,3 +137,7 @@ ISR (CANIT_vect) {
 		}
 	}
 }
+
+ISR (OVRIT_vect) {
+	/* CAN Timer Overrun interrupt */
+}
