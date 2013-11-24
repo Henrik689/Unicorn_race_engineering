@@ -32,7 +32,7 @@ int main(void)
 	adc_setPrescaler(PRESCALAR_128);
 
 	uart_txstring(UART_NUMBER_1, "\r\n\r\n\r\nSTARTING \r\n");
-	can_testReceiver();
+	setup_mob_rx(8, 4, 5);
 	int i=0;
 	while(1){
 		// Main work loop

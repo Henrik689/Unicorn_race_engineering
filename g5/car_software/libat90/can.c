@@ -5,12 +5,11 @@
 
 static uint8_t msg_buff[NB_DATA_MAX + 1] = {0};
 
-void mob_create(int mob_id, st_cmd_t* descriptor);
 void set_mob_id(uint8_t mob, uint16_t id);
 void clear_mob_status(uint8_t mob);
-int set_mob_mode(uint8_t mob, uint8_t mode);
 void set_mob_dlc(uint8_t mob, uint8_t dlc);
 void set_mob_mask(uint8_t mob, uint16_t mask);
+int set_mob_mode(uint8_t mob, uint8_t mode);
 
 /*
  * The Can_clear_mob() function clears the following registers:
@@ -19,23 +18,17 @@ void set_mob_mask(uint8_t mob, uint16_t mask);
  * CANIDT1 ... CANIDT4	-- CAN Identifier Tag Registers
  * CANIDM1 ... CANIDT4	-- CAN Identifier Mask Registers
  */
+	//Can_clear_rtr();							/* no remote transmission request */
+	//Can_set_rtrmsk();							/* Remote Transmission Request - comparison true forced */
+	//Can_set_idemsk();							/* Identifier Extension - comparison true forced */
 
-void mob_create(int mob_id, st_cmd_t* descriptor) {
-	Can_set_mob(mob_id);						/* Move CANPAGE to point at given MOB */
-	clear_mob_status(mob_id);
-	//Can_clear_mob();							/* Clear ALL status registers for MOB*/
-	set_mob_id(mob_id, descriptor->id.std);
-	//Can_set_std_id(descriptor->id.std)		/* Sets the id */	
-	set_mob_mask(mob_id, 0);
-	//Can_set_std_msk((uint16_t){0});			/* The mask is used to define the range of accepted IDs */
-	set_mob_dlc(mob_id, descriptor->dlc);
-	//Can_set_dlc(descriptor->dlc);				/* Expected msg length*/
-	Can_clear_rtr();							/* no remote transmission request */
-	Can_set_rtrmsk();							/* Remote Transmission Request - comparison true forced */
-	Can_set_idemsk();							/* Identifier Extension - comparison true forced */
-	set_mob_mode(mob_id, 2);
-	//Can_config_rx();  						/* Set MOB in recieve mode */
-	Can_set_mob_int(mob_id);					/* Enable interrupt for MOB */
+void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc) {
+	clear_mob_status(mob);
+	set_mob_id(mob, id);
+	set_mob_mask(mob, 0);
+	set_mob_dlc(mob, dlc);
+	set_mob_mode(mob, 2);
+	Can_set_mob_int(mob);						/* Enable interrupt for MOB */
 }
 
 void set_mob_dlc(uint8_t mob, uint8_t dlc) {
@@ -94,7 +87,7 @@ void can_send(int id, uint8_t *data, uint8_t length) {
 	CAN_FORCE_COMPLETE(&msg);
 }
 
-void can_receive(int mob_id, int id, uint8_t *data, uint8_t length) {
+/*void can_receive(int mob_id, int id, uint8_t *data, uint8_t length) {
 	st_cmd_t received_msg = {
 		.pt_data = &data[0],
 		.status = 0,
@@ -106,13 +99,13 @@ void can_receive(int mob_id, int id, uint8_t *data, uint8_t length) {
 		.cmd = CMD_RX_DATA_MASKED // CMD_RX_DATA_MASKED gives interrupt while CMD_RX_DATA does not
 	};
 
-	mob_create(mob_id, &received_msg);
-}
+	//mob_create(mob_id, &received_msg);
+}*/
 
-void can_testReceiver(void) {
+/*void can_testReceiver(void) {
 	can_receive(10, 5, &msg_buff[0], 6);
 	can_receive(4, 4, &msg_buff[0], 5);
-}
+}*/
 
 void can_testSender(void) {
 	uint8_t databuffer[5] = {'H', 'E', 'L', 'L', 'O'};
