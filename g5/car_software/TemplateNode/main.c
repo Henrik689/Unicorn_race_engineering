@@ -39,7 +39,6 @@ int main(void)
 		_delay_ms(250);
 
 		//can_testSender();
-		//can_testReceiver();
 
 		char buff[32] = {0};
 

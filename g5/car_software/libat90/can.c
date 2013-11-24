@@ -5,12 +5,6 @@
 
 static uint8_t msg_buff[NB_DATA_MAX + 1] = {0};
 
-void set_mob_id(uint8_t mob, uint16_t id);
-void clear_mob_status(uint8_t mob);
-void set_mob_dlc(uint8_t mob, uint8_t dlc);
-void set_mob_mask(uint8_t mob, uint16_t mask);
-int set_mob_mode(uint8_t mob, uint8_t mode);
-
 /*
  * The Can_clear_mob() function clears the following registers:
  * CANSTMOB 			-- Contains interrupt status
