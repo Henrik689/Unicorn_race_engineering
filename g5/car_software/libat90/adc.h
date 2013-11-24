@@ -9,6 +9,11 @@
 
 #include <stdint.h>
 
+/**
+* @brief
+*	ADC frequency = cpu_f / prescalar \n
+*	150lHz = 16mHz / 128
+*/
 enum adc_prescalar_t {
 	ADC_PRESCALAR_2 = 2,
 	ADC_PRESCALAR_4 = 4,
@@ -30,6 +35,16 @@ enum adc_vref_t {
 	INTERNAL 	//!< use the internal ref
 };
 
+/**
+* @brief
+*	Different types of trigger
+*	sources availble to the ADC
+*
+* @todo
+*	Write more detailed infomation
+*	about these different trigger
+*	types
+*/
 enum adc_triggerSource_t {
 	FREE_RUNNING = 0,
 	ANALOG_COMPARE = 1,
