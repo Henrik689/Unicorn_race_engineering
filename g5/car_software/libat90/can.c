@@ -5,6 +5,13 @@
 
 static uint8_t msg_buff[NB_DATA_MAX + 1] = {0};
 
+void mob_create(int mob_id, st_cmd_t* descriptor);
+void set_mob_id(uint8_t mob, uint16_t id);
+void clear_mob_status(uint8_t mob);
+int set_mob_mode(uint8_t mob, uint8_t mode);
+void set_mob_dlc(uint8_t mob, uint8_t dlc);
+void set_mob_mask(uint8_t mob, uint16_t mask);
+
 /*
  * The Can_clear_mob() function clears the following registers:
  * CANSTMOB 			-- Contains interrupt status
@@ -15,15 +22,62 @@ static uint8_t msg_buff[NB_DATA_MAX + 1] = {0};
 
 void mob_create(int mob_id, st_cmd_t* descriptor) {
 	Can_set_mob(mob_id);						/* Move CANPAGE to point at given MOB */
-	Can_clear_mob();							/* Clear ALL status registers for MOB*/
-	Can_set_std_id(descriptor->id.std)			/* Sets the id */	
-	Can_set_std_msk((uint16_t){0});				/* The mask is used to define the range of accepted IDs */
-	Can_set_dlc(descriptor->dlc);				/* Expected msg length*/
+	clear_mob_status(mob_id);
+	//Can_clear_mob();							/* Clear ALL status registers for MOB*/
+	set_mob_id(mob_id, descriptor->id.std);
+	//Can_set_std_id(descriptor->id.std)		/* Sets the id */	
+	set_mob_mask(mob_id, 0);
+	//Can_set_std_msk((uint16_t){0});			/* The mask is used to define the range of accepted IDs */
+	set_mob_dlc(mob_id, descriptor->dlc);
+	//Can_set_dlc(descriptor->dlc);				/* Expected msg length*/
 	Can_clear_rtr();							/* no remote transmission request */
 	Can_set_rtrmsk();							/* Remote Transmission Request - comparison true forced */
 	Can_set_idemsk();							/* Identifier Extension - comparison true forced */
-	Can_config_rx();  							/* Set MOB in recieve mode */
+	set_mob_mode(mob_id, 2);
+	//Can_config_rx();  						/* Set MOB in recieve mode */
 	Can_set_mob_int(mob_id);					/* Enable interrupt for MOB */
+}
+
+void set_mob_dlc(uint8_t mob, uint8_t dlc) {
+	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	Can_set_dlc(dlc);							/* Expected msg length*/
+}
+
+void set_mob_id(uint8_t mob, uint16_t id) {
+	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	Can_set_std_id(id);							/* Sets the id */
+}
+
+void set_mob_mask(uint8_t mob, uint16_t mask) {
+	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	Can_set_std_msk(mask);						/* The mask is used to define the range of accepted IDs */
+}
+
+void clear_mob_status(uint8_t mob) {
+	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	Can_clear_mob();							/* Clear ALL status registers for MOB*/
+}
+
+int set_mob_mode(uint8_t mob, uint8_t mode) {
+	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	switch (mode) {
+		case 0:
+			DISABLE_MOB;
+			break;
+		case 1:
+			Can_config_tx();
+			break;
+		case 2:
+			Can_config_rx();
+			break;
+		case 3:
+				Can_config_rx_buffer();
+			break;
+		default:
+			return -1;
+			break;
+	}
+	return 0;
 }
 
 void can_send(int id, uint8_t *data, uint8_t length) {
