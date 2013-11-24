@@ -23,12 +23,12 @@
 *	to Volts
 */
 float adc_toVolt(uint16_t ADCReading){
-	const float maxAdcBits = 1023.0f; // Using Float for clarity
-	const float maxVolts = 5.0f;      // Using Float for clarity
-	const float voltsPerBit = (maxVolts / maxAdcBits);
+	//const float maxAdcBits = 1023.0f; // Using Float for clarity
+	//const float maxVolts = 5.0f;      // Using Float for clarity
+	//const float voltsPerBit = (maxVolts / maxAdcBits);
 
-	float voltage = ADCReading * voltsPerBit;
-	return voltage;
+	//float voltage = ADCReading * ADC_VOLTS_PER_BIT; //voltsPerBit;
+	return ADC_TO_VOLT(ADCReading);
 }
 
 

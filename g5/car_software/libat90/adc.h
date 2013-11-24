@@ -10,6 +10,17 @@
 #include <stdint.h>
 #include <bitwise.h>
 
+#ifndef ADC_MAX_BITS
+#define ADC_MAX_BITS 1023.0f
+#endif
+
+#ifndef ADC_MAX_VOLTAGE
+#define ADC_MAX_VOLTAGE	5.0f
+#endif
+
+#define ADC_VOLTS_PER_BIT		( ADC_MAX_VOLTAGE / ADC_MAX_BITS )
+#define ADC_TO_VOLT(ADCReading)	( ADCReading * ADC_VOLTS_PER_BIT )
+
 #define ADC_ENABLE()				( BIT_SET(ADCSRA, ADEN) 	)
 #define ADC_DISABLE()				( BIT_CLEAR(ADCSRA, ADEN) 	)
 #define ADC_ENABLE_AUTO_TRIGGER()	( BIT_SET(ADCSRA, ADATE) 	)
