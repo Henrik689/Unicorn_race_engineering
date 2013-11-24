@@ -8,6 +8,14 @@
 #define ADC_H
 
 #include <stdint.h>
+#include <bitwise.h>
+
+#define ADC_ENABLE()				( BIT_SET(ADCSRA, ADEN) 	)
+#define ADC_DISABLE()				( BIT_CLEAR(ADCSRA, ADEN) 	)
+#define ADC_ENABLE_AUTO_TRIGGER()	( BIT_SET(ADCSRA, ADATE) 	)
+#define ADC_DISABLE_AUTO_TRIGGER()	( BIT_CLEAR(ADCSRA, ADATE)	)
+#define ADC_ENABLE_INTERRUPT()		( BIT_SET(ADCSRA, ADIE)		)
+#define ADC_DISABLE_INTERRUPT()		( BIT_CLEAR(ADCSRA, ADIE) 	)
 
 /**
 * @brief
@@ -59,20 +67,13 @@ enum adc_triggerSource_t {
 
 float adc_toVolt(uint16_t ADCReading);
 
-void adc_enable(void);
-void adc_disable(void);
-void adc_autoTriggerEnable(void);
-void adc_autoTriggerDisable(void);
-void adc_InteruptEnable(void);
-void adc_InteruptDisable(void);
-
 void adc_setTriggerSource(enum adc_triggerSource_t source);
 void adc_setPrescaler(const enum adc_prescalar_t p);
 void adc_setChannel(const uint8_t ch);
 void adc_setVref(const enum adc_vref_t vref);
 uint16_t adc_read(void);
 uint16_t adc_readChannel(uint8_t ch);
-void adc_init(void);
+void adc_init(int channel, enum adc_vref_t vref, enum adc_prescalar_t prescalar);
 
 #endif /* ADC_H */
 	

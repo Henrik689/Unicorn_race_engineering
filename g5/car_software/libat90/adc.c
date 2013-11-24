@@ -2,9 +2,6 @@
 * @file adc.c
 * @brief 
 *	Used for setting up and reading from the ADC
-* @todo
-*	Write one line functions such as
-*	adc_Xenable/disable into simple macros 
 */
 
 #include <stdint.h>
@@ -34,29 +31,6 @@ float adc_toVolt(uint16_t ADCReading){
 	return voltage;
 }
 
-void adc_enable(void){
-	BIT_SET(ADCSRA, ADEN);
-}
-
-void adc_disable(void){
-	BIT_CLEAR(ADCSRA, ADEN);
-}
-
-void adc_autoTriggerEnable(void){
-	BIT_SET(ADCSRA, ADATE);
-}
-
-void adc_autoTriggerDisable(void){
-	BIT_CLEAR(ADCSRA, ADATE);
-}
-
-void adc_InteruptEnable(void){
-	BIT_SET(ADCSRA, ADIE);
-}
-
-void adc_InteruptDisable(void){
-	BIT_CLEAR(ADCSRA, ADIE);
-}
 
 /**
 * @brief
@@ -238,20 +212,28 @@ uint16_t adc_readChannel(const uint8_t ch){
 /**
 * @brief
 *	Sets up the ADC on channel using
-*	AVCC as the vref and a prescalar
-*	of 128
+*	The specified channel, vref and prescalar.
+*	This must becalled before using the ADC.
 *
-* @todo
-*	Remove this function as it is only
-*	meant to provide an example of use
-*/
-void adc_init(void){
-	adc_setChannel(1);
-	adc_setVref(AVCC);
-	adc_enable();
-	adc_setPrescaler(ADC_PRESCALAR_128);
-	adc_autoTriggerEnable();
-	adc_setTriggerSource(ANALOG_COMPARE);
-	adc_InteruptEnable();
+* @param[in] channel
+*	The channel ADC is set to.
+*
+* @param[in] vref
+*	The reference voltage that ADC is set to.
+*
+* @param[in] prescalar
+*	The prescalar value used to set the ADC
+*	frequency.
+*
+* @note
+*	If you want to setup the ADC to use a trigger source
+*	for interrupt usage these setup calls have to run
+*	manually.
+*/ 
+void adc_init(int channel, enum adc_vref_t vref, enum adc_prescalar_t prescalar){
+	adc_setChannel(channel);
+	adc_setVref(vref);
+	adc_setPrescaler(prescalar);
+	ADC_ENABLE();
 }
 
