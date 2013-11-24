@@ -235,6 +235,16 @@ uint16_t adc_readChannel(const uint8_t ch){
 	return(adc_read());
 }
 
+/**
+* @brief
+*	Sets up the ADC on channel using
+*	AVCC as the vref and a prescalar
+*	of 128
+*
+* @todo
+*	Remove this function as it is only
+*	meant to provide an example of use
+*/
 void adc_init(void){
 	adc_setChannel(1);
 	adc_setVref(AVCC);

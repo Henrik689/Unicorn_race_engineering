@@ -1,3 +1,9 @@
+/**
+* @file adc.h
+* @brief
+*	Used for setting up and reading from the ADC
+*/
+
 #ifndef ADC_H
 #define ADC_H
 
@@ -13,10 +19,15 @@ enum adc_prescalar_t {
 	ADC_PRESCALAR_128 = 128
 };
 
+/**
+* @brief
+*	Different types of reference
+*	sources for the ADC
+*/
 enum adc_vref_t {
-	AREF, // Supply out own ref across AREF and GND
-	AVCC, // Use vcc as ref
-	INTERNAL // use the internal ref
+	AREF, 		//!< Supply out own ref across AREF and GND
+	AVCC, 		//!< Use vcc as ref
+	INTERNAL 	//!< use the internal ref
 };
 
 enum adc_triggerSource_t {
