@@ -69,7 +69,7 @@ void adc_setTriggerSource(enum adc_triggerSource_t source){
 *	define the ADC frequency.
 */
 void adc_setPrescaler(const enum adc_prescalar_t p){
-	// this is well explaind at:
+	// this is well explained at:
 	// http://www.avrbeginners.net/architecture/adc/adc.html#adcsr
 
 	// TODO: use BITMASK_CLEAR and BITMAST_SET to do this
@@ -164,7 +164,7 @@ void adc_setVref(const enum adc_vref_t vref){
 
 /**
 * @brief
-*	Reads from the adc on the current channel
+*	Reads from the ADC on the current channel
 *
 * @note
 *	A channel must be set with adc_setChannel()
@@ -184,7 +184,7 @@ uint16_t adc_read(void){
 	BIT_SET(ADCSRA, ADIF);
 
 	// Alternatively ADCH and ADCL
-	// hold the heigh and low bit
+	// hold the high and low bit
 	// values of the ADC
 	return(ADC);
 }
