@@ -87,26 +87,6 @@ void can_send(int id, uint8_t *data, uint8_t length) {
 	CAN_FORCE_COMPLETE(&msg);
 }
 
-/*void can_receive(int mob_id, int id, uint8_t *data, uint8_t length) {
-	st_cmd_t received_msg = {
-		.pt_data = &data[0],
-		.status = 0,
-
-		.id.std = id,
-		.ctrl.ide = 0,
-		.ctrl.rtr = 0,
-		.dlc = length,
-		.cmd = CMD_RX_DATA_MASKED // CMD_RX_DATA_MASKED gives interrupt while CMD_RX_DATA does not
-	};
-
-	//mob_create(mob_id, &received_msg);
-}*/
-
-/*void can_testReceiver(void) {
-	can_receive(10, 5, &msg_buff[0], 6);
-	can_receive(4, 4, &msg_buff[0], 5);
-}*/
-
 void can_testSender(void) {
 	uint8_t databuffer[5] = {'H', 'E', 'L', 'L', 'O'};
 	can_send(4, &databuffer[0], 5);
