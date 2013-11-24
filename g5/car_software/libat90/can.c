@@ -17,7 +17,7 @@ void mob_create(int mob_id, st_cmd_t* descriptor) {
 	Can_set_mob(mob_id);						/* Move CANPAGE to point at given MOB */
 	Can_clear_mob();							/* Clear ALL status registers for MOB*/
 	Can_set_std_id(descriptor->id.std)			/* Sets the id */	
-	Can_set_std_msk((uint16_t){0});				/*  */
+	Can_set_std_msk((uint16_t){0});				/* The mask is used to define the range of accepted IDs */
 	Can_set_dlc(descriptor->dlc);				/* Expected msg length*/
 	Can_clear_rtr();							/* no remote transmission request */
 	Can_set_rtrmsk();							/* Remote Transmission Request - comparison true forced */
