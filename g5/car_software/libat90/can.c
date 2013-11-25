@@ -61,7 +61,7 @@ void clear_mob_status(uint8_t mob) {
 	Can_clear_mob();							/* Clear ALL status registers for MOB*/
 }
 
-int set_mob_mode(uint8_t mob, enum mob_mode mode) {
+void set_mob_mode(uint8_t mob, enum mob_mode mode) {
 	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
 	switch (mode) {
 		case MOB_DISABLED:
@@ -78,11 +78,7 @@ int set_mob_mode(uint8_t mob, enum mob_mode mode) {
 		case MOB_FRAME_BUFF_RECEIVE:
 			Can_config_rx_buffer();
 			break;
-		default:
-			return -1;
-			break;
 	}
-	return 0;
 }
 
 ISR (CANIT_vect) {
