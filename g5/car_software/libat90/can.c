@@ -61,19 +61,21 @@ void clear_mob_status(uint8_t mob) {
 	Can_clear_mob();							/* Clear ALL status registers for MOB*/
 }
 
-int set_mob_mode(uint8_t mob, uint8_t mode) {
+int set_mob_mode(uint8_t mob, enum mob_mode mode) {
 	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
 	switch (mode) {
-		case 0:
+		case MOB_DISABLED:
 			DISABLE_MOB;
 			break;
-		case 1:
+		case MOB_TRANSMIT:
 			Can_config_tx();
 			break;
-		case 2:
+		case MOB_RECIEVE:
 			Can_config_rx();
 			break;
-		case 3:
+		case MOB_AUTOMATIC_REPLY:
+			break;
+		case MOB_FRAME_BUFF_RECEIVE:
 			Can_config_rx_buffer();
 			break;
 		default:

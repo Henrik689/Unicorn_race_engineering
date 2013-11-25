@@ -21,6 +21,14 @@
 
 #define CAN_TX_DATA(data, len)	{ int i; for(i=0; i<len; i++){CANMSG = data[i];} }
 
+enum mob_mode {
+	MOB_DISABLED,
+	MOB_TRANSMIT,
+	MOB_RECIEVE,
+	MOB_AUTOMATIC_REPLY,
+	MOB_FRAME_BUFF_RECEIVE
+};
+
 void can_send(int id, uint8_t *data, uint8_t length);
 void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc);
 void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc);
