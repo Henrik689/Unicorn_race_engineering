@@ -102,6 +102,8 @@ static inline volatile uint8_t* getDDRXFromPORTX(volatile uint8_t* port){
 		*ddr_port = DDRE;
 	} else if (*port == PORTF){
 		*ddr_port = DDRF;
+	} else if (*port == PORTG){
+		*ddr_port = DDRG;
 	}
 	return ddr_port;
 }
