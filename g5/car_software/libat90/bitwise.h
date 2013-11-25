@@ -21,7 +21,21 @@
 #define BITMASK_FLIP(x,y) 	( (x) ^= (y)	)
 #define BITMASK_CHECK(x,y) 	( (x) & (y)		)
 
+/**
+* @brief
+*	Conditionally set or clear bit without branching
+*
+* @param[out] w
+*	The word to modify:  if (f) w |= m; else w &= ~m;
+* @param[in] m
+*	The bit mask
+* @param[in] f
+*	Conditional flag
+*/
+#define BITMASK_SET_OR_CLEAR(w, m, f) ( (w) ^= (-(f) ^ (w)) & (m) )
 
-#define IS_POW2(x) ( (x) && !((x) & ((x) - 1))	)
+
+#define IS_POW2(x) 				( (x) && !((x) & ((x) - 1))	)
+#define HAS_OPPSITE_SIGN(x, y)	( (((x) ^ (y)) < 0) )
 
 #endif /* BITWISE_H */
