@@ -10,16 +10,18 @@
 #include <stdint.h>
 #include <bitwise.h>
 
-#ifndef ADC_MAX_BITS
-#define ADC_MAX_BITS 1023.0f
+#ifndef ADC_BITS
+#define ADC_BITS 10 //!< How many bits the ADC have
 #endif
+
+#define ADC_MAX_BITS (( 1 << ADC_BITS ) - 1) //!< The highest value the ADC can represent 
 
 #ifndef ADC_MAX_VOLTAGE
-#define ADC_MAX_VOLTAGE	5.0f
+#define ADC_MAX_VOLTAGE	5.0f //!< When the ADC reads its highest value it is equal to this many Volts 
 #endif
 
-#define ADC_VOLTS_PER_BIT		( ADC_MAX_VOLTAGE / ADC_MAX_BITS )
-#define ADC_TO_VOLT(ADCReading)	( ADCReading * ADC_VOLTS_PER_BIT )
+#define ADC_VOLTS_PER_BIT		( ADC_MAX_VOLTAGE / ADC_MAX_BITS ) //!< One ADC bit == this many volts
+#define ADC_TO_VOLT(ADCReading)	( ADCReading * ADC_VOLTS_PER_BIT ) //!< Converts a given ADCreading to a Voltage value
 
 #define ADC_ENABLE()				( BIT_SET(ADCSRA, ADEN) 	)
 #define ADC_DISABLE()				( BIT_CLEAR(ADCSRA, ADEN) 	)
@@ -31,7 +33,7 @@
 /**
 * @brief
 *	ADC frequency = cpu_f / prescalar \n
-*	150lHz = 16mHz / 128
+*	150kHz = 16mHz / 128
 */
 enum adc_prescalar_t {
 	ADC_PRESCALAR_2 = 2,
