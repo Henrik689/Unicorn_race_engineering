@@ -28,6 +28,16 @@ void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc) {
 	Can_set_mob_int(mob);						/* Enable interrupt for MOB */
 }
 
+void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc) {
+	int i;
+	set_mob_id(mob, id);
+	set_mob_dlc(mob, dlc);
+	for (i = 0; i < dlc; i++)
+		CANMSG = *(data + i);
+	set_mob_mode(mob, 1);
+	Can_set_mob_int(mob);						/* Enable interrupt for MOB */
+}
+
 void set_mob_dlc(uint8_t mob, uint8_t dlc) {
 	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
 	Can_set_dlc(dlc);							/* Expected msg length*/
@@ -68,25 +78,6 @@ int set_mob_mode(uint8_t mob, uint8_t mode) {
 			break;
 	}
 	return 0;
-}
-
-void can_send(int id, uint8_t *data, uint8_t length) {
-	st_cmd_t msg = {
-		.pt_data = &data[0],
-		.id.std = id,
-		.ctrl.ide = 0, // ide : identifier extension: 0 = can2.0A (11bit), 1 = can2.0B (29bit)
-		//.ctrl.rtr = 0, // rtr : request remote transmission
-		.dlc = length,
-		.cmd = CMD_TX_DATA
-	};
-
-	CAN_FORCE_CMD(&msg);
-	CAN_FORCE_COMPLETE(&msg);
-}
-
-void can_testSender(void) {
-	uint8_t databuffer[5] = {'H', 'E', 'L', 'L', 'O'};
-	can_send(4, &databuffer[0], 5);
 }
 
 ISR (CANIT_vect) {

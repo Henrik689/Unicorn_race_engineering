@@ -19,6 +19,7 @@
 
 void can_send(int id, uint8_t *data, uint8_t length);
 void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc);
+void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc);
 void set_mob_id(uint8_t mob, uint16_t id);
 void clear_mob_status(uint8_t mob);
 void set_mob_dlc(uint8_t mob, uint8_t dlc);

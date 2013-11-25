@@ -32,13 +32,15 @@ int main(void)
 	adc_setPrescaler(PRESCALAR_128);
 
 	uart_txstring(UART_NUMBER_1, "\r\n\r\n\r\nSTARTING \r\n");
-	setup_mob_rx(8, 4, 5);
+	setup_mob_rx(8, 4, 7);
 	int i=0;
 	while(1){
 		// Main work loop
 		_delay_ms(250);
 
-		//can_testSender();
+		uint8_t msg[8] = {'H', 'E', 'Y', ' ', 'J', 'O', 'E'};
+
+		setup_mob_tx(10, 4, &msg[0], 7);
 
 		char buff[32] = {0};
 
