@@ -1,5 +1,8 @@
 #include <stdio.h>
+#include <stdint.h>
 #include <avr/interrupt.h>
+#include "can_std/can_lib.h"
+#include "bitwise.h"
 #include "can.h"
 #include "uart.h"
 
@@ -58,7 +61,7 @@ int set_mob_mode(uint8_t mob, uint8_t mode) {
 			Can_config_rx();
 			break;
 		case 3:
-				Can_config_rx_buffer();
+			Can_config_rx_buffer();
 			break;
 		default:
 			return -1;
