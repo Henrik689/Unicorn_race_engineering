@@ -6,7 +6,11 @@
 #include "can.h"
 #include "uart.h"
 
-static uint8_t msg_buff[NB_DATA_MAX + 1] = {0};
+static void (*canit_callback[9])(uint8_t mob);
+
+void set_canit_callback(enum canit_int interrupt, void (*callback)(uint8_t mob)) {
+	canit_callback[interrupt] = callback;
+}
 
 /*
  * The Can_clear_mob() function clears the following registers:
@@ -92,36 +96,30 @@ ISR (CANIT_vect) {
 
 			switch (CANSTMOB) {
 				case MOB_RX_COMPLETED_DLCW:
+					(*canit_callback[0])(i);
 				case MOB_RX_COMPLETED:
-					can_get_data(&msg_buff[0]);	// Copy data to canDataTest
-
-					uart_printf(UART_NUMBER_1, "MOB_%d msg:%s\r\n", i, msg_buff);
-
-					Can_clear_status_mob(); // and reset MOb status
-					BIT_SET(CANCDMOB, CONMOB1); /* enable reception */
+					(*canit_callback[1])(i);
 					break;
 				case MOB_TX_COMPLETED:
-					Can_mob_abort();        // Freed the MOB
-					Can_clear_status_mob(); // and reset MOb status	
-					Can_unset_mob_int(i);	// Unset interrupt
+					(*canit_callback[2])(i);
 					break;
 				case MOB_ACK_ERROR:
-					/* TODO */
+					(*canit_callback[3])(i);
 					break;
 				case MOB_FORM_ERROR:
-					/* TODO */
+					(*canit_callback[4])(i);
 					break;
 				case MOB_CRC_ERROR:
-					/* TODO */
+					(*canit_callback[5])(i);
 					break;
 				case MOB_STUFF_ERROR:
-					/* TODO */
+					(*canit_callback[6])(i);
 					break;
 				case MOB_BIT_ERROR:
-					/* TODO */
+					(*canit_callback[7])(i);
 					break;
 				default:
-					Can_clear_status_mob(); // and reset MOb status
+					(*canit_callback[8])(i);
 					break;
 			}
 		}
