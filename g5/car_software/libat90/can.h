@@ -16,6 +16,9 @@
 
 #define CAN_FORCE_CMD(cmd)			while( can_cmd((cmd)) != CAN_CMD_ACCEPTED 				)
 #define CAN_FORCE_COMPLETE(cmd)		while( can_get_status((cmd)) != CAN_STATUS_COMPLETED 	)
+// -------------
+
+#define CAN_TX_DATA(data, len)	{ int i; for(i=0; i<len; i++){CANMSG = data[i];} }
 
 void can_send(int id, uint8_t *data, uint8_t length);
 void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc);

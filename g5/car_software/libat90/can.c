@@ -37,10 +37,8 @@ void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc) {
 }
 
 void set_data_reg(uint8_t mob, uint8_t *data, uint8_t dlc) {
-	int i;
 	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
-	for (i = 0; i < dlc; i++)
-		CANMSG = *(data + i);
+	CAN_TX_DATA(data, dlc);
 }
 
 void set_mob_dlc(uint8_t mob, uint8_t dlc) {
