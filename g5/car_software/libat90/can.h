@@ -42,7 +42,6 @@ enum mob_mode {
 };
 
 void set_canit_callback(enum canit_int interrupt, void (*callback)(uint8_t mob));
-void can_send(int id, uint8_t *data, uint8_t length);
 void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc);
 void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc);
 void set_mob_id(uint8_t mob, uint16_t id);
@@ -51,8 +50,5 @@ void set_mob_dlc(uint8_t mob, uint8_t dlc);
 void set_mob_mask(uint8_t mob, uint16_t mask);
 void set_mob_mode(uint8_t mob, enum mob_mode mode);
 void set_data_reg(uint8_t mob, uint8_t *data, uint8_t dlc);
-
-// Debugging test functions
-void can_testSender(void);
 
 #endif /* CAN_H */
