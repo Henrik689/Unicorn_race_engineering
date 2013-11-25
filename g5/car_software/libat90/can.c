@@ -22,7 +22,7 @@ static uint8_t msg_buff[NB_DATA_MAX + 1] = {0};
 
 void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc) {
 	set_mob_id(mob, id);
-	set_mob_mask(mob, 0);
+	set_mob_mask(mob, (uint16_t){UINT16_MAX});
 	set_mob_dlc(mob, dlc);
 	set_mob_mode(mob, 2);
 	Can_set_mob_int(mob);						/* Enable interrupt for MOB */
