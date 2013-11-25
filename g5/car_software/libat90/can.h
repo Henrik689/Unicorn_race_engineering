@@ -21,6 +21,9 @@
 
 #define CAN_TX_DATA(data, len)	{ int i; for(i=0; i<len; i++){CANMSG = data[i];} }
 
+#define READ_CANSIT 				( CANSIT2 + (CANSIT1 << 8) 		)
+#define MOB_HAS_PENDING_INT(mob)	( BIT_CHECK(READ_CANSIT, (mob)) )
+
 typedef struct can_msg_t {
 	uint8_t mob; 	//!< Message Object to bind to
 	uint16_t id; 	//!< Message id / priority

@@ -12,8 +12,26 @@ void can_subscribe(can_msg_t *msg){
 	Can_set_mob(msg->mob); // Move CANPAGE point the the given mob
 	Can_set_std_id(msg->id);
 	Can_set_std_msk((uint16_t){UINT16_MAX}); 
-	Can_config_rx(); // OSBS!! we are configuring specificly for mode 2
+	Can_config_rx(); // OSBS!! we are configuring specifically for mode 2
 	Can_set_mob_int(msg->mob);
+}
+
+int can_receive(can_msg_t *msg){
+	if ( !MOB_HAS_PENDING_INT(msg->mob) ){
+		return 1; // Error no pending interrupt
+	}
+	Can_set_mob(msg->mob);
+
+	if ( (CANSTMOB == MOB_RX_COMPLETED_DLCW) || (CANSTMOB == MOB_RX_COMPLETED) ) {
+		can_get_data(msg->data);
+		Can_clear_status_mob(); 	// and reset MOb status
+		BIT_SET(CANCDMOB, CONMOB1); // enable reception
+	} else {
+		Can_clear_status_mob();
+		return 2; // Error 
+	}
+
+	return 0; // success
 }
 
 /*
