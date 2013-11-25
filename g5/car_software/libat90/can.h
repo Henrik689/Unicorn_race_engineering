@@ -18,10 +18,16 @@
 #define CAN_FORCE_COMPLETE(cmd)		while( can_get_status((cmd)) != CAN_STATUS_COMPLETED 	)
 
 void can_send(int id, uint8_t *data, uint8_t length);
-void can_receive(int id, uint8_t *data, uint8_t length);
+void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc);
+void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc);
+void set_mob_id(uint8_t mob, uint16_t id);
+void clear_mob_status(uint8_t mob);
+void set_mob_dlc(uint8_t mob, uint8_t dlc);
+void set_mob_mask(uint8_t mob, uint16_t mask);
+int set_mob_mode(uint8_t mob, uint8_t mode);
+void set_data_reg(uint8_t mob, uint8_t *data, uint8_t dlc);
 
 // Debugging test functions
-void can_testReceiver(void);
 void can_testSender(void);
 
 #endif /* CAN_H */

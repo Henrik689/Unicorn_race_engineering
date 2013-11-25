@@ -33,14 +33,16 @@ int main(void)
 	adc_setPrescaler(ADC_PRESCALAR_128);
 
 	uart1_txstring("\r\n\r\n\r\nSTARTING \r\n");
-	can_testReceiver();
+	setup_mob_rx(8, 4, 7);
+
 	int i=0;
 	while(1){
 		// Main work loop
 		_delay_ms(250);
 
-		//can_testSender();
-		//can_testReceiver();
+		uint8_t msg[8] = {'H', 'E', 'Y', ' ', 'J', 'O', 'E'};
+
+		setup_mob_tx(10, 4, &msg[0], 7);
 
 		uint16_t res = adc_readChannel(i);
 		uart1_printf("ADC channel %d = %d \r\n", i, res);	

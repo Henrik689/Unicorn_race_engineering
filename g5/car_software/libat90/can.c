@@ -1,102 +1,108 @@
-
-#include <stdint.h>
 #include <stdio.h>
-
-#include <avr/io.h>
+#include <stdint.h>
 #include <avr/interrupt.h>
-
 #include "can_std/can_lib.h"
+#include "bitwise.h"
 #include "can.h"
 #include "uart.h"
 
-#include <util/delay.h>
+static uint8_t msg_buff[NB_DATA_MAX + 1] = {0};
 
-#define SIZEOF_ARR(arr) (sizeof(arr) / sizeof(arr[0]))
+/*
+ * The Can_clear_mob() function clears the following registers:
+ * CANSTMOB 			-- Contains interrupt status
+ * CANCDMOB 			-- Defines MOB mode and msg length
+ * CANIDT1 ... CANIDT4	-- CAN Identifier Tag Registers
+ * CANIDM1 ... CANIDT4	-- CAN Identifier Mask Registers
+ */
+	//Can_clear_rtr();							/* no remote transmission request */
+	//Can_set_rtrmsk();							/* Remote Transmission Request - comparison true forced */
+	//Can_set_idemsk();							/* Identifier Extension - comparison true forced */
+	//clear_mob_status(mob);					/* Described above */
 
-#define TEST_MSG_ID		4 // Debuggin msg id
-#define TEST_MSG_LEN	5 // length of the test message used for debugging
-
-void can_send(int id, uint8_t *data, uint8_t length){
-	st_cmd_t msg = {
-		.pt_data = &data[0],
-		.id.std = id,
-
-		.ctrl.ide = 0, // ide : identifier extension: 0 = can2.0A (11bit), 1 = can2.0B (29bit)
-		//.ctrl.rtr = 0, // rtr : request remote transmission
-		
-		.dlc = length,
-		
-		.cmd = CMD_TX_DATA
-	};
-
-	CAN_FORCE_CMD(&msg);
-	CAN_FORCE_COMPLETE(&msg);
+void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc) {
+	set_mob_id(mob, id);
+	set_mob_mask(mob, (uint16_t){UINT16_MAX});
+	set_mob_dlc(mob, dlc);
+	set_mob_mode(mob, 2);
+	Can_set_mob_int(mob);						/* Enable interrupt for MOB */
 }
 
-void can_receive(int id, uint8_t *data, uint8_t length){
-	st_cmd_t received_msg = {
-		.pt_data = &data[0],
-		.status = 0,
-
-		.id.std = id,
-		.ctrl.ide = 0,
-		.ctrl.rtr = 0,
-		.dlc = length,
-		.cmd = CMD_RX_DATA_MASKED // CMD_RX_DATA_MASKED gives interrupt while CMD_RX_DATA does not
-	};
-
-	CAN_FORCE_CMD(&received_msg);
-	//can_cmd(&received_msg);
-	//can_get_status(&received_msg);
-	//CAN_FORCE_CMD(&received_msg);
-	//CAN_FORCE_COMPLETE(&received_msg);
+void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc) {
+	set_mob_id(mob, id);
+	set_mob_dlc(mob, dlc);
+	set_data_reg(mob, data, dlc);	
+	set_mob_mode(mob, 1);
+	Can_set_mob_int(mob);						/* Enable interrupt for MOB */
 }
 
-void can_testReceiver(void){
-	uint8_t received_data[TEST_MSG_LEN] = {0};
-	can_receive(TEST_MSG_ID, &received_data[0], TEST_MSG_LEN);
-
-	uart_txstring(UART_NUMBER_1, "CAN rev: ");
-	uart_txarr(UART_NUMBER_1, &received_data[0], TEST_MSG_LEN);
-	uart_txstring(UART_NUMBER_1, "\r\n");
+void set_data_reg(uint8_t mob, uint8_t *data, uint8_t dlc) {
+	int i;
+	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	for (i = 0; i < dlc; i++)
+		CANMSG = *(data + i);
 }
 
-void can_testSender(void){
-	uint8_t databuffer[TEST_MSG_LEN] = {'H', 'E', 'L', 'L', 'O'}; 
-	can_send(TEST_MSG_ID, &databuffer[0], TEST_MSG_LEN);
+void set_mob_dlc(uint8_t mob, uint8_t dlc) {
+	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	Can_set_dlc(dlc);							/* Expected msg length*/
 }
 
-/* Interrupt routine to take care of can interrupts */
-char str[64] = {0};
-uint8_t buffer[TEST_MSG_LEN] = {0};
-int cnt = 0;
-ISR(CANIT_vect){
-	const uint16_t cansit = CANSIT2+(CANSIT1<<8);
-	const uint8_t mob_back = CANPAGE;	// Save CANPAGE state
-	uint16_t thisMOBpos = 0x01;
+void set_mob_id(uint8_t mob, uint16_t id) {
+	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	Can_set_std_id(id);							/* Sets the id */
+}
+
+void set_mob_mask(uint8_t mob, uint16_t mask) {
+	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	Can_set_std_msk(mask);						/* The mask is used to define the range of accepted IDs */
+}
+
+void clear_mob_status(uint8_t mob) {
+	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	Can_clear_mob();							/* Clear ALL status registers for MOB*/
+}
+
+int set_mob_mode(uint8_t mob, uint8_t mode) {
+	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	switch (mode) {
+		case 0:
+			DISABLE_MOB;
+			break;
+		case 1:
+			Can_config_tx();
+			break;
+		case 2:
+			Can_config_rx();
+			break;
+		case 3:
+			Can_config_rx_buffer();
+			break;
+		default:
+			return -1;
+			break;
+	}
+	return 0;
+}
+
+ISR (CANIT_vect) {
+	const uint16_t cansit = CANSIT2 + (CANSIT1 << 8); /* CAN Status Interrupt MOb Registers */
+	int i;
 
 	// Loop over each MOB and check if it have pending interrupt
-	int i;
-	for(i = 0; i <= LAST_MOB_NB; i++){
-		if(BITMASK_CHECK(cansit, thisMOBpos)){	/* True if mob have pending interrupt */
+	for (i = 0; i <= LAST_MOB_NB; i++) {
+		if (BITMASK_CHECK(cansit, (0x01 << i))) { /* True if mob have pending interrupt */
 			Can_set_mob(i); /* Switch to mob */
 
-			const uint8_t interrupt = BITMASK_CHECK(CANSTMOB, INT_MOB_MSK);
-			switch (interrupt){
+			switch (CANSTMOB) {
+				case MOB_RX_COMPLETED_DLCW:
 				case MOB_RX_COMPLETED:
-					/* Can specific code */
-					//can_receive(TEST_MSG_ID, &buffer[0], TEST_MSG_LEN);
-					can_get_data(&buffer[0]);	// Copy data to canDataTest
-					//Can_mob_abort();        // Freed the MOB
+					can_get_data(&msg_buff[0]);	// Copy data to canDataTest
+
+					uart_printf(UART_NUMBER_1, "MOB_%d msg:%s\r\n", i, msg_buff);
+
 					Can_clear_status_mob(); // and reset MOb status
-					BIT_SET(CANCDMOB, CONMOB1);
-					BIT_SET(CANCDMOB, DLC0);
-					BIT_SET(CANCDMOB, DLC2);
-
-					//can_receive(TEST_MSG_ID, &buffer[0], TEST_MSG_LEN); // put this before can_get_data and see if it works
-					uart_txarr(UART_NUMBER_1, &buffer[0], TEST_MSG_LEN);
-
-					uart_printf(UART_NUMBER_1, "  MOB_%d msg %d\r\n", i, cnt++);
+					BIT_SET(CANCDMOB, CONMOB1); /* enable reception */
 					break;
 				case MOB_TX_COMPLETED:
 					Can_mob_abort();        // Freed the MOB
@@ -119,13 +125,13 @@ ISR(CANIT_vect){
 					/* TODO */
 					break;
 				default:
-					Can_mob_abort();        // Freed the MOB
 					Can_clear_status_mob(); // and reset MOb status
 					break;
 			}
 		}
-		thisMOBpos = thisMOBpos << 1;
 	}
+}
 
-	CANPAGE |= BITMASK_CHECK(mob_back, 0xF0); // Restore CANPAGE state
+ISR (OVRIT_vect) {
+	/* CAN Timer Overrun interrupt */
 }
