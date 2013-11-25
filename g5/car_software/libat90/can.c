@@ -31,7 +31,7 @@ void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc) {
 void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc) {
 	set_mob_id(mob, id);
 	set_mob_dlc(mob, dlc);
-	set_data_reg(mob, data, dlc);	
+	set_data_reg(mob, data, dlc);
 	set_mob_mode(mob, 1);
 	Can_set_mob_int(mob);						/* Enable interrupt for MOB */
 }
@@ -106,7 +106,7 @@ ISR (CANIT_vect) {
 					Can_mob_abort();        // Freed the MOB
 					Can_clear_status_mob(); // and reset MOb status	
 					Can_unset_mob_int(i);	// Unset interrupt
-					break;				
+					break;
 				case MOB_ACK_ERROR:
 					/* TODO */
 					break;
