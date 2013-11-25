@@ -1,3 +1,11 @@
+/**
+* @file bitwise.h
+* @brief
+*	Provides some abstraction for
+*	some bitwise operations.
+*	Useage should help code readability.
+*/
+
 #ifndef BITWISE_H
 #define BITWISE_H
 
