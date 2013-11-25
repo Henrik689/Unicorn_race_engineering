@@ -18,9 +18,9 @@ static uint8_t msg_buff[NB_DATA_MAX + 1] = {0};
 	//Can_clear_rtr();							/* no remote transmission request */
 	//Can_set_rtrmsk();							/* Remote Transmission Request - comparison true forced */
 	//Can_set_idemsk();							/* Identifier Extension - comparison true forced */
+	//clear_mob_status(mob);					/* Described above */
 
 void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc) {
-	//clear_mob_status(mob);
 	set_mob_id(mob, id);
 	set_mob_mask(mob, 0);
 	set_mob_dlc(mob, dlc);
