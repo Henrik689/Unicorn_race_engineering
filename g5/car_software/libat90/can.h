@@ -21,6 +21,15 @@
 
 #define CAN_TX_DATA(data, len)	{ int i; for(i=0; i<len; i++){CANMSG = data[i];} }
 
+typedef struct can_msg_t {
+	uint8_t mob; 	//!< Message Object to bind to
+	uint16_t id; 	//!< Message id / priority
+	uint8_t dlc; 	//!< Data Length Code
+	uint8_t *data;	//!< pointer to where the data is stored
+
+	uint8_t mode; 	//!< tx or rx
+} can_msg_t;
+
 void can_send(int id, uint8_t *data, uint8_t length);
 void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc);
 void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc);
