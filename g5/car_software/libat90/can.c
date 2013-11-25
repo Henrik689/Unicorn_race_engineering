@@ -32,10 +32,15 @@ void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc) {
 	int i;
 	set_mob_id(mob, id);
 	set_mob_dlc(mob, dlc);
-	for (i = 0; i < dlc; i++)
-		CANMSG = *(data + i);
+	set_data_reg(mob, data);	
 	set_mob_mode(mob, 1);
 	Can_set_mob_int(mob);						/* Enable interrupt for MOB */
+}
+
+void set_data_reg(uint8_t mob, uint8_t *data) {
+	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	for (i = 0; i < dlc; i++)
+		CANMSG = *(data + i);
 }
 
 void set_mob_dlc(uint8_t mob, uint8_t dlc) {
