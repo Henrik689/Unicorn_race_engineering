@@ -17,7 +17,7 @@
 #define ADC_MAX_BITS (( 1 << ADC_BITS ) - 1) //!< The highest value the ADC can represent 
 
 #ifndef ADC_MAX_VOLTAGE
-#define ADC_MAX_VOLTAGE	5.0f //!< When the ADC reads its highest value it is equal to this many Volts 
+#define ADC_MAX_VOLTAGE	5.0f //!< When the ADC reads its highest value it is equal to this many Volts (This should be the vref)
 #endif
 
 #define ADC_VOLTS_PER_BIT		( ADC_MAX_VOLTAGE / ADC_MAX_BITS ) //!< One ADC bit == this many volts
