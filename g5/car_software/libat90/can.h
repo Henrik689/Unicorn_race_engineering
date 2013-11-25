@@ -25,6 +25,7 @@ void clear_mob_status(uint8_t mob);
 void set_mob_dlc(uint8_t mob, uint8_t dlc);
 void set_mob_mask(uint8_t mob, uint16_t mask);
 int set_mob_mode(uint8_t mob, uint8_t mode);
+void set_data_reg(uint8_t mob, uint8_t *data, uint8_t dlc);
 
 // Debugging test functions
 void can_testSender(void);
