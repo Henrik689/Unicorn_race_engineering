@@ -7,6 +7,7 @@
 #include "uart.h"
 
 static void (*canit_callback[9])(uint8_t mob);
+static void (*ovrit_callback)(void);
 
 void set_canit_callback(enum can_int_t interrupt, void (*callback)(uint8_t mob)) {
 	canit_callback[interrupt] = callback;
@@ -18,6 +19,7 @@ int can_setup(can_msg_t *msg){
 			Can_mob_abort();
 			break;
 		case MOB_TRANSMIT:
+
 			break;
 		case MOB_RECIEVE:
 			Can_set_mob(msg->mob); // Move CANPAGE point the the given mob
@@ -140,6 +142,7 @@ ISR (CANIT_vect) {
 				case MOB_RX_COMPLETED_DLCW:
 					(*canit_callback[0])(mob);
 					// Fall through to MOB_RX_COMPLETED on purpose
+					//!< @todo NEEDS TESTING. !!!URGENT!!!
 				case MOB_RX_COMPLETED:
 					(*canit_callback[1])(mob);
 					break;
@@ -170,5 +173,5 @@ ISR (CANIT_vect) {
 }
 
 ISR (OVRIT_vect) {
-	/* CAN Timer Overrun interrupt */
+	(*ovrit_callback)();
 }
