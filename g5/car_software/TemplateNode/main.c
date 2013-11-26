@@ -39,7 +39,15 @@ int main(void)
 	adc_setPrescaler(ADC_PRESCALAR_128);
 
 	uart1_txstring("\r\n\r\n\r\nSTARTING \r\n");
-	setup_mob_rx(8, 4, 7);
+
+	can_msg_t msg = {
+		.mob = 8,
+		.id = 4,
+		.dlc = 7,
+
+		.mode = MOB_RECIEVE
+	};
+	can_setup(&msg);
 
 	int i=0;
 	while(1){

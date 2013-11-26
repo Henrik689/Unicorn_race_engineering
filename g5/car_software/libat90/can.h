@@ -16,22 +16,15 @@
 #define CAN_INIT_TX()	{ CAN_INIT(); CAN_SEI(); CAN_TX_SEI(); 					}
 // ------------- End old wrappers
 
+#define MASK_FULL_FILTERING	( (uint16_t){UINT16_MAX}	) //!< Only listen for the specified ID
+#define MASK_NO_FILTERING	( (uint16_t){0} 			) //!< Listen for all ID's (Eg a spynode)
+
 #define CAN_TX_DATA(data, len)	{ int i; for(i=0; i<len; i++){CANMSG = data[i];} }
 
 #define READ_CANSIT 				( CANSIT2 + (CANSIT1 << 8) 		)
 #define MOB_HAS_PENDING_INT(mob)	( BIT_CHECK(READ_CANSIT, (mob)) )
 
-typedef struct can_msg_t {
-	uint8_t mob; 	//!< Message Object to bind to
-	uint16_t id; 	//!< Message id / priority
-	uint8_t dlc; 	//!< Data Length Code
-	uint8_t *data;	//!< pointer to where the data is stored
-
-	uint8_t mode; 	//!< tx or rx
-} can_msg_t;
-
-
-enum canit_int {
+enum can_int_t {
 	CANIT_RX_COMPLETED_DLCW = 0,
 	CANIT_RX_COMPLETED = 1,
 	CANIT_TX_COMPLETED = 2,
@@ -43,7 +36,7 @@ enum canit_int {
 	CANIT_DEFAULT = 8
 };
 
-enum mob_mode {
+enum mob_mode_t {
 	MOB_DISABLED,
 	MOB_TRANSMIT,
 	MOB_RECIEVE,
@@ -51,7 +44,17 @@ enum mob_mode {
 	MOB_FRAME_BUFF_RECEIVE
 };
 
-void set_canit_callback(enum canit_int interrupt, void (*callback)(uint8_t mob));
+typedef struct can_msg_t {
+	uint8_t mob; 		//!< Message Object to bind to
+	uint16_t id; 		//!< Message id / priority
+	uint8_t dlc; 		//!< Data Length Code
+	uint8_t data[8];	//!< The message payload. Specification states a max length of 8 regardless of dlc 
+
+	enum mob_mode_t mode; 	//!< tx or rx
+} can_msg_t;
+
+void set_canit_callback(enum can_int_t interrupt, void (*callback)(uint8_t mob));
+int can_setup(can_msg_t *msg);
 
 void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc);
 void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc);
@@ -59,7 +62,7 @@ void set_mob_id(uint8_t mob, uint16_t id);
 void clear_mob_status(uint8_t mob);
 void set_mob_dlc(uint8_t mob, uint8_t dlc);
 void set_mob_mask(uint8_t mob, uint16_t mask);
-void set_mob_mode(uint8_t mob, enum mob_mode mode);
+void set_mob_mode(uint8_t mob, enum mob_mode_t mode);
 void set_data_reg(uint8_t mob, uint8_t *data, uint8_t dlc);
 
 #endif /* CAN_H */

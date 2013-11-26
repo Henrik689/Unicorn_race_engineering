@@ -8,16 +8,33 @@
 
 static void (*canit_callback[9])(uint8_t mob);
 
-void set_canit_callback(enum canit_int interrupt, void (*callback)(uint8_t mob)) {
+void set_canit_callback(enum can_int_t interrupt, void (*callback)(uint8_t mob)) {
 	canit_callback[interrupt] = callback;
 }
 
-void can_subscribe(can_msg_t *msg){
-	Can_set_mob(msg->mob); // Move CANPAGE point the the given mob
-	Can_set_std_id(msg->id);
-	Can_set_std_msk((uint16_t){UINT16_MAX}); 
-	Can_config_rx(); // OSBS!! we are configuring specifically for mode 2
-	Can_set_mob_int(msg->mob);
+int can_setup(can_msg_t *msg){
+	switch(msg->mode){
+		case MOB_DISABLED:
+			Can_mob_abort();
+			break;
+		case MOB_TRANSMIT:
+			break;
+		case MOB_RECIEVE:
+			Can_set_mob(msg->mob); // Move CANPAGE point the the given mob
+			Can_set_std_id(msg->id);
+			Can_set_std_msk(MASK_FULL_FILTERING); 
+			Can_config_rx(); // OSBS!! we are configuring specifically for mode MOB_TRANSMIT
+			Can_set_mob_int(msg->mob);
+			break;
+		case MOB_AUTOMATIC_REPLY:
+			break;
+		case MOB_FRAME_BUFF_RECEIVE:
+			break;
+		default:
+			return 1;  // Error
+			break;
+	}
+	return 0; // Success;
 }
 
 int can_receive(can_msg_t *msg){
@@ -91,7 +108,7 @@ void clear_mob_status(uint8_t mob) {
 	Can_clear_mob();							/* Clear ALL status registers for MOB*/
 }
 
-void set_mob_mode(uint8_t mob, enum mob_mode mode) {
+void set_mob_mode(uint8_t mob, enum mob_mode_t mode) {
 	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
 	switch (mode) {
 		case MOB_DISABLED:
