@@ -77,12 +77,12 @@ enum mob_mode_t {
 };
 
 typedef struct can_msg_t {
-	uint8_t mob; 		//!< Message Object to bind to
-	uint16_t id; 		//!< Message id / priority
-	uint8_t dlc; 		//!< Data Length Code
-	uint8_t data[8];	//!< The message payload. Specification states a max length of 8 regardless of dlc 
+	uint8_t mob; 				//!< Message Object to bind to
+	uint16_t id; 				//!< Message id / priority
+	uint8_t dlc; 				//!< Data Length Code
+	uint8_t data[NB_DATA_MAX];	//!< The message payload. Specification states a max length of 8 regardless of dlc 
 
-	enum mob_mode_t mode; 	//!< tx or rx
+	enum mob_mode_t mode; 		//!< Tx or Rx
 } can_msg_t;
 
 void set_canit_callback(enum can_int_t interrupt, void (*callback)(uint8_t mob));
