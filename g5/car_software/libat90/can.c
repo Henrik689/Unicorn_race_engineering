@@ -6,7 +6,11 @@
 #include "can.h"
 #include "uart.h"
 
-static uint8_t msg_buff[NB_DATA_MAX + 1] = {0};
+static void (*canit_callback[9])(uint8_t mob);
+
+void set_canit_callback(enum canit_int interrupt, void (*callback)(uint8_t mob)) {
+	canit_callback[interrupt] = callback;
+}
 
 void can_subscribe(can_msg_t *msg){
 	Can_set_mob(msg->mob); // Move CANPAGE point the the given mob
@@ -87,69 +91,61 @@ void clear_mob_status(uint8_t mob) {
 	Can_clear_mob();							/* Clear ALL status registers for MOB*/
 }
 
-int set_mob_mode(uint8_t mob, uint8_t mode) {
+void set_mob_mode(uint8_t mob, enum mob_mode mode) {
 	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
 	switch (mode) {
-		case 0:
+		case MOB_DISABLED:
 			DISABLE_MOB;
 			break;
-		case 1:
+		case MOB_TRANSMIT:
 			Can_config_tx();
 			break;
-		case 2:
+		case MOB_RECIEVE:
 			Can_config_rx();
 			break;
-		case 3:
+		case MOB_AUTOMATIC_REPLY:
+			break;
+		case MOB_FRAME_BUFF_RECEIVE:
 			Can_config_rx_buffer();
 			break;
-		default:
-			return -1;
-			break;
 	}
-	return 0;
 }
 
 ISR (CANIT_vect) {
-	const uint16_t cansit = CANSIT2 + (CANSIT1 << 8); /* CAN Status Interrupt MOb Registers */
-	int i;
+	int mob;
 
 	// Loop over each MOB and check if it have pending interrupt
-	for (i = 0; i <= LAST_MOB_NB; i++) {
-		if (BITMASK_CHECK(cansit, (0x01 << i))) { /* True if mob have pending interrupt */
-			Can_set_mob(i); /* Switch to mob */
+	for (mob = 0; mob <= LAST_MOB_NB; mob++) {
+		if (MOB_HAS_PENDING_INT(mob)) { /* True if mob have pending interrupt */
+			Can_set_mob(mob); /* Switch to mob */
 
 			switch (CANSTMOB) {
 				case MOB_RX_COMPLETED_DLCW:
+					(*canit_callback[0])(mob);
+					// Fall through to MOB_RX_COMPLETED on purpose
 				case MOB_RX_COMPLETED:
-					can_get_data(&msg_buff[0]);	// Copy data to canDataTest
-
-					uart1_printf("MOB_%d msg:%s\r\n", i, msg_buff);
-
-					Can_clear_status_mob(); // and reset MOb status
-					BIT_SET(CANCDMOB, CONMOB1); /* enable reception */
+					(*canit_callback[1])(mob);
 					break;
 				case MOB_TX_COMPLETED:
-					Can_mob_abort();        // Freed the MOB
-					Can_clear_status_mob(); // and reset MOb status	
-					Can_unset_mob_int(i);	// Unset interrupt
+					(*canit_callback[2])(mob);
 					break;
 				case MOB_ACK_ERROR:
-					/* TODO */
+					(*canit_callback[3])(mob);
 					break;
 				case MOB_FORM_ERROR:
-					/* TODO */
+					(*canit_callback[4])(mob);
 					break;
 				case MOB_CRC_ERROR:
-					/* TODO */
+					(*canit_callback[5])(mob);
 					break;
 				case MOB_STUFF_ERROR:
-					/* TODO */
+					(*canit_callback[6])(mob);
 					break;
 				case MOB_BIT_ERROR:
-					/* TODO */
+					(*canit_callback[7])(mob);
 					break;
 				default:
-					Can_clear_status_mob(); // and reset MOb status
+					(*canit_callback[8])(mob);
 					break;
 			}
 		}
