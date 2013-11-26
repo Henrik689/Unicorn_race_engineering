@@ -22,14 +22,14 @@ int can_receive(can_msg_t *msg){
 	}
 	Can_set_mob(msg->mob);
 
-	if ( (CANSTMOB == MOB_RX_COMPLETED_DLCW) || (CANSTMOB == MOB_RX_COMPLETED) ) {
-		can_get_data(msg->data);
-		Can_clear_status_mob(); 	// and reset MOb status
-		BIT_SET(CANCDMOB, CONMOB1); // enable reception
-	} else {
+	if ( !((CANSTMOB == MOB_RX_COMPLETED_DLCW) || (CANSTMOB == MOB_RX_COMPLETED)) ) {
 		Can_clear_status_mob();
 		return 2; // Error 
 	}
+
+	can_get_data(msg->data);
+	Can_clear_status_mob(); 	// and reset MOb status
+	BIT_SET(CANCDMOB, CONMOB1); // enable reception
 
 	return 0; // success
 }
@@ -123,7 +123,7 @@ ISR (CANIT_vect) {
 				case MOB_RX_COMPLETED:
 					can_get_data(&msg_buff[0]);	// Copy data to canDataTest
 
-					uart_printf(UART_NUMBER_1, "MOB_%d msg:%s\r\n", i, msg_buff);
+					uart1_printf("MOB_%d msg:%s\r\n", i, msg_buff);
 
 					Can_clear_status_mob(); // and reset MOb status
 					BIT_SET(CANCDMOB, CONMOB1); /* enable reception */
