@@ -24,23 +24,55 @@
 #define READ_CANSIT 				( CANSIT2 + (CANSIT1 << 8) 		)
 #define MOB_HAS_PENDING_INT(mob)	( BIT_CHECK(READ_CANSIT, (mob)) )
 
+
 enum can_int_t {
-	CANIT_RX_COMPLETED_DLCW = 0,
-	CANIT_RX_COMPLETED = 1,
-	CANIT_TX_COMPLETED = 2,
-	CANIT_ACK_ERROR = 3,
+	CANIT_RX_COMPLETED_DLCW = 0,	//!< Data length code warning.
+	CANIT_RX_COMPLETED = 1,			//!< Receive completed.
+	CANIT_TX_COMPLETED = 2,			//!< Transmit completed.
+	CANIT_ACK_ERROR = 3,			//!< No detection of the dominant bit in the acknowledge slot.
+
+	/**
+	* @brief
+	*	The form error results from one or more violations of the fixed
+	*	form in the following bit fields: 
+	*	+ CRC delimiter
+	*	+ Acknowledgment delimiter
+	*	+ EOF
+	*/
 	CANIT_FORM_ERROR = 4,
+	
+	/**
+	* @brief
+	*	The receiver performs a CRC check on every de-stuffed received message 
+	*	from the start of frame up to the data field.
+	*	If this checking does not match with the de-stuffed CRC field, a CRC error is set.
+	*/
 	CANIT_CRC_ERROR = 5,
-	CANIT_STUFF_ERROR = 6,
-	CANIT_BIT_ERROR = 7,
-	CANIT_DEFAULT = 8
+	CANIT_STUFF_ERROR = 6,			//!< Detection of more than five consecutive bits with same value.
+	CANIT_BIT_ERROR = 7,			//!< Bit Error (Only in Transmission).
+	CANIT_DEFAULT = 8				//!< This is hopefully temporarily. Should not be possible! Needs testing.
 };
 
 enum mob_mode_t {
-	MOB_DISABLED,
-	MOB_TRANSMIT,
-	MOB_RECIEVE,
+	MOB_DISABLED,			//!< In this mode, the MOb is “free”.
+	MOB_TRANSMIT,			//!< The mob is set in transmit mode.
+	MOB_RECIEVE,			//!< The mob is set in transcieve mode.
+
+	/**
+	* @brief
+	*	A reply (data frame) to a remote frame can be automatically
+	*	sent after reception of the expected remote frame.
+	*/
 	MOB_AUTOMATIC_REPLY,
+
+	/**
+	* @brief
+	*	This mode is useful to receive multi frames. The priority between MObs offers a management for
+	*	these incoming frames. One set MObs (including non-consecutive MObs) is created when the
+	*	MObs are set in this mode. Due to the mode setting, only one set is possible. A frame buffer
+	*	completed flag (or interrupt) - BXOK - will rise only when all the MObs of the set will have
+	*	received their dedicated CAN frame.
+	*/
 	MOB_FRAME_BUFF_RECEIVE
 };
 
