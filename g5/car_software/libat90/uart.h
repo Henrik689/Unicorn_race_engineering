@@ -35,8 +35,8 @@ more pleasent.
 #define uart0_getChar()	uart_getChar(UART_NUMBER_0)
 #define uart1_getChar()	uart_getChar(UART_NUMBER_1)
 
-#define uart0_txarr(arr, length)	(UART_NUMBER_0, (arr), (length))
-#define uart1_txarr(arr, length)	(UART_NUMBER_1, (arr), (length))
+#define uart0_txarr(arr, length)	uart_txarr(UART_NUMBER_0, (arr), (length))
+#define uart1_txarr(arr, length)	uart_txarr(UART_NUMBER_1, (arr), (length))
 
 #define uart0_txchar(c)		uart_txchar(UART_NUMBER_0, (c))
 #define uart1_txchar(c)		uart_txchar(UART_NUMBER_1, (c))

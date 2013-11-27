@@ -87,6 +87,8 @@ typedef struct can_msg_t {
 
 void set_canit_callback(enum can_int_t interrupt, void (*callback)(uint8_t mob));
 int can_setup(can_msg_t *msg);
+int can_receive(can_msg_t *msg);
+int can_send(can_msg_t *msg);
 
 void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc);
 void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc);

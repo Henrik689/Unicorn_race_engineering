@@ -18,6 +18,14 @@ void rx_complete(uint8_t mob);
 void tx_complete(uint8_t mob);
 void can_default(uint8_t mob);
 
+can_msg_t RxMsg = {
+	.mob = 8,
+	.id = 4,
+	.dlc = 7,
+
+	.mode = MOB_RECIEVE
+};
+
 int main(void)
 {
 	set_canit_callback(CANIT_RX_COMPLETED, rx_complete);
@@ -26,7 +34,7 @@ int main(void)
 
 	//Initialise the Gear node
 	ioinit();									//Port setup
-	uart1_init();					//Serial communication
+	uart1_init();								//Serial communication
 	CAN_INIT_RX();								//Can setup
     pwm16Init2();								//Setup PWM controller
 	counter0Init();								//Init interrupt counter to overflow with 168Hz
@@ -40,23 +48,25 @@ int main(void)
 
 	uart1_txstring("\r\n\r\n\r\nSTARTING \r\n");
 
-	can_msg_t msg = {
-		.mob = 8,
-		.id = 4,
-		.dlc = 7,
-
-		.mode = MOB_RECIEVE
-	};
-	can_setup(&msg);
+	can_setup(&RxMsg);
 
 	int i=0;
 	while(1){
 		// Main work loop
 		_delay_ms(250);
 
-		uint8_t msg[8] = {'H', 'E', 'Y', ' ', 'J', 'O', 'E'};
+		//uint8_t msg[8] = {'H', 'E', 'Y', ' ', 'J', 'O', 'E'};
 
-		setup_mob_tx(10, 4, &msg[0], 7);
+		//setup_mob_tx(10, 4, &msg[0], 7);
+
+		can_msg_t TxMsg = {
+			.mob = 10,
+			.id = 4,
+			.data = {'H', 'E', 'Y', ' ', 'J', 'O', 'E'},
+
+			.mode = MOB_TRANSMIT
+		};
+		can_send(&TxMsg);
 
 		uint16_t res = adc_readChannel(i);
 		uart1_printf("ADC channel %d = %d \r\n", i, res);	
@@ -71,11 +81,16 @@ int main(void)
 }
 
 void rx_complete(uint8_t mob) {
+	/*
 	uint8_t msg_buff[NB_DATA_MAX + 1] = {0};
 	can_get_data(&msg_buff[0]);	// Copy data to canDataTest
 	uart_printf(UART_NUMBER_1, "MOB_%d msg:%s\r\n", mob, msg_buff);
 	Can_clear_status_mob();		// and reset MOb status
-	BIT_SET(CANCDMOB, CONMOB1);	/* enable reception */
+	BIT_SET(CANCDMOB, CONMOB1);	// enable reception
+	*/
+
+	can_receive(&RxMsg);
+	uart1_txarr(RxMsg.data, RxMsg.dlc); uart1_txchar('\n');
 }
 
 void tx_complete(uint8_t mob) {

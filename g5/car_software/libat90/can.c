@@ -57,6 +57,17 @@ int can_receive(can_msg_t *msg){
 	return 0; // success
 }
 
+int can_send(can_msg_t *msg){
+	Can_set_mob(msg->mob);
+
+	Can_set_dlc(msg->dlc); // Set the expected payload length
+	CAN_TX_DATA(msg->data, msg->dlc);
+	Can_config_tx();
+	Can_set_mob_int(msg->mob);
+
+	return CANSTMOB;
+}
+
 /*
  * The Can_clear_mob() function clears the following registers:
  * CANSTMOB 			-- Contains interrupt status
