@@ -7,8 +7,8 @@
 //! Please read file license.txt for copyright notice.
 //!
 //! @brief This file contains the low level functions (drivers) of:
-//!             - CAN (Controller Array Network)
-//!             - for AT90CAN128/64/32
+//! 			- CAN (Controller Array Network)
+//! 			- for AT90CAN128/64/32
 //!
 //! This file can be parsed by Doxygen for automatic documentation generation.
 //! This file has been validated with AVRStudio-413528/WinAVR-20070122.
@@ -72,8 +72,8 @@ void can_clear_all_mob(void)
 //! @param  none.
 //!
 //! @return Handle of MOb.
-//!          - MOb[0] upto MOb[LAST_MOB_NB]
-//!          - 0xFF if no MOb
+//!			- MOb[0] upto MOb[LAST_MOB_NB]
+//!			- 0xFF if no MOb
 //------------------------------------------------------------------------------
 uint8_t can_get_mob_free(void)
 {
@@ -107,17 +107,17 @@ uint8_t can_get_mob_free(void)
 //! @param none.
 //!
 //! @return MOb Status.
-//!          -  MOB_NOT_COMPLETED
-//!          -  MOB_TX_COMPLETED
-//!          -  MOB_RX_COMPLETED
-//!          -  MOB_RX_DLC_WARNING
-//!          -  MOB_DISABLE
-//!          or should be a combination of the following errors
-//!          -  MOB_ACK_ERROR
-//!          -  MOB_FORM_ERROR
-//!          -  MOB_CRC_ERROR
-//!          -  MOB_STUFF_ERROR
-//!          -  MOB_BIT_ERROR
+//! 		-  MOB_NOT_COMPLETED
+//! 		-  MOB_TX_COMPLETED
+//! 		-  MOB_RX_COMPLETED
+//! 		-  MOB_RX_DLC_WARNING
+//! 		-  MOB_DISABLE
+//! 		or should be a combination of the following errors
+//! 		-  MOB_ACK_ERROR
+//! 		-  MOB_FORM_ERROR
+//! 		-  MOB_CRC_ERROR
+//! 		-  MOB_STUFF_ERROR
+//! 		-  MOB_BIT_ERROR
 //------------------------------------------------------------------------------
 uint8_t can_get_mob_status(void)
 {
@@ -181,12 +181,12 @@ void can_get_data(uint8_t* p_can_message_data)
 //! @warning complex function not yet implemented
 //!
 //! @param  Evaluation needed
-//!         ==0: start the evaluation from faster baudrate
-//!         ==1: (re)start an evaluation with CANBTx registers contents
+//! 		==0: start the evaluation from faster baudrate
+//! 		==1: (re)start an evaluation with CANBTx registers contents
 //!
 //! @return Baudrate Status
-//!         ==0: research of bit timing configuration failed
-//!         ==1: baudrate performed
+//! 		==0: research of bit timing configuration failed
+//! 		==1: baudrate performed
 //------------------------------------------------------------------------------
 uint8_t can_auto_baudrate (uint8_t mode)
 {
