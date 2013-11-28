@@ -19,7 +19,8 @@
 #define MASK_FULL_FILTERING	( (uint16_t){UINT16_MAX}	) //!< Only listen for the specified ID
 #define MASK_NO_FILTERING	( (uint16_t){0} 			) //!< Listen for all ID's (Eg a spynode)
 
-#define CAN_TX_DATA(data, len)	{ int i; for(i=0; i<len; i++){CANMSG = data[i];} }
+#define CAN_TX_DATA(data, len)	{ uint8_t i; for(i=0; i<len; i++){CANMSG = data[i];} }
+#define CAN_RX_DATA(data, len)	{ uint8_t i; for(i=0; i<len; i++){data[i] = CANMSG;} }
 
 #define READ_CANSIT 				( CANSIT2 + (CANSIT1 << 8) 		)
 #define MOB_HAS_PENDING_INT(mob)	( BIT_CHECK(READ_CANSIT, (mob)) )

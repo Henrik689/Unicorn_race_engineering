@@ -49,8 +49,11 @@ int can_receive(can_msg_t *msg){
 		Can_clear_status_mob();
 		return 2; // Error 
 	}
+	// Fill the msg with received data
+	Can_get_std_id(msg->id); 			// Fill in the msg id
+	msg->dlc = Can_get_dlc(); 			// Fill in the msg dlc
+	CAN_RX_DATA(msg->data, msg->dlc);	// Fill in the msg data
 
-	can_get_data(msg->data);
 	Can_clear_status_mob(); 	// and reset MOb status
 	BIT_SET(CANCDMOB, CONMOB1); // enable reception
 

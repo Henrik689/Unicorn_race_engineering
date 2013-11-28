@@ -18,13 +18,6 @@ void rx_complete(uint8_t mob);
 void tx_complete(uint8_t mob);
 void can_default(uint8_t mob);
 
-can_msg_t RxMsg = {
-	.mob = 8,
-	.id = 4,
-	.dlc = 7,
-
-	.mode = MOB_RECIEVE
-};
 
 int main(void)
 {
@@ -48,6 +41,13 @@ int main(void)
 
 	uart1_txstring("\r\n\r\n\r\nSTARTING \r\n");
 
+	can_msg_t RxMsg = {
+		.mob = 8,
+		.id = 4,
+		.dlc = 7,
+
+		.mode = MOB_RECIEVE
+	};
 	can_setup(&RxMsg);
 
 	int i=0;
@@ -89,8 +89,12 @@ void rx_complete(uint8_t mob) {
 	BIT_SET(CANCDMOB, CONMOB1);	// enable reception
 	*/
 
-	can_receive(&RxMsg);
-	uart1_txarr(RxMsg.data, RxMsg.dlc); uart1_txchar('\n');
+	can_msg_t msg = {
+		.mob = mob
+	};
+	can_receive(&msg);
+	uart1_printf( "Received id: %d on mob %d  :: ", msg.id, msg.mob);
+	uart1_txarr(msg.data, msg.dlc); uart1_txchar('\n');
 }
 
 void tx_complete(uint8_t mob) {
