@@ -47,13 +47,6 @@ typedef signed long long    S64;
 #define Align_up(val, n)   ( ((val)+(n)-1) & ~((n)-1) )
 #define Align_down(val, n) (  (val)        & ~((n)-1) )
 
-//! Bit and bytes manipulations
-#define Low(data_w)                ((U8)data_w)
-#define High(data_w)               ((U8)(data_w>>8))
-#define Tst_bit_x(addrx,mask)   (*addrx & mask)
-#define Set_bit_x(addrx,mask)   (*addrx = (*addrx |  mask))
-#define Clr_bit_x(addrx,mask)   (*addrx = (*addrx & ~mask))
-
 //! The default value to initialise pointers
 #define  NULL              ((void *)0)
 
