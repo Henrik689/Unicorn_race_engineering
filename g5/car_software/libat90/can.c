@@ -14,19 +14,20 @@ void set_canit_callback(enum can_int_t interrupt, void (*callback)(uint8_t mob))
 }
 
 int can_setup(can_msg_t *msg){
+	CAN_SET_MOB(msg->mob); // Move CANPAGE point the the given mob
+	
 	switch(msg->mode){
 		case MOB_DISABLED:
-			Can_mob_abort();
+			MOB_ABORT();
 			break;
 		case MOB_TRANSMIT:
 
 			break;
 		case MOB_RECIEVE:
-			Can_set_mob(msg->mob); // Move CANPAGE point the the given mob
-			Can_set_std_id(msg->id);
-			Can_set_std_msk(MASK_FULL_FILTERING); 
-			Can_config_rx(); // OSBS!! we are configuring specifically for mode MOB_TRANSMIT
-			Can_set_mob_int(msg->mob);
+			MOB_SET_STD_ID(msg->id);
+			MOB_SET_STD_MASK_FILTER(MASK_FULL_FILTERING); 
+			Can_config_rx(); // OSBS!! we are configuring specifically for mode MOB_RECIEVE
+			CAN_ENABLE_MOB_INTERRUPT(msg->mob);
 			break;
 		case MOB_AUTOMATIC_REPLY:
 			break;
@@ -43,30 +44,30 @@ int can_receive(can_msg_t *msg){
 	if ( !MOB_HAS_PENDING_INT(msg->mob) ){
 		return 1; // Error no pending interrupt
 	}
-	Can_set_mob(msg->mob);
+	CAN_SET_MOB(msg->mob);
 
 	if ( !((CANSTMOB == MOB_RX_COMPLETED_DLCW) || (CANSTMOB == MOB_RX_COMPLETED)) ) {
-		Can_clear_status_mob();
+		CAN_CLEAR_STATUS_MOB();
 		return 2; // Error 
 	}
 	// Fill the msg with received data
-	Can_get_std_id(msg->id); 			// Fill in the msg id
-	msg->dlc = Can_get_dlc(); 			// Fill in the msg dlc
+	MOB_SET_STD_ID(msg->id); 			// Fill in the msg id
+	msg->dlc = CAN_GET_DLC(); 			// Fill in the msg dlc
 	CAN_RX_DATA(msg->data, msg->dlc);	// Fill in the msg data
 
-	Can_clear_status_mob(); 	// and reset MOb status
+	CAN_CLEAR_STATUS_MOB(); 	// and reset MOb status
 	BIT_SET(CANCDMOB, CONMOB1); // enable reception
 
 	return 0; // success
 }
 
 int can_send(can_msg_t *msg){
-	Can_set_mob(msg->mob);
+	CAN_SET_MOB(msg->mob);
 
-	Can_set_dlc(msg->dlc); // Set the expected payload length
+	MOB_SET_DLC(msg->dlc); // Set the expected payload length
 	CAN_TX_DATA(msg->data, msg->dlc);
 	Can_config_tx();
-	Can_set_mob_int(msg->mob);
+	CAN_ENABLE_MOB_INTERRUPT(msg->mob);
 
 	return CANSTMOB;
 }
@@ -82,13 +83,13 @@ int can_send(can_msg_t *msg){
 	//Can_set_rtrmsk();							/* Remote Transmission Request - comparison true forced */
 	//Can_set_idemsk();							/* Identifier Extension - comparison true forced */
 	//clear_mob_status(mob);					/* Described above */
-
+/*
 void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc) {
 	set_mob_id(mob, id);
 	set_mob_mask(mob, (uint16_t){UINT16_MAX});
 	set_mob_dlc(mob, dlc);
 	set_mob_mode(mob, 2);
-	Can_set_mob_int(mob);						/* Enable interrupt for MOB */
+	Can_set_mob_int(mob);						// Enable interrupt for MOB
 }
 
 void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc) {
@@ -96,36 +97,36 @@ void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc) {
 	set_mob_dlc(mob, dlc);
 	set_data_reg(mob, data, dlc);
 	set_mob_mode(mob, 1);
-	Can_set_mob_int(mob);						/* Enable interrupt for MOB */
+	Can_set_mob_int(mob);						// Enable interrupt for MOB
 }
 
 void set_data_reg(uint8_t mob, uint8_t *data, uint8_t dlc) {
-	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	Can_set_mob(mob);							// Move CANPAGE to point at given MOB
 	CAN_TX_DATA(data, dlc);
 }
 
 void set_mob_dlc(uint8_t mob, uint8_t dlc) {
-	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
-	Can_set_dlc(dlc);							/* Expected msg length*/
+	Can_set_mob(mob);							// Move CANPAGE to point at given MOB 
+	Can_set_dlc(dlc);							// Expected msg length
 }
 
 void set_mob_id(uint8_t mob, uint16_t id) {
-	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
-	Can_set_std_id(id);							/* Sets the id */
+	Can_set_mob(mob);							// Move CANPAGE to point at given MOB 
+	Can_set_std_id(id);							// Sets the id
 }
 
 void set_mob_mask(uint8_t mob, uint16_t mask) {
-	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
-	Can_set_std_msk(mask);						/* The mask is used to define the range of accepted IDs */
+	Can_set_mob(mob);							// Move CANPAGE to point at given MOB 
+	Can_set_std_msk(mask);						// The mask is used to define the range of accepted IDs 
 }
 
 void clear_mob_status(uint8_t mob) {
-	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
-	Can_clear_mob();							/* Clear ALL status registers for MOB*/
+	Can_set_mob(mob);							// Move CANPAGE to point at given MOB 
+	Can_clear_mob();							// Clear ALL status registers for MOB
 }
 
 void set_mob_mode(uint8_t mob, enum mob_mode_t mode) {
-	Can_set_mob(mob);							/* Move CANPAGE to point at given MOB */
+	Can_set_mob(mob);							// Move CANPAGE to point at given MOB 
 	switch (mode) {
 		case MOB_DISABLED:
 			DISABLE_MOB;
@@ -143,14 +144,14 @@ void set_mob_mode(uint8_t mob, enum mob_mode_t mode) {
 			break;
 	}
 }
-
+*/
 ISR (CANIT_vect) {
-	int mob;
+	uint8_t mob;
 
 	// Loop over each MOB and check if it have pending interrupt
 	for (mob = 0; mob <= LAST_MOB_NB; mob++) {
 		if (MOB_HAS_PENDING_INT(mob)) { /* True if mob have pending interrupt */
-			Can_set_mob(mob); /* Switch to mob */
+			CAN_SET_MOB(mob); // Switch to mob
 
 			switch (CANSTMOB) {
 				case MOB_RX_COMPLETED_DLCW:

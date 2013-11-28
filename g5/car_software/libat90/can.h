@@ -19,12 +19,24 @@
 #define MASK_FULL_FILTERING	( (uint16_t){UINT16_MAX}	) //!< Only listen for the specified ID
 #define MASK_NO_FILTERING	( (uint16_t){0} 			) //!< Listen for all ID's (Eg a spynode)
 
-#define CAN_TX_DATA(data, len)	{ uint8_t i; for(i=0; i<len; i++){CANMSG = data[i];} }
-#define CAN_RX_DATA(data, len)	{ uint8_t i; for(i=0; i<len; i++){data[i] = CANMSG;} }
+#define CAN_TX_DATA(data, len)	{ uint8_t i; for(i=0; i<len; i++){CANMSG = data[i];} } //!< Put data onto the can
+#define CAN_RX_DATA(data, len)	{ uint8_t i; for(i=0; i<len; i++){data[i] = CANMSG;} } //!< Get data from the can
 
-#define READ_CANSIT 				( CANSIT2 + (CANSIT1 << 8) 		)
-#define MOB_HAS_PENDING_INT(mob)	( BIT_CHECK(READ_CANSIT, (mob)) )
+#define READ_CANSIT 				( CANSIT2 + (CANSIT1 << 8) 		) //!< The CANSIT holds infomation about what mob has fired an interrupt. This combines it into a single 16bit variable.
+#define MOB_HAS_PENDING_INT(mob)	( BIT_CHECK(READ_CANSIT, (mob)) ) //!< Check if the given mob has a pending interrupt.
 
+// -------------- New wrappers
+#define CAN_SET_MOB(mob)				( Can_set_mob((mob)) 		)
+#define CAN_ENABLE_MOB_INTERRUPT(mob)	( Can_set_mob_int((mob)) 	)
+#define CAN_CLEAR_STATUS_MOB()			( Can_clear_status_mob() 	)
+#define CAN_GET_DLC()					( Can_get_dlc() 			)
+
+#define MOB_SET_DLC(dlc)				( Can_set_dlc((dlc)) 		)
+#define MOB_SET_STD_ID(id)				( Can_set_std_id((id)) 		)
+#define MOB_SET_STD_MASK_FILTER(mask)	( Can_set_std_msk((mask)) 	)
+#define MOB_CLEAR_STATUS()				( Can_clear_mob()			)
+#define MOB_ABORT()						( Can_mob_abort() 			)
+// -------------- End New Wrappers
 
 enum can_int_t {
 	CANIT_RX_COMPLETED_DLCW = 0,	//!< Data length code warning.

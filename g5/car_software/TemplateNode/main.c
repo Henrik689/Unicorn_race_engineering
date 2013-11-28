@@ -93,7 +93,7 @@ void rx_complete(uint8_t mob) {
 		.mob = mob
 	};
 	can_receive(&msg);
-	uart1_printf( "Received id: %d on mob %d  :: ", msg.id, msg.mob);
+	uart1_printf("Received id: %d on mob %d  :: ", msg.id, msg.mob);
 	uart1_txarr(msg.data, msg.dlc); uart1_txchar('\n');
 }
 
