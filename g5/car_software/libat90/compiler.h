@@ -35,33 +35,10 @@ typedef signed short        S16;
 typedef signed long         S32;
 typedef signed long long    S64;
 
-//_____ M A C R O S ____________________________________________________________
 
-//! Some usefull macros...
-    // Max(a, b): Take the max between a and b
-    // Min(a, b): Take the min between a and b
-    // Align_up(val, n):   Around (up)   the number (val) on the (n) boundary
-    // Align_down(val, n): Around (down) the number (val) on the (n) boundary
+// Max(a, b): Take the max between a and b
+// Min(a, b): Take the min between a and b
 #define Max(a, b)          ( (a)>(b) ? (a) : (b) )
 #define Min(a, b)          ( (a)<(b) ? (a) : (b) )
-#define Align_up(val, n)   ( ((val)+(n)-1) & ~((n)-1) )
-#define Align_down(val, n) (  (val)        & ~((n)-1) )
-
-//! The default value to initialise pointers
-#define  NULL              ((void *)0)
-
-//! Constants
-#define ENABLE   1
-#define ENABLED  1
-#define DISABLED 0
-#define DISABLE  0
-#define KO      0
-#define OK      1
-#define CLR     0
-#define SET     1
-#define OFF     0
-#define ON      1
-
-//______________________________________________________________________________
 
 #endif // _COMPILER_H_
