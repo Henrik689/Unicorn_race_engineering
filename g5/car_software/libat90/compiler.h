@@ -22,20 +22,6 @@
 #ifndef _COMPILER_H_
 #define _COMPILER_H_
 
-//_____ D E C L A R A T I O N S ________________________________________________
-
-typedef unsigned char      Bool;
-
-typedef unsigned char       U8 ;
-typedef unsigned short      U16;
-typedef unsigned long       U32;
-typedef unsigned long long  U64;
-typedef signed char         S8 ;
-typedef signed short        S16;
-typedef signed long         S32;
-typedef signed long long    S64;
-
-
 // Max(a, b): Take the max between a and b
 // Min(a, b): Take the min between a and b
 #define Max(a, b)          ( (a)>(b) ? (a) : (b) )

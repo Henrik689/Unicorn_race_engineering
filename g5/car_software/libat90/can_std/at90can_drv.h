@@ -23,8 +23,8 @@
 //_____ I N C L U D E S ________________________________________________________
 
 //_____ D E F I N I T I O N S __________________________________________________
-#define     SRAM_BYTE_AT        *(U8*)
-#define     REG_BYTE_AT         *(U8 volatile*)
+#define     SRAM_BYTE_AT        *(uint8_t*)
+#define     REG_BYTE_AT         *(uint8_t volatile*)
 
 //_____ D E C L A R A T I O N S ________________________________________________
 

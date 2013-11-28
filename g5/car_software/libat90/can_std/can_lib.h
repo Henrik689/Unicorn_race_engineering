@@ -68,17 +68,17 @@ typedef enum {
 // @brief This union defines a CAN identifier and allows to access it in mode
 // standart, extended or throught a table.
 typedef union{
-  U32 ext;
-  U16 std;
-  U8  tab[4]; /*NOTE: doesn't seem to be used anywhere...*/
+  uint32_t ext;
+  uint16_t std;
+  uint8_t  tab[4]; /*NOTE: doesn't seem to be used anywhere...*/
 } can_id_t; 
 
 // ----------
 // @brief This structure defines some specific information as RTR bit and
 // IDE bit
 typedef struct{
-  Bool rtr;
-  Bool ide;
+  uint8_t rtr;
+  uint8_t ide;
 } can_ctrl_t;
 
 // ----------
@@ -94,14 +94,14 @@ typedef struct{
 // 6) status:  manage by the library.
 // 7) ctrl  :  field ide to signal a extended frame .
 typedef struct{
-  U8         handle; 
+  uint8_t         handle; 
   can_cmd_t  cmd; 
   can_id_t   id;
-  U8         dlc;  
-  U8*        pt_data; 
-  U8         status; 
+  uint8_t         dlc;  
+  uint8_t*        pt_data; 
+  uint8_t         status; 
   can_ctrl_t ctrl;   
-  U8	     blocking;
+  uint8_t	     blocking;
 } st_cmd_t;
 
 
@@ -126,7 +126,7 @@ typedef struct{
 //!         ==0: research of bit timing configuration failed
 //!         ==1: baudrate performed 
 //!
-extern U8 can_init(U8 mode);
+extern uint8_t can_init(uint8_t mode);
 
 //------------------------------------------------------------------------------
 //  @fn can_cmd
@@ -146,7 +146,7 @@ extern U8 can_init(U8 mode);
 //! @return CAN_CMD_ACCEPTED - command is accepted
 //!         CAN_CMD_REFUSED  - command is refused
 //!
-extern U8 can_cmd (st_cmd_t *);
+extern uint8_t can_cmd (st_cmd_t *);
 
 //------------------------------------------------------------------------------
 //  @fn can_get_status
@@ -163,7 +163,7 @@ extern U8 can_cmd (st_cmd_t *);
 //!         CAN_STATUS_ERROR         - Error in configuration or in the
 //!                                    CAN communication
 //!
-extern U8 can_get_status (st_cmd_t *); 
+extern uint8_t can_get_status (st_cmd_t *); 
 
 //______________________________________________________________________________
 

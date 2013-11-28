@@ -49,7 +49,7 @@
 //!         ==1: baudrate performed 
 //!
 //------------------------------------------------------------------------------
-U8 can_init(U8 mode)
+uint8_t can_init(uint8_t mode)
 {
     if ((Can_bit_timing(mode))==0) return (0);  // c.f. macro in "can_drv.h"
     can_clear_all_mob();                        // c.f. function in "can_drv.c"
@@ -76,10 +76,10 @@ U8 can_init(U8 mode)
 //!         CAN_CMD_REFUSED  - command is refused
 //!
 //------------------------------------------------------------------------------
-U8 can_cmd(st_cmd_t* cmd)
+uint8_t can_cmd(st_cmd_t* cmd)
 {
-	U8 mob_handle, cpt;
-	U32 u32_temp;
+	uint8_t mob_handle, cpt;
+	uint32_t u32_temp;
 
 	if (cmd->cmd == CMD_ABORT) {
 		if (cmd->status == MOB_PENDING) {
@@ -239,9 +239,9 @@ U8 can_cmd(st_cmd_t* cmd)
 //!                                    CAN communication
 //!
 //------------------------------------------------------------------------------
-U8 can_get_status (st_cmd_t* cmd)
+uint8_t can_get_status (st_cmd_t* cmd)
 {
-    U8 a_status, rtn_val;
+    uint8_t a_status, rtn_val;
      
     a_status = cmd->status;
     if ((a_status==STATUS_CLEARED)||(a_status==MOB_NOT_REACHED)||(a_status==MOB_DISABLE))

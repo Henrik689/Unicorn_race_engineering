@@ -243,7 +243,7 @@ typedef enum {
 #define Can_set_mask_mob()     {  CANIDM4=0xFF; CANIDM3=0xFF; CANIDM2=0xFF; CANIDM1=0xFF; }
 #define Can_clear_mask_mob()   {  CANIDM4=0x00; CANIDM3=0x00; CANIDM2=0x00; CANIDM1=0x00; }
 #define Can_clear_status_mob() { CANSTMOB=0x00; }
-#define Can_clear_mob()        { U8  volatile *__i_; for (__i_=&CANSTMOB; __i_<&CANSTML; __i_++) { *__i_=0x00 ;}}
+#define Can_clear_mob()        { uint8_t  volatile *__i_; for (__i_=&CANSTMOB; __i_<&CANSTML; __i_++) { *__i_=0x00 ;}}
     // ----------
 #define Can_mob_abort()   ( DISABLE_MOB )
     // ----------
@@ -273,18 +273,18 @@ typedef enum {
 #define Can_clear_idemsk() ( CANIDM4 &= ~(1<<IDEMSK) )
     // ----------
                 //!< STD ID TAG Reading
-#define Can_get_std_id(identifier)  { *((U8 *)(&(identifier))+1) =  CANIDT1>>5              ; \
-                                      *((U8 *)(&(identifier))  ) = (CANIDT2>>5)+(CANIDT1<<3); }
+#define Can_get_std_id(identifier)  { *((uint8_t *)(&(identifier))+1) =  CANIDT1>>5              ; \
+                                      *((uint8_t *)(&(identifier))  ) = (CANIDT2>>5)+(CANIDT1<<3); }
     // ----------
                 //!< EXT ID TAG Reading
-#define Can_get_ext_id(identifier)  { *((U8 *)(&(identifier))+3) =  CANIDT1>>3              ; \
-                                      *((U8 *)(&(identifier))+2) = (CANIDT2>>3)+(CANIDT1<<5); \
-                                      *((U8 *)(&(identifier))+1) = (CANIDT3>>3)+(CANIDT2<<5); \
-                                      *((U8 *)(&(identifier))  ) = (CANIDT4>>3)+(CANIDT3<<5); }
+#define Can_get_ext_id(identifier)  { *((uint8_t *)(&(identifier))+3) =  CANIDT1>>3              ; \
+                                      *((uint8_t *)(&(identifier))+2) = (CANIDT2>>3)+(CANIDT1<<5); \
+                                      *((uint8_t *)(&(identifier))+1) = (CANIDT3>>3)+(CANIDT2<<5); \
+                                      *((uint8_t *)(&(identifier))  ) = (CANIDT4>>3)+(CANIDT3<<5); }
     // ----------
                 //!< STD ID Construction
-#define CAN_SET_STD_ID_10_4(identifier)  (((*((U8 *)(&(identifier))+1))<<5)+((* (U8 *)(&(identifier)))>>3))
-#define CAN_SET_STD_ID_3_0( identifier)  (( * (U8 *)(&(identifier))   )<<5)
+#define CAN_SET_STD_ID_10_4(identifier)  (((*((uint8_t *)(&(identifier))+1))<<5)+((* (uint8_t *)(&(identifier)))>>3))
+#define CAN_SET_STD_ID_3_0( identifier)  (( * (uint8_t *)(&(identifier))   )<<5)
     // ----------
                 //!< STD ID TAG writing
 #define Can_set_std_id(identifier)  { CANIDT1   = CAN_SET_STD_ID_10_4(identifier); \
@@ -296,10 +296,10 @@ typedef enum {
                                       CANIDM2   = CAN_SET_STD_ID_3_0( mask); }
     // ----------
                 //!< EXT ID Construction
-#define CAN_SET_EXT_ID_28_21(identifier)  (((*((U8 *)(&(identifier))+3))<<3)+((*((U8 *)(&(identifier))+2))>>5))
-#define CAN_SET_EXT_ID_20_13(identifier)  (((*((U8 *)(&(identifier))+2))<<3)+((*((U8 *)(&(identifier))+1))>>5))
-#define CAN_SET_EXT_ID_12_5( identifier)  (((*((U8 *)(&(identifier))+1))<<3)+((* (U8 *)(&(identifier))   )>>5))
-#define CAN_SET_EXT_ID_4_0(  identifier)   ((* (U8 *)(&(identifier))   )<<3)
+#define CAN_SET_EXT_ID_28_21(identifier)  (((*((uint8_t *)(&(identifier))+3))<<3)+((*((uint8_t *)(&(identifier))+2))>>5))
+#define CAN_SET_EXT_ID_20_13(identifier)  (((*((uint8_t *)(&(identifier))+2))<<3)+((*((uint8_t *)(&(identifier))+1))>>5))
+#define CAN_SET_EXT_ID_12_5( identifier)  (((*((uint8_t *)(&(identifier))+1))<<3)+((* (uint8_t *)(&(identifier))   )>>5))
+#define CAN_SET_EXT_ID_4_0(  identifier)   ((* (uint8_t *)(&(identifier))   )<<3)
     // ----------
                 //!< EXT ID TAG writing
 #define Can_set_ext_id(identifier)  { CANIDT1   = CAN_SET_EXT_ID_28_21(identifier); \
@@ -354,7 +354,7 @@ extern  void can_clear_all_mob(void);
 //!          - MOb[0] upto MOb[LAST_MOB_NB]
 //!          - 0xFF if no MOb
 //!
-extern  U8 can_get_mob_free(void);
+extern  uint8_t can_get_mob_free(void);
 
 //------------------------------------------------------------------------------
 //  @fn can_get_mob_status
@@ -382,7 +382,7 @@ extern  U8 can_get_mob_free(void);
 //!          -  MOB_STUFF_ERROR
 //!          -  MOB_BIT_ERROR
 //!
-extern  U8 can_get_mob_status(void);
+extern  uint8_t can_get_mob_status(void);
 
 //------------------------------------------------------------------------------
 //  @fn can_get_data
@@ -396,7 +396,7 @@ extern  U8 can_get_mob_status(void);
 //!
 //! @return none.
 //!
-extern  void can_get_data(U8* p_can_message_data);
+extern  void can_get_data(uint8_t* p_can_message_data);
 
 //------------------------------------------------------------------------------
 //  @fn can_auto_baudrate
@@ -414,7 +414,7 @@ extern  void can_get_data(U8* p_can_message_data);
 //!         ==0: research of bit timing configuration failed
 //!         ==1: baudrate performed
 //!
-extern  U8 can_auto_baudrate(U8 eval);
+extern  uint8_t can_auto_baudrate(uint8_t eval);
 
 
 //------------------------------------------------------------------------------
@@ -430,7 +430,7 @@ extern  U8 can_auto_baudrate(U8 eval);
 //! @return Baudrate Status
 //!         fixed = 1: baudrate performed
 //!
-extern U8 can_fixed_baudrate(U8 eval);
+extern uint8_t can_fixed_baudrate(uint8_t eval);
 
 //______________________________________________________________________________
 

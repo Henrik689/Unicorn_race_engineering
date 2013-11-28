@@ -43,9 +43,9 @@
 //------------------------------------------------------------------------------
 void can_clear_all_mob(void)
 {
-U8  mob_number;
+uint8_t mob_number;
 /*
-    U8  data_index;
+    uint8_t  data_index;
 */
 
     for (mob_number = 0; mob_number < NB_MOB; mob_number++)
@@ -75,9 +75,9 @@ U8  mob_number;
 //!          - MOb[0] upto MOb[LAST_MOB_NB]
 //!          - 0xFF if no MOb
 //------------------------------------------------------------------------------
-U8 can_get_mob_free(void)
+uint8_t can_get_mob_free(void)
 {
-    U8 mob_number, page_saved;
+    uint8_t mob_number, page_saved;
 
     page_saved = CANPAGE;
     for (mob_number = 0; mob_number < NB_MOB; mob_number++)
@@ -119,9 +119,9 @@ U8 can_get_mob_free(void)
 //!          -  MOB_STUFF_ERROR
 //!          -  MOB_BIT_ERROR
 //------------------------------------------------------------------------------
-U8 can_get_mob_status(void)
+uint8_t can_get_mob_status(void)
 {
-    U8 mob_status, canstmob_copy;
+    uint8_t mob_status, canstmob_copy;
 
     // Test if MOb ENABLE or DISABLE
     if ((CANCDMOB & 0xC0) == 0x00) {return(MOB_DISABLE);}
@@ -162,9 +162,9 @@ U8 can_get_mob_status(void)
 //!
 //! @return none.
 //------------------------------------------------------------------------------
-void can_get_data(U8* p_can_message_data)
+void can_get_data(uint8_t* p_can_message_data)
 {
-    U8 data_index;
+    uint8_t data_index;
 
     for (data_index = 0; data_index < (Can_get_dlc()); data_index++)
     {
@@ -188,16 +188,16 @@ void can_get_data(U8* p_can_message_data)
 //!         ==0: research of bit timing configuration failed
 //!         ==1: baudrate performed
 //------------------------------------------------------------------------------
-U8 can_auto_baudrate (U8 mode)
+uint8_t can_auto_baudrate (uint8_t mode)
 {
-    U8  u8_temp0;                               //! Temporary variable
-    U8  brp, prs, ntq, phs1, phs2;              //! Bit timing segment variables
-    U8  phs1_inc;                               //! Computing needed
-    U8  bt_not_found, wait_for_rx, evaluate;    //! Keys for "while()" loops
-    U8  try_conf;                               //! Key for configurate CAN
-    U8  ovrtim_flag=0;                          //! Timer overflow count
-    U16 conf_index;                             //! Count of bit timing configuration tried
-    U8  bt_performed;                           //! Return flag
+    uint8_t  u8_temp0;                               //! Temporary variable
+    uint8_t  brp, prs, ntq, phs1, phs2;              //! Bit timing segment variables
+    uint8_t  phs1_inc;                               //! Computing needed
+    uint8_t  bt_not_found, wait_for_rx, evaluate;    //! Keys for "while()" loops
+    uint8_t  try_conf;                               //! Key for configurate CAN
+    uint8_t  ovrtim_flag=0;                          //! Timer overflow count
+    uint16_t conf_index;                             //! Count of bit timing configuration tried
+    uint8_t  bt_performed;                           //! Return flag
 
     //! --- Default setting
     phs1_inc = evaluate = 0;
@@ -253,7 +253,7 @@ U8 can_auto_baudrate (U8 mode)
             //!     There are 641 (0x281) possible evaluations. The first one provides the faster
             //!         the faster bit timing, the last one gives the slower. It is necessary to
             //!         modulate the time-out versus bit timing (0x281>>3=0x50, matching an U8).
-            CANTCON = (U8)(conf_index >> 3);
+            CANTCON = (uint8_t)(conf_index >> 3);
 
             //! --- MOb configuration
             Can_set_mob(MOB_0);                 //! Use MOb-0
@@ -404,7 +404,7 @@ U8 can_auto_baudrate (U8 mode)
 //! @return Baudrate Status
 //!         fixed = 1: baudrate performed
 //------------------------------------------------------------------------------
-U8 can_fixed_baudrate(U8 mode)
+uint8_t can_fixed_baudrate(uint8_t mode)
 {
     Can_reset();
     Can_conf_bt();
