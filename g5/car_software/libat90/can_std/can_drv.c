@@ -410,27 +410,3 @@ uint8_t can_fixed_baudrate(uint8_t mode)
     Can_conf_bt();
     return 1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
