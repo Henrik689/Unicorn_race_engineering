@@ -81,14 +81,6 @@ int main(void)
 }
 
 void rx_complete(uint8_t mob) {
-	/*
-	uint8_t msg_buff[NB_DATA_MAX + 1] = {0};
-	can_get_data(&msg_buff[0]);	// Copy data to canDataTest
-	uart_printf(UART_NUMBER_1, "MOB_%d msg:%s\r\n", mob, msg_buff);
-	CAN_CLEAR_STATUS_MOB();		// and reset MOb status
-	BIT_SET(CANCDMOB, CONMOB1);	// enable reception
-	*/
-
 	can_msg_t msg = {
 		.mob = mob
 	};

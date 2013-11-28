@@ -83,68 +83,7 @@ int can_send(can_msg_t *msg){
 	//Can_set_rtrmsk();							/* Remote Transmission Request - comparison true forced */
 	//Can_set_idemsk();							/* Identifier Extension - comparison true forced */
 	//clear_mob_status(mob);					/* Described above */
-/*
-void setup_mob_rx(uint8_t mob, uint16_t id, uint8_t dlc) {
-	set_mob_id(mob, id);
-	set_mob_mask(mob, (uint16_t){UINT16_MAX});
-	set_mob_dlc(mob, dlc);
-	set_mob_mode(mob, 2);
-	Can_set_mob_int(mob);						// Enable interrupt for MOB
-}
 
-void setup_mob_tx(uint8_t mob, uint16_t id, uint8_t *data, uint8_t dlc) {
-	set_mob_id(mob, id);
-	set_mob_dlc(mob, dlc);
-	set_data_reg(mob, data, dlc);
-	set_mob_mode(mob, 1);
-	Can_set_mob_int(mob);						// Enable interrupt for MOB
-}
-
-void set_data_reg(uint8_t mob, uint8_t *data, uint8_t dlc) {
-	Can_set_mob(mob);							// Move CANPAGE to point at given MOB
-	CAN_TX_DATA(data, dlc);
-}
-
-void set_mob_dlc(uint8_t mob, uint8_t dlc) {
-	Can_set_mob(mob);							// Move CANPAGE to point at given MOB 
-	Can_set_dlc(dlc);							// Expected msg length
-}
-
-void set_mob_id(uint8_t mob, uint16_t id) {
-	Can_set_mob(mob);							// Move CANPAGE to point at given MOB 
-	Can_set_std_id(id);							// Sets the id
-}
-
-void set_mob_mask(uint8_t mob, uint16_t mask) {
-	Can_set_mob(mob);							// Move CANPAGE to point at given MOB 
-	Can_set_std_msk(mask);						// The mask is used to define the range of accepted IDs 
-}
-
-void clear_mob_status(uint8_t mob) {
-	Can_set_mob(mob);							// Move CANPAGE to point at given MOB 
-	Can_clear_mob();							// Clear ALL status registers for MOB
-}
-
-void set_mob_mode(uint8_t mob, enum mob_mode_t mode) {
-	Can_set_mob(mob);							// Move CANPAGE to point at given MOB 
-	switch (mode) {
-		case MOB_DISABLED:
-			DISABLE_MOB;
-			break;
-		case MOB_TRANSMIT:
-			Can_config_tx();
-			break;
-		case MOB_RECIEVE:
-			Can_config_rx();
-			break;
-		case MOB_AUTOMATIC_REPLY:
-			break;
-		case MOB_FRAME_BUFF_RECEIVE:
-			Can_config_rx_buffer();
-			break;
-	}
-}
-*/
 ISR (CANIT_vect) {
 	uint8_t mob;
 
