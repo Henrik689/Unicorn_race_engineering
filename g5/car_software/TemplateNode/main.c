@@ -85,7 +85,7 @@ void rx_complete(uint8_t mob) {
 	uint8_t msg_buff[NB_DATA_MAX + 1] = {0};
 	can_get_data(&msg_buff[0]);	// Copy data to canDataTest
 	uart_printf(UART_NUMBER_1, "MOB_%d msg:%s\r\n", mob, msg_buff);
-	Can_clear_status_mob();		// and reset MOb status
+	CAN_CLEAR_STATUS_MOB();		// and reset MOb status
 	BIT_SET(CANCDMOB, CONMOB1);	// enable reception
 	*/
 
@@ -98,11 +98,11 @@ void rx_complete(uint8_t mob) {
 }
 
 void tx_complete(uint8_t mob) {
-	Can_mob_abort();		// Freed the MOB
-	Can_clear_status_mob();	// and reset MOb status	
-	Can_unset_mob_int(mob);	// Unset interrupt
+	MOB_ABORT();		// Freed the MOB
+	CAN_CLEAR_STATUS_MOB();	// and reset MOb status	
+	CAN_DISABLE_MOB_INTERRUPT(mob);	// Unset interrupt
 }
 
 void can_default(uint8_t mob) {
-	Can_clear_status_mob(); // and reset MOb status
+	CAN_CLEAR_STATUS_MOB(); // and reset MOb status
 }

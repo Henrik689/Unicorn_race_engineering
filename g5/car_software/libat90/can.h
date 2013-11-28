@@ -28,6 +28,7 @@
 // -------------- New wrappers
 #define CAN_SET_MOB(mob)				( Can_set_mob((mob)) 		)
 #define CAN_ENABLE_MOB_INTERRUPT(mob)	( Can_set_mob_int((mob)) 	)
+#define CAN_DISABLE_MOB_INTERRUPT(mob)	( Can_unset_mob_int((mob)) 	)
 #define CAN_CLEAR_STATUS_MOB()			( Can_clear_status_mob() 	)
 #define CAN_GET_DLC()					( Can_get_dlc() 			)
 
