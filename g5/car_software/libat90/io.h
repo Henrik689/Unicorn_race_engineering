@@ -13,6 +13,7 @@
 #define LOW 	0
 
 #define DDR_PORT(port)	(*(&(port) - 1)) //!< Maps a given PORT to the corrisponding DDR eg. PORTA -> DDRA
+#define PIN_PORT(port)	(*(&(port) - 2)) //!< Maps a given PORT to the corrisponding PIN eg. PORTA -> PINA
 
 /**
 * @brief
