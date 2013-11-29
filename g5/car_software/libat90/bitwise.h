@@ -9,13 +9,23 @@
 #ifndef BITWISE_H
 #define BITWISE_H
 
-/* a=target variable, b=bit number to act upon 0-n */
-#define BIT_SET(a,b) 		( (a) |= (1<<(b))		) 
-#define BIT_CLEAR(a,b) 		( (a) &= ~(1<<(b))		)
-#define BIT_FLIP(a,b) 		( (a) ^= (1<<(b))		)
-#define BIT_CHECK(var,pos) 	( (var) & (1<<(pos))	)
+/** @name Bit operations
+* Does operation on the specified bit
+* where a=target, b=bit number to act on
+* @{
+*/
+#define BIT_SET(a,b) 		( (a) |= (1<<(b))	) 
+#define BIT_CLEAR(a,b) 		( (a) &= ~(1<<(b))	)
+#define BIT_FLIP(a,b) 		( (a) ^= (1<<(b))	)
+#define BIT_CHECK(a,b) 		( (a) & (1<<(b))	)
+/**@}*/
 
-/* x=target variable, y=mask */
+/** @name Bit mask operations
+* Does operation on the specified target
+* according to the mask where
+* x=target, y=mask
+* @{
+*/
 #define BITMASK_SET(x,y) 	( (x) |= (y)	)
 #define BITMASK_CLEAR(x,y) 	( (x) &= (~(y))	)
 #define BITMASK_FLIP(x,y) 	( (x) ^= (y)	)
@@ -33,9 +43,9 @@
 *	Conditional flag
 */
 #define BITMASK_SET_OR_CLEAR(w, m, f) ( (w) ^= (-(f) ^ (w)) & (m) )
+/**@}*/
 
-
-#define IS_POW2(x) 				( (x) && !((x) & ((x) - 1))	)
-#define HAS_OPPSITE_SIGN(x, y)	( (((x) ^ (y)) < 0) )
+#define IS_POW2(x) 				( (x) && !((x) & ((x) - 1))	) //!< Check if x is a power of 2
+#define HAS_OPPSITE_SIGN(x, y)	( (((x) ^ (y)) < 0) ) //!< check if x and y has opposite sign
 
 #endif /* BITWISE_H */
