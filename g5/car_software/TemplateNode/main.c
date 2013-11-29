@@ -39,7 +39,7 @@ int main(void)
 	ADC_ENABLE();
 	adc_setPrescaler(ADC_PRESCALAR_128);
 
-	uart1_txstring("\r\n\r\n\r\nSTARTING \r\n");
+	uart1_printf("\n\n\nSTARTING\n");
 
 	can_msg_t RxMsg = {
 		.mob = 8,
@@ -55,10 +55,6 @@ int main(void)
 		// Main work loop
 		_delay_ms(250);
 
-		//uint8_t msg[8] = {'H', 'E', 'Y', ' ', 'J', 'O', 'E'};
-
-		//setup_mob_tx(10, 4, &msg[0], 7);
-
 		can_msg_t TxMsg = {
 			.mob = 10,
 			.id = 4,
@@ -69,11 +65,11 @@ int main(void)
 		can_send(&TxMsg);
 
 		uint16_t res = adc_readChannel(i);
-		uart1_printf("ADC channel %d = %d \r\n", i, res);	
+		uart1_printf("ADC channel %d = %d \n", i, res);
 
 		if(++i == 8){
 			i = 0;
-			uart1_txstring("\r\n");
+			uart1_txstring("\n");
 		}
 	}
 
@@ -85,16 +81,16 @@ void rx_complete(uint8_t mob) {
 		.mob = mob
 	};
 	can_receive(&msg);
-	uart1_printf("Received id: %d on mob %d  :: ", msg.id, msg.mob);
+	uart1_printf("Received id: %d on mob %d :: ", msg.id, msg.mob);
 	uart1_txarr(msg.data, msg.dlc); uart1_txchar('\n');
 }
 
 void tx_complete(uint8_t mob) {
-	MOB_ABORT();		// Freed the MOB
-	CAN_CLEAR_STATUS_MOB();	// and reset MOb status	
+	MOB_ABORT();					// Freed the MOB
+	CAN_CLEAR_STATUS_MOB();			// and reset MOb status
 	CAN_DISABLE_MOB_INTERRUPT(mob);	// Unset interrupt
 }
 
 void can_default(uint8_t mob) {
-	CAN_CLEAR_STATUS_MOB(); // and reset MOb status
+	CAN_CLEAR_STATUS_MOB(); 		// and reset MOb status
 }
