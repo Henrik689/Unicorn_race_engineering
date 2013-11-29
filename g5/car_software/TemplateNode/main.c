@@ -41,28 +41,26 @@ int main(void)
 
 	uart1_printf("\n\n\nSTARTING\n");
 
-	can_msg_t RxMsg = {
+	can_setup(&(can_msg_t){
 		.mob = 8,
 		.id = 4,
 		.dlc = 7,
 
 		.mode = MOB_RECIEVE
-	};
-	can_setup(&RxMsg);
+	});
 
 	int i=0;
 	while(1){
 		// Main work loop
 		_delay_ms(250);
 
-		can_msg_t TxMsg = {
+		can_send(&(can_msg_t){
 			.mob = 10,
 			.id = 4,
 			.data = {'H', 'E', 'Y', ' ', 'J', 'O', 'E'},
 
 			.mode = MOB_TRANSMIT
-		};
-		can_send(&TxMsg);
+		});
 
 		uint16_t res = adc_readChannel(i);
 		uart1_printf("ADC channel %d = %d \n", i, res);
