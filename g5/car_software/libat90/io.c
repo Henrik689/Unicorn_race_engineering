@@ -46,7 +46,7 @@
 * 	where HIGH is 1 and LOW is 0
 *
 */
-int digitalRead(volatile uint8_t *inputPinRegister, int pin){
+enum io_digital_t digitalRead(volatile uint8_t *inputPinRegister, int pin){
 	return bit_is_clear(inputPinRegister, pin) != 0 ? HIGH : LOW;
 }
 
@@ -66,7 +66,7 @@ int digitalRead(volatile uint8_t *inputPinRegister, int pin){
 * @param[in] value
 *	The value (HIGH or LOW) to write
 */
-void digitalWrite(volatile uint8_t *port, int pin, int value){
+void digitalWrite(volatile uint8_t *port, int pin, enum io_digital_t value){
 	BITMASK_SET_OR_CLEAR(*port, (1 << pin), value);
 	/*
 	if (value == LOW) {
