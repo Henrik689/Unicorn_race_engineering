@@ -91,19 +91,19 @@ void digitalWrite(volatile uint8_t *port, int pin, int value){
 static inline volatile uint8_t* getDDRXFromPORTX(volatile uint8_t* port){
 	volatile uint8_t *ddr_port = NULL;
 	if (*port == PORTA){
-		*ddr_port = DDRA;
+		ddr_port = &DDRA;
 	} else if (*port == PORTB){
-		*ddr_port = DDRB;
+		ddr_port = &DDRB;
 	} else if (*port == PORTC){
-		*ddr_port = DDRC;
+		ddr_port = &DDRC;
 	} else if (*port == PORTD){
-		*ddr_port = DDRD;
+		ddr_port = &DDRD;
 	} else if (*port == PORTE){
-		*ddr_port = DDRE;
+		ddr_port = &DDRE;
 	} else if (*port == PORTF){
-		*ddr_port = DDRF;
+		ddr_port = &DDRF;
 	} else if (*port == PORTG){
-		*ddr_port = DDRG;
+		ddr_port = &DDRG;
 	}
 	return ddr_port;
 }
