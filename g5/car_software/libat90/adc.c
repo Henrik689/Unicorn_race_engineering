@@ -175,10 +175,10 @@ void adc_setVref(const enum adc_vref_t vref){
 */
 uint16_t adc_read(void){
 	//Start Single conversion
-	BIT_SET(ADCSRA, ADSC);
+	ADC_START_CONV();
 
 	//Wait for conversion to complete
-	while(!BIT_CHECK(ADCSRA, ADIF));
+	ADC_WAIT_FOR_CONV();
 
 	//Clear ADIF by writing one to it
 	BIT_SET(ADCSRA, ADIF);

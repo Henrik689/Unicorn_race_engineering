@@ -23,12 +23,21 @@
 #define ADC_VOLTS_PER_BIT		( ADC_MAX_VOLTAGE / ADC_MAX_BITS ) //!< One ADC bit == this many volts
 #define ADC_TO_VOLT(ADCReading)	( ADCReading * ADC_VOLTS_PER_BIT ) //!< Converts a given ADCreading to a Voltage value
 
+#define ADC_START_CONV()		( BIT_SET(ADCSRA, ADSC) 			) //!< Start single conversion
+#define ADC_WAIT_FOR_CONV()		{ while(!BIT_CHECK(ADCSRA, ADIF)); 	} //!< Wait for conversion to complete
+
+
+/** @name ADC control
+* Enable / disable different ADC subsystem
+* @{
+*/
 #define ADC_ENABLE()				( BIT_SET(ADCSRA, ADEN) 	)
 #define ADC_DISABLE()				( BIT_CLEAR(ADCSRA, ADEN) 	)
 #define ADC_ENABLE_AUTO_TRIGGER()	( BIT_SET(ADCSRA, ADATE) 	)
 #define ADC_DISABLE_AUTO_TRIGGER()	( BIT_CLEAR(ADCSRA, ADATE)	)
 #define ADC_ENABLE_INTERRUPT()		( BIT_SET(ADCSRA, ADIE)		)
 #define ADC_DISABLE_INTERRUPT()		( BIT_CLEAR(ADCSRA, ADIE) 	)
+/**@}*/
 
 /**
 * @brief
