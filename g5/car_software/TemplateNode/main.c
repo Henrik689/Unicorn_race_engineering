@@ -14,9 +14,9 @@
 #include "init.h"
 #include <io.h>
 
-void rx_complete(uint8_t mob);
-void tx_complete(uint8_t mob);
-void can_default(uint8_t mob);
+static void rx_complete(uint8_t mob);
+static void tx_complete(uint8_t mob);
+static void can_default(uint8_t mob);
 
 
 int main(void)
@@ -74,7 +74,7 @@ int main(void)
     return 0;
 }
 
-void rx_complete(uint8_t mob) {
+static void rx_complete(uint8_t mob) {
 	can_msg_t msg = {
 		.mob = mob
 	};
@@ -83,12 +83,12 @@ void rx_complete(uint8_t mob) {
 	uart1_txarr(msg.data, msg.dlc); uart1_txchar('\n');
 }
 
-void tx_complete(uint8_t mob) {
+static void tx_complete(uint8_t mob) {
 	MOB_ABORT();					// Freed the MOB
 	CAN_CLEAR_STATUS_MOB();			// and reset MOb status
 	CAN_DISABLE_MOB_INTERRUPT(mob);	// Unset interrupt
 }
 
-void can_default(uint8_t mob) {
+static void can_default(uint8_t mob) {
 	CAN_CLEAR_STATUS_MOB(); 		// and reset MOb status
 }
