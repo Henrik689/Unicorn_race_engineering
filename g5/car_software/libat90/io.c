@@ -67,11 +67,14 @@ int digitalRead(volatile uint8_t *inputPinRegister, int pin){
 *	The value (HIGH or LOW) to write
 */
 void digitalWrite(volatile uint8_t *port, int pin, int value){
+	BITMASK_SET_OR_CLEAR(*port, (1 << pin), value);
+	/*
 	if (value == LOW) {
 		BIT_CLEAR(*port, pin);
 	} else {
 		BIT_SET(*port, pin);
-	} 
+	}
+	*/
 }
 
 /**
