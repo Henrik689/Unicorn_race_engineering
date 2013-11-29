@@ -12,6 +12,8 @@
 #define HIGH 	1
 #define LOW 	0
 
+#define DDR_PORT(port)	(*(&(port) - 1)) //!< Maps a given PORT to the corrisponding DDR eg. PORTA -> DDRA
+
 /**
 * @brief
 *	Different modes that the pins

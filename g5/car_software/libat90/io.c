@@ -82,6 +82,10 @@ void digitalWrite(volatile uint8_t *port, int pin, int value){
 * 	Returns a pointer to the DDR register for the
 * 	provided port. So if we have PORTA it will return DDRA
 *
+* @note
+*	This should only be used if the resulting DDR register should
+*	be assigned to a variable. Else use the macro DDR_PORT
+*
 * @param[in] port
 *	PORTA through PORTF
 *
@@ -124,14 +128,16 @@ static inline volatile uint8_t* getDDRXFromPORTX(volatile uint8_t* port){
 *	0 on success
 */
 int pinMode(volatile uint8_t *port, int pin, enum io_pinmode_t mode){
-	volatile uint8_t *ddr_port = getDDRXFromPORTX(port);
-	if( ddr_port == NULL ) return 1;
+	//volatile uint8_t *ddr_port = getDDRXFromPORTX(port);
+	//if( ddr_port == NULL ) return 1;
 
 	if(mode == OUTPUT){
-		BIT_SET(*ddr_port, pin);
+		//BIT_SET(*ddr_port, pin);
+		BIT_SET(DDR_PORT(*port), pin);
 	} else if((mode == INPUT) || (mode == INPUT_PULLUP)){
-		BIT_CLEAR(*ddr_port, pin);
-		if(mode == INPUT_PULLUP) BIT_SET(*port, pin);
+		//BIT_CLEAR(*ddr_port, pin);
+		BIT_SET(DDR_PORT(*port), pin);
+		if(mode == INPUT_PULLUP)  BIT_SET(*port, pin);
 	}
 
 	return 0;
