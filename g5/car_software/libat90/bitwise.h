@@ -48,4 +48,8 @@
 #define IS_POW2(x) 				( (x) && !((x) & ((x) - 1))	) //!< Check if x is a power of 2
 #define HAS_OPPSITE_SIGN(x, y)	( (((x) ^ (y)) < 0) ) //!< check if x and y has opposite sign
 
+#define LOW_BYTE(w) 		( (uint8_t) ((w) & 0xFF)		) //!< Extracts the low-order (rightmost) byte of a variable.
+#define HIGH_BYTE(w) 		( (uint8_t) ((w) >> 8)			) //!< Extracts the high-order (leftmost) byte of a word (or the second lowest byte of a larger data type).
+#define MERGE_BYTE(h, l) 	( (uint16_t)(((h) << 8) | (l)) 	) //!< Merges two 8 bit bytes into one 16 bit byte where h is the High byte and l is the Low byte
+
 #endif /* BITWISE_H */

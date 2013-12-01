@@ -166,12 +166,12 @@ void uart_setBaudRate(enum uart_number_t number, const uint32_t baudrate, enum u
 	const uint16_t prescale = uart_baud2ubrr(baudrate, mode);
 	switch(number){
 		case UART_NUMBER_0:
-			UBRR0L = prescale;
-			UBRR0H = (prescale >> 8);
+			UBRR0L = LOW_BYTE(prescale);
+			UBRR0H = HIGH_BYTE(prescale);
 			break;
 		case UART_NUMBER_1:
-			UBRR1L = prescale;
-			UBRR1H = (prescale >> 8);
+			UBRR1L = LOW_BYTE(prescale);
+			UBRR1H = HIGH_BYTE(prescale);
 			break;
 	}
 }
