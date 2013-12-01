@@ -176,7 +176,7 @@ AVRDUDE=avrdude
 REMOVE=rm -f
 
 ##### automatic target names ####
-TRG=$(PROJECTNAME).out
+TRG=$(PROJECTNAME).elf
 DUMPTRG=$(PROJECTNAME).s
 
 HEXROMTRG=$(PROJECTNAME).hex 
