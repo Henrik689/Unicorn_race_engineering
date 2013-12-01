@@ -79,6 +79,8 @@ PROGRAMMER_MCU=c128
 # (use a single word, e.g. 'myproject')
 PROJECTNAME=TemplateNode
 
+DEFINES = -DF_CPU=11059200  -DCAN_BAUDRATE=250
+
 # Source files
 # List C/C++/Assembly source files:
 # (list all files to compile, e.g. 'a.c b.cpp as.S'):
@@ -137,7 +139,7 @@ AVRDUDE_PROGRAMMERID=avrispmkii#usbtiny#
 HEXFORMAT=ihex
 
 # compiler
-CFLAGS=-I. $(INC) -g -mmcu=$(MCU) -O$(OPTLEVEL) \
+CFLAGS=-I. $(INC) -g -mmcu=$(MCU) -O$(OPTLEVEL) $(DEFINES) \
 	-fpack-struct -fshort-enums             \
 	-Wl,-u,vfprintf -lprintf_flt -lm	\
 	-funsigned-bitfields -funsigned-char    \

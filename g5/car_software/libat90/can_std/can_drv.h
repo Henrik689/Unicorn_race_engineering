@@ -24,10 +24,11 @@
 #define _CAN_DRV_H_
 
 //_____ I N C L U D E S ________________________________________________________
-#include "../config.h" // We inserted this line. Check licence if this is ok!?
+#include "../compiler.h" // We inserted this line. Check licence if this is ok!?
 //_____ D E F I N I T I O N S __________________________________________________
 
     // ----------
+#define FOSC    (F_CPU/100)
 #ifndef FOSC
 #  error  You must define FOSC in "config.h" file
 #endif

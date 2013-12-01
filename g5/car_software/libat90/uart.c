@@ -6,7 +6,6 @@
 #include <stdlib.h> // size_t
 #include <stdarg.h> // va args
 #include <stdio.h> // vsprintf
-#include "config.h" // F_CPU
 
 #include <avr/io.h>
 #include "bitwise.h"
