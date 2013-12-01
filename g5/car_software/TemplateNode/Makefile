@@ -87,7 +87,7 @@ DEFINES = -DF_CPU=11059200  -DCAN_BAUDRATE=250
 # Use .cc, .cpp or .C suffix for C++ files, use .S 
 # (NOT .s !!!) for assembly source code files.
 LIB_AT90 = ../libat90/adc.c ../libat90/can_std/can_drv.c ../libat90/can_std/can_lib.c ../libat90/timer.c ../libat90/uart.c ../libat90/can.c ../libat90/io.c 
-PRJSRC=main.c isr.c init.c $(LIB_AT90)
+PRJSRC=main.c init.c $(LIB_AT90)
 
 # additional includes (e.g. -I/path/to/mydir)
 INC=-I../libat90
