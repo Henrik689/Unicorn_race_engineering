@@ -211,7 +211,7 @@ LST=$(filter %.lst, $(OBJDEPS:.o=.lst))
 GENASMFILES=$(filter %.s, $(OBJDEPS:.o=.s)) 
 
 
-.SUFFIXES : .c .cc .cpp .C .o .out .s .S \
+.SUFFIXES : .c .cc .cpp .C .o .elf .s .S \
 	.hex .ee.hex .h .hh .hpp
 
 
@@ -280,12 +280,12 @@ $(TRG): $(OBJDEPS)
 #### Generating hex files ####
 # hex files from elf
 #####  Generating a gdb initialisation file    #####
-.out.hex:
+.elf.hex:
 	$(OBJCOPY) -j .text                    \
 		-j .data                       \
 		-O $(HEXFORMAT) $< $@
 
-.out.ee.hex:
+.elf.ee.hex:
 	$(OBJCOPY) -j .eeprom                  \
 		--change-section-lma .eeprom=0 \
 		-O $(HEXFORMAT) $< $@
