@@ -117,7 +117,7 @@ typedef struct can_msg_t {
 #define MOB_SET_STD_ID_3_0(id)			(	(*(uint8_t *)(&(id))) <<5 				)
 //----------
 #define MOB_GET_DLC()					( BITMASK_CHECK(CANCDMOB, DLC_MSK) >> DLC0	)
-#define MOB_CLEAR_INT_STATUS()			( CANSTMOB=0x00;				)
+#define MOB_CLEAR_INT_STATUS()			( CANSTMOB=0x00					)
 #define MOB_SET_DLC(dlc)				( BITMASK_SET(CANCDMOB, dlc)	)
 
 #define MOB_SET_STD_ID(id)				{	CANIDT1 = MOB_SET_STD_ID_10_4(id); \
