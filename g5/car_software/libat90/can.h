@@ -32,9 +32,10 @@
 #define CAN_DISABLE_MOB_INTERRUPT(mob)	{	CANIE2 &= !((1 << mob) & 0xff); \
 											CANIE1 &= !(((1 << mob) >> 8) & 0x7f);	}
 
-#define MOB_SET_STD_ID_10_4(id)	(	((*((uint8_t *)(&(id)) + 1)) << 5) + \
-											((*(uint8_t *)(&(id))) >> 3)	)
-#define MOB_SET_STD_ID_3_0(id)	(	(*(uint8_t *)(&(id))) <<5 		)		
+#define MOB_CONMOB_MSK					(	(1 << CONMOB1) | (1 << CONMOB0)			) //! MaSK for CONfiguration MOb
+#define MOB_SET_STD_ID_10_4(id)			(	((*((uint8_t *)(&(id)) + 1)) << 5) + \
+											((*(uint8_t *)(&(id))) >> 3)			)
+#define MOB_SET_STD_ID_3_0(id)			(	(*(uint8_t *)(&(id))) <<5 				)		
 #define MOB_GET_DLC()					(	(CANCDMOB & DLC_MSK) >> DLC				)
 #define MOB_CLEAR_INT_STATUS()			{	CANSTMOB=0x00;							}
 #define MOB_SET_DLC(dlc)				(	CANCDMOB |= (dlc)						)
