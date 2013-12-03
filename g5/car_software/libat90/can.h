@@ -82,12 +82,14 @@ typedef struct can_msg_t {
 
 #define MOB_TX_DATA(data, len)			{ 	uint8_t i; \
 											for (i = 0; i < len; i++) \
-												{ CANMSG = data[i]; } 				} //!< Put data onto the can
+												{ CANMSG = data[i]; } 		} //!< Put data onto the can
 #define MOB_RX_DATA(data, len)			{ 	uint8_t i; \
 											for (i = 0; i < len; i++) \
-												{ data[i] = CANMSG;} 				} //!< Get data from the can
-#define CAN_READ_CANSIT 				( 	CANSIT2 + (CANSIT1 << 8) 				) //!< The CANSIT holds infomation about what mob has fired an interrupt. This combines it into a single 16bit variable.
-#define MOB_HAS_PENDING_INT(mob)		( 	BIT_CHECK(CAN_READ_CANSIT, (mob))		) //!< Check if the given mob has a pending interrupt.
+												{ data[i] = CANMSG;} 		} //!< Get data from the can
+//----------
+#define CAN_READ_CANSIT 				( 	CANSIT2 + (CANSIT1 << 8) 			) //!< The CANSIT holds infomation about what mob has fired an interrupt. This combines it into a single 16bit variable.
+#define MOB_HAS_PENDING_INT(mob)		( 	BIT_CHECK(CAN_READ_CANSIT, (mob))	) //!< Check if the given mob has a pending interrupt.
+//----------
 #define CAN_SET_MOB(mob)				{	CANPAGE = ((mob) << 4);					}
 
 #define CAN_ENABLE_MOB_INTERRUPT(mob)	{	CANIE2 |= ((1 << mob) & 0xff); \
