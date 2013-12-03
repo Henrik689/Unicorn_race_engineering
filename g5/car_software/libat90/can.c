@@ -47,15 +47,15 @@ int can_receive(can_msg_t *msg){
 	CAN_SET_MOB(msg->mob);
 
 	if ( !((CANSTMOB == MOB_RX_COMPLETED_DLCW) || (CANSTMOB == MOB_RX_COMPLETED)) ) {
-		CAN_CLEAR_STATUS_MOB();
+		MOB_CLEAR_INT_STATUS();
 		return 2; // Error 
 	}
 	// Fill the msg with received data
 	MOB_SET_STD_ID(msg->id); 			// Fill in the msg id
-	msg->dlc = CAN_GET_DLC(); 			// Fill in the msg dlc
+	msg->dlc = MOB_GET_DLC(); 			// Fill in the msg dlc
 	CAN_RX_DATA(msg->data, msg->dlc);	// Fill in the msg data
 
-	CAN_CLEAR_STATUS_MOB(); 	// and reset MOb status
+	MOB_CLEAR_INT_STATUS(); 	// and reset MOb status
 	BIT_SET(CANCDMOB, CONMOB1); // enable reception
 
 	return 0; // success

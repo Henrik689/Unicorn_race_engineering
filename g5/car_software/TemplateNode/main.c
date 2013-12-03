@@ -84,10 +84,10 @@ static void rx_complete(uint8_t mob) {
 
 static void tx_complete(uint8_t mob) {
 	MOB_ABORT();					// Freed the MOB
-	CAN_CLEAR_STATUS_MOB();			// and reset MOb status
+	MOB_CLEAR_INT_STATUS();			// and reset MOb status
 	CAN_DISABLE_MOB_INTERRUPT(mob);	// Unset interrupt
 }
 
 static void can_default(uint8_t mob) {
-	CAN_CLEAR_STATUS_MOB(); 		// and reset MOb status
+	MOB_CLEAR_INT_STATUS(); 		// and reset MOb status
 }
