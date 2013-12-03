@@ -23,8 +23,10 @@
 
 // -------------- New wrappers
 #define CAN_SET_MOB(mob)				{	CANPAGE = ((mob) << 4);					}
+
 #define CAN_ENABLE_MOB_INTERRUPT(mob)	{	CANIE2 |= ((1 << mob) & 0xff); \
 											CANIE1 |= (((1 << mob) >> 8) & 0x7f);	}
+
 #define CAN_DISABLE_MOB_INTERRUPT(mob)	{	CANIE2 &= !((1 << mob) & 0xff); \
 											CANIE1 &= !(((1 << mob) >> 8) & 0x7f);	}
 #define CAN_SEI()						(	CANGIE |= (1 << ENIT)					)
@@ -32,17 +34,23 @@
 #define CAN_SET_RX_INT()				( 	CANGIE |= (1 << ENRX)					)
 
 #define MOB_CONMOB_MSK					(	(1 << CONMOB1) | (1 << CONMOB0)			) //! MaSK for CONfiguration MOb
+
 #define MOB_SET_STD_ID_10_4(id)			(	((*((uint8_t *)(&(id)) + 1)) << 5) + \
 											((*(uint8_t *)(&(id))) >> 3)			)
-#define MOB_SET_STD_ID_3_0(id)			(	(*(uint8_t *)(&(id))) <<5 				)		
+
+#define MOB_SET_STD_ID_3_0(id)			(	(*(uint8_t *)(&(id))) <<5 				)
+
 #define MOB_GET_DLC()					(	(CANCDMOB & DLC_MSK) >> DLC				)
 #define MOB_CLEAR_INT_STATUS()			{	CANSTMOB=0x00;							}
 #define MOB_SET_DLC(dlc)				(	CANCDMOB |= (dlc)						)
+
 #define MOB_SET_STD_ID(id)				{	CANIDT1 = MOB_SET_STD_ID_10_4(id); \
 											CANIDT2 = MOB_SET_STD_ID_3_0(id); \
 											CANCDMOB &= (~(1 << IDE));				}
+
 #define MOB_SET_STD_MASK_FILTER(mask)	{ 	CANIDM1 = MOB_SET_STD_ID_10_4(mask); \
 											CANIDM2 = MOB_SET_STD_ID_3_0( mask);	}
+
 #define MOB_CLEAR_STATUS()				{ 	uint8_t  volatile *__i_; \
 											for (__i_ =& CANSTMOB; __i_ < &CANSTML; __i_++) \
 												{ *__i_= 0x00;}						}
