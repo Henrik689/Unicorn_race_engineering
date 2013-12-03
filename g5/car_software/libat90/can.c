@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <avr/interrupt.h>
-#include "can_std/can_lib.h"
+//#include "can_std/can_lib.h"
 #include "bitwise.h"
 #include "can.h"
 #include "uart.h"
@@ -53,7 +53,7 @@ int can_receive(can_msg_t *msg){
 	// Fill the msg with received data
 	MOB_SET_STD_ID(msg->id); 			// Fill in the msg id
 	msg->dlc = MOB_GET_DLC(); 			// Fill in the msg dlc
-	CAN_RX_DATA(msg->data, msg->dlc);	// Fill in the msg data
+	MOB_RX_DATA(msg->data, msg->dlc);	// Fill in the msg data
 
 	MOB_CLEAR_INT_STATUS(); 	// and reset MOb status
 	BIT_SET(CANCDMOB, CONMOB1); // enable reception
@@ -65,7 +65,7 @@ int can_send(can_msg_t *msg){
 	CAN_SET_MOB(msg->mob);
 
 	MOB_SET_DLC(msg->dlc); // Set the expected payload length
-	CAN_TX_DATA(msg->data, msg->dlc);
+	MOB_TX_DATA(msg->data, msg->dlc);
 	Can_config_tx();
 	CAN_ENABLE_MOB_INTERRUPT(msg->mob);
 
