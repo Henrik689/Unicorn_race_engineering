@@ -18,9 +18,12 @@
 #define LAST_MOB_NB		( NB_MOB-1	) //!< Index of the last MOB. This is usefull when looping over all MOB's
 #define NO_MOB			( 0xFF		)
 
-#define MOB_Tx_ENA  	1
-#define MOB_Rx_ENA  	2
-#define MOB_Rx_BENA 	3
+#define MOB_Tx_ENA  	( 1 << CONMOB )
+#define MOB_Rx_ENA  	( 2 << CONMOB )
+#define MOB_Rx_BENA 	( 3 << CONMOB )
+
+#define DLC_MSK     	( (1<<DLC3)|(1<<DLC2)|(1<<DLC1)|(1<<DLC0) 	) //! Mask for Data Length Coding bits in CANCDMOB
+#define MOB_CONMOB_MSK	( (1 << CONMOB1) | (1 << CONMOB0)			) //! Mask for Configuration MOB bits in CANCDMOB
 
 enum can_int_t {
 	CANIT_RX_COMPLETED_DLCW = 0,	//!< Data length code warning.
@@ -102,24 +105,24 @@ typedef struct can_msg_t {
 #define CAN_DISABLE_MOB_INTERRUPT(mob)	{	CANIE2 &= !((1 << mob) & 0xff); \
 											CANIE1 &= !(((1 << mob) >> 8) & 0x7f);	}
 //----------
-#define CAN_SEI()						( CANGIE |= (1 << ENIT)	)
-#define CAN_SET_TX_INT()				( CANGIE |= (1 << ENTX)	)
-#define CAN_SET_RX_INT()				( CANGIE |= (1 << ENRX)	)
+#define CAN_SEI()						( BIT_SET(CANGIE, ENIT)	) 
+#define CAN_SET_TX_INT()				( BIT_SET(CANGIE, ENTX)	)
+#define CAN_SET_RX_INT()				( BIT_SET(CANGIE, ENRX)	)
 //----------
-#define MOB_CONMOB_MSK					( (1 << CONMOB1) | (1 << CONMOB0)	) //! MaSK for CONfiguration MOb
+
 //----------
 #define MOB_SET_STD_ID_10_4(id)			(	((*((uint8_t *)(&(id)) + 1)) << 5) + \
 											((*(uint8_t *)(&(id))) >> 3)			)
 
 #define MOB_SET_STD_ID_3_0(id)			(	(*(uint8_t *)(&(id))) <<5 				)
 //----------
-#define MOB_GET_DLC()					(	(CANCDMOB & DLC_MSK) >> DLC				)
-#define MOB_CLEAR_INT_STATUS()			(	CANSTMOB=0x00;							)
-#define MOB_SET_DLC(dlc)				(	CANCDMOB |= (dlc)						)
+#define MOB_GET_DLC()					( BITMASK_CHECK(CANCDMOB, DLC_MSK) >> DLC0	)
+#define MOB_CLEAR_INT_STATUS()			( CANSTMOB=0x00;				)
+#define MOB_SET_DLC(dlc)				( BITMASK_SET(CANCDMOB, dlc)	)
 
 #define MOB_SET_STD_ID(id)				{	CANIDT1 = MOB_SET_STD_ID_10_4(id); \
 											CANIDT2 = MOB_SET_STD_ID_3_0(id); \
-											CANCDMOB &= (~(1 << IDE));				}
+											BIT_CLEAR(CANCDMOB, IDE);				}
 
 #define MOB_SET_STD_MASK_FILTER(mask)	{ 	CANIDM1 = MOB_SET_STD_ID_10_4(mask); \
 											CANIDM2 = MOB_SET_STD_ID_3_0( mask);	}
@@ -128,14 +131,14 @@ typedef struct can_msg_t {
 											for (__i_ =& CANSTMOB; __i_ < &CANSTML; __i_++) \
 												{ *__i_= 0x00; }					}
 
-#define MOB_ABORT()						( CANCDMOB &= ~((1 << CONMOB1)|(1 << CONMOB0))	)
+#define MOB_ABORT()						( BITMASK_CLEAR(CANCDMOB, MOB_CONMOB_MSK) )
 
 //----------
 #define MOB_CONFIG_TX()					{	MOB_ABORT(); \
-											CANCDMOB |= (MOB_Tx_ENA << CONMOB);		}
+											BITMASK_SET(CANCDMOB, MOB_Tx_ENA);	}
 #define MOB_CONFIG_RX()					{	MOB_ABORT(); \
-											CANCDMOB |= (MOB_Rx_ENA << CONMOB);		}
-#define MOB_CONFIG_RX_BUFFER()			{	CANCDMOB |= (MOB_Rx_BENA << CONMOB);	}
+											BITMASK_SET(CANCDMOB, MOB_Rx_ENA);	}
+#define MOB_CONFIG_RX_BUFFER()			(	BITMASK_SET(CANCDMOB, MOB_Rx_BENA)	)
 //----------
 
 // ------------ Old wrappers
