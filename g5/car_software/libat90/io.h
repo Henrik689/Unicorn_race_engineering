@@ -19,8 +19,8 @@ enum io_digital_t {
 	HIGH = 1
 };
 
-#define DDR_PORT(port)	(*(&(port) - 1)) //!< Maps a given PORT to the corrisponding DDR eg. PORTA -> DDRA
-#define PIN_PORT(port)	(*(&(port) - 2)) //!< Maps a given PORT to the corrisponding PIN eg. PORTA -> PINA
+#define DDR_PORT(port)	(*(&(port) - 0x01)) //!< Maps a given PORT to the corrisponding DDR eg. PORTA -> DDRA. The magic number 0x01 is the offset from the PORT register to the DDR register
+#define PIN_PORT(port)	(*(&(port) - 0x02)) //!< Maps a given PORT to the corrisponding PIN eg. PORTA -> PINA. The magic number 0x02 is the offset from the PORT register to the PIN register
 
 /**
 * @brief
