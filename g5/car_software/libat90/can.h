@@ -13,10 +13,10 @@
 #define MASK_FULL_FILTERING	( (uint16_t){UINT16_MAX}	) //!< Only listen for the specified ID
 #define MASK_NO_FILTERING	( (uint16_t){0} 			) //!< Listen for all ID's (Eg a spynode)
 
-#define NB_MOB			15
-#define NB_DATA_MAX		8
-#define LAST_MOB_NB		(NB_MOB-1)
-#define NO_MOB			0xFF
+#define NB_MOB			( 15		) //!< Number of MOB's
+#define NB_DATA_MAX		( 8			) //!< The can can max transmit a payload of 8 uint8_t
+#define LAST_MOB_NB		( NB_MOB-1	) //!< Index of the last MOB. This is usefull when looping over all MOB's
+#define NO_MOB			( 0xFF		)
 
 #define MOB_Tx_ENA  	1
 #define MOB_Rx_ENA  	2
@@ -86,12 +86,14 @@ typedef struct can_msg_t {
 
 #define MOB_TX_DATA(data, len)			{ 	uint8_t i; \
 											for (i = 0; i < len; i++) \
-												{ CANMSG = data[i]; } 				} //!< Put data onto the can
+												{ CANMSG = data[i]; } 		} //!< Put data onto the can
 #define MOB_RX_DATA(data, len)			{ 	uint8_t i; \
 											for (i = 0; i < len; i++) \
-												{ data[i] = CANMSG;} 				} //!< Get data from the can
-#define CAN_READ_CANSIT 				( 	CANSIT2 + (CANSIT1 << 8) 				) //!< The CANSIT holds infomation about what mob has fired an interrupt. This combines it into a single 16bit variable.
-#define MOB_HAS_PENDING_INT(mob)		( 	BIT_CHECK(CAN_READ_CANSIT, (mob))		) //!< Check if the given mob has a pending interrupt.
+												{ data[i] = CANMSG;} 		} //!< Get data from the can
+//----------
+#define CAN_READ_CANSIT 				( 	CANSIT2 + (CANSIT1 << 8) 			) //!< The CANSIT holds infomation about what mob has fired an interrupt. This combines it into a single 16bit variable.
+#define MOB_HAS_PENDING_INT(mob)		( 	BIT_CHECK(CAN_READ_CANSIT, (mob))	) //!< Check if the given mob has a pending interrupt.
+//----------
 #define CAN_SET_MOB(mob)				{	CANPAGE = ((mob) << 4);					}
 
 #define CAN_ENABLE_MOB_INTERRUPT(mob)	{	CANIE2 |= ((1 << mob) & 0xff); \
