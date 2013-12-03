@@ -18,6 +18,10 @@
 #define LAST_MOB_NB		(NB_MOB-1)
 #define NO_MOB			0xFF
 
+#define MOB_Tx_ENA  	1
+#define MOB_Rx_ENA  	2
+#define MOB_Rx_BENA 	3
+
 enum can_int_t {
 	CANIT_RX_COMPLETED_DLCW = 0,	//!< Data length code warning.
 	CANIT_RX_COMPLETED = 1,			//!< Receive completed.
@@ -122,6 +126,11 @@ typedef struct can_msg_t {
 												{ *__i_= 0x00; }					}
 #define MOB_ABORT()						( 	CANCDMOB &= \
 											~((1 << CONMOB1)|(1 << CONMOB0))		)
+#define MOB_CONFIG_TX()					{	MOB_ABORT(); \
+											CANCDMOB |= (MOB_Tx_ENA << CONMOB);		}
+#define MOB_CONFIG_RX()					{	MOB_ABORT(); \
+											CANCDMOB |= (MOB_Rx_ENA << CONMOB);		}
+#define MOB_CONFIG_RX_BUFFER()			{	CANCDMOB |= (MOB_Rx_BENA << CONMOB);	}
 
 // ------------ Old wrappers
 #define CAN_INIT()		( can_init(0) )
