@@ -26,7 +26,7 @@ int can_setup(can_msg_t *msg){
 		case MOB_RECIEVE:
 			MOB_SET_STD_ID(msg->id);
 			MOB_SET_STD_MASK_FILTER(MASK_FULL_FILTERING); 
-			Can_config_rx(); // OSBS!! we are configuring specifically for mode MOB_RECIEVE
+			MOB_CONFIG_RX(); // OSBS!! we are configuring specifically for mode MOB_RECIEVE
 			CAN_ENABLE_MOB_INTERRUPT(msg->mob);
 			break;
 		case MOB_AUTOMATIC_REPLY:
@@ -66,7 +66,7 @@ int can_send(can_msg_t *msg){
 
 	MOB_SET_DLC(msg->dlc); // Set the expected payload length
 	MOB_TX_DATA(msg->data, msg->dlc);
-	Can_config_tx();
+	MOB_CONFIG_TX();
 	CAN_ENABLE_MOB_INTERRUPT(msg->mob);
 
 	return CANSTMOB;
