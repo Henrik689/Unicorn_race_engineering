@@ -13,10 +13,10 @@
 #define MASK_FULL_FILTERING	( (uint16_t){UINT16_MAX}	) //!< Only listen for the specified ID
 #define MASK_NO_FILTERING	( (uint16_t){0} 			) //!< Listen for all ID's (Eg a spynode)
 
-#define NB_MOB			15
-#define NB_DATA_MAX		8
-#define LAST_MOB_NB		(NB_MOB-1)
-#define NO_MOB			0xFF
+#define NB_MOB			( 15		) //!< Number of MOB's
+#define NB_DATA_MAX		( 8			) //!< The can can max transmit a payload of 8 uint8_t
+#define LAST_MOB_NB		( NB_MOB-1	) //!< Index of the last MOB. This is usefull when looping over all MOB's
+#define NO_MOB			( 0xFF		)
 
 enum can_int_t {
 	CANIT_RX_COMPLETED_DLCW = 0,	//!< Data length code warning.
