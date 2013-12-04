@@ -1,3 +1,12 @@
+/**
+* @file can.h
+* @brief
+*	Used for setting up the CAN subsystem
+*	and sending or receiving via the CAN.
+*	This header file also contains many
+*	driver functions in the form of macros
+*/
+
 #ifndef CAN_H
 #define CAN_H
 
@@ -22,8 +31,8 @@ uint8_t can_init(uint8_t mode);  //#include "can_std/can_lib.h" // Inserted so w
 #define MOB_Rx_ENA  	( 2 << CONMOB0 ) //!< Mask for Enabling Rx on the current MOB
 #define MOB_Rx_BENA 	( 3 << CONMOB0 ) //!< Mask for Enabling Rx with buffer enabled for the current MOB
 
-#define DLC_MSK     	( (1<<DLC3)|(1<<DLC2)|(1<<DLC1)|(1<<DLC0) 	) //! Mask for Data Length Coding bits in CANCDMOB
-#define MOB_CONMOB_MSK	( (1 << CONMOB1) | (1 << CONMOB0)			) //! Mask for Configuration MOB bits in CANCDMOB
+#define DLC_MSK     	( (1<<DLC3)|(1<<DLC2)|(1<<DLC1)|(1<<DLC0) 	) //!< Mask for Data Length Coding bits in CANCDMOB
+#define MOB_CONMOB_MSK	( (1 << CONMOB1) | (1 << CONMOB0)			) //!< Mask for Configuration MOB bits in CANCDMOB
 
 enum can_int_t {
 	CANIT_RX_COMPLETED_DLCW = 	0,	//!< Data length code warning.

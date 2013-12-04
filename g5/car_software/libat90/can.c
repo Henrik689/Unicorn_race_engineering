@@ -1,3 +1,10 @@
+/**
+* @file can.c
+* @brief
+*	Used for setting up the CAN subsystem
+*	and sending or receiving via the CAN
+*/
+
 #include <stdio.h>
 #include <stdint.h>
 #include <avr/interrupt.h>
