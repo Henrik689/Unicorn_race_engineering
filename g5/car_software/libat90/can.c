@@ -13,8 +13,8 @@
 #include "can.h"
 #include "uart.h"
 
-static void (*canit_callback[9])(uint8_t mob);
-static void (*ovrit_callback)(void);
+static void (*canit_callback[9])(uint8_t mob) = {NULL};
+static void (*ovrit_callback)(void) = NULL;
 
 void set_canit_callback(enum can_int_t interrupt, void (*callback)(uint8_t mob)) {
 	canit_callback[interrupt] = callback;
@@ -101,32 +101,41 @@ ISR (CANIT_vect) {
 
 			switch (CANSTMOB) {
 				case MOB_RX_COMPLETED_DLCW:
-					(*canit_callback[0])(mob);
+					if ( canit_callback[CANIT_RX_COMPLETED_DLCW] != NULL )
+						(*canit_callback[CANIT_RX_COMPLETED_DLCW])(mob);
 					// Fall through to MOB_RX_COMPLETED on purpose
 					//!< @todo NEEDS TESTING. !!!URGENT!!!
 				case MOB_RX_COMPLETED:
-					(*canit_callback[1])(mob);
+					if ( canit_callback[CANIT_RX_COMPLETED] != NULL )
+						(*canit_callback[CANIT_RX_COMPLETED])(mob);
 					break;
 				case MOB_TX_COMPLETED:
-					(*canit_callback[2])(mob);
+					if ( canit_callback[CANIT_TX_COMPLETED] != NULL )
+						(*canit_callback[CANIT_TX_COMPLETED])(mob);
 					break;
 				case MOB_ACK_ERROR:
-					(*canit_callback[3])(mob);
+					if ( canit_callback[CANIT_ACK_ERROR] != NULL )
+						(*canit_callback[CANIT_ACK_ERROR])(mob);
 					break;
 				case MOB_FORM_ERROR:
-					(*canit_callback[4])(mob);
+					if ( canit_callback[CANIT_FORM_ERROR] != NULL )
+						(*canit_callback[CANIT_FORM_ERROR])(mob);
 					break;
 				case MOB_CRC_ERROR:
-					(*canit_callback[5])(mob);
+					if ( canit_callback[CANIT_CRC_ERROR] != NULL )
+						(*canit_callback[CANIT_CRC_ERROR])(mob);
 					break;
 				case MOB_STUFF_ERROR:
-					(*canit_callback[6])(mob);
+					if ( canit_callback[CANIT_STUFF_ERROR] != NULL )
+						(*canit_callback[CANIT_STUFF_ERROR])(mob);
 					break;
 				case MOB_BIT_ERROR:
-					(*canit_callback[7])(mob);
+					if ( canit_callback[CANIT_BIT_ERROR] != NULL )
+						(*canit_callback[CANIT_BIT_ERROR])(mob);
 					break;
 				default:
-					(*canit_callback[8])(mob);
+					if ( canit_callback[CANIT_DEFAULT] != NULL )
+						(*canit_callback[CANIT_DEFAULT])(mob);
 					break;
 			}
 		}
@@ -134,5 +143,6 @@ ISR (CANIT_vect) {
 }
 
 ISR (OVRIT_vect) {
-	(*ovrit_callback)();
+	if (ovrit_callback != NULL)
+		(*ovrit_callback)();
 }
