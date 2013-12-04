@@ -56,7 +56,7 @@ int can_receive(can_msg_t *msg){
 	MOB_RX_DATA(msg->data, msg->dlc);	// Fill in the msg data
 
 	MOB_CLEAR_INT_STATUS(); 	// and reset MOb status
-	BIT_SET(CANCDMOB, CONMOB1); // enable reception
+	MOB_EN_RX(); 				// re-enable reception. We keep listning for this msg
 
 	return 0; // success
 }

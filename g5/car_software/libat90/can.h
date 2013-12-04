@@ -133,8 +133,16 @@ typedef struct can_msg_t {
 											for (__i_ =& CANSTMOB; __i_ < &CANSTML; __i_++) \
 												{ *__i_= 0x00; }					}
 
-#define MOB_ABORT()						( BITMASK_CLEAR(CANCDMOB, MOB_CONMOB_MSK) )
-
+//!< @name Configuration of Message Object
+//!< These bits set the communication to be performed (no initial value after RESET).
+//!< These bits are *NOT* cleared once communication is performed.
+//!< The user must re-write the configuration to enable new communication.
+//!< @{
+#define MOB_ABORT()				( BITMASK_CLEAR(CANCDMOB, MOB_CONMOB_MSK) 					) //!< Disable MOB
+#define MOB_EN_TX()				{ BIT_CLEAR(CANCDMOB, CONMOB1); BIT_SET(CANCDMOB, CONMOB0); } //!< Enable MOB Transmission
+#define MOB_EN_RX()				{ BIT_SET(CANCDMOB, CONMOB1); BIT_CLEAR(CANCDMOB, CONMOB0); } //!< Enable MOB Reception
+#define MOB_EN_FRM_BUFF_RX()	( BITMASK_SET(CANCDMOB, MOB_CONMOB_MSK) 					) //!< Enable MOB Frame Buffer Reception
+//!< @}
 //----------
 #define MOB_CONFIG_TX()					{	MOB_ABORT(); \
 											BITMASK_SET(CANCDMOB, MOB_Tx_ENA);	}
