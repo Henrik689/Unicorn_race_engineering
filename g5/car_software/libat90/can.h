@@ -26,10 +26,10 @@
 #define MOB_CONMOB_MSK	( (1 << CONMOB1) | (1 << CONMOB0)			) //! Mask for Configuration MOB bits in CANCDMOB
 
 enum can_int_t {
-	CANIT_RX_COMPLETED_DLCW = 0,	//!< Data length code warning.
-	CANIT_RX_COMPLETED = 1,			//!< Receive completed.
-	CANIT_TX_COMPLETED = 2,			//!< Transmit completed.
-	CANIT_ACK_ERROR = 3,			//!< No detection of the dominant bit in the acknowledge slot.
+	CANIT_RX_COMPLETED_DLCW = 	0,	//!< Data length code warning.
+	CANIT_RX_COMPLETED = 		1,	//!< Receive completed.
+	CANIT_TX_COMPLETED = 		2,	//!< Transmit completed.
+	CANIT_ACK_ERROR = 			3,	//!< No detection of the dominant bit in the acknowledge slot.
 
 	/**
 	* @brief
@@ -39,7 +39,7 @@ enum can_int_t {
 	*	+ Acknowledgment delimiter
 	*	+ EOF
 	*/
-	CANIT_FORM_ERROR = 4,
+	CANIT_FORM_ERROR = 			4,
 	
 	/**
 	* @brief
@@ -47,16 +47,16 @@ enum can_int_t {
 	*	from the start of frame up to the data field.
 	*	If this checking does not match with the de-stuffed CRC field, a CRC error is set.
 	*/
-	CANIT_CRC_ERROR = 5,
-	CANIT_STUFF_ERROR = 6,			//!< Detection of more than five consecutive bits with same value.
-	CANIT_BIT_ERROR = 7,			//!< Bit Error (Only in Transmission).
-	CANIT_DEFAULT = 8				//!< This is hopefully temporarily. Should not be possible! Needs testing.
+	CANIT_CRC_ERROR = 			5,
+	CANIT_STUFF_ERROR = 		6,	//!< Detection of more than five consecutive bits with same value.
+	CANIT_BIT_ERROR = 			7,	//!< Bit Error (Only in Transmission).
+	CANIT_DEFAULT = 			8	//!< This is hopefully temporarily. Should not be possible! Needs testing.
 };
 
 enum mob_mode_t {
-	MOB_DISABLED,					//!< In this mode, the MOb is “free”.
-	MOB_TRANSMIT,					//!< The mob is set in transmit mode.
-	MOB_RECIEVE,					//!< The mob is set in transcieve mode.
+	MOB_DISABLED,	//!< In this mode, the MOb is “free”.
+	MOB_TRANSMIT,	//!< The mob is set in transmit mode.
+	MOB_RECIEVE,	//!< The mob is set in transcieve mode.
 
 	/**
 	* @brief
@@ -77,11 +77,11 @@ enum mob_mode_t {
 };
 
 typedef struct can_msg_t {
-	uint8_t mob; 					//!< Message Object to bind to
-	uint16_t id; 					//!< Message id / priority
-	uint8_t dlc; 					//!< Data Length Code
-	uint8_t data[NB_DATA_MAX];		//!< The message payload. Specification states a max length of 8 regardless of dlc 
-	enum mob_mode_t mode; 			//!< Tx or Rx
+	uint8_t mob; 				//!< Message Object to bind to
+	uint16_t id; 				//!< Message id / priority
+	uint8_t dlc; 				//!< Data Length Code
+	uint8_t data[NB_DATA_MAX];	//!< The message payload. Specification states a max length of 8 regardless of dlc 
+	enum mob_mode_t mode; 		//!< Denotes the mode that this msg is send or received
 } can_msg_t;
 
 
