@@ -18,9 +18,9 @@
 #define LAST_MOB_NB		( NB_MOB-1	) //!< Index of the last MOB. This is usefull when looping over all MOB's
 #define NO_MOB			( 0xFF		)
 
-#define MOB_Tx_ENA  	( 1 << CONMOB )
-#define MOB_Rx_ENA  	( 2 << CONMOB )
-#define MOB_Rx_BENA 	( 3 << CONMOB )
+#define MOB_Tx_ENA  	( 1 << CONMOB ) //!< Mask for Enabling Tx on the current MOB
+#define MOB_Rx_ENA  	( 2 << CONMOB ) //!< Mask for Enabling Rx on the current MOB
+#define MOB_Rx_BENA 	( 3 << CONMOB ) //!< Mask for Enabling Rx with buffer enabled for the current MOB
 
 #define DLC_MSK     	( (1<<DLC3)|(1<<DLC2)|(1<<DLC1)|(1<<DLC0) 	) //! Mask for Data Length Coding bits in CANCDMOB
 #define MOB_CONMOB_MSK	( (1 << CONMOB1) | (1 << CONMOB0)			) //! Mask for Configuration MOB bits in CANCDMOB
@@ -105,9 +105,9 @@ typedef struct can_msg_t {
 #define CAN_DISABLE_MOB_INTERRUPT(mob)	{	CANIE2 &= !((1 << mob) & 0xff); \
 											CANIE1 &= !(((1 << mob) >> 8) & 0x7f);	}
 //----------
-#define CAN_SEI()						( BIT_SET(CANGIE, ENIT)	) 
-#define CAN_SET_TX_INT()				( BIT_SET(CANGIE, ENTX)	)
-#define CAN_SET_RX_INT()				( BIT_SET(CANGIE, ENRX)	)
+#define CAN_SEI()						( BIT_SET(CANGIE, ENIT)	) //!< Enable global CAN interrupts
+#define CAN_SET_TX_INT()				( BIT_SET(CANGIE, ENTX)	) //!< Enable CAN Tx interrupts
+#define CAN_SET_RX_INT()				( BIT_SET(CANGIE, ENRX)	) //!< Enable CAN Rx interrupts
 //----------
 
 //----------
@@ -116,9 +116,11 @@ typedef struct can_msg_t {
 
 #define MOB_SET_STD_ID_3_0(id)			(	(*(uint8_t *)(&(id))) <<5 				)
 //----------
-#define MOB_GET_DLC()					( BITMASK_CHECK(CANCDMOB, DLC_MSK) >> DLC0	)
-#define MOB_CLEAR_INT_STATUS()			( CANSTMOB=0x00					)
-#define MOB_SET_DLC(dlc)				( BITMASK_SET(CANCDMOB, dlc)	)
+#define MOB_GET_DLC()					( BITMASK_CHECK(CANCDMOB, DLC_MSK) >> DLC0	) //!< Calculates the DLC that is set for the current MOB. @return The DLC sat for the current MOB
+#define MOB_SET_DLC(dlc)				( BITMASK_SET(CANCDMOB, dlc)				) //!< Set the DLC for the current MOB
+//----------
+#define MOB_CLEAR_INT_STATUS()			( CANSTMOB=0x00	) //!< Clears the interrupt status for the current MOB
+
 
 #define MOB_SET_STD_ID(id)				{	CANIDT1 = MOB_SET_STD_ID_10_4(id); \
 											CANIDT2 = MOB_SET_STD_ID_3_0(id); \
