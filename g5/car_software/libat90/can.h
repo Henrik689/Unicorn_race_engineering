@@ -11,11 +11,11 @@
 //_____ D E F I N I T I O N S __________________________________________________
 
 #define MASK_FULL_FILTERING	( (uint16_t){UINT16_MAX}	) //!< Only listen for the specified ID
-#define MASK_NO_FILTERING	( (uint16_t){0} 			) //!< Listen for all ID's (Eg a spynode)
+#define MASK_NO_FILTERING	( (uint16_t){0} 			) //!< Listen for all ID's (Eg. a spy node)
 
 #define NB_MOB			( 15		) //!< Number of MOB's
 #define NB_DATA_MAX		( 8			) //!< The can can max transmit a payload of 8 uint8_t
-#define LAST_MOB_NB		( NB_MOB-1	) //!< Index of the last MOB. This is usefull when looping over all MOB's
+#define LAST_MOB_NB		( NB_MOB-1	) //!< Index of the last MOB. This is useful when looping over all MOB's
 #define NO_MOB			( 0xFF		)
 
 #define MOB_Tx_ENA  	( 1 << CONMOB ) //!< Mask for Enabling Tx on the current MOB
@@ -54,9 +54,9 @@ enum can_int_t {
 };
 
 enum mob_mode_t {
-	MOB_DISABLED,	//!< In this mode, the MOb is “free”.
-	MOB_TRANSMIT,	//!< The mob is set in transmit mode.
-	MOB_RECIEVE,	//!< The mob is set in transcieve mode.
+	MOB_DISABLED,	//!< In this mode, the MOb is disabled.
+	MOB_TRANSMIT,	//!< The mob is set in Transmit mode.
+	MOB_RECIEVE,	//!< The mob is set in Receive mode.
 
 	/**
 	* @brief
@@ -94,8 +94,8 @@ typedef struct can_msg_t {
 											for (i = 0; i < len; i++) \
 												{ data[i] = CANMSG;} 		} //!< Get data from the can
 //----------
-#define CAN_READ_CANSIT 				( 	CANSIT2 + (CANSIT1 << 8) 			) //!< The CANSIT holds infomation about what mob has fired an interrupt. This combines it into a single 16bit variable.
-#define MOB_HAS_PENDING_INT(mob)		( 	BIT_CHECK(CAN_READ_CANSIT, (mob))	) //!< Check if the given mob has a pending interrupt.
+#define CAN_READ_CANSIT 				( CANSIT2 + (CANSIT1 << 8) 			) //!< The CANSIT holds information about what mob has fired an interrupt. This combines it into a single 16 bit variable.
+#define MOB_HAS_PENDING_INT(mob)		( BIT_CHECK(CAN_READ_CANSIT, (mob))	) //!< Check if the given mob has a pending interrupt.
 //----------
 #define CAN_SET_MOB(mob)				( CANPAGE = ((mob) << 4)	)
 
@@ -105,19 +105,19 @@ typedef struct can_msg_t {
 #define CAN_DISABLE_MOB_INTERRUPT(mob)	{	CANIE2 &= !((1 << mob) & 0xff); \
 											CANIE1 &= !(((1 << mob) >> 8) & 0x7f);	}
 //----------
-#define CAN_SEI()						( BIT_SET(CANGIE, ENIT)	) //!< Enable global CAN interrupts
-#define CAN_SET_TX_INT()				( BIT_SET(CANGIE, ENTX)	) //!< Enable CAN Tx interrupts
-#define CAN_SET_RX_INT()				( BIT_SET(CANGIE, ENRX)	) //!< Enable CAN Rx interrupts
+#define CAN_SEI()			( BIT_SET(CANGIE, ENIT)	) //!< Enable global CAN interrupts
+#define CAN_SET_TX_INT()	( BIT_SET(CANGIE, ENTX)	) //!< Enable CAN Tx interrupts
+#define CAN_SET_RX_INT()	( BIT_SET(CANGIE, ENRX)	) //!< Enable CAN Rx interrupts
 //----------
 
 //----------
-#define MOB_SET_STD_ID_10_4(id)			(	((*((uint8_t *)(&(id)) + 1)) << 5) + \
-											((*(uint8_t *)(&(id))) >> 3)			)
+#define MOB_SET_STD_ID_10_4(id)	(	((*((uint8_t *)(&(id)) + 1)) << 5) + \
+									((*(uint8_t *)(&(id))) >> 3)			)
 
-#define MOB_SET_STD_ID_3_0(id)			(	(*(uint8_t *)(&(id))) <<5 				)
+#define MOB_SET_STD_ID_3_0(id)	(	(*(uint8_t *)(&(id))) <<5 				)
 //----------
-#define MOB_GET_DLC()					( BITMASK_CHECK(CANCDMOB, DLC_MSK) >> DLC0	) //!< Calculates the DLC that is set for the current MOB. @return The DLC sat for the current MOB
-#define MOB_SET_DLC(dlc)				( BITMASK_SET(CANCDMOB, dlc)				) //!< Set the DLC for the current MOB
+#define MOB_GET_DLC()		( BITMASK_CHECK(CANCDMOB, DLC_MSK) >> DLC0	) //!< Calculates the DLC that is set for the current MOB. @return The DLC sat for the current MOB
+#define MOB_SET_DLC(dlc)	( BITMASK_SET(CANCDMOB, dlc)				) //!< Set the DLC for the current MOB
 //----------
 #define MOB_CLEAR_INT_STATUS()			( CANSTMOB=0x00	) //!< Clears the interrupt status for the current MOB
 
