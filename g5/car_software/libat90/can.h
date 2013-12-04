@@ -4,7 +4,7 @@
 //_____ I N C L U D E S ________________________________________________________
 
 #include <stdint.h>
-//#include "can_std/can_lib.h"
+uint8_t can_init(uint8_t mode);  //#include "can_std/can_lib.h" // Inserted so we can compile for now
 #include "bitwise.h"
 
 
@@ -18,9 +18,9 @@
 #define LAST_MOB_NB		( NB_MOB-1	) //!< Index of the last MOB. This is useful when looping over all MOB's
 #define NO_MOB			( 0xFF		)
 
-#define MOB_Tx_ENA  	( 1 << CONMOB ) //!< Mask for Enabling Tx on the current MOB
-#define MOB_Rx_ENA  	( 2 << CONMOB ) //!< Mask for Enabling Rx on the current MOB
-#define MOB_Rx_BENA 	( 3 << CONMOB ) //!< Mask for Enabling Rx with buffer enabled for the current MOB
+#define MOB_Tx_ENA  	( 1 << CONMOB0 ) //!< Mask for Enabling Tx on the current MOB
+#define MOB_Rx_ENA  	( 2 << CONMOB0 ) //!< Mask for Enabling Rx on the current MOB
+#define MOB_Rx_BENA 	( 3 << CONMOB0 ) //!< Mask for Enabling Rx with buffer enabled for the current MOB
 
 #define DLC_MSK     	( (1<<DLC3)|(1<<DLC2)|(1<<DLC1)|(1<<DLC0) 	) //! Mask for Data Length Coding bits in CANCDMOB
 #define MOB_CONMOB_MSK	( (1 << CONMOB1) | (1 << CONMOB0)			) //! Mask for Configuration MOB bits in CANCDMOB
@@ -75,6 +75,27 @@ enum mob_mode_t {
 	*/
 	MOB_FRAME_BUFF_RECEIVE
 };
+
+/**
+* @brief
+*	Different states that CANSTMOB can take.
+*	This is very useful for fx. making a conditional
+*	switch on the given status of the MOB
+*/
+enum mob_status_t {
+	MOB_NOT_COMPLETED 		= 0x00,													//!< 0x00
+	MOB_TX_COMPLETED 		= (1<<TXOK),											//!< 0x40
+	MOB_RX_COMPLETED 		= (1<<RXOK),											//!< 0x20
+	MOB_RX_COMPLETED_DLCW 	= ((1<<RXOK)|(1<<DLCW)),								//!< 0xA0
+	MOB_ACK_ERROR 			= (1<<AERR),											//!< 0x01
+	MOB_FORM_ERROR 			= (1<<FERR),											//!< 0x02
+	MOB_CRC_ERROR 			= (1<<CERR),											//!< 0x04
+	MOB_STUFF_ERROR 		= (1<<SERR),											//!< 0x08
+	MOB_BIT_ERROR 			= (1<<BERR),											//!< 0x10
+	MOB_PENDING 			= ((1<<RXOK)|(1<<TXOK)) ,								//!< 0x60
+	MOB_NOT_REACHED 		= ((1<<AERR)|(1<<FERR)|(1<<CERR)|(1<<SERR)|(1<<BERR)),	//!< 0x1F
+	MOB_DISABLE 			= 0xFF 													//!< 0xFF
+ };
 
 typedef struct can_msg_t {
 	uint8_t mob; 				//!< Message Object to bind to
