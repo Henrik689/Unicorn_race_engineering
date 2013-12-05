@@ -10,8 +10,8 @@
 #include <stdint.h>
 #include "bitwise.h"
 
-#define DDR_PORT(port)	(*(&(port) - 0x01)) //!< Maps a given PORT to the corrisponding DDR eg. PORTA -> DDRA. The magic number 0x01 is the offset from the PORT register to the DDR register
-#define PIN_PORT(port)	(*(&(port) - 0x02)) //!< Maps a given PORT to the corrisponding PIN eg. PORTA -> PINA. The magic number 0x02 is the offset from the PORT register to the PIN register
+#define DDR_PORT(port)	(*(&(port) - 0x01)) //!< Maps a given PORT to the corresponding DDR eg. PORTA -> DDRA. The magic number 0x01 is the offset from the PORT register to the DDR register
+#define PIN_PORT(port)	(*(&(port) - 0x02)) //!< Maps a given PORT to the corresponding PIN eg. PORTA -> PINA. The magic number 0x02 is the offset from the PORT register to the PIN register
 
 
 /**
