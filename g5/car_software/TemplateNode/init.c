@@ -17,19 +17,19 @@
 void ioinit(void)
 {
     // Servo
-    pinMode(&PORTE, PE5, OUTPUT);
-    pinMode(&PORTF, PF1, INPUT);
+    SET_PIN_MODE(PORTE, PE5, INPUT);
+    SET_PIN_MODE(PORTF, PF1, INPUT);
     //DDRE|= (1<<PE5);    // PWM til Servo
 	//DDRF &=~(1<<PF1);	// Position sense
 
 	// Ign cut (output)
-	pinMode(&PORTE, PE4, OUTPUT);
-	digitalWrite(&PORTE, PE4, LOW);
+	SET_PIN_MODE(PORTE, PE4, OUTPUT);
+	DIGITAL_WRITE(PORTE, PE4, LOW);
 	//DDRE|= (1<<PE4);
 	//PORTE &=~ (1<<PE4);
 
 	// Neutral gear (input)
-	pinMode(&PORTE, PE7, INPUT_PULLUP);
+	SET_PIN_MODE(PORTE, PE7, INPUT_PULLUP);
 	//DDRE &=~ (1<<PE7);
 	//PORTE |= (1<<PE7); // Pull-up
 }
@@ -40,7 +40,7 @@ void pwm16Init2(void)
 	//PWM, 16 bit counter (counter3)
 	// (OC3c) Output
     //DDRE |= (1<<PE5);
-    pinMode(&PORTE, PE5, OUTPUT);
+    SET_PIN_MODE(PORTE, PE5, OUTPUT);
 
     // Set Wave Generator mode to mode 14, FAST-PWM TOP = ICRn (table 13-4)
 	//TCCR3A &=~ (1<<WGM30);
@@ -74,7 +74,7 @@ void pwm16Init2(void)
 void counter0Init(void)
 {
 	timer_setPrescaler(PRESCALAR_256);
-	TIMSK0 |= (1<<TOIE0);
+	BIT_SET(TIMSK0, TOIE0);
 }
 
 void adcInit(unsigned int channel)

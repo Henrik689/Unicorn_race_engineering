@@ -139,7 +139,7 @@ int pinMode(volatile uint8_t *port, int pin, enum io_pinmode_t mode){
 		BIT_SET(DDR_PORT(*port), pin);
 	} else if((mode == INPUT) || (mode == INPUT_PULLUP)){
 		//BIT_CLEAR(*ddr_port, pin);
-		BIT_SET(DDR_PORT(*port), pin);
+		BIT_CLEAR(DDR_PORT(*port), pin);
 		if(mode == INPUT_PULLUP)  BIT_SET(*port, pin);
 	}
 
