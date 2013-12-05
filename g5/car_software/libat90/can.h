@@ -92,18 +92,18 @@ enum mob_mode_t {
 *	switch on the given status of the MOB
 */
 enum mob_status_t {
-	MOB_NOT_COMPLETED 		= 0x00,													//!< 0x00
-	MOB_TX_COMPLETED 		= (1<<TXOK),											//!< 0x40
-	MOB_RX_COMPLETED 		= (1<<RXOK),											//!< 0x20
-	MOB_RX_COMPLETED_DLCW 	= ((1<<RXOK)|(1<<DLCW)),								//!< 0xA0
-	MOB_ACK_ERROR 			= (1<<AERR),											//!< 0x01
-	MOB_FORM_ERROR 			= (1<<FERR),											//!< 0x02
-	MOB_CRC_ERROR 			= (1<<CERR),											//!< 0x04
-	MOB_STUFF_ERROR 		= (1<<SERR),											//!< 0x08
-	MOB_BIT_ERROR 			= (1<<BERR),											//!< 0x10
-	MOB_PENDING 			= ((1<<RXOK)|(1<<TXOK)) ,								//!< 0x60
-	MOB_NOT_REACHED 		= ((1<<AERR)|(1<<FERR)|(1<<CERR)|(1<<SERR)|(1<<BERR)),	//!< 0x1F
-	MOB_DISABLE 			= 0xFF 													//!< 0xFF
+	MOB_NOT_COMPLETED 		= ( 0x00 ),													//!< 0x00
+	MOB_TX_COMPLETED 		= ( 1<<TXOK ),												//!< 0x40
+	MOB_RX_COMPLETED 		= ( 1<<RXOK ),												//!< 0x20
+	MOB_RX_COMPLETED_DLCW 	= ( (1<<RXOK)|(1<<DLCW) ),									//!< 0xA0
+	MOB_ACK_ERROR 			= ( 1<<AERR ),												//!< 0x01
+	MOB_FORM_ERROR 			= ( 1<<FERR ),												//!< 0x02
+	MOB_CRC_ERROR 			= ( 1<<CERR ),												//!< 0x04
+	MOB_STUFF_ERROR 		= ( 1<<SERR ),												//!< 0x08
+	MOB_BIT_ERROR 			= ( 1<<BERR ),												//!< 0x10
+	MOB_PENDING 			= ( (1<<RXOK)|(1<<TXOK) ),									//!< 0x60
+	MOB_NOT_REACHED 		= ( (1<<AERR)|(1<<FERR)|(1<<CERR)|(1<<SERR)|(1<<BERR) ),	//!< 0x1F
+	MOB_DISABLE 			= ( 0xFF ) 													//!< 0xFF
  };
 
 typedef struct can_msg_t {
