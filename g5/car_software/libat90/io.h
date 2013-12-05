@@ -8,6 +8,11 @@
 #define IO_H
 
 #include <stdint.h>
+#include "bitwise.h"
+
+#define DDR_PORT(port)	(*(&(port) - 0x01)) //!< Maps a given PORT to the corrisponding DDR eg. PORTA -> DDRA. The magic number 0x01 is the offset from the PORT register to the DDR register
+#define PIN_PORT(port)	(*(&(port) - 0x02)) //!< Maps a given PORT to the corrisponding PIN eg. PORTA -> PINA. The magic number 0x02 is the offset from the PORT register to the PIN register
+
 
 /**
 * @brief
@@ -19,9 +24,6 @@ enum io_digital_t {
 	HIGH = 1
 };
 
-#define DDR_PORT(port)	(*(&(port) - 0x01)) //!< Maps a given PORT to the corrisponding DDR eg. PORTA -> DDRA. The magic number 0x01 is the offset from the PORT register to the DDR register
-#define PIN_PORT(port)	(*(&(port) - 0x02)) //!< Maps a given PORT to the corrisponding PIN eg. PORTA -> PINA. The magic number 0x02 is the offset from the PORT register to the PIN register
-
 /**
 * @brief
 *	Different modes that the pins
@@ -32,6 +34,10 @@ enum io_pinmode_t {
 	OUTPUT,
 	INPUT_PULLUP
 };
+
+#define DIGITAL_READ(port, pin)			( BIT_CHECK(_SFR_BYTE(PIN_PORT((port))), (pin)) != 0 ? HIGH : LOW 	) //!< Same as digitalRead
+#define DIGITAL_WRITE(port, pin, value)	( BITMASK_SET_OR_CLEAR(_SFR_BYTE((port)), (1 << (pin)), (value)) 	) //!< Same as digitalWrite
+#define DIGITAL_TOGGLE(port, pin)		( DIGITAL_WRITE((port), (pin), !DIGITAL_READ((port), (pin))) 		) //!< Toggles a pin
 
 enum io_digital_t digitalRead(volatile uint8_t *inputPinRegister, int pin);
 void digitalWrite(volatile uint8_t *port, int pin, enum io_digital_t value);

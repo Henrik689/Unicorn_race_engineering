@@ -64,6 +64,8 @@ int main(void)
 		uint16_t res = adc_readChannel(i);
 		uart1_printf("ADC channel %d = %d \n", i, res);
 
+		DIGITAL_TOGGLE(PORTA, i); // Test of digital read/write macros. This expands to 3 op codes
+
 		if(++i == 8){
 			i = 0;
 			uart1_txstring("\n");
