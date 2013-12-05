@@ -20,8 +20,8 @@
 *	digital values
 */
 enum io_digital_t {
-	LOW = 0,
-	HIGH = 1
+	LOW 	= 0,
+	HIGH 	= 1
 };
 
 /**
@@ -30,9 +30,9 @@ enum io_digital_t {
 *	can be set to
 */
 enum io_pinmode_t {
-	INPUT,
-	OUTPUT,
-	INPUT_PULLUP
+	INPUT, 			//!< Useful for reading a sensor but not powering an LED, You would most likely want the INPUT pin to reference GND
+	OUTPUT, 		//!< Sets the pin in a low impedance state. Thus the pin can power a LED but not read a sensor
+	INPUT_PULLUP 	//!< Use the internal pull-up resistors. This effectively inverts its behavior, where HIGH means off and LOW means on
 };
 
 #define DIGITAL_READ(port, pin)			( BIT_CHECK(_SFR_BYTE(PIN_PORT((port))), (pin)) != 0 ? HIGH : LOW 	) //!< Same as digitalRead
