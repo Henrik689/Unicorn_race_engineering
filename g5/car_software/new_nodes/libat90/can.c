@@ -22,7 +22,7 @@ void set_canit_callback(enum can_int_t interrupt, void (*callback)(uint8_t mob))
 
 int can_setup(can_msg_t *msg){
 	CAN_SET_MOB(msg->mob); // Move CANPAGE point the the given mob
-	
+	uart1_printf("Setting up mob %d to id %d\n", msg->mob, msg->id);
 	switch(msg->mode){
 		case MOB_DISABLED:
 			MOB_ABORT();
@@ -33,8 +33,10 @@ int can_setup(can_msg_t *msg){
 		case MOB_RECIEVE:
 			MOB_SET_STD_ID(msg->id);
 			MOB_SET_STD_MASK_FILTER(MASK_FULL_FILTERING); 
-			MOB_CONFIG_RX(); // OSBS!! we are configuring specifically for mode MOB_RECIEVE
-			CAN_ENABLE_MOB_INTERRUPT(msg->mob);
+			//MOB_CONFIG_RX(); // OSBS!! we are configuring specifically for mode MOB_RECIEVE
+			Can_config_rx();
+			//CAN_ENABLE_MOB_INTERRUPT(msg->mob);
+			Can_set_mob_int(msg->mob);
 			break;
 		case MOB_AUTOMATIC_REPLY:
 			break;
@@ -58,7 +60,7 @@ int can_receive(can_msg_t *msg){
 		return 2; // Error 
 	}
 	// Fill the msg with received data
-	MOB_SET_STD_ID(msg->id); 			// Fill in the msg id
+	//MOB_SET_STD_ID(msg->id); 			// Fill in the msg id
 	msg->dlc = MOB_GET_DLC(); 			// Fill in the msg dlc
 	MOB_RX_DATA(msg->data, msg->dlc);	// Fill in the msg data
 
@@ -70,11 +72,14 @@ int can_receive(can_msg_t *msg){
 
 int can_send(can_msg_t *msg){
 	CAN_SET_MOB(msg->mob);
-
+	
+	MOB_SET_STD_ID(msg->id);
 	MOB_SET_DLC(msg->dlc); // Set the expected payload length
 	MOB_TX_DATA(msg->data, msg->dlc);
-	MOB_CONFIG_TX();
+	Can_config_tx();
+	//MOB_CONFIG_TX();
 	CAN_ENABLE_MOB_INTERRUPT(msg->mob);
+
 
 	return CANSTMOB;
 }
@@ -93,7 +98,7 @@ int can_send(can_msg_t *msg){
 
 ISR (CANIT_vect) {
 	uint8_t mob;
-
+	uart1_printf("CAN ISR\n");
 	// Loop over each MOB and check if it have pending interrupt
 	for (mob = 0; mob <= LAST_MOB_NB; mob++) {
 		if (MOB_HAS_PENDING_INT(mob)) { /* True if mob have pending interrupt */

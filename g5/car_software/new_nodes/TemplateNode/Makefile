@@ -233,7 +233,7 @@ hex: $(HEXTRG)
 
 writeflash: hex
 	$(AVRDUDE) -c $(AVRDUDE_PROGRAMMERID)   \
-	 -p $(PROGRAMMER_MCU) -P usb -B 1      \
+	 -p $(PROGRAMMER_MCU) -P usb -B 8      \
 	 -U flash:w:$(HEXROMTRG)
 
 install: writeflash

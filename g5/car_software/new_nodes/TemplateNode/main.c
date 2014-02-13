@@ -25,11 +25,11 @@ int main(void)
 	set_canit_callback(CANIT_DEFAULT, can_default);
 
 	//Initialise the Gear node
-	ioinit();									//Port setup
+	//ioinit();									//Port setup
 	uart1_init();								//Serial communication
-	CAN_INIT_RX();								//Can setup
-    pwm16Init2();								//Setup PWM controller
-	counter0Init();								//Init interrupt counter to overflow with 168Hz
+	CAN_INIT_ALL();								//Can setup
+    //pwm16Init2();								//Setup PWM controller
+	//counter0Init();								//Init interrupt counter to overflow with 168Hz
 
 	sei();										//Enable interrupt
 
@@ -40,31 +40,36 @@ int main(void)
 
 	uart1_printf("\n\n\nSTARTING\n");
 
-	can_setup(&(can_msg_t){
+
+	can_msg_t rx_msg = {
 		.mob = 8,
 		.id = 4,
 		.dlc = 7,
 
 		.mode = MOB_RECIEVE
-	});
-
+	};
+	can_setup(&rx_msg);
+	uart1_printf("1\n");
 	int i=0;
 	while(1){
 		// Main work loop
 		_delay_ms(250);
-
-		can_send(&(can_msg_t){
+		//uart1_printf("1.5\n");
+		can_msg_t tx_msg = {
 			.mob = 10,
 			.id = 4,
 			.data = {'H', 'E', 'Y', ' ', 'J', 'O', 'E'},
-
+			.dlc = 7,
 			.mode = MOB_TRANSMIT
-		});
+		};
+		//uart1_printf("2\n");
+		can_send(&tx_msg);
+		uart1_printf("HEJ\n");
 
-		uint16_t res = adc_readChannel(i);
-		uart1_printf("ADC channel %d = %d \n", i, res);
+		//uint16_t res = 3;adc_readChannel(i);
+		//uart1_printf("ADC channel %d = %d \n", i, res);
 
-		DIGITAL_TOGGLE(PORTA, i); // Test of digital read/write macros. This expands to 3 op codes
+		//DIGITAL_TOGGLE(PORTA, i); // Test of digital read/write macros. This expands to 3 op codes
 
 		if(++i == 8){
 			i = 0;
