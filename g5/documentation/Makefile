@@ -1,6 +1,6 @@
 all:
-	pdflatex Elektronik-G6.tex
-	pdflatex Elektronik-G6.tex
+	pdflatex Electronic-G6.tex
+	pdflatex Electronic-G6.tex
 
 clean:
 	rm *.aux \
@@ -11,6 +11,6 @@ clean:
 	*.blg \
 	*.lox \
 	*.tps \
-	Elektronik-G6.pdf
+	Electronic-G6.pdf
 
 	echo "Junk Deleted"

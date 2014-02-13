@@ -1,0 +1,43 @@
+\input{preamble}
+
+\begin{document}
+	\frontmatter
+	\cleardoublepage
+	%\input{forord}
+
+	\mainmatter
+	\cleardoublepage
+	\tableofcontents
+	\clearpage
+
+	%\input{Indledning}
+	\input{formalia/introduction}
+	\input{formalia/unicorn}
+
+	\chapter{Systemdescription}
+	\input{systemdescription/CAN-bus}
+
+	\chapter{Specifications}
+	% Kracspecifikation
+
+	\chapter{Systemdevelopment}
+	\input{systemdescription/avr_windows}
+	\input{systemdescription/avr_linux}
+	\input{systemdescription/git}
+	\input{systemdev/block1/block1}
+	\input{systemdev/block2/block2}
+	\input{systemdev/block3/block3}
+
+	\chapter{Systemtest}
+
+	\clearpage
+	\bibliography{bibtex/references}
+
+	%\clearpage
+	%\listoffixmes
+
+	% Bilag
+	\appendix
+	\appendixtocname
+	\addappheadtotoc
+\end{document}
