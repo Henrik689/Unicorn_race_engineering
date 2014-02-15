@@ -17,10 +17,17 @@ uint8_t can_init(uint8_t mode);  //#include "can_std/can_lib.h" // Inserted so w
 #include "bitwise.h"
 #include <avr/interrupt.h>
 
-//_____ D E F I N I T I O N S __________________________________________________
+#ifndef UINT16_MAX
+#define UINT16_MAX	((uint16_t)(~0))
+#endif
 
-#define MASK_FULL_FILTERING	( (uint16_t){UINT16_MAX}	) //!< Only listen for the specified ID
-#define MASK_NO_FILTERING	( (uint16_t){0} 			) //!< Listen for all ID's (Eg. a spy node)
+#ifndef UINT32_MAX
+#define UINT32_MAX	((uint32_t)(~0))
+#endif
+
+//_____ D E F I N I T I O N S __________________________________________________
+//#define MASK_FULL_FILTERING	( (uint16_t){UINT16_MAX}	) //!< Only listen for the specified ID @todo are we sure this should not be uint32_t instead?
+//#define MASK_NO_FILTERING	( (uint16_t){0} 			) //!< Listen for all ID's (Eg. a spy node)
 
 #define NB_MOB			( 15		) //!< Number of MOB's
 #define NB_DATA_MAX		( 8			) //!< The can can max transmit a payload of 8 uint8_t
@@ -158,6 +165,12 @@ typedef struct can_msg_t {
 
 #define MOB_SET_STD_MASK_FILTER(mask)	{ 	CANIDM1 = MOB_SET_STD_ID_10_4(mask); \
 											CANIDM2 = MOB_SET_STD_ID_3_0( mask);	}
+
+#define MOB_SET_STD_FILTER_FULL()		{	uint32_t __filterMask_ = UINT32_MAX; \
+											MOB_SET_STD_MASK_FILTER(__filterMask_); }
+
+#define MOB_SET_STD_FILTER_NONE()		{	uint32_t __filterMask_ = 0; \
+											MOB_SET_STD_MASK_FILTER(__filterMask_); }
 
 #define MOB_CLEAR_STATUS()				{ 	uint8_t  volatile *__i_; \
 											for (__i_ =& CANSTMOB; __i_ < &CANSTML; __i_++) \

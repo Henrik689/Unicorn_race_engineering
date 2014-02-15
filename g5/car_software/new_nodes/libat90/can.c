@@ -32,7 +32,7 @@ int can_setup(can_msg_t *msg){
 			break;
 		case MOB_RECIEVE:
 			MOB_SET_STD_ID(msg->id);
-			MOB_SET_STD_MASK_FILTER(MASK_FULL_FILTERING); 
+			MOB_SET_STD_FILTER_FULL();
 			//MOB_CONFIG_RX(); // OSBS!! we are configuring specifically for mode MOB_RECIEVE
 			Can_config_rx();
 			//CAN_ENABLE_MOB_INTERRUPT(msg->mob);
