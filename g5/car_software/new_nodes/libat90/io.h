@@ -35,8 +35,8 @@ enum io_pinmode_t {
 	INPUT_PULLUP 	//!< Use the internal pull-up resistors. This effectively inverts its behavior, where HIGH means off and LOW means on
 };
 
-#define DIGITAL_READ(port, pin)			( BIT_CHECK(_SFR_BYTE(PIN_PORT((port))), (pin)) != 0 ? HIGH : LOW 	) //!< Same as digitalRead
-#define DIGITAL_WRITE(port, pin, value)	( BITMASK_SET_OR_CLEAR(_SFR_BYTE((port)), (1 << (pin)), (value)) 	) //!< Same as digitalWrite
+#define DIGITAL_READ(port, pin)			( BIT_CHECK((PIN_PORT(port)), (pin)) != 0 ? HIGH : LOW 	) //!< Same as digitalRead
+#define DIGITAL_WRITE(port, pin, value)	( BITMASK_SET_OR_CLEAR((port), (1 << (pin)), (value)) 	) //!< Same as digitalWrite
 #define DIGITAL_TOGGLE(port, pin)		( DIGITAL_WRITE((port), (pin), !DIGITAL_READ((port), (pin))) 		) //!< Toggles a pin
 
 /**
@@ -45,10 +45,10 @@ enum io_pinmode_t {
 */
 #define SET_PIN_MODE(port, pin, mode){ \
 	if (mode == OUTPUT){ \
-		BIT_SET( DDR_PORT( _SFR_BYTE((port)) ), (pin) ); \
+		BIT_SET( DDR_PORT( (port) ), (pin) ); \
 	} else if ( ((mode) == INPUT) || ((mode) == INPUT_PULLUP) ){ \
-		BIT_CLEAR( DDR_PORT( _SFR_BYTE((port)) ), (pin) ); \
-		if ((mode) == INPUT_PULLUP) BIT_SET( _SFR_BYTE((port)), (pin) ); \
+		BIT_CLEAR( DDR_PORT( (port) ), (pin) ); \
+		if ((mode) == INPUT_PULLUP) BIT_SET( (port), (pin) ); \
 	} \
 }
 
