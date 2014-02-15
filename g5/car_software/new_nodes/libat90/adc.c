@@ -42,10 +42,10 @@ float adc_toVolt(uint16_t ADCReading){
 */
 void adc_setTriggerSource(enum adc_triggerSource_t source){
 	const uint16_t three_heighest_bits = (0x07 << 5); 
-	source = (source << 5); // shift the source up to match the mask
+	const uint16_t s = (source << 5); // shift the source up to match the mask
 
 	BITMASK_CLEAR(ADCSRB, three_heighest_bits);
-	BITMASK_SET(ADCSRB, BITMASK_CHECK(source, three_heighest_bits));
+	BITMASK_SET(ADCSRB, BITMASK_CHECK(s, three_heighest_bits));
 }
 
 /**
