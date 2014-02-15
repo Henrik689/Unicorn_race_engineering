@@ -2,6 +2,7 @@
 #define UART_H
 
 #include <stdint.h>
+#include <stdlib.h> // size_t
 
 /*
 Alias macro-functions.
