@@ -15,7 +15,7 @@
 #include <stdint.h>
 uint8_t can_init(uint8_t mode);  //#include "can_std/can_lib.h" // Inserted so we can compile for now
 #include "bitwise.h"
-
+#include <avr/interrupt.h>
 
 //_____ D E F I N I T I O N S __________________________________________________
 
