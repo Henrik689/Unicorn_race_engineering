@@ -49,20 +49,20 @@ setup = function() {
         }
 	}
     server.begin();    
-    var os = require('os')
+    var os = require('os');
 
 	var interfaces = os.networkInterfaces();
 	var addresses = [];
-	for (k in interfaces) {
-		for (k2 in interfaces[k]) {
+	for (var k in interfaces) {
+		for (var k2 in interfaces[k]) {
 			var address = interfaces[k][k2];
 			if (address.family == 'IPv4' && !address.internal) {
-				addresses.push(address.address)
+				addresses.push(address.address);
 			}
 		}
 	}
-	console.log("Access the webpage located on:")
-	console.log(addresses)
+	console.log("Access the webpage located on:");
+	console.log(addresses);
 	//console.log("Beginning Server");
 };
 //##############################################################################
@@ -189,8 +189,8 @@ var newdata = function(data){
 			if(dataTypeKey !== -1){ 
 				bytesToRead = (dataType[dataTypeKey].datalength/8);
 			}
-			 // No more data, transmit fetched data to client
-			 // Pak data her, og kald dataTx
+			// No more data, transmit fetched data to client
+			// Pak data her, og kald dataTx
 			else{
 				// Tx data to all clients
 				//console.log("Tx data -------------------------------------------------");
@@ -218,14 +218,19 @@ if(FROMFILE == 1){
 	// New stored data in
 	var newStoredData = function(){
 		// Resemple serial data
-		var tmp = Array(storedData[index+0],storedData[index+1],
-						storedData[index+2],storedData[index+3],
-						storedData[index+4],storedData[index+5]);
+		var tmp = [
+			storedData[index+0],
+			storedData[index+1],
+			storedData[index+2],
+			storedData[index+3],
+			storedData[index+4],
+			storedData[index+5]
+		];
 
 		newdata(tmp);
 		
 		// Increase data index (from file)
-		index = index + 6;
+		index += 6;
 		if(index >= datalen)
 			index = 0;
 			
@@ -251,5 +256,5 @@ process.on('SIGINT', function(){
 
 	db.close();
 
-	process.exit()
+	process.exit();
 });
