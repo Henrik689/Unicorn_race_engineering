@@ -16,7 +16,7 @@ int main(void)
 	uart_init();								//Serial communication
 	can_init(0);								//Can setup
     pwm16Init2();								//Setup PWM controller
-	adcInit(1);									//Setup ADC for pot-meter or Amp meter
+	//adcInit(1);								//Setup ADC for pot-meter or Amp meter
 	counter0Init();								//Init interrupt counter to overflow with 168Hz
 
 	sei();										//Enable interrupt
@@ -28,8 +28,10 @@ int main(void)
 
 	while(1){
 		// Main work loop
+		//read LeftWheel.c
+		//read RightWheel.c
 	}
 
     return 0;
-   
+
 }

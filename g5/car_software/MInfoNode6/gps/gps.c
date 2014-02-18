@@ -107,7 +107,7 @@ ISR(USART1_RX_vect)
 	if((GPRMC_flag == 1) && ((char_counter>=45) && (char_counter<=48)))
 		speed_char[char_counter-45] = data;
 
-	if((GPRMC_flag == 1) && (char_counter==48))
+	if((GPRMC_flag == 1) && (char_counter==48)) // Is the missing indention not a bug?
 	speed = (int)(atof(speed_char)*1.852); // Knots til km/h
 
 	// Latitude dd, index 18 til 19
