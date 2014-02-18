@@ -22,7 +22,7 @@ void set_canit_callback(enum can_int_t interrupt, void (*callback)(uint8_t mob))
 
 int can_setup(can_msg_t *msg){
 	CAN_SET_MOB(msg->mob); // Move CANPAGE point the the given mob
-	uart1_printf("Setting up mob %d to id %d\n", msg->mob, msg->id);
+
 	switch(msg->mode){
 		case MOB_DISABLED:
 			MOB_ABORT();
@@ -98,7 +98,7 @@ int can_send(can_msg_t *msg){
 
 ISR (CANIT_vect) {
 	uint8_t mob;
-	uart1_printf("CAN ISR\n");
+
 	// Loop over each MOB and check if it have pending interrupt
 	for (mob = 0; mob <= LAST_MOB_NB; mob++) {
 		if (MOB_HAS_PENDING_INT(mob)) { /* True if mob have pending interrupt */
