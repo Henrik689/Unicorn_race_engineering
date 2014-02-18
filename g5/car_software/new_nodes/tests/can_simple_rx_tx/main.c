@@ -55,7 +55,7 @@ int main(void) {
 		};
 
 		can_send(&tx_msg);
-		uart1_printf("CAN Tx : id %d, mob %d, :: ", tx_msg.id, tx_msg.mob);
+		uart1_printf("CAN Tx\t id %d, mob %d, :: ", tx_msg.id, tx_msg.mob);
 		
 		// As tx_msg.data is a byte array we cant treat it as a string
 		uart1_txarr(tx_msg.data, sizeof(tx_msg.data)/sizeof(tx_msg.data[0]));
@@ -74,7 +74,7 @@ static void rx_complete(uint8_t mob) {
 
 	// Print out the received data. Please dont print inside can callbacks
 	// in real code as these are run inside the can ISR
-	uart1_printf("CAN Rx id: %d on mob %d :: ", msg.id, msg.mob);
+	uart1_printf("CAN Rx\t id: %d on mob %d :: ", msg.id, msg.mob);
 	uart1_txarr(msg.data, msg.dlc); uart1_txchar('\n');
 }
 
