@@ -236,6 +236,19 @@ writeflash: hex
 	 -p $(PROGRAMMER_MCU) -P usb -B 8      \
 	 -U flash:w:$(HEXROMTRG)
 
+readfuse:
+	$(AVRDUDE) -c $(AVRDUDE_PROGRAMMERID) \
+	-p $(PROGRAMMER_MCU) -P usb \
+	-U lfuse:r:-:h -U hfuse:r:-:h -U efuse:r:-:h -U lock:r:-:h
+
+writefuse:
+	$(AVRDUDE) -c $(AVRDUDE_PROGRAMMERID) \
+	-p $(PROGRAMMER_MCU) -P usb -e \
+	-u -U lfuse:w:0xff:m \
+	-u -U hfuse:w:0xf9:m \
+	-u -U efuse:w:0xdf:m # same as l:0xff h:0xff e:d9
+
+
 install: writeflash
 
 $(DUMPTRG): $(TRG) 
