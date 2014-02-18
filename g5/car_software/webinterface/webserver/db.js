@@ -37,7 +37,7 @@ exports.sensor = (function(){
 			for(var i=0; i < sensors.length; i++){
 				var params = [
 					sensors[i].name,
-					parseFloat(sensors[i].val.replace(",",".")), // the value is a string object
+					parseFloat(sensors[i].val), // the value is a string object
 					sensors[i].timestamp
 				]
 				stmt.run(params);
