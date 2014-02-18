@@ -35,9 +35,21 @@ enum io_pinmode_t {
 	INPUT_PULLUP 	//!< Use the internal pull-up resistors. This effectively inverts its behavior, where HIGH means off and LOW means on
 };
 
-#define DIGITAL_READ(port, pin)			( BIT_CHECK((PIN_PORT(port)), (pin)) != 0 ? HIGH : LOW 	) //!< Same as digitalRead
-#define DIGITAL_WRITE(port, pin, value)	( BITMASK_SET_OR_CLEAR((port), (1 << (pin)), (value)) 	) //!< Same as digitalWrite
-#define DIGITAL_TOGGLE(port, pin)		( DIGITAL_WRITE((port), (pin), !DIGITAL_READ((port), (pin))) 		) //!< Toggles a pin
+//!< @name digital read/write
+//!< Digitally read, write or toggle a specified IO pin
+//!< @{
+#define DIGITAL_READ(port, pin)			( BIT_CHECK((PIN_PORT(port)), (pin)) != 0 ? HIGH : LOW 			) //!< Same as digitalRead
+#define DIGITAL_WRITE(port, pin, value)	( BITMASK_SET_OR_CLEAR((port), (1 << (pin)), (value)) 			) //!< Same as digitalWrite. Use only if value is run time dependent
+#define DIGITAL_TOGGLE(port, pin)		( DIGITAL_WRITE((port), (pin), !DIGITAL_READ((port), (pin))) 	) //!< Toggles a pin
+//!< @}
+
+//!< @name IO_SET
+//!< These should be used over DIGITAL_WRITE() if
+//!< the state you want to set is known at compile time
+//!< @{
+#define IO_SET_HIGH(port, pin)	( BIT_SET((port), (pin)) 	) //!< Set the value on the specified pin to HIGH
+#define IO_SET_LOW(port, pin)	( BIT_CLEAR((port), (pin)) 	) //!< Set the value on the specified pin to LOW
+//!< @}
 
 /**
 * @brief

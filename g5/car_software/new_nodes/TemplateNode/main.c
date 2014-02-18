@@ -60,14 +60,14 @@ int main(void)
 	SET_PIN_MODE(PORTF, PIN6, OUTPUT);
 	SET_PIN_MODE(PORTF, PIN7, OUTPUT);
 
-	DIGITAL_WRITE(PORTF, PIN0, HIGH);
-	DIGITAL_WRITE(PORTF, PIN1, HIGH);
+	DIGITAL_WRITE(PORTF, PIN0, HIGH); 	// takes 6 instruktions
+	IO_SET_HIGH(PORTF, PIN1); 			// takes 1 instruktion
 	DIGITAL_WRITE(PORTF, PIN2, HIGH);
 	DIGITAL_WRITE(PORTF, PIN3, HIGH);
 	DIGITAL_WRITE(PORTF, PIN4, HIGH);
 	DIGITAL_WRITE(PORTF, PIN5, HIGH);
 	DIGITAL_WRITE(PORTF, PIN6, HIGH);
-	DIGITAL_WRITE(PORTF, PIN7, HIGH);
+	IO_SET_HIGH(PORTF, PIN7);
 	
 	int i=0;
 	while(1){
@@ -89,7 +89,7 @@ int main(void)
 		//uint16_t res = 3;adc_readChannel(i);
 		//uart1_printf("ADC channel %d = %d \n", i, res);
 
-		DIGITAL_TOGGLE(PORTF, i); // Test of digital read/write macros. This expands to 3 op codes
+		DIGITAL_TOGGLE(PORTF, i); // This expands to 6 instruktions
 
 		if(++i == 8){
 			i = 0;
