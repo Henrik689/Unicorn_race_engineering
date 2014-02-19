@@ -140,7 +140,7 @@ HEXFORMAT=ihex
 
 # compiler
 CFLAGS=-I. $(INC) -g -mmcu=$(MCU) -O$(OPTLEVEL) $(DEFINES) \
-	-fpack-struct -fshort-enums -mrelax     \
+	-fpack-struct -fshort-enums -mrelax  -flto   \
 	-Wl,-u,vfprintf -lprintf_flt -lm	\
 	-funsigned-bitfields -funsigned-char    \
 	-Wall -Wstrict-prototypes -Werror	 \
@@ -164,7 +164,7 @@ ASMFLAGS =-I. $(INC) -mmcu=$(MCU)        \
 
 # linker
 LDFLAGS=-Wl,-Map,$(TRG).map -mmcu=$(MCU) \
-	-Wl,-u,vfprintf -lprintf_flt -lm -mrelax	\
+	-Wl,-u,vfprintf -lprintf_flt -lm -mrelax -flto -O$(OPTLEVEL)	\
 	-lm $(LIBS)
 
 ##### executables ####
