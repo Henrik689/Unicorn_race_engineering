@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <stdlib.h> // size_t
 
+#define PRNT_BUFF_SIZE (256) //!< The size of the uart print buffer
+
 /*
 Alias macro-functions.
 These make working with the uart a little

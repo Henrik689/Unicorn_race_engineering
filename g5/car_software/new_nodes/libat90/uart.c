@@ -260,13 +260,13 @@ int uart_txstring(enum uart_number_t n, const char *str) {
 int uart_printf(enum uart_number_t n, const char *str, ...){
 	if(str == NULL) return -1;
 
-	char buffer[256] = {0}; // Warning this might overflow on long str
+	char buffer[PRNT_BUFF_SIZE] = {'\0'}; // Warning this might overflow on long str
 	va_list args;
 	int rc_vsprintf;
 	int rc_tx;
 	
 	va_start(args, str);
-	if((rc_vsprintf = vsprintf(buffer, str, args)) < 0){
+	if((rc_vsprintf = vsnprintf(buffer, PRNT_BUFF_SIZE, str, args)) < 0){
 		return rc_vsprintf; // vsprintf return a negative value on err
 	}
 	va_end(args);
@@ -275,7 +275,7 @@ int uart_printf(enum uart_number_t n, const char *str, ...){
 		return -1; // We havn't send the same amount as sprintf wrote the the buffer
 	}
 
-	if(rc_tx > 256) return -256; // if buffer overflow
+	if(rc_tx > PRNT_BUFF_SIZE) return -PRNT_BUFF_SIZE; // if buffer overflow
 
 	return rc_tx;
 }
