@@ -56,24 +56,24 @@ void gearDown()
 }
 
 void gearNeutral1(void){			// Neutral position from 1st gear
-	IgnCutOn;
+	IgnCutOn();
 	_delay_ms(100);
 	servoPosition(NEUPOS1);
 	_delay_ms(GEARWAIT);
 	servoPosition(MIDPOS);
 	_delay_ms(GEARWAIT);
 	_delay_ms(100);
-	IgnCutOff;
+	IgnCutOff();
 }
 
 void gearNeutral2(void){			// Neutral position from 2nd gear
-	IgnCutOn;
+	IgnCutOn();
 	_delay_ms(100);
 	servoPosition(NEUPOS2);
 	_delay_ms(GEARWAIT);
 	servoPosition(MIDPOS);
 	_delay_ms(GEARWAIT);
 	_delay_ms(100);
-	IgnCutOff;
+	IgnCutOff();
 }
 

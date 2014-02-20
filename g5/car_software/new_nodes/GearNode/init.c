@@ -1,6 +1,8 @@
 /*********************************************
  * Hardware init
  *********************************************/
+#ifndef INIT_C
+#define INIT_C
 
 #include "config.h"
 #include "extern.h"
@@ -117,3 +119,4 @@ void adcInit(unsigned int channel)
 	ADCSRA |=(1<<ADIE);
    
 }
+#endif
