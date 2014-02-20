@@ -57,7 +57,7 @@ int can_receive(can_msg_t *msg){
 
 	if ( !((CANSTMOB == MOB_RX_COMPLETED_DLCW) || (CANSTMOB == MOB_RX_COMPLETED)) ) {
 		MOB_CLEAR_INT_STATUS();
-		return 2; // Error 
+		return 2; // Error
 	}
 	// Fill the msg with received data
 	//MOB_SET_STD_ID(msg->id); 			// Fill in the msg id
@@ -72,7 +72,7 @@ int can_receive(can_msg_t *msg){
 
 int can_send(can_msg_t *msg){
 	CAN_SET_MOB(msg->mob);
-	
+
 	MOB_SET_STD_ID(msg->id);
 	MOB_SET_DLC(msg->dlc); // Set the expected payload length
 	MOB_TX_DATA(msg->data, msg->dlc);

@@ -32,7 +32,7 @@ int main(void) {
 	DIGITAL_WRITE(PORTF, PIN5, HIGH);
 	DIGITAL_WRITE(PORTF, PIN6, HIGH);
 	IO_SET_HIGH(PORTF, PIN7);
-	
+
 	int i = 0;
 	while(1){
 		// Main work loop

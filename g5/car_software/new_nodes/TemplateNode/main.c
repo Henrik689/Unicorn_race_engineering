@@ -49,7 +49,7 @@ int main(void)
 		.mode = MOB_RECIEVE
 	};
 	can_setup(&rx_msg);
-	
+
 	SET_PIN_MODE(PORTF, PIN0, OUTPUT);
 	SET_PIN_MODE(PORTF, PIN1, OUTPUT);
 	SET_PIN_MODE(PORTF, PIN2, OUTPUT);
@@ -67,7 +67,7 @@ int main(void)
 	DIGITAL_WRITE(PORTF, PIN5, HIGH);
 	DIGITAL_WRITE(PORTF, PIN6, HIGH);
 	IO_SET_HIGH(PORTF, PIN7);
-	
+
 	int i=0;
 	while(1){
 		// Main work loop

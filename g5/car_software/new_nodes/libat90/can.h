@@ -50,16 +50,16 @@ enum can_int_t {
 	/**
 	* @brief
 	*	The form error results from one or more violations of the fixed
-	*	form in the following bit fields: 
+	*	form in the following bit fields:
 	*	+ CRC delimiter
 	*	+ Acknowledgment delimiter
 	*	+ EOF
 	*/
 	CANIT_FORM_ERROR = 			4,
-	
+
 	/**
 	* @brief
-	*	The receiver performs a CRC check on every de-stuffed received message 
+	*	The receiver performs a CRC check on every de-stuffed received message
 	*	from the start of frame up to the data field.
 	*	If this checking does not match with the de-stuffed CRC field, a CRC error is set.
 	*/
@@ -117,7 +117,7 @@ typedef struct can_msg_t {
 	uint8_t mob; 				//!< Message Object to bind to
 	uint16_t id; 				//!< Message id / priority
 	uint8_t dlc; 				//!< Data Length Code
-	uint8_t data[NB_DATA_MAX];	//!< The message payload. Specification states a max length of 8 regardless of dlc 
+	uint8_t data[NB_DATA_MAX];	//!< The message payload. Specification states a max length of 8 regardless of dlc
 	enum mob_mode_t mode; 		//!< Denotes the mode that this msg is send or received
 } can_msg_t;
 

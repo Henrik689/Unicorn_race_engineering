@@ -1,6 +1,6 @@
 /**
 * @file io.h
-* @brief 
+* @brief
 *	Used for simple digital pin IO operations
 */
 

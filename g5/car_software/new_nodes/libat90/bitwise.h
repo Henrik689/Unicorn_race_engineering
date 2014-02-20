@@ -14,7 +14,7 @@
 * where a=target, b=bit number to act on
 * @{
 */
-#define BIT_SET(a,b) 		( (a) |= (1<<(b))	) 
+#define BIT_SET(a,b) 		( (a) |= (1<<(b))	)
 #define BIT_CLEAR(a,b) 		( (a) &= ~(1<<(b))	)
 #define BIT_FLIP(a,b) 		( (a) ^= (1<<(b))	)
 #define BIT_CHECK(a,b) 		( (a) & (1<<(b))	)

@@ -52,7 +52,7 @@ more pleasent.
 
 
 
-enum uart_number_t { 
+enum uart_number_t {
 	UART_NUMBER_0,
 	UART_NUMBER_1
 };
