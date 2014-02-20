@@ -43,13 +43,12 @@ int main(void)
 
 	can_msg_t rx_msg = {
 		.mob = 8,
-		.id = 4,
+		.id = 4, // 133 = gpsnode
 		.dlc = 7,
 
 		.mode = MOB_RECIEVE
 	};
 	can_setup(&rx_msg);
-	uart1_printf("1\n");
 	
 	SET_PIN_MODE(PORTF, PIN0, OUTPUT);
 	SET_PIN_MODE(PORTF, PIN1, OUTPUT);
@@ -73,7 +72,6 @@ int main(void)
 	while(1){
 		// Main work loop
 		_delay_ms(250);
-		//uart1_printf("1.5\n");
 		can_msg_t tx_msg = {
 			.mob = 10,
 			.id = 4,
@@ -81,7 +79,6 @@ int main(void)
 			.dlc = 7,
 			.mode = MOB_TRANSMIT
 		};
-		//uart1_printf("2\n");
 		can_send(&tx_msg);
 		uart1_printf("HEJ %d\n", i);
 
@@ -107,6 +104,13 @@ static void rx_complete(uint8_t mob) {
 	can_receive(&msg);
 	uart1_printf("Received id: %d on mob %d :: ", msg.id, msg.mob);
 	uart1_txarr(msg.data, msg.dlc); uart1_txchar('\n');
+	/* The below should be used for binary data
+	int i;
+	for (i = 0; i < msg.dlc; ++i){
+		uart1_printf("%d ", msg.data[i]);
+		//uart1_printf("0x%02X ", msg.data[i]);
+	} */
+	uart1_txchar('\n');
 }
 
 static void tx_complete(uint8_t mob) {
