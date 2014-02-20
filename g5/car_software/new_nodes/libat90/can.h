@@ -15,12 +15,19 @@
 #include <stdint.h>
 uint8_t can_init(uint8_t mode);  //#include "can_std/can_lib.h" // Inserted so we can compile for now
 #include "bitwise.h"
+#include <avr/interrupt.h>
 
+#ifndef UINT16_MAX
+#define UINT16_MAX	((uint16_t)(~0))
+#endif
+
+#ifndef UINT32_MAX
+#define UINT32_MAX	((uint32_t)(~0))
+#endif
 
 //_____ D E F I N I T I O N S __________________________________________________
-
-#define MASK_FULL_FILTERING	( (uint16_t){UINT16_MAX}	) //!< Only listen for the specified ID
-#define MASK_NO_FILTERING	( (uint16_t){0} 			) //!< Listen for all ID's (Eg. a spy node)
+//#define MASK_FULL_FILTERING	( (uint16_t){UINT16_MAX}	) //!< Only listen for the specified ID @todo are we sure this should not be uint32_t instead?
+//#define MASK_NO_FILTERING	( (uint16_t){0} 			) //!< Listen for all ID's (Eg. a spy node)
 
 #define NB_MOB			( 15		) //!< Number of MOB's
 #define NB_DATA_MAX		( 8			) //!< The can can max transmit a payload of 8 uint8_t
@@ -116,41 +123,61 @@ typedef struct can_msg_t {
 
 
 //_____ M A C R O S ____________________________________________________________
-
+//!< @name MOB Transmit and Receive
+//!< Transmit or receive data on the current MOB
+//!< @{
 #define MOB_TX_DATA(data, len)			{ 	uint8_t i; \
 											for (i = 0; i < len; i++) \
 												{ CANMSG = data[i]; } 		} //!< Put data onto the can
 #define MOB_RX_DATA(data, len)			{ 	uint8_t i; \
 											for (i = 0; i < len; i++) \
 												{ data[i] = CANMSG;} 		} //!< Get data from the can
-//----------
+//!< @} ----------
+
+
+//!< @name CAN status Interrupt register
+//!< @{
 #define CANSIT_16 					( CANSIT2 + (CANSIT1 << 8) 		) //!< The CANSIT holds information about what mob has fired an interrupt. This combines it into a single 16 bit value.
 #define MOB_HAS_PENDING_INT(mob)	( BIT_CHECK(CANSIT_16, (mob))	) //!< Check if the given mob has a pending interrupt.
-//----------
-#define CAN_SET_MOB(mob)				( CANPAGE = ((mob) << 4)	)
+//!< @} ----------
 
+
+#define CAN_SET_MOB(mob)				( CANPAGE = ((mob) << 4)	) //!< Set the can the the specified MOB
+
+//@name MOB interrupt
+//!< Enable or disable interrupts on the specified MOB
+//!< @{
 #define CAN_ENABLE_MOB_INTERRUPT(mob)	{	CANIE2 |= ((1 << mob) & 0xff); \
 											CANIE1 |= (((1 << mob) >> 8) & 0x7f);	}
 
 #define CAN_DISABLE_MOB_INTERRUPT(mob)	{	CANIE2 &= !((1 << mob) & 0xff); \
 											CANIE1 &= !(((1 << mob) >> 8) & 0x7f);	}
-//----------
+//!< @} ----------
+
+
+//!< @name Can interrupt
+//!< enable the can interrupt
+//!< @{
 #define CAN_SEI()			( BIT_SET(CANGIE, ENIT)	) //!< Enable global CAN interrupts
 #define CAN_SET_TX_INT()	( BIT_SET(CANGIE, ENTX)	) //!< Enable CAN Tx interrupts
 #define CAN_SET_RX_INT()	( BIT_SET(CANGIE, ENRX)	) //!< Enable CAN Rx interrupts
-//----------
+//!< @} ----------
 
-//----------
-#define MOB_SET_STD_ID_10_4(id)	(	((*((uint8_t *)(&(id)) + 1)) << 5) + \
-									((*(uint8_t *)(&(id))) >> 3)			)
 
-#define MOB_SET_STD_ID_3_0(id)	(	(*(uint8_t *)(&(id))) <<5 				)
-//----------
+//!< @name Data Length Code
+//!< Getter and setter for the length of data that the given MOB holds
+//!< @{
 #define MOB_GET_DLC()		( BITMASK_CHECK(CANCDMOB, DLC_MSK) >> DLC0	) //!< Calculates the DLC that is set for the current MOB. @return The DLC sat for the current MOB
 #define MOB_SET_DLC(dlc)	( BITMASK_SET(CANCDMOB, dlc)				) //!< Set the DLC for the current MOB
-//----------
-#define MOB_CLEAR_INT_STATUS()			( CANSTMOB=0x00	) //!< Clears the interrupt status for the current MOB
+//!< @} ----------
 
+
+//!< @name MOB ID
+//!< @{
+#define MOB_SET_STD_ID_10_4(id)			(	((*((uint8_t *)(&(id)) + 1)) << 5) + \
+											((*(uint8_t *)(&(id))) >> 3)			)
+
+#define MOB_SET_STD_ID_3_0(id)			(	(*(uint8_t *)(&(id))) << 5 				)
 
 #define MOB_SET_STD_ID(id)				{	CANIDT1 = MOB_SET_STD_ID_10_4((id)); \
 											CANIDT2 = MOB_SET_STD_ID_3_0((id)); \
@@ -159,9 +186,21 @@ typedef struct can_msg_t {
 #define MOB_SET_STD_MASK_FILTER(mask)	{ 	CANIDM1 = MOB_SET_STD_ID_10_4(mask); \
 											CANIDM2 = MOB_SET_STD_ID_3_0( mask);	}
 
+#define MOB_SET_STD_FILTER_FULL()		{	uint32_t __filterMask_ = UINT32_MAX; \
+											MOB_SET_STD_MASK_FILTER(__filterMask_); }
+
+#define MOB_SET_STD_FILTER_NONE()		{	uint32_t __filterMask_ = 0; \
+											MOB_SET_STD_MASK_FILTER(__filterMask_); }
+//!< @} ----------
+
+
+//!< @name MOB status
+//!< @{
 #define MOB_CLEAR_STATUS()				{ 	uint8_t  volatile *__i_; \
 											for (__i_ =& CANSTMOB; __i_ < &CANSTML; __i_++) \
 												{ *__i_= 0x00; }					}
+#define MOB_CLEAR_INT_STATUS()			( CANSTMOB = 0x00	) //!< Clears the interrupt status for the current MOB
+//!< @} ----------
 
 //!< @name Configuration of Message Object
 //!< These bits set the communication to be performed (no initial value after RESET).
@@ -172,8 +211,9 @@ typedef struct can_msg_t {
 #define MOB_EN_TX()				{ BIT_CLEAR(CANCDMOB, CONMOB1); BIT_SET(CANCDMOB, CONMOB0); } //!< Enable MOB Transmission
 #define MOB_EN_RX()				{ BIT_SET(CANCDMOB, CONMOB1); BIT_CLEAR(CANCDMOB, CONMOB0); } //!< Enable MOB Reception
 #define MOB_EN_FRM_BUFF_RX()	( BITMASK_SET(CANCDMOB, MOB_CONMOB_MSK) 					) //!< Enable MOB Frame Buffer Reception
-//!< @}
-//----------
+//!< @} ----------
+
+
 #define MOB_CONFIG_TX()					{	MOB_ABORT(); \
 											BITMASK_SET(CANCDMOB, MOB_Tx_ENA);	}
 #define MOB_CONFIG_RX()					{	MOB_ABORT(); \
@@ -187,8 +227,8 @@ typedef struct can_msg_t {
 #define CAN_INIT_RX()	{ CAN_INIT(); CAN_SEI(); CAN_SET_RX_INT(); 					}
 #define CAN_INIT_TX()	{ CAN_INIT(); CAN_SEI(); CAN_SET_TX_INT(); 					}
 
-#define Can_config_tx()        { MOB_ABORT(); CANCDMOB |= (1  << CONMOB0); }
-#define Can_config_rx()        { MOB_ABORT(); CANCDMOB |= (2  << CONMOB0); }
+#define Can_config_tx()        { MOB_ABORT(); CANCDMOB |= (1 << CONMOB0); }
+#define Can_config_rx()        { MOB_ABORT(); CANCDMOB |= (2 << CONMOB0); }
 #define Can_config_rx_buffer() {              CANCDMOB |= (3 << CONMOB0); }
 
 #define Can_set_mob_int(mob)	{ CANIE2 |= ((1<<mob) & 0xff); \

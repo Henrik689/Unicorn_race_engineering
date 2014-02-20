@@ -65,7 +65,7 @@ function createTable(rows,columns){
 function setupData2(config) {
 
     for(var i=0;i<config.length;i++) {
-        data[i] = new Object();     
+        data[i] = {};     
         data[i].name =  config[i].name; 
         data[i].points =  totalPoints; 
         data[i].time = fillTime(0,data[i].points); // Init time array
@@ -104,7 +104,7 @@ function initDataSeries(config,points) {
     for(var key in config) {  
         
 		// Create data object        
-		dataseries_tmp[i] = new Object();  
+		dataseries_tmp[i] = {};  
 		
 		// Name of dataseries
 		if(config[key].hasOwnProperty('name'))
@@ -192,8 +192,8 @@ function flotifyData(array1,array2) {
 // Init flot plot object with the plot active dataseries
 function initFlot(plot_tmp,name) {  
     
-    var flotData = Array();   
-	var labels = Array();
+    var flotData = [];
+	var labels = [];
 	
 	var min = 99999;
 	var max = -99999;
@@ -206,8 +206,8 @@ function initFlot(plot_tmp,name) {
 			labels.push(plot_tmp.dataseries[key].name);
 			
 			// Find max/min
-			min = Math.min(plot_tmp.dataseries[key].min,min)
-			max = Math.max(plot_tmp.dataseries[key].max,max)			
+			min = Math.min(plot_tmp.dataseries[key].min,min);
+			max = Math.max(plot_tmp.dataseries[key].max,max);
 		}
 	}
 

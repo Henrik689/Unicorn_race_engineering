@@ -39,7 +39,6 @@ void pwm16Init2(void)
 {
 	//PWM, 16 bit counter (counter3)
 	// (OC3c) Output
-    //DDRE |= (1<<PE5);
     SET_PIN_MODE(PORTE, PE5, OUTPUT);
 
     // Set Wave Generator mode to mode 14, FAST-PWM TOP = ICRn (table 13-4)
@@ -52,8 +51,6 @@ void pwm16Init2(void)
 	// These bits are set in order to control the behavior of Output Compare pin (OC0)(table 13-2)
 	BIT_SET(TCCR3A, COM3C1);
 	BIT_CLEAR(TCCR3A, COM3C0);
-	//TCCR3A |= (1<<COM3C1);
-	//TCCR3A &=~ (1<<COM3C0);
     
     
 	// set the Input Capture Registers Top (11-bit)
@@ -64,9 +61,6 @@ void pwm16Init2(void)
 	BIT_SET(TCCR3B, CS30);
 	BIT_SET(TCCR3B, CS31);
 	BIT_CLEAR(TCCR3B, CS32);
-    //TCCR3B |= (1<<CS30);
-	//TCCR3B |= (1<<CS31);
-	//TCCR3B &=~ (1<<CS32);
 }
 
 
@@ -74,7 +68,7 @@ void pwm16Init2(void)
 void counter0Init(void)
 {
 	timer_setPrescaler(PRESCALAR_256);
-	BIT_SET(TIMSK0, TOIE0);
+	//BIT_SET(TIMSK0, TOIE0); // This does not have an ISR!?
 }
 
 void adcInit(unsigned int channel)

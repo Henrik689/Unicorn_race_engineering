@@ -77,7 +77,7 @@ PROGRAMMER_MCU=c128
 
 # Name of our project
 # (use a single word, e.g. 'myproject')
-PROJECTNAME=TemplateNode
+PROJECTNAME=io_read_write
 
 DEFINES = -DF_CPU=11059200  -DCAN_BAUDRATE=250
 
@@ -86,11 +86,12 @@ DEFINES = -DF_CPU=11059200  -DCAN_BAUDRATE=250
 # (list all files to compile, e.g. 'a.c b.cpp as.S'):
 # Use .cc, .cpp or .C suffix for C++ files, use .S 
 # (NOT .s !!!) for assembly source code files.
-LIB_AT90 = ../libat90/adc.c ../libat90/can_std/can_drv.c ../libat90/can_std/can_lib.c ../libat90/timer.c ../libat90/uart.c ../libat90/can.c ../libat90/io.c 
-PRJSRC=main.c init.c $(LIB_AT90)
+LIBAT90_PATH = ../../libat90
+LIB_AT90 = $(LIBAT90_PATH)/adc.c $(LIBAT90_PATH)/can_std/can_drv.c $(LIBAT90_PATH)/can_std/can_lib.c $(LIBAT90_PATH)/timer.c $(LIBAT90_PATH)/uart.c $(LIBAT90_PATH)/can.c $(LIBAT90_PATH)/io.c 
+PRJSRC=main.c $(LIB_AT90)
 
 # additional includes (e.g. -I/path/to/mydir)
-INC=-I../libat90
+INC=-I../../libat90
 
 # libraries to link in (e.g. -lmylib)
 #LIBS=
