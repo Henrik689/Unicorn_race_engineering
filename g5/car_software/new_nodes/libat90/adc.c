@@ -198,7 +198,7 @@ uint16_t adc_read(void){
 * @see adc_read()
 *
 * @param[in] ch
-*	The channe the ADC will
+*	The channel the ADC will
 *	be set to before reading.
 *
 * @return
@@ -213,7 +213,7 @@ uint16_t adc_readChannel(const uint8_t ch){
 * @brief
 *	Sets up the ADC on channel using
 *	The specified channel, vref and prescalar.
-*	This must becalled before using the ADC.
+*	This must be called before using the ADC.
 *
 * @param[in] channel
 *	The channel ADC is set to.
