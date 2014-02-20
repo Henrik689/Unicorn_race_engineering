@@ -5,8 +5,6 @@
 *	
 */
 
-
-
 // CPU clock
 #define FOSC           110592		// 11,0592 MHz External cristal
 #define F_CPU          (FOSC*100)	// Need for AVR GCC
@@ -39,14 +37,13 @@
 #define counter0prescale256 4
 
 // Motor positions
-//#define TOPPOS 617
+
 #define MIDPOS 332
-//#define BUTPOS 42
 #define UPPOS 210		
 #define NEUPOS1 264		
 #define NEUPOS2 400	
-#define DOWNPOS 500		
-#define GEARWAIT 500		// ?? 
+#define DOWNPOS 500	
+#define GEARWAIT 500	
 
 // Error msg.
 #define ERRORMSG_NOERROR 0
