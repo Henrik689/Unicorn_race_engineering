@@ -2,7 +2,7 @@
 #include "extern.h"
 #include "can_std/can_lib.h"
 #include "can_new.h"
-#include "test_vars.h"
+//#include "test_vars.h"
 #include "../lib/can_defs.h"
 #include "../lib/data_def.h"
 #include "prototyper.h"
@@ -11,7 +11,7 @@ st_cmd_t tx_remote_msg;
 
 unsigned short int can_update_rx_msg(st_cmd_t* msg, U8 msg_id, U8 dlc)
 {
-        U8 i;
+      //  U8 i;
         
         msg->id.std = msg_id;
         msg->ctrl.ide = 0;
@@ -20,20 +20,21 @@ unsigned short int can_update_rx_msg(st_cmd_t* msg, U8 msg_id, U8 dlc)
         msg->cmd = CMD_RX_DATA_MASKED;
 
         while(can_cmd(msg) != CAN_CMD_ACCEPTED);
+        return 0;
 }
 
 /* Interrupt routine to take care of can interrupts */
 ISR(CANIT_vect)
 {
 	uint8_t i,interrupt, mob_back;
-	uint16_t tmp,tmp2,mask=1;
-
+	uint16_t tmp,mask=1;
+	//uint16_t tmp2;
 	U8 rpm_response_buffer[8];
 	st_cmd_t rpm_msg;
 
 	rpm_msg.pt_data = rpm_response_buffer;
 	rpm_msg.status = 0;
-	char tempchar[10];
+	//char tempchar[10];
 	/*
 	 * Function to clear only the mob that generated the interrupt 
 	 * ------------- Code flow --------------------
@@ -58,7 +59,7 @@ ISR(CANIT_vect)
 			switch (interrupt){
 				case MOB_RX_COMPLETED:
 					/* Can specific code */
-					can_get_data(&canDataTest[0]);	// Copy data to canDataTest
+					//can_get_data(&canDataTest[0]);	// Copy data to canDataTest
 					Can_mob_abort();        // Freed the MOB
 					Can_clear_status_mob(); // and reset MOb status
 					can_update_rx_msg(&rpm_msg, gear_msgid, 8);
@@ -70,20 +71,20 @@ ISR(CANIT_vect)
 //					sendtekst(tempchar);
 //					sendtekst("\r\n");
 
-					if (canDataTest[0] == gear) 
-					{  
-						gearButCAN = canDataTest[1];
-					}
-					/*	Kan bruges til udregning af gearratio
-					else if (canDataTest[0] == roadSpeed) 
-					{  
-						roadSpeed_val = ((canDataTest[1]<<8) + canDataTest[2]); // speed x 100
-					}
-					else if (canDataTest[0] == rpm) 
-					{  
-						rpm_val = ((canDataTest[1]<<8) + canDataTest[2])*0.9408;
-					}
-					*/
+					// if (canDataTest[0] == gear)  		TESTING 
+					// {  
+					// 	gearButCAN = canDataTest[1];
+					// }
+					// /*	Kan bruges til udregning af gearratio
+					// else if (canDataTest[0] == roadSpeed) 
+					// {  
+					// 	roadSpeed_val = ((canDataTest[1]<<8) + canDataTest[2]); // speed x 100
+					// }
+					// else if (canDataTest[0] == rpm) 
+					// {  
+					// 	rpm_val = ((canDataTest[1]<<8) + canDataTest[2])*0.9408;
+					// }
+					// */
 					break;
 				case MOB_TX_COMPLETED:
 					Can_mob_abort();        // Freed the MOB
