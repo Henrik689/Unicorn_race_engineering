@@ -1,9 +1,9 @@
 /**
 * @file io.c
-* @brief 
+* @brief
 *	Used for simple digital pin IO operations
 * @details
-*	Provides functions to read and write 
+*	Provides functions to read and write
 *	digital values from specified pin
 *	as well as pin setup modes.
 */
@@ -17,8 +17,8 @@
 #include "bitwise.h"
 #include "io.h"
 
-/** 
-* @brief 
+/**
+* @brief
 * 	Read the digital value of a given pin
 *
 * @details
@@ -31,8 +31,8 @@
 * @note
 *	The pin must be set to the appropriate mode
 * 	(typically this is either INPUT or INPUT_PULLUP)
-*	using the function pinMode() before use 
-*	
+*	using the function pinMode() before use
+*
 *
 * @param[in] inputPinRegister
 * 	Pointer to the pin register that the pin is

@@ -75,7 +75,7 @@ int can_receive(can_msg_t *msg){
 	//!< @todo The CANSTMOB is checked already in ISR. Does it make sense to clear interrupt status?
 	if ( !((CANSTMOB == MOB_RX_COMPLETED_DLCW) || (CANSTMOB == MOB_RX_COMPLETED)) ) {
 		MOB_CLEAR_INT_STATUS();
-		return 2; // Error 
+		return 2; // Error
 	}
 
 	/**
@@ -103,7 +103,7 @@ MOB_EN_RX
 
 int can_send(can_msg_t *msg){
 	CAN_SET_MOB(msg->mob);
-	
+
 	MOB_SET_STD_ID(msg->id);
 	MOB_SET_DLC(msg->dlc); // Set the expected payload length
 	MOB_TX_DATA(msg->data, msg->dlc);

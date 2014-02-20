@@ -35,12 +35,12 @@ int main(void) {
 
 
 	uart1_printf("Listning for id %d on mob %d with a msg length %d\n",
-		rx_msg.id, 
-		rx_msg.mob, 
+		rx_msg.id,
+		rx_msg.mob,
 		rx_msg.dlc
 	);
 
-	
+
 	while(1){
 		// Main work loop
 		_delay_ms(250);
@@ -56,7 +56,7 @@ int main(void) {
 
 		can_send(&tx_msg);
 		uart1_printf("CAN Tx\t id %d, mob %d, :: ", tx_msg.id, tx_msg.mob);
-		
+
 		// As tx_msg.data is a byte array we cant treat it as a string
 		uart1_txarr(tx_msg.data, sizeof(tx_msg.data)/sizeof(tx_msg.data[0]));
 		uart1_txchar('\n');
@@ -68,7 +68,7 @@ int main(void) {
 // Callback to be run when rx comletes on the CAN
 static void rx_complete(uint8_t mob) {
 	can_msg_t msg = {
-		.mob = mob // mob is the MOB that fired the interrupt 
+		.mob = mob // mob is the MOB that fired the interrupt
 	};
 	can_receive(&msg); // Fetch the message and fill out the msg struct
 

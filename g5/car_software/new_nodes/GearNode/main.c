@@ -21,8 +21,8 @@
 #include <stdlib.h>
 #include "can_std/can_lib.h"
 #include "can_new.h"
-#include "../lib/can_defs.h"
-#include "../lib/data_def.h"
+#include "../../lib/can_defs.h"
+#include "../../lib/data_def.h"
 
 unsigned int GearEst_val = 0;
 unsigned int gearPosition = 0;
@@ -64,6 +64,15 @@ int main(void)
 	Can_set_tx_int();										//Enable interrupt on transmit message complete on CAN bus
 	Can_set_rx_int();										//Enable interrupt on receive message complete on CAN bus
     
+    gearUp();
+    _delay_ms(5000);
+    gearDown();
+    _delay_ms(10000);
+    gearUp();
+    _delay_ms(5000);
+    gearDown();
+    _delay_ms(10000);
+
     //Main loop for verification of gear positioning
 	while(1)
 	{
@@ -79,6 +88,7 @@ int main(void)
 		data_buf[1] = 0;	
 		data_buf[2] = GearEst_val;							//Gear estimated value
 		can_send_non_blocking(rpm_msgid, data_buf, 3);
+    
     }
     return 0;
 }

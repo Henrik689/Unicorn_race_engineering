@@ -1,6 +1,6 @@
 /**
 * @file adc.c
-* @brief 
+* @brief
 *	Used for setting up and reading from the ADC
 */
 
@@ -41,7 +41,7 @@ float adc_toVolt(uint16_t ADCReading){
 *	the ADC ISR
 */
 void adc_setTriggerSource(enum adc_triggerSource_t source){
-	const uint16_t three_heighest_bits = (0x07 << 5); 
+	const uint16_t three_heighest_bits = (0x07 << 5);
 	const uint16_t s = (source << 5); // shift the source up to match the mask
 
 	BITMASK_CLEAR(ADCSRB, three_heighest_bits);
@@ -54,7 +54,7 @@ void adc_setTriggerSource(enum adc_triggerSource_t source){
 *
 * @details
 *	The ADC requires a frequency between 50KHz to 200KHz
-*	this frequency is set as the relation between the 
+*	this frequency is set as the relation between the
 *	ADC prescalar and the cpu_f.
 *	ADC frequency = cpu_f / prescalar
 *	For example if we have: \n
@@ -128,7 +128,7 @@ void adc_setChannel(uint8_t ch){
 	// We check if the channel value
 	// is between 0 and 7 (represented with the three lowest bits).
 	// We then set the channel value in the ADMUX register.
-	const unsigned int three_lowest_bits = 0x07; 
+	const unsigned int three_lowest_bits = 0x07;
 
 	BITMASK_CLEAR(ADMUX, three_lowest_bits);
 	BITMASK_SET(ADMUX, BITMASK_CHECK(ch, three_lowest_bits));
@@ -229,7 +229,7 @@ uint16_t adc_readChannel(const uint8_t ch){
 *	If you want to setup the ADC to use a trigger source
 *	for interrupt usage these setup calls have to run
 *	manually.
-*/ 
+*/
 void adc_init(int channel, enum adc_vref_t vref, enum adc_prescalar_t prescalar){
 	adc_setChannel(channel);
 	adc_setVref(vref);

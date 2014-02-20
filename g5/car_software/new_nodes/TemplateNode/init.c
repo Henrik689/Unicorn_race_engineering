@@ -47,16 +47,16 @@ void pwm16Init2(void)
 	//TCCR3B |= (1<<WGM32);
 	//TCCR3B |= (1<<WGM33);
 	timer_setMode(TIMER3, 14);
-    
+
 	// These bits are set in order to control the behavior of Output Compare pin (OC0)(table 13-2)
 	BIT_SET(TCCR3A, COM3C1);
 	BIT_CLEAR(TCCR3A, COM3C0);
-    
-    
+
+
 	// set the Input Capture Registers Top (11-bit)
 	ICR3H = 0x07;
 	ICR3L = 0xFF;
-    
+
 	// Set Clock Select Bits for a Prescaler = 64 (table 13-5)
 	BIT_SET(TCCR3B, CS30);
 	BIT_SET(TCCR3B, CS31);
@@ -75,33 +75,33 @@ void adcInit(unsigned int channel)
 {
 	// ADC channel
 	ADMUX = (channel & 0x0f);
-    
+
     //ADC Left adjust
    // ADMUX &=~(1<<ADLAR);
 
 	// Vref config
-	ADMUX |= (1<<REFS0); 
+	ADMUX |= (1<<REFS0);
 	ADMUX &=~ (1<<REFS1);
-    
+
 
 	// ADC ENABLE
-	ADCSRA |= (1<<ADEN); 
+	ADCSRA |= (1<<ADEN);
 
 	// ADC frequency prescaler
 	ADCSRA |= (1<<ADPS0);
 	ADCSRA |= (1<<ADPS1);
 	ADCSRA |= (1<<ADPS2);
-    
+
      // ADC Tigger mode
      ADCSRA |= (1<<ADATE);
-     
+
      // ADC trigger source
      ADCSRB &=~ (1<<ADTS0);
      ADCSRB &=~ (1<<ADTS1);
      ADCSRB |= (1<<ADTS2);
-     
+
 
 	// ADC interrupt enable
 	ADCSRA |= (1<<ADIE);
-   
+
 }

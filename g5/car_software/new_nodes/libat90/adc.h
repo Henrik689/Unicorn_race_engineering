@@ -14,7 +14,7 @@
 #define ADC_BITS 10 //!< How many bits the ADC have
 #endif
 
-#define ADC_MAX_BITS (( 1 << ADC_BITS ) - 1) //!< The highest value the ADC can represent 
+#define ADC_MAX_BITS (( 1 << ADC_BITS ) - 1) //!< The highest value the ADC can represent
 
 #ifndef ADC_MAX_VOLTAGE
 #define ADC_MAX_VOLTAGE	5.0f //!< When the ADC reads its highest value it is equal to this many Volts (This should be the vref)
@@ -98,4 +98,3 @@ uint16_t adc_readChannel(uint8_t ch);
 void adc_init(int channel, enum adc_vref_t vref, enum adc_prescalar_t prescalar);
 
 #endif /* ADC_H */
-	

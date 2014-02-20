@@ -5,6 +5,9 @@
 *	
 */
 
+#ifndef CONFIG_H
+#define CONFIG_H
+
 // CPU clock
 #define FOSC           110592		// 11,0592 MHz External cristal
 #define F_CPU          (FOSC*100)	// Need for AVR GCC
@@ -49,3 +52,5 @@
 #define ERRORMSG_NOERROR 0
 #define ERRORMSG_OVERCURRENT 1
 #define ERRORMSG_GEARSTUCK 2
+
+#endif
