@@ -215,7 +215,7 @@ GENASMFILES=$(filter %.s, $(OBJDEPS:.o=.s))
 	.hex .ee.hex .h .hh .hpp
 
 
-.PHONY: writeflash clean stats gdbinit stats
+.PHONY: writeflash clean stats gdbinit stats readfuse writefuse
 
 # Make targets:
 # all, disasm, stats, hex, writeflash/install
