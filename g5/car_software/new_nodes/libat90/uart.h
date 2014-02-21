@@ -32,6 +32,9 @@ more pleasent.
 #define uart1_setNumberOfStopBits(numStopBits) 	uart_setNumberOfStopBits(UART_NUMBER_1, (numStopBits))
 #define uart1_setCharSize(size)					uart_setCharSize(UART_NUMBER_1, (size))
 
+#define uart0_setBaudRate(baudrate, mode)	uart_setBaudRate(UART_NUMBER_0, (baudrate), mode)
+#define uart1_setBaudRate(baudrate, mode)	uart_setBaudRate(UART_NUMBER_1, (baudrate), mode)
+
 #define uart0_init()	uart_init(UART_NUMBER_0)
 #define uart1_init()	uart_init(UART_NUMBER_1)
 
@@ -90,6 +93,7 @@ void uart_setModeSync(const enum uart_number_t number);
 void uart_setNumberOfStopBits(const enum uart_number_t number, unsigned int numStopBits);
 void uart_setCharSize(enum uart_number_t number, enum uart_charSelect_t size);
 
+void uart_setBaudRate(enum uart_number_t number, const uint32_t baudrate, enum uart_operationModes_t mode);
 uint16_t uart_baud2ubrr(const uint32_t baudrate, const enum uart_operationModes_t mode);
 
 void uart_init(enum uart_number_t);
