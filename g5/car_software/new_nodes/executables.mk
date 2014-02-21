@@ -28,10 +28,10 @@ ASMFILES=$(filter %.S, $(PRJSRC))
 
 
 # List all object files we need to create
-OBJDEPS=$(CFILES:.c=.o)    \
-	$(CPPFILES:.cpp=.o)\
+OBJDEPS=$(CFILES:.c=.o) \
+	$(CPPFILES:.cpp=.o) \
 	$(BIGCFILES:.C=.o) \
-	$(CCFILES:.cc=.o)  \
+	$(CCFILES:.cc=.o) \
 	$(ASMFILES:.S=.o)
 
 # Define all lst files.

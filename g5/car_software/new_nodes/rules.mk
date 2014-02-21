@@ -19,8 +19,8 @@ hex: $(HEXTRG)
 
 
 writeflash: hex
-	$(AVRDUDE) -c $(AVRDUDE_PROGRAMMERID)   \
-	 -p $(PROGRAMMER_MCU) -P usb -B 8      \
+	$(AVRDUDE) -c $(AVRDUDE_PROGRAMMERID) \
+	 -p $(PROGRAMMER_MCU) -P usb -B 8 \
 	 -U flash:w:$(HEXROMTRG)
 
 readfuse:
@@ -81,12 +81,12 @@ $(TRG): $(OBJDEPS)
 # hex files from elf
 #####  Generating a gdb initialisation file    #####
 .elf.hex:
-	$(OBJCOPY) -j .text                    \
-		-j .data                       \
+	$(OBJCOPY) -j .text \
+		-j .data \
 		-O $(HEXFORMAT) $< $@
 
 .elf.ee.hex:
-	$(OBJCOPY) -j .eeprom                  \
+	$(OBJCOPY) -j .eeprom \
 		--change-section-lma .eeprom=0 \
 		-O $(HEXFORMAT) $< $@
 
