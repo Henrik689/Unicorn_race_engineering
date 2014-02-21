@@ -43,6 +43,7 @@
 # Name of our project
 # (use a single word, e.g. 'myproject')
 PROJECTNAME=TemplateNode
+SRC=$(wildcard *.c)
 
 TOP=..
 include $(TOP)/config.mk

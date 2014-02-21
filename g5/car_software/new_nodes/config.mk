@@ -47,10 +47,10 @@ LIB_AT90 = 	$(LIB_AT90_DIR)/adc.c \
 			$(LIB_AT90_DIR)/uart.c \
 			$(LIB_AT90_DIR)/can.c \
 			$(LIB_AT90_DIR)/io.c
-PRJSRC=main.c init.c $(LIB_AT90)
+PRJSRC=$(SRC) $(LIB_AT90)
 
 # additional includes (e.g. -I/path/to/mydir)
-INC=-I../libat90
+INC=-I$(LIB_AT90_DIR)
 
 # libraries to link in (e.g. -lmylib)
 #LIBS=
