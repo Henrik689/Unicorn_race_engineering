@@ -46,8 +46,8 @@ PROJECTNAME=can_simple_rx_tx
 SRC=$(wildcard *.c)
 
 TOP=../..
-include $(TOP)/config.mk
-include $(TOP)/flags.mk
-include $(TOP)/executables.mk
-include $(TOP)/rules.mk
+include $(TOP)/mk/config.mk
+include $(TOP)/mk/flags.mk
+include $(TOP)/mk/executables.mk
+include $(TOP)/mk/rules.mk
 
