@@ -86,10 +86,25 @@ void usart0_setBaudrate(const uint32_t baudrate, enum uart_operationModes_t mode
 	UBRR0H = HIGH_BYTE(prescale);
 }
 
+#ifndef NO_USART0_BUFFERED_INPUT
+
+/**
+ * Check the input buffer for new data
+ * @return  true if it as data. Else false
+ */
 bool usart0_hasData(void){
 	return !rb_isEmpty(&usart0_inBuff);
 }
 
+#endif
+
+/**
+ * get a byte from usart. This
+ * call is alway blocking. if input buffer
+ * is enabled use usart[N]_hasData() to check
+ * if data is available
+ * @return  received byte
+ */
 uint8_t usart0_getc(void) {
 #ifdef NO_USART0_BUFFERED_INPUT
 	while(USART0_RX_IS_BUSY());
