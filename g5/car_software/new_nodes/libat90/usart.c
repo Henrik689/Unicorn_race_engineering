@@ -111,7 +111,7 @@ uint8_t usart0_getc(void) {
 	return UDR0;
 #else
 	uint8_t data;
-	while(rb_pop(&usart0_inBuff, &data) == 0);
+	while(rb_pop(&usart0_inBuff, &data) != 0);
 	return data;
 #endif
 }
