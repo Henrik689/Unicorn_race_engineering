@@ -7,6 +7,22 @@
 #include <avr/io.h>
 #include <bitwise.h>
 
+enum uart_operationModes_t {
+	UART_MODE_ASYNC_NORMAL,
+	UART_MODE_ASYNC_DOUBLE,
+	UART_MODE_SYNC_MASTER
+};
+
+enum uart_charSelect_t {
+	UART_CHAR_5BIT = 0x00,
+	UART_CHAR_6BIT = 0x01,
+	UART_CHAR_7BIT = 0x02,
+	UART_CHAR_8BIT = 0x03,
+	UART_CHAR_9BIT = 0x07
+};
+
+#ifndef NO_USART0_SUPPORT
+
 #define UART0_PRNT_BUFF_SIZE (256) //!< The size of the uart print buffer
 
 #define USART0_ENABLE_RX()	BIT_SET(UCSR0B, RXEN)
@@ -29,27 +45,13 @@
 	UCSR0C |= (size << UCSZ0); \
 }
 
-
-
-enum uart_operationModes_t {
-	UART_MODE_ASYNC_NORMAL,
-	UART_MODE_ASYNC_DOUBLE,
-	UART_MODE_SYNC_MASTER
-};
-
-enum uart_charSelect_t {
-	UART_CHAR_5BIT = 0x00,
-	UART_CHAR_6BIT = 0x01,
-	UART_CHAR_7BIT = 0x02,
-	UART_CHAR_8BIT = 0x03,
-	UART_CHAR_9BIT = 0x07
-};
-
 void usart0_setBaudrate(const uint32_t baudrate, enum uart_operationModes_t mode);
 unsigned char usart0_getc(void);
 int usart0_putc(const uint8_t c);
 int usart0_puts(const char *str);
 int usart0_putn(size_t n, const char*str);
 int usart0_printf(const char *str, ...);
+
+#endif
 
 #endif /* UART_H */

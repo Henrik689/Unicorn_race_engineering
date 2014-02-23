@@ -38,6 +38,9 @@ static inline uint16_t uart_baud2ubrr(const uint32_t baudrate, enum uart_operati
 	return ubrr_val;
 }
 
+
+#ifndef NO_USART0_SUPPORT
+
 void usart0_init(void) {
 	const uint32_t baudrate = 115200;
 
@@ -143,4 +146,6 @@ int usart0_printf(const char *str, ...){
 
 	return rc_tx;
 }
+
+#endif
 
