@@ -17,6 +17,11 @@
 	static ringbuffer_t usart0_inBuff = {{0}}; // @todo should this be volatil?
 #endif
 
+#ifndef NO_USART0_BUFFERED_OUTPUT
+	#include "ringbuffer.h"
+	static ringbuffer_t usart0_outBuff = {{0}}; // @todo should this be volatil?
+#endif
+
 /**
  * Convert a given baudrate
  * to UBRR prescalar.
@@ -54,6 +59,11 @@ void usart0_init(void) {
 	USART0_ENABLE_RX_INTERRUPT();
 #endif
 
+#ifndef NO_USART0_BUFFERED_OUTPUT
+	rb_init(&usart0_outBuff);
+	USART0_ENABLE_TX_INTERRUPT();
+#endif
+
 	//Enable TXen og RXen
 	USART0_ENABLE_RX();
 	USART0_ENABLE_TX();
@@ -63,9 +73,6 @@ void usart0_init(void) {
 
 	// Baud rate
 	usart0_setBaudrate(baudrate, UART_MODE_ASYNC_NORMAL);
-
-	// Tx Uart interrupt (Transmit Complete Interrupt)
-	//UCSR0B|=(1<<TXCIE0);
 }
 
 /**
@@ -124,8 +131,14 @@ int usart0_putc(const uint8_t c) {
 	}
 #endif
 
+#ifdef NO_USART0_BUFFERED_OUTPUT
 	while (USART0_TX_IS_BUSY());
 	UDR0 = c;
+#else
+	// Wait for free space in buffer
+	while (rb_push(&usart0_outBuff, c) != 0)
+	USART0_ENABLE_DATA_REG_EMPTY_INTERRUPT();
+#endif
 
 	return c;
 }
@@ -153,7 +166,6 @@ int usart0_putn(size_t n, const char*str) {
 
 	return i;
 }
-
 
 int usart0_printf(const char *str, ...){
 	if(str == NULL) return -1;
@@ -183,6 +195,18 @@ ISR(USART0_RX_vect){
 	uint8_t data = UDR0;
 
 	rb_push(&usart0_inBuff, data);
+}
+#endif
+
+#ifndef NO_USART0_BUFFERED_OUTPUT
+ISR(USART0_UDRE_vect){
+	uint8_t data;
+	if(rb_pop(&usart0_outBuff, &data) == 0) {
+		UDR0 = data;
+	} else {
+		// output buffer is empty so disable UDRE interrupt
+		USART0_DISABLE_DATA_REG_EMPTY_INTERRUPT();
+	}
 }
 #endif
 
