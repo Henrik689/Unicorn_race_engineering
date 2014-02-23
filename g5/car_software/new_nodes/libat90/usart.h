@@ -1,5 +1,5 @@
-#ifndef UART_H
-#define UART_H
+#ifndef USART_H
+#define USART_H
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -56,4 +56,4 @@ int usart0_printf(const char *str, ...);
 
 #endif
 
-#endif /* UART_H */
+#endif /* USART_H */

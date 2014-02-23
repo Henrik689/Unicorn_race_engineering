@@ -10,7 +10,7 @@
 
 #include <avr/io.h>
 #include "bitwise.h"
-#include "uart.h"
+#include "usart.h"
 
 #ifndef NO_USART0_BUFFERED_INPUT
 	#include "ringbuffer.h"
@@ -51,6 +51,7 @@ void usart0_init(void) {
 
 #ifndef NO_USART0_BUFFERED_INPUT
 	rb_init(&usart0_inBuff);
+	USART0_ENABLE_RX_INTERRUPT();
 #endif
 
 	//Enable TXen og RXen
@@ -62,9 +63,6 @@ void usart0_init(void) {
 
 	// Baud rate
 	usart0_setBaudrate(baudrate, UART_MODE_ASYNC_NORMAL);
-
-	// Rx Uart interrupt (Receive Complete Interrupt)
-	//UCSR1B|=(1<<RXCIE1);
 
 	// Tx Uart interrupt (Transmit Complete Interrupt)
 	//UCSR0B|=(1<<TXCIE0);
