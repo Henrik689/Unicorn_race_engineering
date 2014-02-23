@@ -1,7 +1,3 @@
-/*********************************************
- * Functions
- *********************************************/
-
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h> // size_t
@@ -14,18 +10,18 @@
 
 #ifndef NO_USART0_BUFFERED_INPUT
 	#include "ringbuffer.h"
-	static ringbuffer_t usart0_inBuff = {{0}}; // @todo should this be volatil?
+	static ringbuffer_t usart0_inBuff = {{0}}; // @todo should this be volatile?
 #endif
 
 #ifndef NO_USART0_BUFFERED_OUTPUT
 	#include "ringbuffer.h"
-	static ringbuffer_t usart0_outBuff = {{0}}; // @todo should this be volatil?
+	static ringbuffer_t usart0_outBuff = {{0}}; // @todo should this be volatile?
 #endif
 
 /**
- * Convert a given baudrate
+ * Convert a given baud-rate
  * to UBRR prescalar.
- * @param  baudrate Target baudrate
+ * @param  baudrate Target baud-rate
  * @param  mode     UART operation mode
  * @return          UBRR prescalar
  */
@@ -76,8 +72,8 @@ void usart0_init(void) {
 }
 
 /**
- * Set USART baudrate and operation mode.
- * @param baudrate baudrate that the USART will use
+ * Set USART baud-rate and operation mode.
+ * @param baudrate baud-rate that the USART will use
  * @param mode     USART operation mode
  */
 void usart0_setBaudrate(const uint32_t baudrate, enum uart_operationModes_t mode){
@@ -106,10 +102,11 @@ bool usart0_hasData(void){
 #endif
 
 /**
- * get a byte from usart. This
+ * get a byte from USART. This
  * call is alway blocking. if input buffer
  * is enabled use usart[N]_hasData() to check
  * if data is available
+ *
  * @return  received byte
  */
 uint8_t usart0_getc(void) {
@@ -123,7 +120,15 @@ uint8_t usart0_getc(void) {
 #endif
 }
 
-
+/**
+ * Put a byte on USART. unless
+ * USART0_NON_UNIX_LIKE_LINE_ENDINGS is
+ * defined this will put a '\r' before every '\n'
+ * to mimic unix like line endings
+ *
+ * @param  c Byte to transmit
+ * @return   positive if success
+ */
 int usart0_putc(const uint8_t c) {
 #ifndef USART0_NON_UNIX_LIKE_LINE_ENDINGS
 	if(c == '\n'){
@@ -143,7 +148,13 @@ int usart0_putc(const uint8_t c) {
 	return c;
 }
 
-
+/**
+ * Writes a null terminated c-string
+ * to the USART
+ *
+ * @param  str String that is written
+ * @return     Number of bytes written
+ */
 int usart0_puts(const char *str) {
 	if (str == NULL) return -1;
 	int i = 0;
@@ -155,18 +166,31 @@ int usart0_puts(const char *str) {
 	return i;
 }
 
-
-int usart0_putn(size_t n, const char*str) {
-	if (str == NULL) return -1;
+/**
+ * Writes an array of bytes with
+ * the length n
+ * @param  n      Number of bytes to write
+ * @param  array  Array of bytes to be written
+ * @return        Number of bytes written
+ */
+int usart0_putn(size_t n, const uint8_t *array) {
+	if (array == NULL) return -1;
 
 	int i;
 	for (i = 0; i < n; ++i){
-		usart0_putc(str[i]);
+		usart0_putc(array[i]);
 	}
 
 	return i;
 }
 
+/**
+ * Writes a formatted c string.
+ * Works like printf is expected to work
+ * except it uses a static buffer of size
+ * UART[n]_PRNT_BUFF_SIZE to store the intermediate
+ * string in.
+ */
 int usart0_printf(const char *str, ...){
 	if(str == NULL) return -1;
 
@@ -182,7 +206,7 @@ int usart0_printf(const char *str, ...){
 	va_end(args);
 
 	if((rc_tx = usart0_puts(buffer)) != rc_vsprintf){
-		return -1; // We havn't send the same amount as sprintf wrote the the buffer
+		return -1; // We haven't send the same amount as sprintf wrote the the buffer
 	}
 
 	if(rc_tx > UART0_PRNT_BUFF_SIZE) return -UART0_PRNT_BUFF_SIZE; // if buffer overflow

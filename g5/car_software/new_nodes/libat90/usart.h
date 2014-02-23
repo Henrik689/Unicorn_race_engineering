@@ -54,7 +54,7 @@ bool usart0_hasData(void);
 uint8_t usart0_getc(void);
 int usart0_putc(const uint8_t c);
 int usart0_puts(const char *str);
-int usart0_putn(size_t n, const char*str);
+int usart0_putn(size_t n, const uint8_t *str);
 int usart0_printf(const char *str, ...);
 
 #endif
