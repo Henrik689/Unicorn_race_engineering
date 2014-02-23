@@ -49,6 +49,7 @@ void usart0_setBaudrate(const uint32_t baudrate, enum uart_operationModes_t mode
 unsigned char usart0_getc(void);
 int usart0_putc(const uint8_t c);
 int usart0_puts(const char *str);
+int usart0_putn(size_t n, const char*str);
 int usart0_printf(const char *str, ...);
 
 #endif /* UART_H */

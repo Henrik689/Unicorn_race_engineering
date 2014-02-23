@@ -59,7 +59,7 @@ void usart0_init(void) {
 }
 
 /**
- * Set USART baudrate.
+ * Set USART baudrate and operation mode.
  * @param baudrate baudrate that the USART will use
  * @param mode     USART operation mode
  */
@@ -98,11 +98,23 @@ int usart0_putc(const uint8_t c) {
 
 
 int usart0_puts(const char *str) {
-	if(str == NULL) return -1;
+	if (str == NULL) return -1;
 	int i = 0;
 
 	while(str[i] != '\0'){
 		usart0_putc(str[i++]);
+	}
+
+	return i;
+}
+
+
+int usart0_putn(size_t n, const char*str) {
+	if (str == NULL) return -1;
+
+	int i;
+	for (i = 0; i < n; ++i){
+		usart0_putc(str[i]);
 	}
 
 	return i;
