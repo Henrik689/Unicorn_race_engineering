@@ -3,6 +3,7 @@
  *********************************************/
 
 #include <stdint.h>
+#include <stdbool.h>
 #include <stdlib.h> // size_t
 #include <stdarg.h> // va args
 #include <stdio.h> // vsprintf
@@ -11,6 +12,10 @@
 #include "bitwise.h"
 #include "uart.h"
 
+#ifndef NO_USART0_BUFFERED_INPUT
+	#include "ringbuffer.h"
+	static ringbuffer_t usart0_inBuff = {{0}}; // @todo should this be volatil?
+#endif
 
 /**
  * Convert a given baudrate
@@ -43,6 +48,10 @@ static inline uint16_t uart_baud2ubrr(const uint32_t baudrate, enum uart_operati
 
 void usart0_init(void) {
 	const uint32_t baudrate = 115200;
+
+#ifndef NO_USART0_BUFFERED_INPUT
+	rb_init(&usart0_inBuff);
+#endif
 
 	//Enable TXen og RXen
 	USART0_ENABLE_RX();
@@ -79,10 +88,19 @@ void usart0_setBaudrate(const uint32_t baudrate, enum uart_operationModes_t mode
 	UBRR0H = HIGH_BYTE(prescale);
 }
 
+bool usart0_hasData(void){
+	return !rb_isEmpty(&usart0_inBuff);
+}
 
-unsigned char usart0_getc(void) {
+uint8_t usart0_getc(void) {
+#ifdef NO_USART0_BUFFERED_INPUT
 	while(USART0_RX_IS_BUSY());
 	return UDR0;
+#else
+	uint8_t data;
+	while(rb_pop(&usart0_inBuff, &data) == 0);
+	return data;
+#endif
 }
 
 
@@ -146,6 +164,14 @@ int usart0_printf(const char *str, ...){
 
 	return rc_tx;
 }
+
+#ifndef NO_USART0_BUFFERED_INPUT
+ISR(USART0_RX_vect){
+	uint8_t data = UDR0;
+
+	rb_push(&usart0_inBuff, data);
+}
+#endif
 
 #endif
 

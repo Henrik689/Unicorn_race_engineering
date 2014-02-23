@@ -2,6 +2,7 @@
 #define UART_H
 
 #include <stdint.h>
+#include <stdbool.h>
 #include <stdlib.h> // size_t
 #include <stdarg.h> // va args
 #include <avr/io.h>
@@ -46,7 +47,8 @@ enum uart_charSelect_t {
 }
 
 void usart0_setBaudrate(const uint32_t baudrate, enum uart_operationModes_t mode);
-unsigned char usart0_getc(void);
+bool usart0_hasData(void);
+uint8_t usart0_getc(void);
 int usart0_putc(const uint8_t c);
 int usart0_puts(const char *str);
 int usart0_putn(size_t n, const char*str);
