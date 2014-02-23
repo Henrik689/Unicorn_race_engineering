@@ -11,7 +11,6 @@
 //#include "can_std/can_lib.h"
 #include "bitwise.h"
 #include "can.h"
-#include "uart.h"
 
 static void (*canit_callback[9])(uint8_t mob) = {NULL};
 static void (*ovrit_callback)(void) = NULL;

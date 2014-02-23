@@ -49,6 +49,7 @@ enum uart_charSelect_t {
 		UCSR0C |= (size << UCSZ0); \
 	}
 
+	void usart0_init(void);
 	void usart0_setBaudrate(const uint32_t baudrate, enum uart_operationModes_t mode);
 	bool usart0_hasData(void);
 	uint8_t usart0_getc(void);
@@ -86,6 +87,7 @@ enum uart_charSelect_t {
 		UCSR1C |= (size << UCSZ1); \
 	}
 
+	void usart1_init(void);
 	void usart1_setBaudrate(const uint32_t baudrate, enum uart_operationModes_t mode);
 	bool usart1_hasData(void);
 	uint8_t usart1_getc(void);

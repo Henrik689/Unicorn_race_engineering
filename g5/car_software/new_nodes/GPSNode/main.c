@@ -5,7 +5,7 @@
 #include <util/delay.h>
 
 #include <can.h>
-#include <uart.h>
+#include <usart.h>
 #include <io.h>
 
 static void rx_complete(uint8_t mob);
@@ -20,13 +20,12 @@ int main(void){
 	set_canit_callback(CANIT_DEFAULT, can_default);
 
 	// Enable uart to talk to the GPS
-	uart1_enableRX();
-	uart1_enableTX();
-	uart1_setModeAsync();
-	uart1_setNumberOfStopBits(1);
-	uart1_setCharSize(UART_CHAR_8BIT);
-	uart1_setBaudRate(GPS_BAUDRATE, UART_MODE_ASYNC_NORMAL);
-	uart1_enableRXInterrupt();
+	USART1_SET_1_STOP_BIT();
+	USART1_SET_CHAR_SIZE(UART_CHAR_8BIT);
+	usart1_setBaudrate(GPS_BAUDRATE, UART_MODE_ASYNC_NORMAL);
+	USART1_ENABLE_RX();
+	USART1_ENABLE_TX();
+	USART1_ENABLE_RX_INTERRUPT();
 
 	CAN_INIT_ALL();								//Can setup
 
@@ -45,15 +44,10 @@ int main(void){
 			.mode = MOB_TRANSMIT
 		};
 		can_send(&tx_msg);
-		uart1_printf("HEJ %d\n", i);
+		usart1_printf("HEJ %d\n", i);
 	}
 
     return 0;
-}
-
-// This is where we receive GPS data
-ISR(USART1_RX_vect){
-	char data = UDR1;
 }
 
 static void rx_complete(uint8_t mob) {
@@ -61,14 +55,14 @@ static void rx_complete(uint8_t mob) {
 		.mob = mob
 	};
 	can_receive(&msg);
-	uart1_printf("Received id: %d on mob %d :: ", msg.id, msg.mob);
+	usart1_printf("Received id: %d on mob %d :: ", msg.id, msg.mob);
 
 	int i;
 	for (i = 0; i < msg.dlc; ++i){
-		uart1_printf("%d ", msg.data[i]);
+		usart1_printf("%d ", msg.data[i]);
 		//uart1_printf("0x%02X ", msg.data[i]);
 	}
-	uart1_txchar('\n');
+	usart1_putc('\n');
 }
 
 static void tx_complete(uint8_t mob) {

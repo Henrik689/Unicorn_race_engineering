@@ -2,7 +2,7 @@
 #include <util/delay.h>
 
 #include <can.h>
-#include <uart.h>
+#include <usart.h>
 
 
 static void rx_complete(uint8_t mob);
@@ -15,13 +15,12 @@ int main(void) {
 	set_canit_callback(CANIT_TX_COMPLETED, tx_complete);
 	set_canit_callback(CANIT_DEFAULT, can_default);
 
-	uart0_init();
-	uart1_init();								//Serial communication
+	usart1_init();
 	CAN_INIT_ALL();								//Can setup
 
 	sei();										//Enable interrupt
 
-	uart1_printf("\n\n\nSTARTING\n");
+	usart1_printf("\n\n\nSTARTING\n");
 
 	// Set MOB 8 to listen for messeges with id 4 and length 7
 	can_msg_t rx_msg = {
@@ -34,7 +33,7 @@ int main(void) {
 	can_setup(&rx_msg);
 
 
-	uart1_printf("Listning for id %d on mob %d with a msg length %d\n",
+	usart1_printf("Listning for id %d on mob %d with a msg length %d\n",
 		rx_msg.id,
 		rx_msg.mob,
 		rx_msg.dlc
@@ -55,11 +54,11 @@ int main(void) {
 		};
 
 		can_send(&tx_msg);
-		uart1_printf("CAN Tx\t id %d, mob %d, :: ", tx_msg.id, tx_msg.mob);
+		usart1_printf("CAN Tx\t id %d, mob %d, :: ", tx_msg.id, tx_msg.mob);
 
 		// As tx_msg.data is a byte array we cant treat it as a string
-		uart1_txarr(tx_msg.data, sizeof(tx_msg.data)/sizeof(tx_msg.data[0]));
-		uart1_txchar('\n');
+		usart1_putn(sizeof(tx_msg.data)/sizeof(tx_msg.data[0]), tx_msg.data);
+		usart1_putc('\n');
 	}
 
     return 0;
@@ -74,8 +73,8 @@ static void rx_complete(uint8_t mob) {
 
 	// Print out the received data. Please dont print inside can callbacks
 	// in real code as these are run inside the can ISR
-	uart1_printf("CAN Rx\t id: %d on mob %d :: ", msg.id, msg.mob);
-	uart1_txarr(msg.data, msg.dlc); uart1_txchar('\n');
+	usart1_printf("CAN Rx\t id: %d on mob %d :: ", msg.id, msg.mob);
+	usart1_putn(msg.dlc, msg.data); usart1_putc('\n');
 }
 
 static void tx_complete(uint8_t mob) {

@@ -40,8 +40,6 @@
  	typedef uint16_t rb_index_t;
 #elif RB_BUFFER_SIZE < (1<<32)
  	typedef uint32_t rb_index_t;
-#elif RB_BUFFER_SIZE < (1<<64)
- 	typedef uint64_t rb_index_t;
 #else
  	#error RB_BUFFER_SIZE is too big
 #endif

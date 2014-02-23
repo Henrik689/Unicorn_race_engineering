@@ -5,6 +5,7 @@
 #include <stdio.h> // vsprintf
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include "bitwise.h"
 #include "usart.h"
 
