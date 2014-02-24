@@ -1,3 +1,21 @@
+/**
+ * @file usart.c
+ *
+ * @brief
+ * Provides usart input / output functions.
+ *
+ * By default functions for using both usart0
+ * and usart1 is available with buffered input
+ * and output. Each usart can be disabled by
+ * defining NO_USART[n]_SUPPORT where
+ * n is either 0 or one 1. Futhermore either
+ * buffered input or buffered output can be
+ * disabled for each usart by defining
+ * NO_USART[n]_BUFFERED_INPUT or
+ * NO_USART[n]_BUFFERED_OUTPUT. These must be
+ * defined at compile time
+ */
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h> // size_t
@@ -12,24 +30,24 @@
 #ifndef NO_USART0_SUPPORT
 	#ifndef NO_USART0_BUFFERED_INPUT
 		#include "ringbuffer.h"
-		static ringbuffer_t usart0_inBuff = {{0}}; // @todo should this be volatile?
+		static ringbuffer_t usart0_inBuff = {{0}}; //!< @todo should this be volatile?
 	#endif
 
 	#ifndef NO_USART0_BUFFERED_OUTPUT
 		#include "ringbuffer.h"
-		static ringbuffer_t usart0_outBuff = {{0}}; // @todo should this be volatile?
+		static ringbuffer_t usart0_outBuff = {{0}}; //!< @todo should this be volatile?
 	#endif
 #endif
 
 #ifndef NO_USART1_SUPPORT
 	#ifndef NO_USART1_BUFFERED_INPUT
 		#include "ringbuffer.h"
-		static ringbuffer_t usart1_inBuff = {{0}}; // @todo should this be volatile?
+		static ringbuffer_t usart1_inBuff = {{0}}; //!< @todo should this be volatile?
 	#endif
 
 	#ifndef NO_USART1_BUFFERED_OUTPUT
 		#include "ringbuffer.h"
-		static ringbuffer_t usart1_outBuff = {{0}}; // @todo should this be volatile?
+		static ringbuffer_t usart1_outBuff = {{0}}; //!< @todo should this be volatile?
 	#endif
 #endif
 
