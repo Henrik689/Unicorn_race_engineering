@@ -143,25 +143,38 @@ void uart_setCharSize(enum uart_number_t number, enum uart_charSelect_t size){
 	}
 }
 
+/**
+ * Convert a given baudrate
+ * to UBRR value.
+ * @param  baudrate Target baudrate
+ * @param  mode     UART operation mode
+ * @return          UBRR value
+ */
 uint16_t uart_baud2ubrr(const uint32_t baudrate, const enum uart_operationModes_t mode){
-	uint16_t val;
+	uint16_t ubrr_val;
 	switch (mode){
 		case UART_MODE_ASYNC_NORMAL:
-			val = ((F_CPU / (baudrate * 16UL))) - 1;
+			ubrr_val = ((F_CPU / (baudrate * 16UL))) - 1;
 			break;
 		case UART_MODE_ASYNC_DOUBLE:
-			val = ((F_CPU / (baudrate * 8UL))) - 1;
+			ubrr_val = ((F_CPU / (baudrate * 8UL))) - 1;
 			break;
 		case UART_MODE_SYNC_MASTER:
-			val = ((F_CPU / (baudrate * 2UL))) - 1;
+			ubrr_val = ((F_CPU / (baudrate * 2UL))) - 1;
 			break;
 		default:
-			val = 0;
+			ubrr_val = 0;
 			break;
 	}
-	return val;
+	return ubrr_val;
 }
 
+/**
+ * Set UART baudrate
+ * @param number   UART to set baudrate on
+ * @param baudrate Target baudrate
+ * @param mode     UART operation mode
+ */
 void uart_setBaudRate(enum uart_number_t number, const uint32_t baudrate, enum uart_operationModes_t mode){
 	const uint16_t prescale = uart_baud2ubrr(baudrate, mode);
 	switch(number){
