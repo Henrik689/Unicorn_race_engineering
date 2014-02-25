@@ -88,12 +88,12 @@ int can_receive(can_msg_t *msg){
 	//MOB_SET_STD_ID(msg->id); 			// Fill in the msg id
 	msg->dlc = MOB_GET_DLC(); 			// Fill in the msg dlc
 	MOB_RX_DATA(msg->data, msg->dlc);	// Fill in the msg data
-MOB_EN_RX
-/**
-* @todo
-*	I don't remember how exactly this works
-*	which means we need better documentation where these are defined.
-*/
+	
+	/**
+	* @todo
+	*	I don't remember how exactly this works
+	*	which means we need better documentation where these are defined.
+	*/
 	MOB_CLEAR_INT_STATUS(); 	// and reset MOb status
 	MOB_EN_RX(); 				// re-enable reception. We keep listning for this msg
 
