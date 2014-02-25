@@ -94,8 +94,8 @@ typedef struct ringbuffer_t{
 	#define rb_nextStart(B)		(((B)->start+1) & RB_BUFFER_MASK)
 	#define rb_nextEnd(B)		(((B)->end+1) & RB_BUFFER_MASK)
 #else
-	#define rb_nextStart(B)		(((B)->start+1) % RB_BUFFER_MASK)
-	#define rb_nextEnd(B)		(((B)->end+1) % RB_BUFFER_MASK)
+	#define rb_nextStart(B)		((((B)->start+1) % RB_BUFFER_MASK)-1)
+	#define rb_nextEnd(B)		((((B)->end+1) % RB_BUFFER_MASK)-1)
 #endif
 
 #define rb_isEmpty(B)			((B)->end == (B)->start) //!< Returns a boolean whether ring buffer is empty
@@ -138,8 +138,8 @@ static inline int rb_push(ringbuffer_t *buffer, RB_DATA_t data) {
 #endif
 
 	// Commit the write
-	buffer->start = nextStart; // Set the new index
 	buffer->buffer[nextStart] = data;
+	buffer->start = nextStart; // Set the new index
 
 	return 0; // Success
 }

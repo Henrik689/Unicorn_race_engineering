@@ -172,7 +172,7 @@ static inline uint16_t uart_baud2ubrr(const uint32_t baudrate, enum uart_operati
 		UDR0 = c;
 	#else
 		// Wait for free space in buffer
-		while (rb_push(&usart0_outBuff, c) != 0)
+		while (rb_push(&usart0_outBuff, c) != 0);
 		USART0_ENABLE_DATA_REG_EMPTY_INTERRUPT();
 	#endif
 
@@ -281,6 +281,7 @@ static inline uint16_t uart_baud2ubrr(const uint32_t baudrate, enum uart_operati
 	#ifndef NO_USART1_BUFFERED_OUTPUT
 		rb_init(&usart1_outBuff);
 		USART1_ENABLE_TX_INTERRUPT();
+		//USART1_DISABLE_DATA_REG_EMPTY_INTERRUPT();
 	#endif
 
 		//Enable TXen og RXen
@@ -362,7 +363,7 @@ static inline uint16_t uart_baud2ubrr(const uint32_t baudrate, enum uart_operati
 		UDR1 = c;
 	#else
 		// Wait for free space in buffer
-		while (rb_push(&usart1_outBuff, c) != 0)
+		while (rb_push(&usart1_outBuff, c) != 0);
 		USART1_ENABLE_DATA_REG_EMPTY_INTERRUPT();
 	#endif
 
