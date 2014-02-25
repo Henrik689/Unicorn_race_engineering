@@ -70,7 +70,9 @@ enum uart_charSelect_t {
 
 	void usart0_init(void);
 	void usart0_setBaudrate(const uint32_t baudrate, enum uart_operationModes_t mode);
+#ifndef NO_USART1_BUFFERED_INPUT
 	bool usart0_hasData(void);
+#endif
 	uint8_t usart0_getc(void);
 	int usart0_putc(const uint8_t c);
 	int usart0_puts(const char *str);
@@ -108,7 +110,9 @@ enum uart_charSelect_t {
 
 	void usart1_init(void);
 	void usart1_setBaudrate(const uint32_t baudrate, enum uart_operationModes_t mode);
+#ifndef NO_USART1_BUFFERED_INPUT
 	bool usart1_hasData(void);
+#endif
 	uint8_t usart1_getc(void);
 	int usart1_putc(const uint8_t c);
 	int usart1_puts(const char *str);
