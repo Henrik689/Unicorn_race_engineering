@@ -16,7 +16,6 @@
 \usepackage{listings}						% Præsentering af kode
 \usepackage{booktabs}
 
-
 % Setup af dokumentet:
 \chapterstyle{ell}
 \setsecnumdepth{subsection}
@@ -30,8 +29,6 @@
 
 \pagestyle{ruled}							% Header og Footer - "plain" for intet, ud over sidetal i bunden
 
-\hyphenation{hvem hvad hvor}				% Fortæller latex hvordan den må dele et ord; kun relevant hvis et
-											% ord bliver delt forkert.
 
 \setlrmarginsandblock{3.5cm}{2.5cm}{*}		% \setlrmarginsandblock{Indbinding}{Kant}{Ratio}
 \setulmarginsandblock{2.5cm}{3.0cm}{*}		% \setulmarginsandblock{Top}{Bund}{Ratio}
@@ -77,7 +74,5 @@ alsoletter={\$}
 
 % Makroer:
 \renewcommand\appendixtocname{Bilag}
-\newcommand{\degree}{\ensuremath{^\circ}}	% Gør det muligt at skrive \degree for at lave gradtegnet
-\newcommand{\g}{\ensuremath{\cdot}}			% \g istedet for \cdot
-\newcommand{\sq}{\ensuremath{^2}}			% opløfter i anden
 \newcommand{\ohm}{\ensuremath{\mathrm{\Omega}}}
+\newcommand{\n}{\hfill\newline}					% Laver ny linje unden warnings
