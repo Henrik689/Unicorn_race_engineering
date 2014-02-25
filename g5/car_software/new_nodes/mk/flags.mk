@@ -4,7 +4,7 @@
 HEXFORMAT=ihex
 
 # compiler
-CFLAGS=-I. $(INC) -g -mmcu=$(MCU) -O$(OPTLEVEL) $(DEFINES) \
+CFLAGS=-I. $(INC) -g -mmcu=$(MCU) -std=c99 -O$(OPTLEVEL) $(DEFINES) \
 	-fpack-struct -fshort-enums -mrelax  -flto \
 	-Wl,-u,vfprintf -lprintf_flt -lm \
 	-funsigned-bitfields -funsigned-char \

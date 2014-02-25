@@ -24,6 +24,7 @@
 #ifndef RINGBUFFER_H
 #define RINGBUFFER_H
 
+#include <util/atomic.h>
 #include <stdint.h>
 #include <string.h> // memset()
 
@@ -110,8 +111,10 @@ typedef struct ringbuffer_t{
  * @param buffer The buffer to initialize
  */
 static inline void rb_init(ringbuffer_t* const buffer){
-	rb_reset(buffer);
-	memset(buffer->buffer, 0, sizeof(buffer->buffer));
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		rb_reset(buffer);
+		memset(buffer->buffer, 0, sizeof(buffer->buffer));
+	}
 }
 
 /**
@@ -138,8 +141,10 @@ static inline int rb_push(ringbuffer_t *buffer, RB_DATA_t data) {
 #endif
 
 	// Commit the write
-	buffer->buffer[nextStart] = data;
-	buffer->start = nextStart; // Set the new index
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		buffer->buffer[nextStart] = data;
+		buffer->start = nextStart; // Set the new index
+	}
 
 	return 0; // Success
 }
@@ -157,10 +162,12 @@ static inline int rb_pop(ringbuffer_t *buffer, RB_DATA_t *data) {
 		return 1; // No data available
 	}
 
-	rb_index_t nextEnd = rb_nextEnd(buffer);
-	buffer->end = nextEnd; // Set the new index
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		rb_index_t nextEnd = rb_nextEnd(buffer);
+		buffer->end = nextEnd; // Set the new index
 
-	*data = buffer->buffer[nextEnd];
+		*data = buffer->buffer[nextEnd];
+	}
 	return 0; // Success
 }
 
