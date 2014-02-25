@@ -1,1 +1,106 @@
 \section{Git}
+
+To get a copy of the repositories open a git terminal and and `cd' to the
+location you want your repository copies to be stored. Then you run the 
+command:
+
+\begin{verbatim}
+	git clone "path"
+\end{verbatim}
+
+where ``path'' is the path to the git repository on the AFS server. Remember to
+use `/' (standard in Unix) instead of `\\' (standard in Windows). After cloning
+you should now have a new folder called by the same name as the folder you are
+cloning from on AFS without the .git ending.\n
+In this project we use two repositories, ``report'' and ``code''.\n
+Make sure to clone both repositories.
+
+The you `cd' into each of the cloned repositories on your computer and run the 
+two commands:
+
+\begin{verbatim}
+	git config --global user.name "John Doe"
+	git config --global user.email johndoe@example.com
+\end{verbatim}
+
+Where you instead of John Doe put in your own name and put in your own email 
+instead of the example.\n
+This will insure that other people can see your name and contact details for 
+everything you commit.
+
+Every time you want to do something in your repository you need to `cd' into 
+that folder first.\n
+Here is a list of some common commands that you will most likely use at some 
+point:
+
+
+\begin{verbatim}
+1.
+	git status
+\end{verbatim}
+
+This command will show you a list of changes in the directory which have yet 
+to commit. files shown in green are already added to the next commit and which 
+means they will be commit when running the command git commit.\n
+Files shown in red has not yet been added.
+
+\begin{verbatim}
+2.
+	git add file1 file2 ...
+\end{verbatim}
+
+This will add the files you write here to the next commit (see 1.).
+
+\begin{verbatim}
+3.
+	git pull
+\end{verbatim}
+
+Get the latest changes from the repository on AAU's server. Make sure to 
+commit your own changes before running this command.
+
+\begin{verbatim}
+4.
+	git commit -m ``message''
+\end{verbatim}
+
+Commits all the changes you have added. insert your own message to tell people 
+about the changes you have made. So that if you fuck up we can easily find 
+your commit and save the project :)\n
+If you don't write a short descriptive message of what you have done - I know 
+where you live!
+
+\begin{verbatim}
+5.
+	git commit -am ``message''
+\end{verbatim}
+
+Does the same as 4. except it automatically adds all the modified files you 
+have. Notice that this command DOES NOT add newly created files. Those you 
+will still have to add with 2. 
+
+\begin{verbatim}
+6.
+	git push origin master
+\end{verbatim}
+
+Push your changes to the repository on the server. That means uploading the 
+commits you have made (Can be multiple commits) to the server. Notice that this 
+means that you need to commit your changes before you can push/upload them.
+
+\begin{verbatim}
+7.
+	git reset --hard origin
+\end{verbatim}
+
+This command resets your repository to that on the server. Only use this if 
+you fucked up and are willing to disregard any changes or commits you have in 
+your local repository.
+
+\begin{verbatim}
+8.
+	git log
+\end{verbatim}
+
+This prints out the log in the terminal where you can see the commit messages 
+of all earlier commits up to your last pull or commit.
