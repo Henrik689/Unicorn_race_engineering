@@ -42,7 +42,7 @@
 
 # Name of our project
 # (use a single word, e.g. 'myproject')
-PROJECTNAME=can_simple_rx_tx
+PROJECTNAME=buffered_usart_echo
 SRC=$(wildcard *.c)
 
 TOP=../..

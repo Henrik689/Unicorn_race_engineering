@@ -5,7 +5,7 @@
 #include <util/delay.h>
 
 #include <can.h>
-#include <uart.h>
+#include <usart.h>
 #include <adc.h>
 
 
@@ -25,8 +25,7 @@ int main(void)
 
 	//Initialise the Gear node
 	ioinit();									//Port setup
-	uart0_init();
-	uart1_init();								//Serial communication
+	usart1_init();
 	CAN_INIT_ALL();								//Can setup
     pwm16Init2();								//Setup PWM controller
 	counter0Init();								//Init interrupt counter to overflow with 168Hz
@@ -38,7 +37,7 @@ int main(void)
 	ADC_ENABLE();
 	adc_setPrescaler(ADC_PRESCALAR_128);
 
-	uart1_printf("\n\n\nSTARTING\n");
+	usart1_printf("\n\n\nSTARTING\n");
 
 
 	can_msg_t rx_msg = {
@@ -80,7 +79,7 @@ int main(void)
 			.mode = MOB_TRANSMIT
 		};
 		can_send(&tx_msg);
-		uart1_printf("HEJ %d\n", i);
+		usart1_printf("HEJ %d\n", i);
 
 
 		//uint16_t res = 3;adc_readChannel(i);
@@ -90,7 +89,7 @@ int main(void)
 
 		if(++i == 8){
 			i = 0;
-			uart1_txstring("\n");
+			usart1_putc('\n');
 		}
 	}
 
@@ -102,15 +101,15 @@ static void rx_complete(uint8_t mob) {
 		.mob = mob
 	};
 	can_receive(&msg);
-	uart1_printf("Received id: %d on mob %d :: ", msg.id, msg.mob);
-	uart1_txarr(msg.data, msg.dlc); uart1_txchar('\n');
+	usart1_printf("Received id: %d on mob %d :: ", msg.id, msg.mob);
+	usart1_putn(msg.dlc, msg.data); usart1_putc('\n');
 	/* The below should be used for binary data
 	int i;
 	for (i = 0; i < msg.dlc; ++i){
 		uart1_printf("%d ", msg.data[i]);
 		//uart1_printf("0x%02X ", msg.data[i]);
 	} */
-	uart1_txchar('\n');
+	usart1_putc('\n');
 }
 
 static void tx_complete(uint8_t mob) {

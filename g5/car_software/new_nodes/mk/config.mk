@@ -40,13 +40,9 @@ DEFINES=-DF_CPU=11059200  -DCAN_BAUDRATE=250
 # Use .cc, .cpp or .C suffix for C++ files, use .S
 # (NOT .s !!!) for assembly source code files.
 LIB_AT90_DIR=$(TOP)/libat90
-LIB_AT90=$(LIB_AT90_DIR)/adc.c \
+LIB_AT90=$(wildcard $(LIB_AT90_DIR)/*.c) \
 	$(LIB_AT90_DIR)/can_std/can_drv.c \
-	$(LIB_AT90_DIR)/can_std/can_lib.c \
-	$(LIB_AT90_DIR)/timer.c \
-	$(LIB_AT90_DIR)/uart.c \
-	$(LIB_AT90_DIR)/can.c \
-	$(LIB_AT90_DIR)/io.c
+	$(LIB_AT90_DIR)/can_std/can_lib.c
 
 PRJSRC=$(SRC) $(LIB_AT90)
 

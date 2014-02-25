@@ -3,17 +3,16 @@
 #include <avr/interrupt.h>
 
 #include <io.h>
-#include <uart.h>
+#include <usart.h>
 
 #define NUM_PINS	(8)
 
 int main(void) {
-	uart0_init();
-	uart1_init();								//Serial communication
+	usart1_init();								//Serial communication
 
 	sei();										//Enable interrupt
 
-	uart1_printf("\n\n\nSTARTING\n");
+	usart1_printf("\n\n\nSTARTING\n");
 
 	SET_PIN_MODE(PORTF, PIN0, OUTPUT);
 	SET_PIN_MODE(PORTF, PIN1, OUTPUT);
@@ -43,9 +42,9 @@ int main(void) {
 		int pin;
 		for (pin = 0; pin < NUM_PINS; ++pin){
 			int pinVal = DIGITAL_READ(PORTF, pin);
-			uart1_printf("pin %d is logical %d\n", pin, pinVal);
+			usart1_printf("pin %d is logical %d\n", pin, pinVal);
 		}
-		uart1_txchar('\n');
+		usart1_putc('\n');
 
 		if(++i == NUM_PINS){
 			i = 0;
