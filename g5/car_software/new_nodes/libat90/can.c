@@ -51,7 +51,7 @@ int can_setup(can_msg_t *msg){
 /**
 * @todo
 *	We should consider whether it's necessary
-*	to should disable can interrupts during 
+*	to should disable can interrupts during
 *	sending and receiving to not mess up message
 *	handling.
 */
@@ -88,7 +88,7 @@ int can_receive(can_msg_t *msg){
 	//MOB_SET_STD_ID(msg->id); 			// Fill in the msg id
 	msg->dlc = MOB_GET_DLC(); 			// Fill in the msg dlc
 	MOB_RX_DATA(msg->data, msg->dlc);	// Fill in the msg data
-	
+
 	/**
 	* @todo
 	*	I don't remember how exactly this works
