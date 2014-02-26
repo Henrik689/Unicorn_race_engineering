@@ -14,6 +14,11 @@
  * NO_USART[n]_BUFFERED_INPUT or
  * NO_USART[n]_BUFFERED_OUTPUT. These must be
  * defined at compile time
+ *
+ * @bug
+ * There seems to be an issue when using buffered
+ * output that causes the board to reset.
+ * Lookup issue #2
  */
 
 #include <stdint.h>
@@ -29,11 +34,13 @@
 
 #ifndef NO_USART0_SUPPORT
 	#ifndef NO_USART0_BUFFERED_INPUT
+ 		#warning Untested may cause same problem as buffered output
 		#include "ringbuffer.h"
 		static ringbuffer_t usart0_inBuff = {{0}}; //!< @todo should this be volatile?
 	#endif
 
 	#ifndef NO_USART0_BUFFERED_OUTPUT
+		#warning This seems to crash the board. See issue #2
 		#include "ringbuffer.h"
 		static ringbuffer_t usart0_outBuff = {{0}}; //!< @todo should this be volatile?
 	#endif
@@ -41,11 +48,13 @@
 
 #ifndef NO_USART1_SUPPORT
 	#ifndef NO_USART1_BUFFERED_INPUT
+		#warning Untested may cause same problem as buffered output
 		#include "ringbuffer.h"
 		static ringbuffer_t usart1_inBuff = {{0}}; //!< @todo should this be volatile?
 	#endif
 
 	#ifndef NO_USART1_BUFFERED_OUTPUT
+		#warning This seems to crash the board. See issue #2
 		#include "ringbuffer.h"
 		static ringbuffer_t usart1_outBuff = {{0}}; //!< @todo should this be volatile?
 	#endif
