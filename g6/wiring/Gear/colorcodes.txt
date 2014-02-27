@@ -1,4 +1,0 @@
-Colorcodes for Servo:
-Brown: 	Ground
-Red:	Power
-Orange: Signal
