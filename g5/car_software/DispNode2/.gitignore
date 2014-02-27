@@ -1,6 +1,0 @@
-
-# compiler output
-*.o
-*.lst
-*.map
-*.hex
