@@ -9,7 +9,7 @@
 #include <adc.h>
 
 
-#include "init.h"
+//#include "init.h"
 #include <io.h>
 
 static void rx_complete(uint8_t mob);
@@ -24,11 +24,8 @@ int main(void)
 	set_canit_callback(CANIT_DEFAULT, can_default);
 
 	//Initialise the Gear node
-	ioinit();									//Port setup
 	usart1_init();
 	CAN_INIT_ALL();								//Can setup
-    pwm16Init2();								//Setup PWM controller
-	counter0Init();								//Init interrupt counter to overflow with 168Hz
 
 	sei();										//Enable interrupt
 
